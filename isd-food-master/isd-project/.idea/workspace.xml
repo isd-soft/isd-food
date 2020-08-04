@@ -20,10 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2743c415-d680-408d-8076-d5d9530d147b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/exceptions/IdenticalPasswordException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/model/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/model/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/model/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/model/Orders.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/isdfood/isdproject/services/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +69,7 @@
       <updated>1596521339371</updated>
       <workItem from="1596521351694" duration="18000" />
       <workItem from="1596523758016" duration="13000" />
-      <workItem from="1596523775509" duration="2838000" />
+      <workItem from="1596523775509" duration="5189000" />
     </task>
     <servers />
   </component>
@@ -89,10 +88,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="451" y="129" key="#com.intellij.ide.util.MemberChooser" timestamp="1596524500079">
+    <state x="451" y="129" key="#com.intellij.ide.util.MemberChooser" timestamp="1596528255091">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state x="451" y="129" key="#com.intellij.ide.util.MemberChooser/0.23.1440.830@0.23.1440.830" timestamp="1596524500079" />
+    <state x="451" y="129" key="#com.intellij.ide.util.MemberChooser/0.23.1440.830@0.23.1440.830" timestamp="1596528255091" />
     <state x="212" y="23" width="1024" height="830" key="SettingsEditor" timestamp="1596523902124">
       <screen x="0" y="23" width="1440" height="830" />
     </state>

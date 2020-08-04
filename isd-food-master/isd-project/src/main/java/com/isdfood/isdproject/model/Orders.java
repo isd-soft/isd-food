@@ -1,6 +1,7 @@
 package com.isdfood.isdproject.model;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.util.Set;
 
 @Entity
@@ -27,6 +28,16 @@ public class Orders {
     private boolean editable;
     private String orderName;
     private Long orderNumber;
+
+    private DayOfWeek dayOfWeek;
+
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
 
     public Long getId() {
         return id;

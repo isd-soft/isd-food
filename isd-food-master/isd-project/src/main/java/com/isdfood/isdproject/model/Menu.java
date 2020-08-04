@@ -3,6 +3,7 @@ package com.isdfood.isdproject.model;
 import com.isdfood.isdproject.model.enums.Days;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.util.Set;
 
 
@@ -31,7 +32,7 @@ public class Menu {
 
     //MenuDay
     @Enumerated(value = EnumType.STRING)
-    private Days day;
+    private DayOfWeek day;
 
     private String menuName;
     private Float price;
@@ -65,11 +66,9 @@ public class Menu {
         this.menuItems = menuItems;
     }
 
-    public Days getDay() {
-        return day;
-    }
+    public DayOfWeek getDay() { return day; }
 
-    public void setDay(Days day) {
+    public void setDay(DayOfWeek day) {
         this.day = day;
     }
 

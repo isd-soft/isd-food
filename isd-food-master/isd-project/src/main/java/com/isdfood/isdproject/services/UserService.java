@@ -5,35 +5,27 @@ import com.isdfood.isdproject.model.Menu;
 import com.isdfood.isdproject.model.Orders;
 import com.isdfood.isdproject.model.Provider;
 import com.isdfood.isdproject.model.User;
+import com.isdfood.isdproject.model.enums.Days;
 import com.isdfood.isdproject.repositories.*;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.util.Set;
+
+//User
 @Service
 public class UserService extends PersonService {
 
+    //Constructor
     public UserService(MenuItemsRepository menuItemsRepository, MenuRepository menuRepository, NotificationRepository notificationRepository, OrdersRepository ordersRepository, ProviderRepository providerRepository, UserRepository userRepository) {
         super(menuItemsRepository, menuRepository, notificationRepository, ordersRepository, providerRepository, userRepository);
     }
 
-
-
-    //NotificationSelect
-    public void setNotification(boolean active, Long id){
+    //NotificationSelectActive
+    public void setNotificationActive(boolean active, Long id){
         User user = getUserRepository().findById(id).orElseThrow();
         user.setNotificationActive(active);
         getUserRepository().save(user);
-
-
-    }
-    //SetProvider
-    public void setProvider(Long provider_id, Long user_id){
-        getUserRepository().findById(user_id).orElseThrow().setProvider(getProviderRepository().findById(provider_id).orElseThrow());
-    }
-
-
-    //UserOrders
-    public Iterable<Orders> getUserOrders(Long id){
-        return getUserRepository().findById(id).orElseThrow().getOrders();
     }
 
     //GetProvider
@@ -51,6 +43,7 @@ public class UserService extends PersonService {
         user.setImage(img);
         getUserRepository().save(user);
     }
+
     //UserProfileRefactor(with password)
     public void profileRefactor(Long id,String email,String firstName,String lastName,String skypeId,String password,Byte[] img) throws IdenticalPasswordException {
         User user = getUserRepository().findById(id).orElseThrow();
@@ -59,14 +52,31 @@ public class UserService extends PersonService {
         user.setLastName(lastName);
         user.setSkypeId(skypeId);
         user.setImage(img);
+
         if(!user.getPassword().equals(password))
             user.setPassword(password);
         else
             throw new IdenticalPasswordException();
+
         getUserRepository().save(user);
     }
 
+    //GetHistory
+    public Iterable<Orders> getUserHistory(Long id){
+        return getUserRepository().findById(id).orElseThrow().getHistory();
+    }
 
+    //GetOrders
+    public Iterable<Orders> getOrders(Long id){
+        return getUserRepository().findById(id).orElseThrow().getOrders();
+    }
+
+    //NewOrder
+    public void newOrder(Long id, Orders orders){
+        User user = getUserRepository().findById(id).orElseThrow();
+        user.getOrders().add(orders);
+        getUserRepository().save(user);
+    }
 
 
 
