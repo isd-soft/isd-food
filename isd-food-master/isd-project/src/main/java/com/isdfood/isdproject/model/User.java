@@ -17,9 +17,15 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String email;
 
-    private String contact;
+    private String firstName;
+
+    private String lastName;
+
+    private String skypeId;
+
+    private char[] password;
 
     private Boolean isActive;
 
@@ -30,6 +36,9 @@ public class User{
     private Date employmentDate;
 
     private Boolean orderPermission;
+
+    public boolean notificationActive;
+
 
     //Provider
     @ManyToOne(fetch = FetchType.LAZY)
@@ -87,30 +96,6 @@ public class User{
         this.orders = orders;
     }
 
-    public Set<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(Set<Notification> notifications) {
-        this.notifications = notifications;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
     public Boolean getActive() {
         return isActive;
     }
@@ -143,4 +128,60 @@ public class User{
         this.history = history;
     }
 
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public boolean isNotificationActive() {
+        return notificationActive;
+    }
+
+    public void setNotificationActive(boolean notificationActive) {
+        this.notificationActive = notificationActive;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getSkypeId() {
+        return skypeId;
+    }
+
+    public void setSkypeId(String skypeId) {
+        this.skypeId = skypeId;
+    }
+
+    public char[] getPassword() {
+        return password;
+    }
+
+    public void setPassword(char[] password) {
+        this.password = password;
+    }
 }

@@ -1,7 +1,7 @@
 package com.isdfood.isdproject.model;
-
 import javax.persistence.*;
 import java.util.Date;
+import java.time.DayOfWeek;
 import java.util.Set;
 
 @Entity
@@ -25,6 +25,16 @@ public class Orders {
     private Boolean isComplete;
     private Long transactionNumber;
     private Date orderTime;
+
+    private DayOfWeek dayOfWeek;
+
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
 
     public Long getId() {
         return id;

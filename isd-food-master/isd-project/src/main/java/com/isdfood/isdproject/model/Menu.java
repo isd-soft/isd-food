@@ -28,7 +28,7 @@ public class Menu {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu")
     private Set<MenuItems> menuItems;
 
-
+    private DayOfWeek day;
     private String menuName;
     private Float price;
     private Boolean isAvailable;
@@ -51,6 +51,12 @@ public class Menu {
 
     public void setMenuItems(Set<MenuItems> menuItems) {
         this.menuItems = menuItems;
+    }
+
+    public DayOfWeek getDay() { return day; }
+
+    public void setDay(DayOfWeek day) {
+        this.day = day;
     }
 
     public String getMenuName() {

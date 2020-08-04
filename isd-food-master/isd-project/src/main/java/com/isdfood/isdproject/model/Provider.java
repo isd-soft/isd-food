@@ -13,6 +13,7 @@ public class Provider{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
     private Float deliveryPrice;
     private String contactInfo;
     private String description;
@@ -80,5 +81,13 @@ public class Provider{
 
     public void setImg(Byte[] img) {
         this.img = img;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
