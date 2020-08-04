@@ -1,16 +1,15 @@
 package com.isdfood.isdproject.model;
 
-import com.isdfood.isdproject.model.abstractClasses.Person;
+import com.isdfood.isdproject.model.enums.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
+public class User{
 
-public class User extends Person {
     public User() {
     }
 
@@ -18,11 +17,19 @@ public class User extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
+    private String contact;
+
+    private Boolean isActive;
+
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date employmentDate;
 
-    private boolean orderPermission;
-
+    private Boolean orderPermission;
 
     //Provider
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,8 +40,7 @@ public class User extends Person {
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
     private Set<Orders> orders;
 
-    //History
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
+    @OneToMany
     private Set<Orders> history;
 
     //Notification
@@ -81,6 +87,54 @@ public class User extends Person {
         this.orders = orders;
     }
 
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Boolean getOrderPermission() {
+        return orderPermission;
+    }
+
+    public void setOrderPermission(Boolean orderPermission) {
+        this.orderPermission = orderPermission;
+    }
+
     public Set<Orders> getHistory() {
         return history;
     }
@@ -89,11 +143,4 @@ public class User extends Person {
         this.history = history;
     }
 
-    public Set<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(Set<Notification> notifications) {
-        this.notifications = notifications;
-    }
 }

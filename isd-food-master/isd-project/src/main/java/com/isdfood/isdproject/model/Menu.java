@@ -1,8 +1,7 @@
 package com.isdfood.isdproject.model;
 
-import com.isdfood.isdproject.model.enums.Days;
-
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.util.Set;
 
 
@@ -16,26 +15,23 @@ public class Menu {
     private Long id;
 
     //Provider
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id")
-    private Provider provider;
+    @ManyToMany
+    @JoinTable(name = "menu_providers",
+            joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "provider_id" ))
+    private Set<Provider> providers;
 
     //Orders
     @ManyToOne
-    @JoinColumn(name = "orders_id")
     private Orders orders;
 
     //MenuItems
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "menu")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu")
     private Set<MenuItems> menuItems;
 
-    //MenuDay
-    @Enumerated(value = EnumType.STRING)
-    private Days day;
 
     private String menuName;
     private Float price;
-    private boolean active;
+    private Boolean isAvailable;
 
     @Lob
     private Byte[] img;
@@ -49,28 +45,12 @@ public class Menu {
         this.id = id;
     }
 
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
     public Set<MenuItems> getMenuItems() {
         return menuItems;
     }
 
     public void setMenuItems(Set<MenuItems> menuItems) {
         this.menuItems = menuItems;
-    }
-
-    public Days getDay() {
-        return day;
-    }
-
-    public void setDay(Days day) {
-        this.day = day;
     }
 
     public String getMenuName() {
@@ -97,11 +77,27 @@ public class Menu {
         this.price = price;
     }
 
-    public boolean isActive() {
-        return active;
+    public Orders getOrders() {
+        return orders;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    public Boolean getAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
+    }
+
+    public Set<Provider> getProviders() {
+        return providers;
+    }
+
+    public void setProviders(Set<Provider> providers) {
+        this.providers = providers;
     }
 }

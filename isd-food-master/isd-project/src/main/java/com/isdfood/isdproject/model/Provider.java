@@ -1,12 +1,11 @@
 package com.isdfood.isdproject.model;
 
-import com.isdfood.isdproject.model.abstractClasses.Person;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Provider extends Person {
+public class Provider{
     public Provider() {
     }
 
@@ -18,14 +17,13 @@ public class Provider extends Person {
     private String contactInfo;
     private String description;
 
-    //Users
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "provider")
-    private Set<User> users;
-
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "provider")
     private Set<Orders> orders;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "provider")
+    @Lob
+    private Byte[] img;
+
+    @ManyToMany(mappedBy = "providers")
     private Set<Menu> menus;
 
     public Long getId() {
@@ -60,14 +58,6 @@ public class Provider extends Person {
         this.description = description;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
     public Set<Orders> getOrders() {
         return orders;
     }
@@ -82,5 +72,13 @@ public class Provider extends Person {
 
     public void setMenus(Set<Menu> menus) {
         this.menus = menus;
+    }
+
+    public Byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(Byte[] img) {
+        this.img = img;
     }
 }

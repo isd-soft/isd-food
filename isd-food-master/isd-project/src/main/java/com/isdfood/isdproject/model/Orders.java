@@ -1,6 +1,7 @@
 package com.isdfood.isdproject.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -12,21 +13,18 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id")
+    @ManyToOne
     private Provider provider;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "orders")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orders")
     private Set<Menu> menus;
 
-    private boolean approved;
-    private boolean editable;
-    private String orderName;
-    private Long orderNumber;
+    private Boolean isComplete;
+    private Long transactionNumber;
+    private Date orderTime;
 
     public Long getId() {
         return id;
@@ -60,35 +58,27 @@ public class Orders {
         this.menus = menus;
     }
 
-    public boolean isApproved() {
-        return approved;
+    public Boolean getComplete() {
+        return isComplete;
     }
 
-    public void setApproved(boolean approved) {
-        this.approved = approved;
+    public void setComplete(Boolean complete) {
+        isComplete = complete;
     }
 
-    public boolean isEditable() {
-        return editable;
+    public Long getTransactionNumber() {
+        return transactionNumber;
     }
 
-    public void setEditable(boolean editable) {
-        this.editable = editable;
+    public void setTransactionNumber(Long transactionNumber) {
+        this.transactionNumber = transactionNumber;
     }
 
-    public String getOrderName() {
-        return orderName;
+    public Date getOrderTime() {
+        return orderTime;
     }
 
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
-    }
-
-    public Long getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(Long orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
     }
 }

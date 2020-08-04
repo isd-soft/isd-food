@@ -1,8 +1,8 @@
 package com.isdfood.isdproject.model;
 
-import com.isdfood.isdproject.model.enums.Days;
-
 import javax.persistence.*;
+import java.time.DayOfWeek;
+import java.util.Date;
 
 @Entity
 public class Notification {
@@ -14,16 +14,15 @@ public class Notification {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
-    private Days days;
+    private DayOfWeek days;
 
-    private String time;
+    private Date time;
 
     private String description;
 
-    private boolean available;
+    private boolean isAvailable;
 
 
     public Long getId() {
@@ -42,22 +41,6 @@ public class Notification {
         this.user = user;
     }
 
-    public Days getDays() {
-        return days;
-    }
-
-    public void setDays(Days days) {
-        this.days = days;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -66,11 +49,27 @@ public class Notification {
         this.description = description;
     }
 
+    public DayOfWeek getDays() {
+        return days;
+    }
+
+    public void setDays(DayOfWeek days) {
+        this.days = days;
+    }
+
     public boolean isAvailable() {
-        return available;
+        return isAvailable;
     }
 
     public void setAvailable(boolean available) {
-        this.available = available;
+        isAvailable = available;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }
