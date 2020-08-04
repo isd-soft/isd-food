@@ -24,6 +24,9 @@ public class User extends Person {
     private boolean orderPermission;
 
 
+    public boolean notificationActive;
+
+
     //Provider
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "provider_id")
@@ -95,5 +98,13 @@ public class User extends Person {
 
     public void setNotifications(Set<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public boolean isNotificationActive() {
+        return notificationActive;
+    }
+
+    public void setNotificationActive(boolean notificationActive) {
+        this.notificationActive = notificationActive;
     }
 }
