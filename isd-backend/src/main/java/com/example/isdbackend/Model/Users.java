@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class User {
 
     //Relationship
 
-    public User() {
+    public Users() {
     }
 
     public Long getId() {

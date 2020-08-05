@@ -16,7 +16,8 @@ public class Provider {
     private int id;
 
     private String name;
-    private MonetaryAmount deliveryPrice;
+    //Error with hibernate
+    //private MonetaryAmount deliveryPrice;
     private String contactInfo;
     private String description;
     private URL imageURL;
@@ -31,7 +32,7 @@ public class Provider {
         this.contactInfo = contactInfo;
         this.description = description;
         CurrencyUnit mdl = Monetary.getCurrency("MDL");
-        this.deliveryPrice = Monetary.getDefaultAmountFactory().setCurrency(mdl).setNumber(price).create();
+        //this.deliveryPrice = Monetary.getDefaultAmountFactory().setCurrency(mdl).setNumber(price).create();
     }
 
     public int getId() {
@@ -47,13 +48,13 @@ public class Provider {
         this.name = name;
     }
 
-    public MonetaryAmount getDeliveryPrice() {
-        return deliveryPrice;
-    }
+//    public MonetaryAmount getDeliveryPrice() {
+//        return deliveryPrice;
+//    }
 
-    public void setDeliveryPrice(MonetaryAmount deliveryPrice) {
-        this.deliveryPrice = deliveryPrice;
-    }
+//    public void setDeliveryPrice(MonetaryAmount deliveryPrice) {
+//        this.deliveryPrice = deliveryPrice;
+//    }
 
     public String getContactInfo() {
         return contactInfo;
