@@ -1,27 +1,19 @@
 package com.example.isdbackend.model;
 
-
-import com.sun.istack.NotNull;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class User_role {
+public class Menu_item_type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Long role;
+    private Long item_id;
 
-    //Relationship
-
-    //Relationship
-
-    public User_role() {
+    public Menu_item_type() {
     }
 
     public Long getId() {
@@ -32,11 +24,11 @@ public class User_role {
         this.id = id;
     }
 
-    public Long getRole() {
-        return role;
+    public Long getItem_id() {
+        return item_id;
     }
 
-    public void setRole(Long role) {
-        this.role = role;
+    public void setItem_id(Long item_id) {
+        this.item_id = item_id;
     }
 }
