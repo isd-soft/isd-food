@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d4cbda63-fa0f-425e-8a1b-df592def9c08" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/isd-project/.idea/isd-project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/isd-project/.idea/isd-project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/isd-project/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/isd-project/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/isd-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/isd-project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/isd-project/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/isd-project/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1fdF4wvNhs1pyH8F1kFaN7rmeJ0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d4cbda63-fa0f-425e-8a1b-df592def9c08" name="Default Changelist" comment="" />
+      <created>1596539874177</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596539874177</updated>
+      <workItem from="1596539876126" duration="27000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+</project>
