@@ -1,6 +1,7 @@
 package com.example.isdbackend.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Item {
@@ -10,6 +11,9 @@ public class Item {
 
     @Column(length = 100)
     private String name;
+
+    @ManyToMany
+    private Set<MenuType> menuTypes;
 
     public Item() {
     }

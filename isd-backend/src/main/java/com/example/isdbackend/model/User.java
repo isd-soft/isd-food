@@ -5,9 +5,11 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
-public class Users {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,21 +25,26 @@ public class Users {
     @Column(length = 50)
     private String lastName;
 
-    private String password;
+    private char[] password;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private NotificationSettings notificationSettings;
 
     private Date date;
 
     private String skypeId;
 
-    private boolean enabled;
+    private Boolean enabled;
 
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id" ))
+    private Set<Role> roles;
 
-    //Relationship
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Order> orders;
 
-
-    //Relationship
-
-    public Users() {
+    public User() {
     }
 
     public Long getId() {
@@ -80,13 +87,6 @@ public class Users {
         this.skypeId = skypeId;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Date getDate() {
         return date;

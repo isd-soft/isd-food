@@ -1,6 +1,7 @@
 package com.example.isdbackend.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Role {
@@ -10,6 +11,9 @@ public class Role {
 
     @Column(length = 30)
     private String name;
+
+    @ManyToMany
+    private Set<User> users;
 
     public Role() {
     }

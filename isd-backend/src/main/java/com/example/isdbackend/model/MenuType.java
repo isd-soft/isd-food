@@ -2,10 +2,8 @@ package com.example.isdbackend.model;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class MenuType {
@@ -14,15 +12,19 @@ public class MenuType {
     private Long id;
 
     @NotNull
-    private String type;
+    private char type;
 
     @NotNull
     private Float price;
 
-    //Relationship
+    @ManyToMany
+    @JoinTable(name = "menu_item_type",
+            joinColumns = @JoinColumn(name = "menu_type_id"), inverseJoinColumns = @JoinColumn(name = "item_id" ))
+    private Set<Item> items;
 
-    //Relationship
-
+    @ManyToOne
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
 
     public MenuType() {
     }
@@ -36,13 +38,6 @@ public class MenuType {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public Float getPrice() {
         return price;

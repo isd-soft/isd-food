@@ -2,11 +2,9 @@ package com.example.isdbackend.model;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.net.URL;
+import java.util.Set;
 
 @Entity
 public class Provider {
@@ -15,15 +13,15 @@ public class Provider {
     private int id;
 
     private String name;
-    //Error with hibernate
-    //private MonetaryAmount deliveryPrice;
     private String contactInfo;
     private String description;
     private URL imageURL;
     private Boolean isActive;
 
-    public Provider() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
+    private Set<Menu> menus;
 
+    public Provider() {
     }
 
     public Provider(String name, Long price, String contactInfo, String description) {

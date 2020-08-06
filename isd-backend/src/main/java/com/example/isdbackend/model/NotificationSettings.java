@@ -1,9 +1,6 @@
 package com.example.isdbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Time;
 import java.sql.Timestamp;
 
@@ -14,9 +11,10 @@ public class NotificationSettings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Relationship
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    //Relationship
     private Time timeToReceive;
     private Timestamp dateToEnable;
     private Timestamp dateToDisable;
