@@ -27,8 +27,8 @@ public class User {
 
     private char[] password;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<NotificationSettings> notificationSettings;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private NotificationSettings notificationSettings;
 
     private Date date;
 

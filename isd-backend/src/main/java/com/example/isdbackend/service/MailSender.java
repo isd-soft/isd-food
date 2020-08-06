@@ -1,6 +1,7 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.config.MailConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -21,6 +22,9 @@ public class MailSender {
     @Value("${spring.mail.username}")
     private String username;
 
+    //generating password
+    @Autowired
+    private GeneratePassword generatePassword;
 
 
     public void send(String emailTo,String subject,String message){
@@ -28,7 +32,7 @@ public class MailSender {
         mailMessage.setFrom(username);
         mailMessage.setTo(emailTo);
         mailMessage.setSubject(subject);
-        mailMessage.setText(message);
+        mailMessage.setText(message + generatePassword.generatePassayPassword());
         javaMailSender.send(mailMessage);
     }
 
