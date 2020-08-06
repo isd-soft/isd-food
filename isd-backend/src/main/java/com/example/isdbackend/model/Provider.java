@@ -10,9 +10,10 @@ import java.util.Set;
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
+    private Integer deliveryPrice;
     private String contactInfo;
     private String description;
     private URL imageURL;
@@ -24,12 +25,13 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(String name, Long price, String contactInfo, String description) {
+    public Provider(String name, Integer deliveryPrice, String contactInfo, String description, URL imageURL, Boolean isActive) {
         this.name = name;
+        this.deliveryPrice = deliveryPrice;
         this.contactInfo = contactInfo;
         this.description = description;
-        CurrencyUnit mdl = Monetary.getCurrency("MDL");
-        //this.deliveryPrice = Monetary.getDefaultAmountFactory().setCurrency(mdl).setNumber(price).create();
+        this.imageURL = imageURL;
+        this.isActive = isActive;
     }
 
     public int getId() {
@@ -45,13 +47,13 @@ public class Provider {
         this.name = name;
     }
 
-//    public MonetaryAmount getDeliveryPrice() {
-//        return deliveryPrice;
-//    }
+    public Integer getDeliveryPrice() {
+        return deliveryPrice;
+    }
 
-//    public void setDeliveryPrice(MonetaryAmount deliveryPrice) {
-//        this.deliveryPrice = deliveryPrice;
-//    }
+    public void setDeliveryPrice(Integer deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+    }
 
     public String getContactInfo() {
         return contactInfo;
