@@ -1,10 +1,8 @@
 package com.example.isdbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.DayOfWeek;
+import java.util.Set;
 
 @Entity
 public class Menu {
@@ -12,17 +10,20 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Relationship
-
-    //Relationship
-
     private String name;
 
     private DayOfWeek dayOfWeek;
 
     private String image;
 
-    private boolean active;
+    private Boolean active;
+
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu")
+    private Set<MenuType> menuTypes;
 
     public Menu() {
     }

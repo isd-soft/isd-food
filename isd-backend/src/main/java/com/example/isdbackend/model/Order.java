@@ -1,28 +1,29 @@
 package com.example.isdbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
-public class Orders {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Timestamp date;
 
-    //Relationship
+    private Boolean ordered;
 
-    //Relationship
+    @OneToMany
+    @JoinColumn(name = "menu_id")
+    private Set<Menu> menus;
 
-    private boolean ordered;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Orders() {
+    public Order() {
     }
-
 
     public Long getId() {
         return id;
