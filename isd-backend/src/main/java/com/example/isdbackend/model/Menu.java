@@ -18,7 +18,7 @@ public class Menu {
 
     private String name;
 
-    private DayOfWeek day_of_week;
+    private DayOfWeek dayOfWeek;
 
     private String image;
 
@@ -44,12 +44,12 @@ public class Menu {
         this.name = name;
     }
 
-    public DayOfWeek getDay_of_week() {
-        return day_of_week;
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setDay_of_week(DayOfWeek day_of_week) {
-        this.day_of_week = day_of_week;
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public String getImage() {

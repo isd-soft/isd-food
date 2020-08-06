@@ -1,8 +1,7 @@
-package com.example.isdbackend.Model;
+package com.example.isdbackend.model;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
-import javax.money.MonetaryAmount;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

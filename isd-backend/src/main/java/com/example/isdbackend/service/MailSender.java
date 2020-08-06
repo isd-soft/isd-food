@@ -1,6 +1,6 @@
-package com.example.isdbackend.Service;
+package com.example.isdbackend.service;
 
-import com.example.isdbackend.Config.MailConfig;
+import com.example.isdbackend.config.MailConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

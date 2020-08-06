@@ -1,28 +1,28 @@
 package com.example.isdbackend.model;
 
-
-import com.sun.istack.NotNull;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 @Entity
-public class User_role {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Long role;
+    private Timestamp date;
 
     //Relationship
 
     //Relationship
 
-    public User_role() {
+    private boolean ordered;
+
+    public Orders() {
     }
+
 
     public Long getId() {
         return id;
@@ -32,11 +32,19 @@ public class User_role {
         this.id = id;
     }
 
-    public Long getRole() {
-        return role;
+    public Timestamp getDate() {
+        return date;
     }
 
-    public void setRole(Long role) {
-        this.role = role;
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    public boolean isOrdered() {
+        return ordered;
+    }
+
+    public void setOrdered(boolean ordered) {
+        this.ordered = ordered;
     }
 }

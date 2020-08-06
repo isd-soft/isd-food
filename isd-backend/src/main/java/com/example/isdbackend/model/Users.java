@@ -18,16 +18,16 @@ public class Users {
     private String email;
 
     @Column(length = 50)
-    private String first_name;
+    private String firstName;
 
     @Column(length = 50)
-    private String last_name;
+    private String lastName;
 
     private String password;
 
     private Date date;
 
-    private String skype_id;
+    private String skypeId;
 
     private boolean enabled;
 
@@ -56,20 +56,28 @@ public class Users {
         this.email = email;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getSkypeId() {
+        return skypeId;
+    }
+
+    public void setSkypeId(String skypeId) {
+        this.skypeId = skypeId;
     }
 
     public String getPassword() {
@@ -88,13 +96,7 @@ public class Users {
         this.date = date;
     }
 
-    public String getSkype_id() {
-        return skype_id;
-    }
 
-    public void setSkype_id(String skype_id) {
-        this.skype_id = skype_id;
-    }
 
     public boolean isEnabled() {
         return enabled;

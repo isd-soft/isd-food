@@ -1,6 +1,5 @@
 package com.example.isdbackend.model;
 
-
 import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
@@ -9,20 +8,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class User_role {
+public class MenuType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    private Long role;
+    private String type;
+
+    @NotNull
+    private Float price;
 
     //Relationship
 
     //Relationship
 
-    public User_role() {
+
+    public MenuType() {
     }
+
 
     public Long getId() {
         return id;
@@ -32,11 +36,19 @@ public class User_role {
         this.id = id;
     }
 
-    public Long getRole() {
-        return role;
+    public String getType() {
+        return type;
     }
 
-    public void setRole(Long role) {
-        this.role = role;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

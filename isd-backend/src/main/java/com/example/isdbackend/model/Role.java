@@ -1,4 +1,4 @@
-package com.example.isdbackend.Model;
+package com.example.isdbackend.model;
 
 import javax.persistence.*;
 
