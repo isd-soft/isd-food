@@ -1,4 +1,4 @@
-package com.example.isdbackend.Model;
+package com.example.isdbackend.model;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -13,11 +13,10 @@ import java.net.URL;
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
-    //Error with hibernate
-    //private MonetaryAmount deliveryPrice;
+    private Integer deliveryPrice;
     private String contactInfo;
     private String description;
     private URL imageURL;
@@ -27,12 +26,13 @@ public class Provider {
 
     }
 
-    public Provider(String name, Long price, String contactInfo, String description) {
+    public Provider(String name, Integer deliveryPrice, String contactInfo, String description, URL imageURL, Boolean isActive) {
         this.name = name;
+        this.deliveryPrice = deliveryPrice;
         this.contactInfo = contactInfo;
         this.description = description;
-        CurrencyUnit mdl = Monetary.getCurrency("MDL");
-        //this.deliveryPrice = Monetary.getDefaultAmountFactory().setCurrency(mdl).setNumber(price).create();
+        this.imageURL = imageURL;
+        this.isActive = isActive;
     }
 
     public int getId() {
