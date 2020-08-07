@@ -1,49 +1,46 @@
 package com.example.isdbackend.service;
 
-import com.example.isdbackend.model.Menu;
-import com.example.isdbackend.model.Order;
-import com.example.isdbackend.model.Provider;
-import com.example.isdbackend.model.User;
+import com.example.isdbackend.exception.IsOrderedException;
+import com.example.isdbackend.model.*;
 import com.example.isdbackend.repository.UserRepository;
-import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.DayOfWeek;
+
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
-    private ProviderService providerService;
+    private final UserRepository userRepository;
+    private final ProviderService providerService;
+    private final OrderService orderService;
 
-    public UserService(UserRepository userRepository) {
+
+    public UserService(UserRepository userRepository, ProviderService providerService, OrderService orderService) {
         this.userRepository = userRepository;
+        this.providerService = providerService;
+        this.orderService = orderService;
     }
 
-    public User getUser(Long id){
+
+    public User findUserById(Long id){
         return userRepository.findById(id).orElseThrow();
     }
 
-    public void notification(Long id, Boolean active){
+    public void setNotificationSettings(Long id, Boolean active){
         User user = userRepository.findById(id).orElseThrow();
         user.setNotification(active);
         userRepository.save(user);
     }
 
-    public void notificationSettings(Long id, Time timeToReceive, Timestamp dateToEnable, Timestamp dateToDisable){
+    public void setNotificationSettings(Long id, NotificationSettings notificationSettings){
         User user = userRepository.findById(id).orElseThrow();
-        user.getNotificationSettings().setDateToDisable(dateToDisable);
-        user.getNotificationSettings().setDateToEnable(dateToEnable);
-        user.getNotificationSettings().setTimeToReceive(timeToReceive);
+        user.setNotificationSettings(notificationSettings);
         userRepository.save(user);
     }
 
-    public Iterable<Order> getAllHistory(Long id){
-        return userRepository.findById(id).orElseThrow().getOrders();
+    public Iterable<Order> getHistory(Long id){
+        return orderService.getHistory(id);
     }
 
     public Iterable<Order> getCurrentOrders(Long id){
@@ -57,10 +54,19 @@ public class UserService {
     public Iterable<Menu> filter(Integer providerId,Long userId){
         Set<Order> orders = userRepository.findById(userId).orElseThrow().getOrders();
         Set<Menu> menus = new HashSet<>();
-        for (Order order : orders)
-           menus = order.getMenus().stream().filter(menu -> menu.getProvider().getId() == providerId).collect(Collectors.toSet());
+        for (Order order : orders) menus = order.getMenus().stream().filter(menu -> menu.getProvider().getId() == providerId).collect(Collectors.toSet());
         return menus;
     }
-    
+
+    public void newOrder(Long id, Order order){
+       User user = userRepository.findById(id).orElseThrow();
+       user.getOrders().add(order);
+       userRepository.save(user);
+    }
+
+    public void orderUpload(Order orderUpload) throws IsOrderedException { orderService.orderUpload(orderUpload); }
+
+
+
 
 }

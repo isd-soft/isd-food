@@ -69,7 +69,4 @@ public class Order {
         return ordered;
     }
 
-    public void setOrdered(boolean ordered) {
-        this.ordered = ordered;
-    }
 }
