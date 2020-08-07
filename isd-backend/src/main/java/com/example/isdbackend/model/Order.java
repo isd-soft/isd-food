@@ -25,6 +25,30 @@ public class Order {
     public Order() {
     }
 
+    public Boolean getOrdered() {
+        return ordered;
+    }
+
+    public void setOrdered(Boolean ordered) {
+        this.ordered = ordered;
+    }
+
+    public Set<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
@@ -45,7 +69,4 @@ public class Order {
         return ordered;
     }
 
-    public void setOrdered(boolean ordered) {
-        this.ordered = ordered;
-    }
 }
