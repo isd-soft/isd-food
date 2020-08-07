@@ -2,6 +2,9 @@ package com.example.isdbackend.service;
 
 import com.example.isdbackend.exception.IsOrderedException;
 import com.example.isdbackend.model.*;
+import com.example.isdbackend.repository.MenuRepository;
+import com.example.isdbackend.repository.OrderRepository;
+import com.example.isdbackend.repository.ProviderRepository;
 import com.example.isdbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,18 +13,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
-    private final UserRepository userRepository;
-    private final ProviderService providerService;
-    private final OrderService orderService;
-
-
-    public UserService(UserRepository userRepository, ProviderService providerService, OrderService orderService) {
-        this.userRepository = userRepository;
-        this.providerService = providerService;
-        this.orderService = orderService;
+public class UserService extends AbstractServiceCrud {
+    public UserService(MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+        super(menuRepository, providerRepository, orderRepository, userRepository);
     }
-
 
     public User findUserById(Long id){
         return userRepository.findById(id).orElseThrow();
@@ -39,17 +34,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Iterable<Order> getHistory(Long id){
-        return orderService.getHistory(id);
-    }
+    public Iterable<Order> getHistory(Long id){ return userRepository.findById(id).orElseThrow().getOrders(); }
+
 
     public Iterable<Order> getCurrentOrders(Long id){
         return userRepository.findById(id).orElseThrow().getOrders().stream().filter(order -> order.isOrdered()).collect(Collectors.toList());
     }
 
-    public Iterable<Menu> getProviderMenus(Integer providerId){
-        return providerService.getProviderMenus(providerId);
-    }
+    public Iterable<Menu> getProviderMenus(Integer providerId){ return providerRepository.findById(providerId).orElseThrow().getMenus(); }
 
     public Iterable<Menu> filter(Integer providerId,Long userId){
         Set<Order> orders = userRepository.findById(userId).orElseThrow().getOrders();
@@ -64,9 +56,14 @@ public class UserService {
        userRepository.save(user);
     }
 
-    public void orderUpload(Order orderUpload) throws IsOrderedException { orderService.orderUpload(orderUpload); }
+    public void orderUpload(Order orderUpload) throws IsOrderedException {
+        if(!orderRepository.findById(orderUpload.getId()).orElseThrow().isOrdered())
+            orderRepository.save(orderUpload);
+        else
+            throw new IsOrderedException();
+    }
 
-
-
-
+    public void delete(User user){
+        userRepository.delete(user);
+    }
 }

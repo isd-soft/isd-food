@@ -19,7 +19,7 @@ class IsdBackendApplicationTests {
 
 	@Test
 	public void sendMessage(){
-		mailSender.send("Alexei7a@gmail.com","Isd-food","Your password: ");
+		mailSender.send("nikita.dolinskiy25@gmail.com","Isd-food","Your password: ");
 	}
 
 	@Test
