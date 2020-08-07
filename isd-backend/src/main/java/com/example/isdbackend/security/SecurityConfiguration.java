@@ -22,10 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserPrincipalDetailsService userPrincipalDetailsService;
     private final UserRepository userRepository;
 
-    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserRepository userRepository) {
-        this.userPrincipalDetailsService = userPrincipalDetailsService;
-        this.userRepository = userRepository;
-    }
+
 
 
     @Override
