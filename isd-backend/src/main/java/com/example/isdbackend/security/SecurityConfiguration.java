@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserPrincipalDetailsService userPrincipalDetailsService;
     private final UserRepository userRepository;
+    private final JwtToken jwtToken;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -34,8 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 // add jwt filters (1. authentication, 2. authorization)
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository))
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtToken))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository, jwtToken))
                 .authorizeRequests()
                 // configure access rules
                 .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
