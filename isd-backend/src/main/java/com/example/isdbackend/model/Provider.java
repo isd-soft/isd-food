@@ -38,6 +38,17 @@ public class Provider {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Set<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
+    }
 
     public String getName() {
         return name;

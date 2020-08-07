@@ -1,5 +1,6 @@
 package com.example.isdbackend.service;
 
+import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.Provider;
 import com.example.isdbackend.repository.ProviderRepository;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,14 @@ public class ProviderService {
         Provider provider = new Provider(name,deliveryPrice,contactInfo,description,imageURL,isActive);
         providerRepository.save(provider);
     }
+
+    public Iterable<Menu> getProviderMenus(Integer id){
+        return providerRepository.findById(id).orElseThrow().getMenus();
+    }
+    public Provider getProvider(Integer id){
+        return providerRepository.findById(id).orElseThrow();
+    }
+
 
     public void update (Integer providerId, String name){
         Provider provider;
