@@ -22,7 +22,8 @@
             label="Last name"
             outlined
             required
-          ></v-text-field>
+          >
+          </v-text-field>
 
           <v-text-field
             v-model="email"
@@ -30,7 +31,8 @@
             label="Email"
             outlined
             required
-          ></v-text-field>
+          >
+          </v-text-field>
 
           <v-text-field
             v-model="skypeId"
@@ -38,7 +40,8 @@
             label="Skype Id"
             outlined
             required
-          ></v-text-field>
+          >
+          </v-text-field>
 
           <v-text-field
             v-model="employmentDate"
@@ -46,7 +49,8 @@
             label="Employment date"
             outlined
             required
-          ></v-text-field>
+          >
+          </v-text-field>
 
           <v-radio-group class="radio-group" v-model="role" id="roles" row>
             <span class="pr-3">Role</span>

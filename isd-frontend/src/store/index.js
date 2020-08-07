@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import api from "../components/backend-api";
+import api from "../views/backend-api";
 
 Vue.use(Vuex);
 

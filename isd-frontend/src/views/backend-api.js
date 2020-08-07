@@ -1,11 +1,14 @@
 import axios from "axios";
 
 const AXIOS = axios.create({
-  baseURL: `http://localhost:8085`,
-  timeout: 10000000,
+  baseURL: `/api`,
+  timeout: 1000,
 });
 
 export default {
+   hello() {
+        return AXIOS.get(`/hello`);
+    },
   createUser(user) {
     console.log(user);
     return AXIOS.post(`/users`, user, {
