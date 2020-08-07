@@ -22,11 +22,6 @@ const routes = [
     component: () => import("../views/Login.vue"),
   },
 
-  {
-    path: "/callservice", 
-    name: "Service",
-    component: () => import(/* webpackChunkName: "about" */"../views/Service.vue"), 
-  },
   
   {
     path: "/users/register",
