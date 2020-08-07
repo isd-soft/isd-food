@@ -13,16 +13,7 @@ public class ProviderService {
     private ProviderRepository providerRepository;
 
     public List<Provider> findAll(){
-        var it = providerRepository.findAll();
-
-        var providers = new ArrayList<Provider>();
-        it.forEach(providers::add);
-        return providers;
-    }
-
-    public void addProvider( String name, Integer deliveryPrice, String contactInfo, String description, URL imageURL, Boolean isActive){
-        Provider provider = new Provider(name,deliveryPrice,contactInfo,description,imageURL,isActive);
-        providerRepository.save(provider);
+        return providerRepository.findAll();
     }
 
     public void update (Integer providerId, String name){
@@ -32,6 +23,10 @@ public class ProviderService {
             provider.setName(name);
             providerRepository.save(provider);
         }
+    }
+
+    public void addProvider(Provider provider){
+        providerRepository.save(provider);
     }
     public void deleteById(Integer providerId) {
         providerRepository.deleteById(providerId);
