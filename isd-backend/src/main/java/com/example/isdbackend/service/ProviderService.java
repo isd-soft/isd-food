@@ -5,6 +5,7 @@ import com.example.isdbackend.repository.MenuRepository;
 import com.example.isdbackend.repository.OrderRepository;
 import com.example.isdbackend.repository.ProviderRepository;
 import com.example.isdbackend.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
@@ -14,39 +15,22 @@ import java.util.List;
 @Service
 public class ProviderService extends AbstractServiceCrud {
 
-
+    @Autowired
     public ProviderService(MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
         super(menuRepository, providerRepository, orderRepository, userRepository);
     }
 
-    public List<Provider> findAll(){
-        var it = providerRepository.findAll();
-
-        var providers = new ArrayList<Provider>();
-        it.forEach(providers::add);
-        return providers;
+    public List<Provider> findAllProviders(){
+        return providerRepository.findAll();
     }
 
-    public void addProvider( String name, Integer deliveryPrice, String contactInfo, String description, URL imageURL, Boolean isActive){
-        Provider provider = new Provider(name,deliveryPrice,contactInfo,description,imageURL,isActive);
+    public void addProvider( Provider provider){
         providerRepository.save(provider);
     }
 
-    public Provider getProvider(Integer id){
-        return providerRepository.findById(id).orElseThrow();
-    }
 
-
-    public void update (Integer providerId, String name){
-        Provider provider;
-        if (providerRepository.findById(providerId).isPresent()) {
-            provider = providerRepository.findById(providerId).get();
-            provider.setName(name);
-            providerRepository.save(provider);
-        }
-    }
-    public void deleteById(Integer providerId) {
-        providerRepository.deleteById(providerId);
+    public void updateProvider (Provider provider){
+       providerRepository.save(provider);
     }
 
     public void setIsOrdered(Long id, Boolean active){
@@ -74,10 +58,6 @@ public class ProviderService extends AbstractServiceCrud {
 
     public void setUserGroup(Long id, Role role){
         userRepository.findById(id).orElseThrow().getRoles().add(role);
-    }
-
-    public void save(Provider provider){
-        providerRepository.save(provider);
     }
 
     public void delete(Provider provider){
