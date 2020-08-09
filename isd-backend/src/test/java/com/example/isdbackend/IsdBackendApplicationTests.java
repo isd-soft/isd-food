@@ -4,7 +4,15 @@ import com.example.isdbackend.service.GeneratePassword;
 import com.example.isdbackend.service.MailSender;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,8 +26,13 @@ class IsdBackendApplicationTests {
 	GeneratePassword generatePassword;
 
 	@Test
-	public void sendMessage(){
-		mailSender.send("nikita.dolinskiy25@gmail.com","Isd-food","Your password: ");
+	public void sendSimpleMessage(){
+		mailSender.sendSimpleMessage("nikita.dolinskiy25@gmail.com","Isd-food","Your password: ");
+	}
+
+	@Test
+	public void sendHtmlMessage() throws IOException {
+			mailSender.sendHtmlMessage("nikita.dolinskiy25@gmail.com","Isd-food",mailSender.getHtmlFromFile("mail/passwordSend.html"));
 	}
 
 	@Test
