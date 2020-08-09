@@ -14,8 +14,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService extends AbstractServiceCrud {
-    public UserService(MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
-        super(menuRepository, providerRepository, orderRepository, userRepository);
+    
+    public UserService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
     }
 
     public User findUserById(Long id){

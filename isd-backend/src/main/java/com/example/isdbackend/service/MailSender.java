@@ -16,9 +16,9 @@ import java.io.*;
 
 @Service
 public class MailSender {
-    private MailConfig mailConfig;
-    private JavaMailSender javaMailSender;
-    private GeneratePassword generatePassword;
+    private final MailConfig mailConfig;
+    private final JavaMailSender javaMailSender;
+    private final GeneratePassword generatePassword;
 
     public MailSender(MailConfig mailConfig, GeneratePassword generatePassword) {
         this.mailConfig = mailConfig;
@@ -53,19 +53,19 @@ public class MailSender {
         }
     }
 
-
     public String getHtmlFromFile(String filePath) throws IOException {
         Resource resource = new ClassPathResource(filePath);
         String link = "#",res,password;
-        InputStream input = resource.getInputStream();
 
         try(BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))) {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
+
             while (line != null) {
                 sb.append(line).append(System.lineSeparator());
                 line = br.readLine();
             }
+
             res = sb.toString();
             password = generatePassword.generatePassayPassword();
             res = res.replace("{{password}}",password).replace("{{link}}",link);

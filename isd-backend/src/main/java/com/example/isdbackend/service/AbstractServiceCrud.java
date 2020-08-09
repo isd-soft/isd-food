@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public abstract class AbstractServiceCrud {
+    private final MailSender mailSender;
     public final MenuRepository menuRepository;
     public final ProviderRepository providerRepository;
     public final OrderRepository orderRepository;
     public final UserRepository userRepository;
 
-    public AbstractServiceCrud(MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+    public AbstractServiceCrud(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+        this.mailSender = mailSender;
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
         this.orderRepository = orderRepository;

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService extends AbstractServiceCrud {
-    public OrderService(MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
-        super(menuRepository, providerRepository, orderRepository, userRepository);
+    public OrderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
     }
 
     public Order findOrderById(Long id){

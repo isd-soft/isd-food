@@ -15,8 +15,8 @@ import java.util.List;
 public class ProviderService extends AbstractServiceCrud {
 
 
-    public ProviderService(MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
-        super(menuRepository, providerRepository, orderRepository, userRepository);
+    public ProviderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
     }
 
     public List<Provider> findAll(){
