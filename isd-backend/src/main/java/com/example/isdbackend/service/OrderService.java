@@ -1,40 +1,21 @@
 package com.example.isdbackend.service;
 
-import com.example.isdbackend.exception.IsOrderedException;
 import com.example.isdbackend.model.Order;
+import com.example.isdbackend.repository.MenuRepository;
 import com.example.isdbackend.repository.OrderRepository;
+import com.example.isdbackend.repository.ProviderRepository;
+import com.example.isdbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderService {
-    private final OrderRepository orderRepository;
-    private final UserService userService;
-
-    public OrderService(OrderRepository orderRepository, UserService userService) {
-        this.orderRepository = orderRepository;
-        this.userService = userService;
-    }
-
-    public Iterable<Order> getHistory(Long id){
-        return userService.findUserById(id).getOrders();
+public class OrderService extends AbstractServiceCrud {
+    public OrderService(MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+        super(menuRepository, providerRepository, orderRepository, userRepository);
     }
 
     public Order findOrderById(Long id){
         return orderRepository.findById(id).orElseThrow();
     }
-
-    public void orderUpload(Order orderUpload) throws IsOrderedException {
-        if(!orderRepository.findById(orderUpload.getId()).orElseThrow().isOrdered())
-            orderRepository.save(orderUpload);
-        else
-            throw new IsOrderedException();
-    }
-    public void setIsOrdered(Long id, Boolean active){
-        Order order = orderRepository.findById(id).orElseThrow();
-        order.setOrdered(active);
-        orderRepository.save(order);
-    }
-
 
 
 }
