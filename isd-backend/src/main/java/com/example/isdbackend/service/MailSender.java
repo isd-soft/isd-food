@@ -56,18 +56,21 @@ public class MailSender {
 
     public String getHtmlFromFile(String filePath) throws IOException {
         Resource resource = new ClassPathResource(filePath);
+        String password;
         InputStream input = resource.getInputStream();
         String res;
         try(BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))) {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
-
             while (line != null) {
                 sb.append(line);
                 sb.append(System.lineSeparator());
                 line = br.readLine();
             }
-           res = sb.toString();
+            res = sb.toString();
+            password = generatePassword.generatePassayPassword();
+            res = res.replace("{{password}}",password);
+
         }
         return res;
     }

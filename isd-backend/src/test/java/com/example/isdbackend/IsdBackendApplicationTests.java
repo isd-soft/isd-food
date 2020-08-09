@@ -32,7 +32,7 @@ class IsdBackendApplicationTests {
 
 	@Test
 	public void sendHtmlMessage() throws IOException {
-			mailSender.sendHtmlMessage("nikita.dolinskiy25@gmail.com","Isd-food",mailSender.getHtmlFromFile("mail/passwordSend.html"));
+			mailSender.sendHtmlMessage("Alexei7a@gmail.com","Isd-food",mailSender.getHtmlFromFile("mail/passwordSend.html"));
 	}
 
 	@Test
