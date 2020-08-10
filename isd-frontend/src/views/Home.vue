@@ -1,11 +1,20 @@
 <template>
-  <div class="home">
-    Home page
+  <div>
+    <nav-bar-dash-board/>
+
+    <footer-Dash/>
   </div>
 </template>
 
 <script>
+import footerDash from "@/components/footerDash";
+import NavBarDashBoard from "@/components/NavBarDashBoard";
+
 export default {
-  name: "Home",
-};
+  components: {footerDash, NavBarDashBoard},
+}
 </script>
+
+<style scoped>
+
+</style>

@@ -19,6 +19,31 @@ const routes = [
     component: () => import("../views/Login.vue"),
   },
   {
+    path: "/calendar",
+    name: "Calendar",
+    component: () => import("../views/Calendar.vue"),
+  },
+  {
+    path: "/menu",
+    name: "Menu",
+    component: () => import("../views/Menu.vue"),
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: () => import("../views/Orders.vue"),
+  },
+  {
+    path: "/statistic",
+    name: "Statistic",
+    component: () => import("../views/Statistic.vue"),
+  },
+  {
+    path: "/userEdit",
+    name: "User Edit",
+    component: () => import("../views/UserEdit.vue"),
+  },
+  {
     path: "/users/register",
     name: "Register",
     component: () => import("../views/Register.vue"),
