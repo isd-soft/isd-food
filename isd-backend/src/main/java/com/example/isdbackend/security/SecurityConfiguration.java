@@ -18,9 +18,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
     private final UserPrincipalDetailsService userPrincipalDetailsService;
     private final UserRepository userRepository;
     private final JwtToken jwtToken;
+
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {

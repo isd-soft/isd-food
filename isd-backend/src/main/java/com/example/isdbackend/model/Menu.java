@@ -29,6 +29,30 @@ public class Menu {
     }
 
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public Set<MenuType> getMenuTypes() {
+        return menuTypes;
+    }
+
+    public void setMenuTypes(Set<MenuType> menuTypes) {
+        this.menuTypes = menuTypes;
+    }
+
     public Long getId() {
         return id;
     }
