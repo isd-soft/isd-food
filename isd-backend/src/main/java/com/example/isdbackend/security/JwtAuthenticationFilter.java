@@ -1,6 +1,5 @@
 package com.example.isdbackend.security;
 
-import com.auth0.jwt.JWT;
 import com.example.isdbackend.dto.UserLoginDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,15 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-
-import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+    private JwtToken jwtToken;
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtToken jwtToken) {
         this.authenticationManager = authenticationManager;
+        this.jwtToken = jwtToken;
     }
 
     /* Trigger when we issue POST request to /login
@@ -57,10 +56,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         UserPrincipal principal = (UserPrincipal) authResult.getPrincipal();
 
         // Create JWT Token
-        String token = JWT.create()
-                .withSubject(principal.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
-                .sign(HMAC512(JwtProperties.SECRET.getBytes()));
+        String token = jwtToken.createToken(principal.getUsername());
 
         // Add token in response
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);

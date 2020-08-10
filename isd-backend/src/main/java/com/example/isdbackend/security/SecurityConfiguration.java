@@ -4,7 +4,6 @@ import com.example.isdbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,8 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserPrincipalDetailsService userPrincipalDetailsService;
     private final UserRepository userRepository;
-
-
+    private final JwtToken jwtToken;
 
 
     @Override
@@ -38,14 +36,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 // add jwt filters (1. authentication, 2. authorization)
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository))
+//                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtToken))
+//                .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository, jwtToken))
                 .authorizeRequests()
                 // configure access rules
-                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/users").hasAuthority("ROLE_supervisor")
-                .anyRequest().authenticated();
+//                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
+//                .antMatchers(HttpMethod.POST, "/login").permitAll()
+//                .antMatchers(HttpMethod.POST, "/users").hasAuthority("ROLE_supervisor")
+                .anyRequest().permitAll();
     }
 
     @Bean

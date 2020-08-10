@@ -1,6 +1,5 @@
 package com.example.isdbackend.security;
 
-import com.auth0.jwt.JWT;
 import com.example.isdbackend.model.User;
 import com.example.isdbackend.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,20 +14,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private final UserRepository userRepository;
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
+    private final JwtToken jwtToken;
+
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository, JwtToken jwtToken) {
         super(authenticationManager);
         this.userRepository = userRepository;
+        this.jwtToken = jwtToken;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         // Read the Authorization header, where the JWT token should be
         String header = request.getHeader(JwtProperties.HEADER_STRING);
+
+        String token = request.getHeader(JwtProperties.HEADER_STRING)
+                .replace(JwtProperties.TOKEN_PREFIX, "");
+
+        // if the token is going to expire then add to the response header a new one
+        if (jwtToken.isGoingToExpire(token)) {
+            String email = jwtToken.decodeToken(token).getSubject();
+            String newToken = jwtToken.createToken(email);
+            response.addHeader("Authorization", newToken);
+        }
 
         // If header does not contain BEARER or is null delegate to Spring impl and exit
         if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
@@ -50,9 +60,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (token != null) {
             // parse the token and validate it
-            String email = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
-                    .build()
-                    .verify(token)
+            String email = jwtToken.decodeToken(token)
                     .getSubject();
 
             // Search in the DB if we find the user by token subject (email)
@@ -67,4 +75,5 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
         return null;
     }
+
 }
