@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MenuService extends AbstractServiceCrud {
-    public MenuService(MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
-        super(menuRepository, providerRepository, orderRepository, userRepository);
+    public MenuService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
     }
 
     public Iterable<Menu> getAllMenus(){
