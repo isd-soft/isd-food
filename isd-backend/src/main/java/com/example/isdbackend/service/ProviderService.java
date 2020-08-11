@@ -7,6 +7,7 @@ import com.example.isdbackend.repository.ProviderRepository;
 import com.example.isdbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,13 @@ import java.util.List;
 @Service
 public class ProviderService extends AbstractServiceCrud {
 
+    private MailSender mailSender;
+    private GeneratePassword generatePassword;
 
-    public ProviderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+    public ProviderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MailSender mailSender1, GeneratePassword generatePassword) {
         super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
+        this.mailSender = mailSender1;
+        this.generatePassword = generatePassword;
     }
 
     public List<Provider> findAll(){
@@ -59,6 +64,15 @@ public class ProviderService extends AbstractServiceCrud {
         User user =  userRepository.findById(userId).orElseThrow();
         user.setEnabled(enabled);
         userRepository.save(user);
+    }
+
+    public void sendMailWithPassword(String emailTo,String subject){
+        try {
+            String pass = generatePassword.generatePassayPassword();
+            mailSender.sendHtmlMessage(emailTo,subject,mailSender.getHtmlFromFile("mail/passwordSend.html",pass));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createNewUser(User user){

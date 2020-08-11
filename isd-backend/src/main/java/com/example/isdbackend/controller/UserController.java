@@ -21,14 +21,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/account/{id}",method = RequestMethod.GET)
-    public User getUser(@PathVariable Long id){
+    public User getInfoUser(@PathVariable Long id){
         return userService.findUserById(id);
     }
 
-    @RequestMapping(value = "/account/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/account/edit/{id}", method = RequestMethod.POST)
     public void editUser(@RequestParam User user){
         userService.save(user);
     }
+
+
+
 
 
 }

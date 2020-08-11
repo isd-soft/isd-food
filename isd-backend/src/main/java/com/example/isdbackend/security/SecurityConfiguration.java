@@ -44,6 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST, "/login").permitAll()
 //                .antMatchers(HttpMethod.POST, "/users").hasAuthority("ROLE_supervisor")
                 .anyRequest().permitAll();
+
+        http.headers().frameOptions().disable();
     }
 
     @Bean
