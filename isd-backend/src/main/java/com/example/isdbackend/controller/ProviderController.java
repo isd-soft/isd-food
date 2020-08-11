@@ -17,5 +17,5 @@ public class ProviderController {
     public List<Provider> getAllProviders(){
         return providerService.findAll();
     }
-    
+
 }
