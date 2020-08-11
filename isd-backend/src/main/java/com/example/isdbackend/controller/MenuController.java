@@ -1,7 +1,9 @@
 package com.example.isdbackend.controller;
 
 import com.example.isdbackend.model.Menu;
+import com.example.isdbackend.model.MenuType;
 import com.example.isdbackend.repository.MenuRepository;
+import com.example.isdbackend.repository.MenuTypeRepository;
 import com.example.isdbackend.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private MenuTypeRepository menuTypeRepository;
 
     @RequestMapping(path = "/hello")
     public String sayHello() {
@@ -41,6 +45,12 @@ public class MenuController {
     @RequestMapping("/menu")
     public List<Menu> getMenus(){
         List<Menu> menus = (List<Menu>)menuService.getAllMenus();
+        return menus;
+    }
+
+    @RequestMapping("/menu_type")
+    public List<MenuType> getMenuTypes(){
+        List<MenuType> menus = (List<MenuType>)menuTypeRepository.findAll();
         return menus;
     }
 }

@@ -16,7 +16,6 @@ public class Order {
     private Boolean ordered;
 
     @OneToMany
-    @JoinColumn(name = "menu_id")
     private Set<Menu> menus;
 
     @ManyToOne

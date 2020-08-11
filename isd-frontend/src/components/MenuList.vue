@@ -6,7 +6,7 @@
 <br>
      <div class="menu_list">
      <MenuItem
-     v-for="product in backendResponse"
+     v-for="product in products"
      :key="product.name"
      :product_data="product"
      />
@@ -29,7 +29,8 @@ import MenuItem from './MenuItem.vue'
     data () {
       return {
         msg: 'Display some info from spring',
-        backendResponse: [],
+        products: [],
+        menu_types: [],
         helloResponse: [],
         errors: []
       }
@@ -38,7 +39,7 @@ import MenuItem from './MenuItem.vue'
       // Fetches posts when the component is created.
       callMenuApi () {
         api.getMenu().then(response => {
-            this.backendResponse = response.data;
+            this.products = response.data;
             console.log(response.data)
         })
         .catch(error => {
@@ -53,7 +54,16 @@ import MenuItem from './MenuItem.vue'
         .catch(error => {
           this.errors.push(error)
         })
-      }
+      },
+      callMenuType(){
+        api.getMenuType().then(response => {
+            this.menu_types = response.data;
+            console.log(response.data)
+        })
+        .catch(error => {
+          this.errors.push(error)
+        })
+      },
     }
   }
 

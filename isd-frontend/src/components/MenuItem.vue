@@ -5,17 +5,27 @@
          <p>Provider: {{product_data.provider.name}}</p>
             <v-radio-group class="radio-group" v-model="role" id="roles" row>
             <span class="pr-3">Type:</span>
-            <v-radio label="M" color="warning" value="M"></v-radio>
+            <v-radio 
+                default
+                label="M"
+                color="warning" 
+                value="M">
+             </v-radio>
             <v-radio
               label="S"
               color="warning"
               value="S"
             ></v-radio>
           </v-radio-group>
-         <p>Ingridients:</p>
+         <p>Items:</p>
+
+            <li v-for="item in product_data.menuTypes[1].items" :key="item.name">
+            {{ item.name }}
+            </li>
+
          <p>Delivery price: {{product_data.provider.deliveryPrice}} mdl.</p>
-          <p>Price: {{product_data.price}} mdl.</p>
-          <p>Total price:</p>
+          <p>Price: {{product_data.menuTypes[0].price}} mdl.</p>
+          <p>Total price: {{Number(product_data.provider.deliveryPrice) + Number(product_data.menuTypes[0].price)}}  mdl.</p>
          <br>
          <v-btn rounded color="warning">Order</v-btn>
       </div>
@@ -31,7 +41,7 @@ props:{
         default() {
             return{}
         }
-    }
+    },
 }
 }
 </script>

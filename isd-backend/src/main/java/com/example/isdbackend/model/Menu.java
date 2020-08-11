@@ -24,7 +24,6 @@ public class Menu {
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu")
     private Set<MenuType> menuTypes;
 

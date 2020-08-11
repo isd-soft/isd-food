@@ -11,7 +11,12 @@ export default {
   getMenu() {
     return AXIOS.get(`/menu`);
 },
-Hello(){
+
+  getMenuType(){
+  return AXIOS.get('/menu_type')
+},
+
+  Hello(){
     return AXIOS.get('/hello')
 },
 

@@ -16,9 +16,8 @@ public class MenuType {
 
     private Float price;
 
-    @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "menu_item_type",
+    @JoinTable(name = "menu_type_item",
             joinColumns = @JoinColumn(name = "menu_type_id"), inverseJoinColumns = @JoinColumn(name = "item_id" ))
     private Set<Item> items;
 
