@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +16,6 @@ public class Order {
     private Boolean ordered;
 
     @OneToMany
-    @JoinColumn(name = "menu_id")
     private Set<Menu> menus;
 
     @ManyToOne

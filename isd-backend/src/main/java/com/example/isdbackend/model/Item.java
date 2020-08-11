@@ -1,5 +1,7 @@
 package com.example.isdbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,6 +14,7 @@ public class Item {
     @Column(length = 100)
     private String name;
 
+    @JsonIgnore
     @ManyToMany
     private Set<MenuType> menuTypes;
 
@@ -32,5 +35,13 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<MenuType> getMenuTypes() {
+        return menuTypes;
+    }
+
+    public void setMenuTypes(Set<MenuType> menuTypes) {
+        this.menuTypes = menuTypes;
     }
 }

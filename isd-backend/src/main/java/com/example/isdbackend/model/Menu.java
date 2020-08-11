@@ -1,5 +1,7 @@
 package com.example.isdbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.util.Set;
@@ -27,7 +29,6 @@ public class Menu {
 
     public Menu() {
     }
-
 
     public Boolean getActive() {
         return active;
