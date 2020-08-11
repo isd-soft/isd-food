@@ -32,12 +32,12 @@ public class ProviderService extends AbstractServiceCrud {
         providerRepository.save(provider);
     }
 
-    public Provider getProvider(Integer id){
+    public Provider getProvider(Long id){
         return providerRepository.findById(id).orElseThrow();
     }
 
 
-    public void update (Integer providerId, String name){
+    public void update (Long providerId, String name){
         Provider provider;
         if (providerRepository.findById(providerId).isPresent()) {
             provider = providerRepository.findById(providerId).get();
@@ -45,7 +45,7 @@ public class ProviderService extends AbstractServiceCrud {
             providerRepository.save(provider);
         }
     }
-    public void deleteById(Integer providerId) {
+    public void deleteById(Long providerId) {
         providerRepository.deleteById(providerId);
     }
 
