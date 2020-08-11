@@ -10,7 +10,7 @@ import java.util.Set;
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     private String name;
     private Integer deliveryPrice;
@@ -25,20 +25,12 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(String name, Integer deliveryPrice, String contactInfo, String description, URL imageURL, Boolean isActive) {
-        this.name = name;
-        this.deliveryPrice = deliveryPrice;
-        this.contactInfo = contactInfo;
-        this.description = description;
-        this.imageURL = imageURL;
-        this.isActive = isActive;
-    }
 
     public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

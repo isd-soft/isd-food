@@ -42,9 +42,9 @@ public class UserService extends AbstractServiceCrud {
         return userRepository.findById(id).orElseThrow().getOrders().stream().filter(order -> order.isOrdered()).collect(Collectors.toList());
     }
 
-    public Iterable<Menu> getProviderMenus(Integer providerId){ return providerRepository.findById(providerId).orElseThrow().getMenus(); }
+    public Iterable<Menu> getProviderMenus(Long providerId){ return providerRepository.findById(providerId).orElseThrow().getMenus(); }
 
-    public Iterable<Menu> filter(Integer providerId,Long userId){
+    public Iterable<Menu> filter(Long providerId,Long userId){
         Set<Order> orders = userRepository.findById(userId).orElseThrow().getOrders();
         Set<Menu> menus = new HashSet<>();
         for (Order order : orders) menus = order.getMenus().stream().filter(menu -> menu.getProvider().getId() == providerId).collect(Collectors.toSet());
