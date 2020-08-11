@@ -1,7 +1,7 @@
 <template>
 <div class="menu">
     <h1>Menus</h1>
-    <v-btn @click="callMenuApi()" small color="warning">Action</v-btn>
+    <v-btn @click="callMenuApi()" color="warning">Show menu</v-btn>
 <br>
 <br>
      <div class="menu_list">
