@@ -1,28 +1,23 @@
 <template>
   <v-app>
-    <v-main>
-      <Header/>
-      <router-view/>
-      <Footer/>
-    </v-main>
+
+    <router-view />
+
+
+
   </v-app>
 </template>
 
 <script>
 
-import Footer from './components/Footer';
-import Header from './components/Header';
+import "./css/app.css";
 
 export default {
-  name: 'App',
+  name: "App",
 
-  components: {
-    Footer,
-    Header,
-  },
 
   data: () => ({
     //
-  }),
+  })
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <Header/>
     <v-row justify="center">
       <v-form
         ref="form"
@@ -35,7 +36,9 @@
   </v-container>
 </template>
 <script>
+
 export default {
+
   name: "login",
   data() {
     return {
@@ -45,6 +48,9 @@ export default {
   },
   methods: {
     submitHandler() {
+      
+      console.log(this);
+
       this.$store
         .dispatch("login", { email: this.email, password: this.password })
         .then(() => {

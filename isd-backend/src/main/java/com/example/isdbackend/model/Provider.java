@@ -1,5 +1,7 @@
 package com.example.isdbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import java.util.Set;
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
     private Integer deliveryPrice;
@@ -19,6 +21,7 @@ public class Provider {
     private URL imageURL;
     private Boolean isActive;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
     private Set<Menu> menus;
 
@@ -34,11 +37,11 @@ public class Provider {
         this.isActive = isActive;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -97,4 +100,6 @@ public class Provider {
     public void setActive(Boolean active) {
         isActive = active;
     }
+
+
 }

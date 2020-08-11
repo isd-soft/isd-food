@@ -36,7 +36,6 @@ public class MailConfig {
     private String enable;
 
 
-
     @Bean
     public JavaMailSender getMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

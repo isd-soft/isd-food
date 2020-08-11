@@ -1,5 +1,7 @@
 package com.example.isdbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.util.Set;
@@ -22,12 +24,12 @@ public class Menu {
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu")
     private Set<MenuType> menuTypes;
 
     public Menu() {
     }
-
 
     public Boolean getActive() {
         return active;
