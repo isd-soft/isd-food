@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -39,6 +40,9 @@ public class User {
 
     private Boolean enabled;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Notification> notificationList;
+
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id" ))
@@ -48,6 +52,14 @@ public class User {
     private Set<Order> orders;
 
     public User() {
+    }
+
+    public List<Notification> getNotificationList() {
+        return notificationList;
+    }
+
+    public void setNotificationList(List<Notification> notificationList) {
+        this.notificationList = notificationList;
     }
 
     public Long getId() {

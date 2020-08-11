@@ -67,4 +67,8 @@ public class UserService extends AbstractServiceCrud {
     public void delete(User user){
         userRepository.delete(user);
     }
+
+    public void save(User user){
+        userRepository.save(user);
+    }
 }
