@@ -1,5 +1,7 @@
 package com.example.isdbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.persistence.*;
@@ -19,6 +21,7 @@ public class Provider {
     private URL imageURL;
     private Boolean isActive;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
     private Set<Menu> menus;
 

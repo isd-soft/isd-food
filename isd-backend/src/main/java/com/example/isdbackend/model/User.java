@@ -16,7 +16,6 @@ public class User {
     private Long id;
 
     @Column(length = 50)
-    @NotNull
     private String email;
 
     @Column(length = 50)
