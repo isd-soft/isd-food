@@ -18,8 +18,8 @@ public class Order {
 
     private Boolean ordered;
 
-    @OneToOne
-    private Menu menus;
+    @OneToMany
+    private Set<Menu> menus;
 
     @JsonIgnore
     @ManyToOne
@@ -29,13 +29,6 @@ public class Order {
     public Order() {
     }
 
-    public Menu getMenus() {
-        return menus;
-    }
-
-    public void setMenus(Menu menus) {
-        this.menus = menus;
-    }
 
     public Boolean getOrdered() {
         return ordered;
@@ -73,4 +66,10 @@ public class Order {
         return ordered;
     }
 
+    public void setMenus(HashSet<Object> objects) {
+    }
+
+    public Set<Menu> getMenus() {
+        return  menus;
+    }
 }

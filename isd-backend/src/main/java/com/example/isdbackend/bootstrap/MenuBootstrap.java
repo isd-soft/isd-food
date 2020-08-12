@@ -105,16 +105,9 @@ public class MenuBootstrap implements CommandLineRunner {
         menuTypeRepository.save(S2);
 
 
-        User user = new User();
-        user.setOrders(new HashSet<Order>());
-        Order order = new Order();
-        order.setMenus(new HashSet<>());
-        order.getMenus().
-        order.setUser(user);
-        user.getOrders().add(order);
 
 
-        userRepository.save(user);
+
 
 
     }
