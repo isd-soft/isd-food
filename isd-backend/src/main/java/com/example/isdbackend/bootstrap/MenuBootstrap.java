@@ -83,6 +83,10 @@ public class MenuBootstrap implements CommandLineRunner {
         borsh.setName("Borsh");
         menuItemRepository.save(borsh);
 
+        Item sashlic = new Item();
+        sashlic.setName("Sashlic");
+        menuItemRepository.save(sashlic);
+
         M1.setItems(new HashSet<>());
         M1.getItems().add(borsh);
         M1.getItems().add(mamaliga);
@@ -94,6 +98,7 @@ public class MenuBootstrap implements CommandLineRunner {
 
         M2.setItems(new HashSet<>());
         M2.getItems().add(mamaliga);
+        M2.getItems().add(sashlic);
         menuTypeRepository.save(M2);
 
         S2.setItems(new HashSet<>());

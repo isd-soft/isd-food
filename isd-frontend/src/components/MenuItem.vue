@@ -7,13 +7,12 @@
          <p>Name: {{product_data.name}}</p>
          <p>Provider: {{product_data.provider.name}}</p>
 
-            <v-radio-group class="radio-group" v-model="type" id="type" :mandatory="false" row>
+            <v-radio-group v-if="hidden" class="radio-group" v-model="type" id="type" :mandatory="false" row>
             <span class="pr-3">Type:</span>
-            <v-radio 
+            <v-radio
                 label="M"
                 color="warning" 
                 value="M">
-  
             </v-radio>
             <v-radio
               label="S"
@@ -21,39 +20,40 @@
               value="S"
             ></v-radio>
           </v-radio-group>
-
+          <div v-else>
+            <p v-if= "type === 'M'">Type: M</p>
+            <p v-else>Type: S</p>
+  
+          </div>
+       
 
          <div v-if= "type === 'M'">
              <div v-for="item in product_data.menuTypes" :key="item.type">
                  <div v-if= "item.type === 'M'">
                  </div>
              </div>
-             M
-             <br>
              {{check_menu('M')}}
-             {{type_id}}
          </div>
          <div v-else>
-            S
-            <br>
             {{check_menu('S')}}
-            {{type_id}}
         </div>
-
 
          <p>Items:</p>
 
-            <li v-for="item in product_data.menuTypes[(type_id-1)].items" :key="item.name">
+            <li v-for="item in product_data.menuTypes[(type_id)].items" :key="item.name">
             {{ item.name }}
             </li>
     <br>
          <p>Delivery price: {{product_data.provider.deliveryPrice}} mdl.</p>
-          <p>Price: {{product_data.menuTypes[(type_id-1)].price}} mdl.</p>
-          <p>Total price: {{Number(product_data.provider.deliveryPrice) + Number(product_data.menuTypes[(type_id-1)].price)}}  mdl.</p>
+          <p>Price: {{product_data.menuTypes[(type_id)].price}} mdl.</p>
+          <p>Total price: {{Number(product_data.provider.deliveryPrice) + Number(product_data.menuTypes[(type_id)].price)}}  mdl.</p>
          <br>
+
         <v-card-actions class="justify-center">
-         <v-btn rounded color="warning" align="center">Order</v-btn>
+         <v-btn v-if="!hidden"  @click="hidden = !hidden" rounded color="warning" align="center">Order</v-btn>
+         <v-btn v-else  @click="hidden = !hidden" rounded color="error" align="center">Delete</v-btn>
         </v-card-actions>
+
       </div>
 </template>
 
@@ -64,6 +64,7 @@ export default {
       return {
         type: 'M',
         type_id: 0,
+        hidden: false,
       }
     },
 props:{
@@ -76,12 +77,14 @@ props:{
 },
     methods: {
         check_menu(type){
+            var i = 0;
             if(this.type === type)
                 this.product_data.menuTypes.forEach(element => {
                     if(element.type === type){
-                    console.log(element.id)
-                    this.type_id = element.id
+                    console.log(i)
+                    this.type_id = i
                     }
+                    else i++
                 });
         }
     }
