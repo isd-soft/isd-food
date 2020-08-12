@@ -44,9 +44,9 @@ public class ProviderController {
 
 
     @DeleteMapping("/{id}")
-    public void deleteProvider(@PathVariable("id") int id){
+    public void deleteProvider(@PathVariable("id") int id) {
         providerService.deleteProvider(id);
-
+    }
 
 
 }
