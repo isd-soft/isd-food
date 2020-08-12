@@ -1,12 +1,10 @@
 package com.example.isdbackend.model;
 
 
-import com.sun.istack.NotNull;
-import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 

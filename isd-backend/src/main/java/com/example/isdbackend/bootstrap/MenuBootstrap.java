@@ -109,7 +109,7 @@ public class MenuBootstrap implements CommandLineRunner {
         user.setOrders(new HashSet<Order>());
         Order order = new Order();
         order.setMenus(new HashSet<>());
-        order.getMenus().add(salat);
+        order.getMenus().
         order.setUser(user);
         user.getOrders().add(order);
 

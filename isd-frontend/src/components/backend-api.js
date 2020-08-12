@@ -42,7 +42,6 @@ AXIOS.interceptors.request.use(
     }
 );
 
-
 export default {
 
     createUser(user) {
@@ -55,6 +54,9 @@ export default {
             password: password
         });
     },
+    getHistory(){
+        return AXIOS.get("orders/allOrders/1");
+    }
 
 
 
