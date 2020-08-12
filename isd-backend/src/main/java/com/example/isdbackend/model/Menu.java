@@ -26,7 +26,7 @@ public class Menu {
     private Provider provider;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu")
-    private Set<MenuType> menuTypes = new HashSet<>();
+    private Set<MenuType> menuTypes;
 
     public Menu() {
     }

@@ -4,11 +4,13 @@ import com.example.isdbackend.model.*;
 import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.repository.*;
 import com.example.isdbackend.service.GeneratePassword;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class MenuBootstrap implements CommandLineRunner {
@@ -104,13 +106,15 @@ public class MenuBootstrap implements CommandLineRunner {
 
 
         User user = new User();
-        user.setEmail("nichita.dolinskiy25@gmail.com");
+        user.setOrders(new HashSet<Order>());
         Order order = new Order();
-
+        order.setMenus(new HashSet<>());
         order.getMenus().add(salat);
+        order.setUser(user);
         user.getOrders().add(order);
+
+
         userRepository.save(user);
-        orderRepository.save(order);
 
 
     }

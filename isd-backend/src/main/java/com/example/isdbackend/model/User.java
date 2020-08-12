@@ -2,6 +2,7 @@ package com.example.isdbackend.model;
 
 
 import com.sun.istack.NotNull;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -48,8 +49,9 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id" ))
     private Set<Role> roles;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Order> orders = new HashSet<>();
+    private Set<Order> orders;
 
     public User() {
     }

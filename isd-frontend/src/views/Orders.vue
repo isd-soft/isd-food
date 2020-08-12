@@ -21,7 +21,7 @@
 
           <tbody>
           <tr v-for="order of orders" :key="order.id">
-            <td>{{order.provider}}</td>
+            <td>{{order.id}}</td>
             <td>{{order.menu}}</td>
             <td>{{order.menu_type}}</td>
             <td>{{order.data}}</td>
@@ -41,18 +41,6 @@
 
 export default {
   name: "Home",
-  data: () => ({
-    orders :[
-
-      {id: 1,provider: "Andys",menu:"Bistro1",menu_type:"S",data:"1/01/1999",price:"25$"},
-      {id: 2,provider: "Andys",menu:"Bistro1",menu_type:"S",data:"1/01/1999",price:"25$"},
-      {id: 3,provider: "Andys",menu:"Bistro1",menu_type:"S",data:"1/01/1999",price:"25$"},
-      {id: 4,provider: "Andys",menu:"Bistro1",menu_type:"S",data:"1/01/1999",price:"25$"},
-      {id: 5,provider: "Andys",menu:"Bistro1",menu_type:"S",data:"1/01/1999",price:"25$"},
-
-
-    ],
-  })
 };
 
 </script>

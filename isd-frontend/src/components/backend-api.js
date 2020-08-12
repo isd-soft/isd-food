@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const AXIOS = axios.create({
-    baseURL: `http://localhost:8085`,
+    baseURL: `/api`,
     timeout: 10000000
 });
+
 
 // Add a response interceptor
 AXIOS.interceptors.response.use(
@@ -25,6 +26,7 @@ AXIOS.interceptors.response.use(
     }
 );
 
+
 // Add a request interceptor
 AXIOS.interceptors.request.use(
     function(config) {
@@ -40,7 +42,9 @@ AXIOS.interceptors.request.use(
     }
 );
 
+
 export default {
+
     createUser(user) {
         console.log(user);
         return AXIOS.post(`/users`, user);
@@ -50,5 +54,8 @@ export default {
             email: email,
             password: password
         });
-    }
+    },
+
+
+
 };

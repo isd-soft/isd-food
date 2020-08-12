@@ -35,10 +35,10 @@ public class UserService extends AbstractServiceCrud {
         userRepository.save(user);
     }
 
-    public Iterable<Order> getHistory(Long id){ return userRepository.findById(id).orElseThrow().getOrders(); }
+    public Set<Order> getHistory(Long id){ return userRepository.findById(id).orElseThrow().getOrders(); }
 
 
-    public Iterable<Order> getCurrentOrders(Long id){
+    public List<Order> getCurrentOrders(Long id){
         return userRepository.findById(id).orElseThrow().getOrders().stream().filter(order -> order.isOrdered()).collect(Collectors.toList());
     }
 
