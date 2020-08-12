@@ -10,18 +10,23 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      requiresAuth: true,
-    },
+      requiresAuth: true
+    }
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/Login.vue"),
+    component: () => import("../views/Login.vue")
+  },
+  {
+    path: "/edit",
+    name: "Edit",
+    component: () => import("../views/EditUser.vue")
   },
   {
     path: "/users/register",
     name: "Register",
-    component: () => import("../views/Register.vue"),
+    component: () => import("../views/Register.vue")
   },
   {
     path: "/about",
@@ -30,29 +35,22 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-  {
-    path: "/menu",
-    name: "menu",
-    component: () => import("../views/Menu.vue"),
-  },
-
+      import(/* webpackChunkName: "about" */ "../views/About.vue")
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
-  routes,
+  routes
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to.matched.some((record) => record.meta.requiresAuth));
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (window.$cookies.get("access_token") == null) {
+    if (localStorage.getItem("access_token") == null) {
       next({
-        path: "/login",
+        path: "/login"
       });
     } else {
       next();

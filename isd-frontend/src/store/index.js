@@ -11,9 +11,9 @@ export default new Vuex.Store({
       loginSuccess: false,
       email: null,
       password: null,
-      loading: false,
+      loading: false
     },
-    register: { loading: false },
+    register: { loading: false }
   },
   mutations: {
     login_success(state, payload) {
@@ -28,7 +28,7 @@ export default new Vuex.Store({
     },
     register_success(state) {
       state.register.loading = false;
-    },
+    }
   },
   actions: {
     login({ commit }, { email, password }) {
@@ -37,16 +37,11 @@ export default new Vuex.Store({
 
         api
           .login(email, password)
-          .then((response) => {
+          .then(response => {
             if (response.status == 200) {
-              window.$cookies.set(
-                "access_token",
-                response.headers["authorization"]
-              );
-              // place the loginSuccess state into our vuex store
               commit("login_success", {
                 email: email,
-                password: password,
+                password: password
               });
             }
             resolve(response);
@@ -54,7 +49,7 @@ export default new Vuex.Store({
           .catch(() => {
             // place the loginError state into our vuex store
             commit("login_error", {
-              email: email,
+              email: email
             });
             reject("Invalid credentials!");
           });
@@ -66,11 +61,10 @@ export default new Vuex.Store({
         console.log(user);
         api
           .createUser(user)
-          .then((response) => {
+          .then(response => {
             if (response.status == 200) {
-              // place the loginSuccess state into our vuex store
               commit("register_success", {
-                user: user,
+                user: user
               });
             }
             resolve(response);
@@ -83,14 +77,14 @@ export default new Vuex.Store({
             reject("Invalid credentials!");
           });
       });
-    },
+    }
   },
   modules: {},
   getters: {
-    isLoggedIn: (state) => state.login.loginSuccess,
-    hasLoginErrored: (state) => state.login.loginError,
-    isLoggingInProcess: (state) => state.login.loading,
-    getEmail: (state) => state.login.email,
-    getPassword: (state) => state.login.password,
-  },
+    isLoggedIn: state => state.login.loginSuccess,
+    hasLoginErrored: state => state.login.loginError,
+    isLoggingInProcess: state => state.login.loading,
+    getEmail: state => state.login.email,
+    getPassword: state => state.login.password
+  }
 });
