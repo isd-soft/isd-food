@@ -25,7 +25,6 @@ public class UserService extends AbstractServiceCrud {
 
     public void setNotificationSettings(Long id, Boolean active){
         User user = userRepository.findById(id).orElseThrow();
-        user.setNotification(active);
         userRepository.save(user);
     }
 
@@ -44,12 +43,6 @@ public class UserService extends AbstractServiceCrud {
 
     public Iterable<Menu> getProviderMenus(Integer providerId){ return providerRepository.findById(providerId).orElseThrow().getMenus(); }
 
-    public Iterable<Menu> filter(Integer providerId,Long userId){
-        Set<Order> orders = userRepository.findById(userId).orElseThrow().getOrders();
-        Set<Menu> menus = new HashSet<>();
-        for (Order order : orders) menus = order.getMenus().stream().filter(menu -> menu.getProvider().getId() == providerId).collect(Collectors.toSet());
-        return menus;
-    }
 
     public void newOrder(Long id, Order order){
        User user = userRepository.findById(id).orElseThrow();

@@ -2,9 +2,9 @@ package com.example.isdbackend.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,9 +14,9 @@ public class Order {
 
     private Boolean ordered;
 
-    @OneToMany
-    @JoinColumn(name = "menu_id")
-    private Set<Menu> menus;
+    @OneToOne
+    @JoinColumn(name = "menu_type_id")
+    private MenuType menuType;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -33,12 +33,12 @@ public class Order {
         this.ordered = ordered;
     }
 
-    public Set<Menu> getMenus() {
-        return menus;
+    public MenuType getMenuType() {
+        return menuType;
     }
 
-    public void setMenus(Set<Menu> menus) {
-        this.menus = menus;
+    public void setMenuType(MenuType menuType) {
+        this.menuType = menuType;
     }
 
     public User getUser() {
