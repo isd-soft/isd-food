@@ -31,7 +31,12 @@ public class UserController {
     }
 
 
-
-
-
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public void addUser(User user){
+        userService.save(user);
+    }
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public void addDelete(User user){
+        userService.delete(user);
+    }
 }
