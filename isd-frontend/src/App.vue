@@ -13,9 +13,9 @@
       <hr class="sidebar-divider my-0" >
 
       <li class="nav-item " v-for="link in links" :key="link.text" >
-        <a class="nav-link" href="index.html">
+        <router-link class="nav-link" :to = "link.route">
          <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
-          <span> {{ link.text }}</span></a>
+          <span> {{ link.text }}</span></router-link>
         <hr class="sidebar-divider my-0">
       </li>
 
@@ -269,7 +269,7 @@ export default {
 
       {icon: "fas fa-user", text:"Account",route:"/"},
       {icon: "fas fa-pizza-slice", text:"Menus",route:"/"},
-      {icon: "fas fa-history", text:"Orders",route:"/"},
+      {icon: "fas fa-history", text:"Orders",route:"/Orders"},
       {icon: "fas fa-envelope", text:"Mail",route:"/"},
 
     ],

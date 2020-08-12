@@ -6,8 +6,7 @@ import com.example.isdbackend.repository.ProviderRepository;
 import com.example.isdbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import javax.management.Notification;
-import java.util.List;
+
 
 @Service
 public abstract class AbstractServiceCrud {

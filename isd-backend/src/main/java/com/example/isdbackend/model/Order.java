@@ -66,8 +66,10 @@ public class Order {
         return ordered;
     }
 
-    public void setMenus(HashSet<Object> objects) {
+    public void setMenus(HashSet<Menu>menu) {
+        menus = menu;
     }
+
 
     public Set<Menu> getMenus() {
         return  menus;
