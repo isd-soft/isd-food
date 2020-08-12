@@ -1,6 +1,7 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.dto.UserPaymentData;
+import com.example.isdbackend.filter.OrderFilter;
 import com.example.isdbackend.projection.DeliveryPrice;
 import com.example.isdbackend.projection.UserIdAndNameView;
 import com.example.isdbackend.projection.UserOrderView;
@@ -20,13 +21,13 @@ public class SupervisorService extends PaymentCalculator {
 
     private final UserRepository userRepository;
 
-    public List<UserPaymentData> getAllPaymentData() {
+    public List<UserPaymentData> getAllPaymentData(OrderFilter orderFilter) {
 
         List<UserPaymentData> userPaymentDataList = new ArrayList<>();
 
         List<UserIdAndNameView> users = userRepository.findAllByOrderByIdAsc();
-        List<UserOrderView> usersOrders = orderRepository.findUsersOrders();
-        Map<String, Integer> deliveryPricesMap = getDeliveryPriceByDateAndProvider();
+        List<UserOrderView> usersOrders = orderRepository.findUsersOrders(orderFilter);
+        Map<String, Integer> deliveryPricesMap = getDeliveryPriceByDateAndProvider(orderFilter);
 
         int ordersCount = usersOrders.size();
 
@@ -68,21 +69,9 @@ public class SupervisorService extends PaymentCalculator {
         return d1.equals(d2);
     }
 
-    private int ordersCountByProviderOnDate(List<UserOrderView> orders, UserOrderView userOrder) {
-        int count = 1;
-
-        for (UserOrderView order : orders) {
-            if (order.getDate().equals(userOrder.getDate())
-                    && order.getProviderId() == userOrder.getProviderId()
-                    && userOrder.getUserId() != order.getUserId())
-                count++;
-        }
-        return count;
-    }
-
-    private Map<String, Integer> getDeliveryPriceByDateAndProvider() {
+    private Map<String, Integer> getDeliveryPriceByDateAndProvider(OrderFilter orderFilter) {
         Map<String, Integer> deliveryPricesMap = new HashMap<>();
-        List<DeliveryPrice> deliveryPrices = orderRepository.findDeliveryPrice();
+        List<DeliveryPrice> deliveryPrices = orderRepository.findOrderDeliveryPrice(orderFilter);
 
         for (DeliveryPrice deliveryPrice : deliveryPrices) {
             deliveryPricesMap.put(deliveryPrice.getDate().toString() + deliveryPrice.getProviderId(), deliveryPrice.getDeliveryPrice());

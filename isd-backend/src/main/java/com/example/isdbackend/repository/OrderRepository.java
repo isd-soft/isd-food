@@ -50,15 +50,19 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "         LEFT JOIN menu_type mt on mt.id = o.menu_type_id " +
             "         LEFT JOIN menu m ON mt.menu_id = m.id " +
             "         LEFT JOIN provider p on m.provider_id = p.id " +
+            "WHERE (:#{#orderFilter.dateFrom} = '0' OR cast(o.date as date) >= cast(:#{#orderFilter.dateFrom} as date)) " +
+            "AND (:#{#orderFilter.dateTo} = '0' OR cast(o.date as date) <= cast(:#{#orderFilter.dateTo} as date)) " +
             "GROUP BY u.id,o.date,mt.price,p.id,p.delivery_price " +
             "ORDER BY u.id,o.date", nativeQuery = true)
-    List<UserOrderView> findUsersOrders();
+    List<UserOrderView> findUsersOrders(OrderFilter orderFilter);
 
     @Query(value = "SELECT cast(o.date as date) , p.id providerId, p.delivery_price/count(DISTINCT o.user_id) deliveryPrice " +
             "FROM orders o " +
             "         LEFT JOIN menu_type mt on mt.id = o.menu_type_id " +
             "         LEFT JOIN menu m ON mt.menu_id = m.id " +
             "         LEFT JOIN provider p on m.provider_id = p.id " +
+            "WHERE (:#{#orderFilter.dateFrom} = '0' OR cast(o.date as date) >= cast(:#{#orderFilter.dateFrom} as date)) " +
+            "AND (:#{#orderFilter.dateTo} = '0' OR cast(o.date as date) <= cast(:#{#orderFilter.dateTo} as date)) " +
             "GROUP BY cast(o.date as date), p.id", nativeQuery = true)
-    List<DeliveryPrice> findDeliveryPrice();
+    List<DeliveryPrice> findOrderDeliveryPrice(OrderFilter orderFilter);
 }
