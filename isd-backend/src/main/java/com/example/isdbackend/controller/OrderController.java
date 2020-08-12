@@ -1,37 +1,47 @@
 package com.example.isdbackend.controller;
 
-import com.example.isdbackend.model.Order;
-
+import com.example.isdbackend.filter.OrderFilter;
+import com.example.isdbackend.projection.OrderFullView;
+import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.service.OrderService;
-import com.example.isdbackend.service.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+@AllArgsConstructor
 @RestController
-@CrossOrigin
-@RequestMapping("/api/orders")
+@RequestMapping("/orders")
 public class OrderController {
-    private final UserService userService;
 
     private final OrderService orderService;
 
-    public OrderController(UserService userService, OrderService orderService) {
-        this.userService = userService;
-        this.orderService = orderService;
+    @GetMapping("/users/{userId}/orders")
+    public ResponseEntity<Page<OrderView>> getOrders(
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            OrderFilter orderFilter,
+            @PathVariable long userId) {
+
+        return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/currentOrders/{id}", method = RequestMethod.GET)
-    public List<Order> getCurrentOrders(@PathVariable Long id){
-       return userService.getCurrentOrders(id);
+    @GetMapping
+    public ResponseEntity<Page<OrderView>> getAllOrders(
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            OrderFilter orderFilter) {
+
+        return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, 0L), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/allOrders/{id}",method = RequestMethod.GET)
-    public Set<Order> getAllOrders(@PathVariable Long id){
-        return userService.findUserById(id).getOrders();
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderFullView> getOrder(@PathVariable long orderId) {
+        return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
-
 }

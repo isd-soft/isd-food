@@ -2,10 +2,7 @@ package com.example.isdbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
 import javax.persistence.*;
-import java.net.URL;
 import java.util.Set;
 
 @Entity
@@ -18,8 +15,8 @@ public class Provider {
     private Integer deliveryPrice;
     private String contactInfo;
     private String description;
-    private URL imageURL;
-    private Boolean isActive;
+    private String image;
+    private boolean active;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
@@ -77,19 +74,19 @@ public class Provider {
         this.description = description;
     }
 
-    public URL getImageURL() {
-        return imageURL;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageURL(URL imageURL) {
-        this.imageURL = imageURL;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public Boolean getActive() {
-        return isActive;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
