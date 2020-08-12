@@ -53,7 +53,7 @@ public class MailSender {
         }
     }
 
-    public String getHtmlFromFile(String filePath) throws IOException {
+    public String getHtmlFromFile(String filePath,String pass) throws IOException {
         Resource resource = new ClassPathResource(filePath);
         String link = "#",res,password;
 
@@ -67,7 +67,7 @@ public class MailSender {
             }
 
             res = sb.toString();
-            password = generatePassword.generatePassayPassword();
+            password = pass;
             res = res.replace("{{password}}",password).replace("{{link}}",link);
         }
         return res;

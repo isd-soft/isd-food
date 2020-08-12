@@ -6,6 +6,8 @@ import com.example.isdbackend.repository.ProviderRepository;
 import com.example.isdbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public abstract class AbstractServiceCrud {
     private final MailSender mailSender;
@@ -21,5 +23,6 @@ public abstract class AbstractServiceCrud {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
     }
+
 }
 
