@@ -1,18 +1,16 @@
 package com.example.isdbackend.bootstrap;
 
-import com.example.isdbackend.model.Item;
+import com.example.isdbackend.model.*;
 import com.example.isdbackend.model.Menu;
-import com.example.isdbackend.model.MenuType;
-import com.example.isdbackend.model.Provider;
-import com.example.isdbackend.repository.MenuItemRepository;
-import com.example.isdbackend.repository.MenuRepository;
-import com.example.isdbackend.repository.MenuTypeRepository;
-import com.example.isdbackend.repository.ProviderRepository;
+import com.example.isdbackend.repository.*;
+import com.example.isdbackend.service.GeneratePassword;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class MenuBootstrap implements CommandLineRunner {
@@ -20,12 +18,18 @@ public class MenuBootstrap implements CommandLineRunner {
     private final ProviderRepository providerRepository;
     private final MenuTypeRepository menuTypeRepository;
     private final MenuItemRepository menuItemRepository;
+    private final GeneratePassword password;
+    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
 
-    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository) {
+    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, GeneratePassword password, UserRepository userRepository, OrderRepository orderRepository) {
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
         this.menuTypeRepository = menuTypeRepository;
         this.menuItemRepository = menuItemRepository;
+        this.password = password;
+        this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -99,6 +103,12 @@ public class MenuBootstrap implements CommandLineRunner {
         S2.setItems(new HashSet<>());
         S2.getItems().add(mamaliga);
         menuTypeRepository.save(S2);
+
+
+
+
+
+
 
     }
 }

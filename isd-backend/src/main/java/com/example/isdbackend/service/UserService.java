@@ -35,10 +35,10 @@ public class UserService extends AbstractServiceCrud {
         userRepository.save(user);
     }
 
-    public Iterable<Order> getHistory(Long id){ return userRepository.findById(id).orElseThrow().getOrders(); }
+    public Set<Order> getHistory(Long id){ return userRepository.findById(id).orElseThrow().getOrders(); }
 
 
-    public Iterable<Order> getCurrentOrders(Long id){
+    public List<Order> getCurrentOrders(Long id){
         return userRepository.findById(id).orElseThrow().getOrders().stream().filter(order -> order.isOrdered()).collect(Collectors.toList());
     }
 
@@ -47,7 +47,6 @@ public class UserService extends AbstractServiceCrud {
     public Iterable<Menu> filter(Long providerId,Long userId){
         Set<Order> orders = userRepository.findById(userId).orElseThrow().getOrders();
         Set<Menu> menus = new HashSet<>();
-        for (Order order : orders) menus = order.getMenus().stream().filter(menu -> menu.getProvider().getId() == providerId).collect(Collectors.toSet());
         return menus;
     }
 

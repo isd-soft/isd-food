@@ -2,100 +2,32 @@
   <div  id="page-top">
 
 
-  <div id="wrapper">
+  <div  id="wrapper">
 
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #ff9800">
 
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-
         <div class="sidebar-brand-text mx-3">ISD-food</div>
       </a>
 
-      <hr class="sidebar-divider my-0">
+      <hr class="sidebar-divider my-0" >
 
-      <li class="nav-item">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Account</span></a>
+      <li class="nav-item " v-for="link in links" :key="link.text" >
+        <router-link class="nav-link" :to = "link.route">
+         <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
+          <span> {{ link.text }}</span></router-link>
+        <hr class="sidebar-divider my-0">
       </li>
 
 
-      <hr class="sidebar-divider">
-
-      <div class="sidebar-heading">
-        Interface
-      </div>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
 
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
 
     </ul>
     <!-- End of Sidebar -->
 
 
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper"  class="d-flex flex-column">
 
 
       <div id="content">
@@ -112,8 +44,8 @@
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
+                <button class="btn btn-warning" type="button">
+                  <i class="fas fa-search fa-sm white--texti"></i>
                 </button>
               </div>
             </div>
@@ -333,10 +265,20 @@ export default {
   name: "App",
 
   data: () => ({
-    //
+    links :[
+
+      {icon: "fas fa-user", text:"Account",route:"/"},
+      {icon: "fas fa-pizza-slice", text:"Menus",route:"/"},
+      {icon: "fas fa-history", text:"Orders",route:"/Orders"},
+      {icon: "fas fa-envelope", text:"Mail",route:"/"},
+
+    ],
   })
 };
 </script>
 <style>
+.color-orange{
+  color: orange;
+}
 @import "css/sb-admin-2.min.css";
 </style>

@@ -5,16 +5,15 @@ import com.example.isdbackend.model.Order;
 import com.example.isdbackend.service.OrderService;
 import com.example.isdbackend.service.UserService;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
-@RequestMapping("/orders")
+@CrossOrigin
+@RequestMapping("/api/orders")
 public class OrderController {
     private final UserService userService;
 
@@ -27,18 +26,12 @@ public class OrderController {
 
     @RequestMapping(value = "/currentOrders/{id}", method = RequestMethod.GET)
     public List<Order> getCurrentOrders(@PathVariable Long id){
-        Iterable<Order> orders = userService.getCurrentOrders(id);
-        var ord = new ArrayList<Order>();
-        orders.forEach(ord::add);
-        return ord;
+       return userService.getCurrentOrders(id);
     }
 
     @RequestMapping(value = "/allOrders/{id}",method = RequestMethod.GET)
-    public List<Order> getAllOrders(@PathVariable Long id){
-        Iterable<Order> orders = userService.getHistory(id);
-        var ord = new ArrayList<Order>();
-        orders.forEach(ord::add);
-        return ord;
+    public Set<Order> getAllOrders(@PathVariable Long id){
+        return userService.findUserById(id).getOrders();
     }
 
 }

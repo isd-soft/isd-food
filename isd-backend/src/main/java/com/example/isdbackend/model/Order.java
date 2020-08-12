@@ -1,7 +1,10 @@
 package com.example.isdbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,6 +21,7 @@ public class Order {
     @OneToMany
     private Set<Menu> menus;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -25,20 +29,13 @@ public class Order {
     public Order() {
     }
 
+
     public Boolean getOrdered() {
         return ordered;
     }
 
     public void setOrdered(Boolean ordered) {
         this.ordered = ordered;
-    }
-
-    public Set<Menu> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(Set<Menu> menus) {
-        this.menus = menus;
     }
 
     public User getUser() {
@@ -69,4 +66,12 @@ public class Order {
         return ordered;
     }
 
+    public void setMenus(HashSet<Menu>menu) {
+        menus = menu;
+    }
+
+
+    public Set<Menu> getMenus() {
+        return  menus;
+    }
 }

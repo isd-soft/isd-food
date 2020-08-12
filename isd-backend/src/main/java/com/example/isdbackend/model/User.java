@@ -1,10 +1,10 @@
 package com.example.isdbackend.model;
 
 
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.sql.Date;
+
 import java.util.List;
 import java.util.Set;
 
@@ -46,6 +46,7 @@ public class User {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id" ))
     private Set<Role> roles;
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Order> orders;
