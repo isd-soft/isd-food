@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class Menu {
     private Provider provider;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu")
-    private Set<MenuType> menuTypes;
+    private Set<MenuType> menuTypes = new HashSet<>();
 
     public Menu() {
     }
