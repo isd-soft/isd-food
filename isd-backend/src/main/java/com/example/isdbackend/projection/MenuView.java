@@ -10,4 +10,6 @@ public interface MenuView {
     String getImage();
 
     boolean isActive();
+
+    ProviderView getProvider();
 }

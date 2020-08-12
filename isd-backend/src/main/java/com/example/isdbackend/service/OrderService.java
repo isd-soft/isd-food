@@ -26,6 +26,4 @@ public class OrderService extends AbstractServiceCrud {
         return orderRepository.findAllBy(pageable, userId, orderFilter);
     }
 
-
-
 }
