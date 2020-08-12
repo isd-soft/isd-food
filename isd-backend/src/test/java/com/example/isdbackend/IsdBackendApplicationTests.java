@@ -24,7 +24,7 @@ class IsdBackendApplicationTests {
 
 	@Test
 	public void sendHtmlMessage() throws IOException {
-		mailSender.sendHtmlMessage("nikita.dolinskiy25@gmail.com","Isd-food",mailSender.getHtmlFromFile("mail/passwordSend.html"));
+		mailSender.sendHtmlMessage("nikita.dolinskiy25@gmail.com","Isd-food",mailSender.getHtmlFromFile("mail/passwordSend.html",generatePassword.generatePassayPassword()));
 	}
 
 	@Test
