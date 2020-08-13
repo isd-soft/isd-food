@@ -5,7 +5,7 @@
     >
       <v-app>
         <v-card width="100vw" height="100vh" class="mx-auto">
-          <body class="bg-gradient-warning">
+          <body style="background: orange">
 
           <div class="container " style="padding-top: 20vh" >
 
@@ -18,7 +18,7 @@
                   <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                      <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                      <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background-image:url('https://bipbap.ru/wp-content/uploads/2017/06/14813uxVsXjAPBFmIovEzZkHNnR.jpg') !important; "></div>
                       <div class="col-lg-6">
                         <div class="p-5">
                           <div class="text-center">
@@ -54,18 +54,18 @@
 
                                 <v-btn
                                     class="col-12"
-                                    color="warning"
-                                    depressed="true"
+                                    color="warning " style="background: orange !important"
                                     type="submit"
                                     form="login-form"
                                     :disabled="$store.getters.isLoggingInProcess"
                                     :loading="$store.getters.isLoggingInProcess"
+
                                 >Login</v-btn
                                 >
                               </v-col>
                             </v-form>
 
-                           
+
 
 
 
