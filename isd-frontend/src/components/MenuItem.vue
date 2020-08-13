@@ -127,7 +127,7 @@ props:{
         },
 
       makeOrder() {
-        api.createOrder(1, this.product_data.id).then(response => {
+        api.createOrder(1, this.product_data.menuTypes[this.type_id].id).then(response => {
             this.response = response.data;
           })
           .catch(e => {
