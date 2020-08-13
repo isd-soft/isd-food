@@ -1,9 +1,10 @@
 <template>
+
     <div class="item">
-    <div >
+    <div>
      <v-img  class="image" src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/chorizo-mozarella-gnocchi-bake-cropped.jpg" aspect-ratio="1.7"></v-img>
     </div>
-            <br>
+         <br>
          <p>Name: {{product_data.name}}</p>
          <p>Provider: {{product_data.provider.name}}</p>
 
@@ -90,8 +91,7 @@
       </v-card>
     </v-dialog>
   </div>
-      </div>
-
+ </div>
 </template>
 
 <script>

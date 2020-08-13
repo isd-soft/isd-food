@@ -6,18 +6,63 @@
   </div>
 <br>
 <br>
+ <!--<v-carousel
+    cycle
+    height="400"
+    hide-delimiter-background
+    show-arrows-on-hover
+  >
+    <v-carousel-item
+     v-for="product in products"
+     :key="product.name"
+    >
+    <MenuItem
+     :product_data="product"
+     />
+
+    </v-carousel-item>
+  </v-carousel>-->
+
      <div class="menu_list">
      <MenuItem
      v-for="product in products"
      :key="product.name"
      :product_data="product"
      />
+     </div>
 
-</div>
-<br>
-<br>
 
+
+
+<!--<div class="container-fluid">
+<div class="row">
+  <div class="col-md-3 col-lg-5 mb-3" style="background: red; border-radius:40px">
+    as
+  </div>
+  <div class="col-auto"></div>
+    <div class="col-md-3 col-lg-5 mb-3" style="background: red; border-radius:40px">
+    as
+  </div>
+  <div class="col-auto"></div>
+    <div class="col-md-3 col-lg-5 mb-3" style="background: red; border-radius:40px">
+    as
+  </div>
+  <div class="col-auto"></div>
+    <div class="col-md-3  col-lg-5 mb-3" style="background: red; border-radius:40px">
+    as
+  </div>
+  <div class="col-auto"></div>
+    <div class="col-md-3 col-lg-5 mb-3" style="background: red; border-radius:40px">
+    as
+  </div>
+  <div class="col-auto"></div>
+  
+  
+</div>    
+</div>-->
 </div>
+
+
 </template>
 
 <script>
