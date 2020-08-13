@@ -54,10 +54,20 @@ export default {
             password: password
         });
     },
+
+    getMenu() {
+        return AXIOS.get(`/menu`);
+    },
+
+    createOrder(user_id, menu_type_id) {
+        return AXIOS.post(`/order/` + user_id + '/' + menu_type_id);
+      },
+
+    getMenuType(){
+        return AXIOS.get('/menu_type')
+      },
+
     getHistory(){
         return AXIOS.get("orders/allOrders/1");
     }
-
-
-
 };

@@ -21,6 +21,7 @@ public class SupervisorService extends PaymentCalculator {
 
     private final UserRepository userRepository;
 
+
     public List<UserPaymentData> getAllPaymentData(OrderFilter orderFilter) {
 
         List<UserPaymentData> userPaymentDataList = new ArrayList<>();

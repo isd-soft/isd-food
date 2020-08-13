@@ -1,9 +1,6 @@
 package com.example.isdbackend.service;
 
-import com.example.isdbackend.repository.MenuRepository;
-import com.example.isdbackend.repository.OrderRepository;
-import com.example.isdbackend.repository.ProviderRepository;
-import com.example.isdbackend.repository.UserRepository;
+import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
 
 
@@ -15,14 +12,15 @@ public abstract class AbstractServiceCrud {
     public final ProviderRepository providerRepository;
     public final OrderRepository orderRepository;
     public final UserRepository userRepository;
+    public final MenuTypeRepository menuTypeRepository;
 
-    public AbstractServiceCrud(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
+    public AbstractServiceCrud(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository) {
         this.mailSender = mailSender;
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
+        this.menuTypeRepository = menuTypeRepository;
     }
-
 }
 

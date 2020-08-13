@@ -1,7 +1,9 @@
 <template>
 <div class="menu">
+  <div class="text-center">
     <h1>Menus</h1>
-    <v-btn @click="callMenuApi()" small color="warning">Action</v-btn>
+    <v-btn @click="callMenuApi()" color="warning">Show menu</v-btn>
+  </div>
 <br>
 <br>
      <div class="menu_list">
@@ -12,27 +14,27 @@
      />
 
 </div>
+<br>
+<br>
+
 </div>
 </template>
 
 <script>
 import api from './backend-api';
 import MenuItem from './MenuItem.vue'
-
   export default {
     name: 'menu',
-
   components: {
     MenuItem,
   },
-
     data () {
       return {
         msg: 'Display some info from spring',
         products: [],
         menu_types: [],
         helloResponse: [],
-        errors: []
+        errors: [],
       }
     },
     methods: {
@@ -66,7 +68,6 @@ import MenuItem from './MenuItem.vue'
       },
     }
   }
-
 </script>
 
 <style lang = "scss">
@@ -80,4 +81,3 @@ import MenuItem from './MenuItem.vue'
   }
 }
 </style>
-

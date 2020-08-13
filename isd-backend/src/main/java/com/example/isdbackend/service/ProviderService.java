@@ -1,10 +1,7 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.model.*;
-import com.example.isdbackend.repository.MenuRepository;
-import com.example.isdbackend.repository.OrderRepository;
-import com.example.isdbackend.repository.ProviderRepository;
-import com.example.isdbackend.repository.UserRepository;
+import com.example.isdbackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
@@ -21,9 +18,8 @@ public class ProviderService extends AbstractServiceCrud {
     private MailSender mailSender;
     private GeneratePassword generatePassword;
 
-   @Autowired
-    public ProviderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MailSender mailSender1, GeneratePassword generatePassword) {
-        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
+    public ProviderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository, MailSender mailSender1, GeneratePassword generatePassword) {
+        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
         this.mailSender = mailSender1;
         this.generatePassword = generatePassword;
     }

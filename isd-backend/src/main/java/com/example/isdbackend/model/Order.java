@@ -26,6 +26,11 @@ public class Order {
     public Order() {
     }
 
+    public Order(User user, MenuType menuType) {
+        this.menuType = menuType;
+        this.user = user;
+    }
+
     public Boolean getOrdered() {
         return ordered;
     }

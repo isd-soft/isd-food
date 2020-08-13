@@ -1,13 +1,13 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.filter.OrderFilter;
+import com.example.isdbackend.model.Menu;
+import com.example.isdbackend.model.MenuType;
 import com.example.isdbackend.model.Order;
+import com.example.isdbackend.model.User;
 import com.example.isdbackend.projection.OrderFullView;
 import com.example.isdbackend.projection.OrderView;
-import com.example.isdbackend.repository.MenuRepository;
-import com.example.isdbackend.repository.OrderRepository;
-import com.example.isdbackend.repository.ProviderRepository;
-import com.example.isdbackend.repository.UserRepository;
+import com.example.isdbackend.repository.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderService extends AbstractServiceCrud {
 
-    public OrderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
-        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
+    public OrderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository) {
+        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
     }
 
     public Order save(Order order) {
@@ -29,6 +29,12 @@ public class OrderService extends AbstractServiceCrud {
 
     public Page<OrderView> getOrders(Pageable pageable, OrderFilter orderFilter, Long userId) {
         return orderRepository.findAllBy(pageable, userId, orderFilter);
+    }
+
+    public void createOrder(Long user_id, Long menuType_id){
+        User user = userRepository.findById(user_id).orElseThrow();
+        MenuType menuType = menuTypeRepository.findById(menuType_id).orElseThrow();
+        orderRepository.save(new Order(user, menuType));
     }
 
 }
