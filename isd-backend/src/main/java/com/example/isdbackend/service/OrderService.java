@@ -1,6 +1,7 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.filter.OrderFilter;
+import com.example.isdbackend.model.Order;
 import com.example.isdbackend.projection.OrderFullView;
 import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.repository.MenuRepository;
@@ -16,6 +17,10 @@ public class OrderService extends AbstractServiceCrud {
 
     public OrderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
         super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
+    }
+
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 
     public OrderFullView findOrderById(long id) {

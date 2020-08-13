@@ -9,7 +9,5 @@ public interface UserOrderView {
 
     int getProviderId();
 
-    int getDeliveryPrice();
-
     int getPrice();
 }

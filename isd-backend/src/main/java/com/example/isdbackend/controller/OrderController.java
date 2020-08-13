@@ -1,6 +1,7 @@
 package com.example.isdbackend.controller;
 
 import com.example.isdbackend.filter.OrderFilter;
+import com.example.isdbackend.model.Order;
 import com.example.isdbackend.projection.OrderFullView;
 import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.service.OrderService;
@@ -11,10 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -44,4 +42,19 @@ public class OrderController {
     public ResponseEntity<OrderFullView> getOrder(@PathVariable long orderId) {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
+
+    @PutMapping("/{orderId}")
+    public ResponseEntity<OrderFullView> updateOrder(@PathVariable long orderId) {
+        return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Order> addOrder(@RequestBody Order order) {
+        Order savedOrder = orderService.save(order);
+        if (savedOrder != null)
+            return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
 }

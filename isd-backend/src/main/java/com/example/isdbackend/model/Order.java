@@ -2,6 +2,7 @@ package com.example.isdbackend.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "orders")
@@ -10,7 +11,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Timestamp date;
+    private Date date;
 
     private Boolean ordered;
 
@@ -57,11 +58,11 @@ public class Order {
         this.id = id;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
