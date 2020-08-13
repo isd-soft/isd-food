@@ -1,7 +1,9 @@
 <template>
 <div class="menu">
+  <div class="text-center">
     <h1>Menus</h1>
     <v-btn @click="callMenuApi()" color="warning">Show menu</v-btn>
+  </div>
 <br>
 <br>
      <div class="menu_list">
@@ -12,6 +14,48 @@
      />
 
 </div>
+<br>
+<br>
+<div class="text-center">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="warning"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          Confirm order
+        </v-btn>
+      </template>
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          Order confirmed!
+        </v-card-title>
+
+        <v-card-text>
+          Enjoy your food! <br>
+          Isd-food with love🧡
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="warning"
+            text
+            @click="dialog = false"
+          >
+            Excelent
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </div>
 </template>
 
@@ -32,7 +76,8 @@ import MenuItem from './MenuItem.vue'
         products: [],
         menu_types: [],
         helloResponse: [],
-        errors: []
+        errors: [],
+        dialog: false,
       }
     },
     methods: {

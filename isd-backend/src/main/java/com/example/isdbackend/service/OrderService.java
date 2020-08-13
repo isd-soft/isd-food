@@ -1,6 +1,8 @@
 package com.example.isdbackend.service;
 
+import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.Order;
+import com.example.isdbackend.model.User;
 import com.example.isdbackend.repository.MenuRepository;
 import com.example.isdbackend.repository.OrderRepository;
 import com.example.isdbackend.repository.ProviderRepository;
@@ -17,5 +19,9 @@ public class OrderService extends AbstractServiceCrud {
         return orderRepository.findById(id).orElseThrow();
     }
 
-
+    public void createOrder(Long user_id, Long menu_id){
+        User user = userRepository.findById(user_id).orElseThrow();
+        Menu menu = menuRepository.findById(menu_id).orElseThrow();
+        orderRepository.save(new Order(user, menu));
+    }
 }

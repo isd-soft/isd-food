@@ -1,13 +1,8 @@
 package com.example.isdbackend.bootstrap;
 
-import com.example.isdbackend.model.Item;
+import com.example.isdbackend.model.*;
 import com.example.isdbackend.model.Menu;
-import com.example.isdbackend.model.MenuType;
-import com.example.isdbackend.model.Provider;
-import com.example.isdbackend.repository.MenuItemRepository;
-import com.example.isdbackend.repository.MenuRepository;
-import com.example.isdbackend.repository.MenuTypeRepository;
-import com.example.isdbackend.repository.ProviderRepository;
+import com.example.isdbackend.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -20,12 +15,14 @@ public class MenuBootstrap implements CommandLineRunner {
     private final ProviderRepository providerRepository;
     private final MenuTypeRepository menuTypeRepository;
     private final MenuItemRepository menuItemRepository;
+    private final UserRepository userRepository;
 
-    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository) {
+    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, UserRepository userRepository) {
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
         this.menuTypeRepository = menuTypeRepository;
         this.menuItemRepository = menuItemRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -42,14 +39,24 @@ public class MenuBootstrap implements CommandLineRunner {
         menuTypeRepository.save(S1);
 
         MenuType M2 = new MenuType();
-        M2.setPrice(50f);
+        M2.setPrice(70f);
         M2.setType('M');
         menuTypeRepository.save(M2);
 
         MenuType S2 = new MenuType();
-        S2.setPrice(100f);
+        S2.setPrice(90f);
         S2.setType('S');
         menuTypeRepository.save(S2);
+
+        MenuType M3 = new MenuType();
+        M3.setPrice(50f);
+        M3.setType('M');
+        menuTypeRepository.save(M3);
+
+        MenuType S3 = new MenuType();
+        S3.setPrice(100f);
+        S3.setType('S');
+        menuTypeRepository.save(S3);
 
         Provider andys = new Provider();
         andys.setName("Andys pizza");
@@ -58,7 +65,7 @@ public class MenuBootstrap implements CommandLineRunner {
         providerRepository.save(andys);
 
         Menu salat = new Menu();
-        salat.setName("Cezar");
+        salat.setName("Bistro");
         salat.setProvider(andys);
         S1.setMenu(salat);
         M1.setMenu(salat);
@@ -66,14 +73,24 @@ public class MenuBootstrap implements CommandLineRunner {
         menuTypeRepository.save(S1);
         menuTypeRepository.save(M1);
 
+
         Menu salat2 = new Menu();
-        salat2.setName("Olivie");
+        salat2.setName("Indean");
         salat2.setProvider(andys);
         S2.setMenu(salat2);
         M2.setMenu(salat2);
         menuRepository.save(salat2);
         menuTypeRepository.save(S2);
         menuTypeRepository.save(M2);
+
+        Menu salat3 = new Menu();
+        salat3.setName("Japan");
+        salat3.setProvider(andys);
+        S3.setMenu(salat3);
+        M3.setMenu(salat3);
+        menuRepository.save(salat3);
+        menuTypeRepository.save(S3);
+        menuTypeRepository.save(M3);
 
         Item mamaliga = new Item();
         mamaliga.setName("Mamaliga");
@@ -82,6 +99,10 @@ public class MenuBootstrap implements CommandLineRunner {
         Item borsh = new Item();
         borsh.setName("Borsh");
         menuItemRepository.save(borsh);
+
+        Item poncho = new Item();
+        poncho.setName("Poncho");
+        menuItemRepository.save(poncho);
 
         Item sashlic = new Item();
         sashlic.setName("Sashlic");
@@ -104,6 +125,22 @@ public class MenuBootstrap implements CommandLineRunner {
         S2.setItems(new HashSet<>());
         S2.getItems().add(mamaliga);
         menuTypeRepository.save(S2);
+
+        M3.setItems(new HashSet<>());
+        M3.getItems().add(mamaliga);
+        M3.getItems().add(sashlic);
+        M3.getItems().add(poncho);
+        menuTypeRepository.save(M3);
+
+        S3.setItems(new HashSet<>());
+        S3.getItems().add(mamaliga);
+        S3.getItems().add(sashlic);
+        menuTypeRepository.save(S3);
+
+        User user = new User();
+        user.setFirstName("Petea");
+        user.setLastName("Jhons");
+        userRepository.save(user);
 
     }
 }

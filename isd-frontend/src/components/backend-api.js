@@ -20,12 +20,15 @@ export default {
     return AXIOS.get('/hello')
 },
 
-  createUser(user) {
-    console.log(user);
-    return AXIOS.post(`/users`, user, {
-      headers: { Authorization: window.$cookies.get("access_token") },
-    });
-  },
+
+createUser(firstName, lastName) {
+  return AXIOS.post(`/user/` + firstName + '/' + lastName);
+},
+
+createOrder(firstName, lastName) {
+  return AXIOS.post(`/menu/` + firstName + '/' + lastName);
+},
+
   login(email, password) {
     return AXIOS.post(`/login`, {
       email: email,

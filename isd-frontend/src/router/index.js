@@ -38,6 +38,12 @@ const routes = [
     component: () => import("../views/Menu.vue"),
   },
 
+  {
+    path: "/check",
+    name: "check",
+    component: () => import("../components/checkBackend.vue"),
+  },
+
 ];
 
 const router = new VueRouter({

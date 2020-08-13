@@ -7,7 +7,7 @@
          <p>Name: {{product_data.name}}</p>
          <p>Provider: {{product_data.provider.name}}</p>
 
-            <v-radio-group v-if="hidden" class="radio-group" v-model="type" id="type" :mandatory="false" row>
+            <v-radio-group v-if="!hidden" class="radio-group" v-model="type" id="type" :mandatory="false" row>
             <span class="pr-3">Type:</span>
             <v-radio
                 label="M"
@@ -23,7 +23,6 @@
           <div v-else>
             <p v-if= "type === 'M'">Type: M</p>
             <p v-else>Type: S</p>
-  
           </div>
        
 
@@ -44,20 +43,24 @@
             {{ item.name }}
             </li>
     <br>
-         <p>Delivery price: {{product_data.provider.deliveryPrice}} mdl.</p>
+        <!-- <p>Delivery price: {{product_data.provider.deliveryPrice}} mdl.</p>
           <p>Price: {{product_data.menuTypes[(type_id)].price}} mdl.</p>
           <p>Total price: {{Number(product_data.provider.deliveryPrice) + Number(product_data.menuTypes[(type_id)].price)}}  mdl.</p>
-         <br>
+         <br>-->
 
         <v-card-actions class="justify-center">
-         <v-btn v-if="!hidden"  @click="hidden = !hidden" rounded color="warning" align="center">Order</v-btn>
-         <v-btn v-else  @click="hidden = !hidden" rounded color="error" align="center">Delete</v-btn>
+         <v-btn v-if="!hidden" @click="makeOrder()" large rounded color="warning" align="center">Order</v-btn>
+         <v-btn v-else  @click="hidden = !hidden" latge rounded color="error" align="center">Delete</v-btn>
         </v-card-actions>
 
+        
       </div>
+
 </template>
 
 <script>
+import api from './backend-api';
+
 export default {
     name: "menuItem",
     data () {
@@ -86,7 +89,16 @@ props:{
                     }
                     else i++
                 });
-        }
+        },
+
+      makeOrder() {
+        api.createUser(1, this.product_data.id).then(response => {
+            this.response = response.data;
+          })
+          .catch(e => {
+            this.errors.push(e)
+          })
+      },
     }
 }
 </script>
