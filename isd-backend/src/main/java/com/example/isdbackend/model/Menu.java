@@ -2,6 +2,7 @@ package com.example.isdbackend.model;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity

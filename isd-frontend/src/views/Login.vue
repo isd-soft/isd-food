@@ -10,7 +10,13 @@
         id="login-form"
       >
         <v-col sm="12" md="12">
-          <v-text-field v-model="email" :rules="emailRules" label="Email" outlined required></v-text-field>
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="Email"
+            outlined
+            required
+          ></v-text-field>
 
           <v-text-field
             type="password"
@@ -29,7 +35,8 @@
             form="login-form"
             :disabled="$store.getters.isLoggingInProcess"
             :loading="$store.getters.isLoggingInProcess"
-          >Login</v-btn>
+            >Login</v-btn
+          >
         </v-col>
       </v-form>
     </v-row>

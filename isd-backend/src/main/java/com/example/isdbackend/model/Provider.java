@@ -2,24 +2,21 @@ package com.example.isdbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
 import javax.persistence.*;
-import java.net.URL;
 import java.util.Set;
 
 @Entity
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String name;
     private Integer deliveryPrice;
     private String contactInfo;
     private String description;
-    private URL imageURL;
-    private Boolean isActive;
+    private String image;
+    private boolean active;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
@@ -28,20 +25,12 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(String name, Integer deliveryPrice, String contactInfo, String description, URL imageURL, Boolean isActive) {
-        this.name = name;
-        this.deliveryPrice = deliveryPrice;
-        this.contactInfo = contactInfo;
-        this.description = description;
-        this.imageURL = imageURL;
-        this.isActive = isActive;
-    }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,21 +74,19 @@ public class Provider {
         this.description = description;
     }
 
-    public URL getImageURL() {
-        return imageURL;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageURL(URL imageURL) {
-        this.imageURL = imageURL;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public Boolean getActive() {
-        return isActive;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
+    public void setActive(boolean active) {
+        this.active = active;
     }
-
-
 }

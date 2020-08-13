@@ -1,8 +1,5 @@
 package com.example.isdbackend.model;
 
-
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
@@ -26,15 +23,10 @@ public class User {
 
     private char[] password;
 
-    private Boolean notification;
-
-
-
-
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private NotificationSettings notificationSettings;
 
-    private Date date;
+    private Date employmentDate;
 
     private String skypeId;
 
@@ -96,13 +88,12 @@ public class User {
         this.skypeId = skypeId;
     }
 
-
-    public Date getDate() {
-        return date;
+    public Date getEmploymentDate() {
+        return employmentDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setEmploymentDate(Date employmentDate) {
+        this.employmentDate = employmentDate;
     }
 
     public char[] getPassword() {
@@ -111,14 +102,6 @@ public class User {
 
     public void setPassword(char[] password) {
         this.password = password;
-    }
-
-    public Boolean getNotification() {
-        return notification;
-    }
-
-    public void setNotification(Boolean notification) {
-        this.notification = notification;
     }
 
     public NotificationSettings getNotificationSettings() {

@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -18,6 +19,7 @@ public class Order {
 
     @OneToOne
     private Menu menu;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")

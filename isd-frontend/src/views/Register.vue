@@ -83,7 +83,7 @@ export default {
       email: "",
       skypeId: "",
       employmentDate: "",
-      role: "",
+      role: ""
     };
   },
   methods: {
@@ -95,19 +95,19 @@ export default {
           email: this.email,
           employmentDate: this.employmentDate,
           skypeId: this.skypeId,
-          role: this.role,
+          role: this.role
         })
-        .then((Response) => {
+        .then(Response => {
           console.log(Response);
           //   this.$router.push("/");
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           this.loginError = true;
           this.errors.push(error);
           this.error = true;
         });
-    },
-  },
+    }
+  }
 };
 </script>

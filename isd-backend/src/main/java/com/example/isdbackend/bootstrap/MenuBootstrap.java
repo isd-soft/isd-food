@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class MenuBootstrap implements CommandLineRunner {
@@ -15,14 +16,17 @@ public class MenuBootstrap implements CommandLineRunner {
     private final ProviderRepository providerRepository;
     private final MenuTypeRepository menuTypeRepository;
     private final MenuItemRepository menuItemRepository;
+
     private final UserRepository userRepository;
 
     public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, UserRepository userRepository) {
+
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
         this.menuTypeRepository = menuTypeRepository;
         this.menuItemRepository = menuItemRepository;
         this.userRepository = userRepository;
+
     }
 
     @Override
