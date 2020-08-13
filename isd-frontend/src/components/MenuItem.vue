@@ -7,7 +7,7 @@
          <p>Name: {{product_data.name}}</p>
          <p>Provider: {{product_data.provider.name}}</p>
 
-            <v-radio-group v-if="!hidden" class="radio-group" v-model="type" id="type" :mandatory="false" row>
+            <v-radio-group class="radio-group" v-model="type" id="type" :mandatory="false" row>
             <span class="pr-3">Type:</span>
             <v-radio
                 label="M"
@@ -20,12 +20,7 @@
               value="S"
             ></v-radio>
           </v-radio-group>
-          <div v-else>
-            <p v-if= "type === 'M'">Type: M</p>
-            <p v-else>Type: S</p>
-          </div>
        
-
          <div v-if= "type === 'M'">
              <div v-for="item in product_data.menuTypes" :key="item.type">
                  <div v-if= "item.type === 'M'">
@@ -48,12 +43,52 @@
           <p>Total price: {{Number(product_data.provider.deliveryPrice) + Number(product_data.menuTypes[(type_id)].price)}}  mdl.</p>
          <br>-->
 
-        <v-card-actions class="justify-center">
-         <v-btn v-if="!hidden" @click="makeOrder()" large rounded color="warning" align="center">Order</v-btn>
-         <v-btn v-else  @click="hidden = !hidden" latge rounded color="error" align="center">Delete</v-btn>
-        </v-card-actions>
+        <div class="text-center">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
 
-        
+      <template v-slot:activator="{ on, attrs }">
+          <v-card-actions class="justify-center">
+         <v-btn 
+         @click="makeOrder()" 
+          v-bind="attrs"
+          v-on="on"
+         large 
+         rounded
+          color="warning" 
+          align="center">
+            Order
+          </v-btn>
+        </v-card-actions>   
+
+      </template>
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          Order confirmed!
+        </v-card-title>
+
+        <v-card-text>
+          Enjoy your food! <br>
+          Isd-food with love🧡
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="warning"
+            text
+            @click="dialog = false"
+          >
+            Excelent
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
       </div>
 
 </template>
@@ -67,7 +102,7 @@ export default {
       return {
         type: 'M',
         type_id: 0,
-        hidden: false,
+        dialog: false,
       }
     },
 props:{
