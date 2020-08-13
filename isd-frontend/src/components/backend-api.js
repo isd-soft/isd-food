@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const AXIOS = axios.create({
     baseURL: `/api`,
     timeout: 10000000
@@ -56,8 +57,11 @@ export default {
     },
     getHistory(){
         return AXIOS.get("orders/allOrders/1");
+    },
+    getUser(){
+        return AXIOS.get("users/currentUser");
+    },
+    updateUser(user){
+        return AXIOS.put('/users', user);
     }
-
-
-
 };
