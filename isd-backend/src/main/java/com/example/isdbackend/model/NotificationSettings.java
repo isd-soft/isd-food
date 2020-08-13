@@ -15,9 +15,33 @@ public class NotificationSettings {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private Time timeToReceive;
-    private Timestamp dateToEnable;
-    private Timestamp dateToDisable;
+    private Boolean isEnable;
+
+    private String date;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Boolean getEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(Boolean enable) {
+        isEnable = enable;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public NotificationSettings() {
     }
@@ -31,27 +55,10 @@ public class NotificationSettings {
         this.id = id;
     }
 
-    public Time getTimeToReceive() {
-        return timeToReceive;
-    }
+    public NotificationSettings(Long id, User user, Boolean isEnable) {
+        this.id = id;
+        this.user = user;
+        this.isEnable = isEnable;
 
-    public void setTimeToReceive(Time timeToReceive) {
-        this.timeToReceive = timeToReceive;
-    }
-
-    public Timestamp getDateToEnable() {
-        return dateToEnable;
-    }
-
-    public void setDateToEnable(Timestamp dateToEnable) {
-        this.dateToEnable = dateToEnable;
-    }
-
-    public Timestamp getDateToDisable() {
-        return dateToDisable;
-    }
-
-    public void setDateToDisable(Timestamp dateToDisable) {
-        this.dateToDisable = dateToDisable;
     }
 }

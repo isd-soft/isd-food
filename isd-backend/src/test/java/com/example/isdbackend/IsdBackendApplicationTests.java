@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
@@ -19,7 +22,12 @@ class IsdBackendApplicationTests {
 
 	@Test
 	public void sendSimpleMessage(){
-		mailSender.sendSimpleMessage("nikita.dolinskiy25@gmail.com","Isd-food","Your password: ");
+
+		String string = "12/08/2020";
+		if( LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).compareTo(string) == 0){
+			mailSender.sendSimpleMessage("nikita.dolinskiy25@gmail.com","Isd-food", LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+		}
 	}
 
 	@Test

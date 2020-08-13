@@ -37,6 +37,9 @@ public class UserService extends AbstractServiceCrud {
         user.setNotificationSettings(notificationSettings);
         userRepository.save(user);
     }
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
 
     public Set<Order> getHistory(Long id) {
         return userRepository.findById(id).orElseThrow().getOrders();
