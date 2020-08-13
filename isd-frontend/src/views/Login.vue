@@ -1,12 +1,8 @@
 <template>
   <v-app>
     <v-overlay
-        :absolute="absolute"
-        :opacity="opacity"
-        :value="overlay"
-        :z-index="zIndex"
-    >
 
+    >
       <v-app>
         <v-card width="100vw" height="100vh" class="mx-auto">
           <body class="bg-gradient-warning">
@@ -28,30 +24,61 @@
                           <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Welcome to isd-food</h1>
                           </div>
-                          <v-form class="user">
 
 
-                            <div class="form-group">
-                              <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                            </div>
-                            <div class="form-group">
-                              <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                            </div>
+                          <div class="user">
+                            <v-form
+                                ref="form"
+                                v-model="valid"
+                                lazy-validation
+                                @submit.prevent="submitHandler"
+                                id="login-form"
+                            >
+                              <v-col sm="12" md="12">
+                                <v-text-field
+                                    v-model="email"
+                                    :rules="emailRules"
+                                    label="Email"
+                                    outlined
+                                    required
+                                ></v-text-field>
+
+                                <v-text-field
+                                    type="password"
+                                    v-model="password"
+                                    :rules="passwordRules"
+                                    label="Password"
+                                    outlined
+                                    required
+                                ></v-text-field>
+
+                                <v-btn
+                                    class="col-12"
+                                    color="warning"
+                                    depressed="true"
+                                    type="submit"
+                                    form="login-form"
+                                    :disabled="$store.getters.isLoggingInProcess"
+                                    :loading="$store.getters.isLoggingInProcess"
+                                >Login</v-btn
+                                >
+                              </v-col>
+                            </v-form>
+
                             <div class="form-group">
                               <div class="custom-control custom-checkbox small">
                                 <input type="checkbox" class="custom-control-input" id="customCheck">
                                 <label class="custom-control-label" for="customCheck">Remember Me</label>
                               </div>
                             </div>
-                            <a href="index.html" class="btn btn-warning btn-user btn-block" style="color: white">
-                              Login
-                            </a>
-                          </v-form>
+
+
+
+                          </div>
                           <hr>
                           <div class="text-center">
                             <a class="small" href="forgot-password.html">Forgot Password?</a>
                           </div>
-
                         </div>
                       </div>
                     </div>
