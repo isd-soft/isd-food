@@ -146,6 +146,22 @@ public class MenuBootstrap implements CommandLineRunner {
         user.setLastName("Jhons");
         user.setEmail("Spartak@gmail.com");
         user.setPassword("$2y$12$Gytj7ahrI8suqFJxtYG2IevbkegKn.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
+        user.setOrders(new HashSet<>());
+
+
+
+        Order order = new Order();
+        order.setMenuType(S3);
+        user.getOrders().add(order);
+        order.setUser(user);
+
+
+        Provider provider = new Provider();
+        provider.setName("Andys");
+        salat3.setProvider(provider);
+        provider.setMenus(new HashSet<>());
+        provider.getMenus().add(salat3);
+
         userRepository.save(user);
 
     }

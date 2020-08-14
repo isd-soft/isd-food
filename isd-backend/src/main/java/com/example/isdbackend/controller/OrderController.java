@@ -14,11 +14,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 public class OrderController {
 
     private final OrderService orderService;
+
+    @GetMapping("/get/all")
+    public List<Order> orderList(){
+       return orderService.getAll();
+    }
+
 
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Page<OrderView>> getOrders(

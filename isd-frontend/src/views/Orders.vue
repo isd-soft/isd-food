@@ -20,7 +20,14 @@
           </tr>
           </thead>
           <tbody>
-
+          <tr>
+            <td>Test</td>
+            <td>Test</td>
+            <td>Test</td>
+            <td>Test</td>
+            <td>Test</td>
+          </tr>
+          {{userHistory}}
           <tr v-for="order of userHistory" :key="order.id">
             <td>{{order.menu}}</td>
             <td>{{order.id}}</td>

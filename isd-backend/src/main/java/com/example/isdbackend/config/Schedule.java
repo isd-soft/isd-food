@@ -27,14 +27,13 @@ public class Schedule {
     }
 
 
-    @Scheduled(cron = "0 0-5 7 * * ?\n")
+    @Scheduled(cron = "0 0-5 7 * * ?\n",zone="GMT+3.00")
     public void checkDate(){
         List<User> users = userService.findAll();
         String currentDay = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         for (User user : users)
-            if(user.getNotificationSettings().getDate() != null)
-                if(!user.getNotificationSettings().getEnable() && user.getNotificationSettings().getDate().equals(currentDay)){
+                if(!user.getNotificationSettings().getEnable() && user.getNotificationSettings().getDate().equals(currentDay) && user.getNotificationSettings().getDate() != null){
                     user.getNotificationSettings().setEnable(true);
                     user.getNotificationSettings().setDate(null);
                 }

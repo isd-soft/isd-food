@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService extends AbstractServiceCrud {
 
@@ -35,6 +37,10 @@ public class OrderService extends AbstractServiceCrud {
         User user = userRepository.findById(user_id).orElseThrow();
         MenuType menuType = menuTypeRepository.findById(menuType_id).orElseThrow();
         orderRepository.save(new Order(user, menuType));
+    }
+
+    public List<Order> getAll(){
+        return orderRepository.findAll();
     }
 
 }
