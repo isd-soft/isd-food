@@ -1,5 +1,5 @@
 <template>
-<v-app>
+<v-app style="background: none">
 <div class="container">
 <div class="row flex-lg-nowrap">
   <div class="col">
@@ -8,11 +8,7 @@
         <div class="card">
           <div class="card-body">
             <div class="e-profile">        
-              <ul class="nav nav-tabs">
 
-
-              <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
-              </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
                   <form class="form" novalidate="">

@@ -13,6 +13,7 @@ import com.example.isdbackend.repository.MenuRepository;
 import com.example.isdbackend.repository.OrderRepository;
 import com.example.isdbackend.repository.ProviderRepository;
 import com.example.isdbackend.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -22,9 +23,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService extends AbstractServiceCrud {
+    PasswordEncoder passwordEncoder;
 
-    public UserService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository) {
+    public UserService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository, PasswordEncoder passwordEncoder) {
         super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User findUserById(Long id) {
@@ -58,9 +61,10 @@ public class UserService extends AbstractServiceCrud {
         userRepository.save(user);
     }
 
-    public void changePass(Long id, char[] password){
+    public void changePass(Long id, String password){
         User user = userRepository.findById(id).orElseThrow();
-        user.setPassword(password);
+
+        user.setPassword(passwordEncoder.encode(password).toCharArray());
         userRepository.save(user);
     }
 
