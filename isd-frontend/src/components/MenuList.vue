@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    {{callOnce()}}
+    {{this.callOnce()}}
     <MenuItem
         v-for="product in products"
         :key="product.name"

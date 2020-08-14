@@ -268,8 +268,8 @@ export default {
     links :[
 
       {icon: "fas fa-user", text:"Account",route:"/"},
-      {icon: "fas fa-pizza-slice", text:"Menus",route:"/"},
-      {icon: "fas fa-history", text:"Orders",route:"/Orders"},
+      {icon: "fas fa-pizza-slice", text:"Menus",route:"/menu"},
+      {icon: "fas fa-history", text:"Orders",route:"/orders"},
       {icon: "fas fa-envelope", text:"Mail",route:"/"},
 
     ],

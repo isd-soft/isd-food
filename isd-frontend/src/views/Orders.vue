@@ -5,7 +5,6 @@
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-warning" >History</h6>
     </div>
-    {{getOnce()}}
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -23,11 +22,29 @@
 
 
           <tr v-for="order of userHistory" :key="order.id">
-            <td>{{order.providerName}}</td>
-            <td>{{order.menuName}}</td>
-            <td>{{order.menuType}}</td>
-            <td>{{order.date}}</td>
-            <td>{{order.price}} lei</td>
+<!--            <td>{{order.providerName}}</td>-->
+<!--            <td>{{order.menuName}}</td>-->
+<!--            <td>{{order.menuType}}</td>-->
+<!--            <td>{{order.date}}</td>-->
+<!--            <td>{{order.price}} lei</td>-->
+
+            <td v-if="order.providerName == null">Default</td>
+            <td v-else>{{order.providerName}}</td>
+
+            <td v-if="order.menuName != null">{{order.menuName}}</td>
+            <td v-else>Default</td>
+
+            <td v-if="order.menuType != null">{{order.menuType}}</td>
+            <td v-else>Default</td>
+
+            <td v-if="order.date != null">{{order.date}}</td>
+            <td v-else>Default</td>
+
+            <td v-if="order.price == null">Default</td>
+            <td v-else>{{order.price}}</td>
+
+
+
           </tr>
 
 
@@ -57,16 +74,8 @@ export default {
        getHistory: false
      }
    },
-  methods:{
-   getHistoryUser(){
-     api.getHistory().then(r => {this.userHistory = r.data.content;console.log(r.data)})
-   },
-    getOnce(){
-     if (!this.getHistory){
-       this.getHistoryUser()
-       this.getHistory = true
-     }
-    }
+  beforeCreate() {
+    api.getHistory().then(r => {this.userHistory = r.data.content;console.log(r.data)})
   }
 };
 
