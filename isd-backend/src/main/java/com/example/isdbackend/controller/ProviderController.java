@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/providers")
+@RequestMapping("/provider")
 public class ProviderController {
     private final ProviderService providerService;
 
