@@ -66,10 +66,13 @@ export default {
     getMenuType(){
         return AXIOS.get('/menu_type')
       },
+    getUser(user_id){
+        return AXIOS.get("/user/"+user_id);
+    },
 
     getHistory(){
         return AXIOS.get("/orders");
-    }
+    },
     updateUser(user_id, firstName, lastName, skypeId, email){
         return AXIOS.put("/user/edit/"+user_id+"?firstName="+firstName+"&lastName="+lastName+"&skypeId="+skypeId+"&email="+email);
     },

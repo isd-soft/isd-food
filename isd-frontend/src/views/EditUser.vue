@@ -80,8 +80,8 @@
                         <div class="mb-2"><b>Keeping in Touch</b></div>
                         <div class="row">
                           <div class="col">
-                            <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input" id="customSwitches">
+                            <div class="custom-control custom-switch" >
+                              <input type="checkbox" class="custom-control-input  warning"  id="customSwitches">
                               <label class="custom-control-label" for="customSwitches">Notifications</label>
                             </div>
                           </div>
