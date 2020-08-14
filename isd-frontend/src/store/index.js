@@ -13,7 +13,8 @@ export default new Vuex.Store({
       password: null,
       loading: false
     },
-    register: { loading: false }
+    register: { loading: false },
+    Provider: { loading: false }
   },
   mutations: {
     login_success(state, payload) {
@@ -77,7 +78,31 @@ export default new Vuex.Store({
             reject("Invalid credentials!");
           });
       });
-    }
+    },
+    createProvider({ commit }, provider) {
+      return new Promise((resolve, reject) => {
+        // this.state.login.loading = true;
+        console.log(provider);
+        api
+            .createProvider(provider)
+            .then(response => {
+              if (response.status == 200) {
+                commit("register_success", {
+                  provider: provider
+                });
+              }
+              resolve(response);
+            })
+            .catch(() => {
+              // place the loginError state into our vuex store
+              // commit("login_error", {
+              //   email: email,
+              // });
+              reject("Invalid credentials!");
+            });
+      });
+    },
+
   },
   modules: {},
   getters: {
