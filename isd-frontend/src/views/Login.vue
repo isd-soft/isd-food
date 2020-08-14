@@ -18,7 +18,7 @@
                   <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                      <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background-image:url('https://bipbap.ru/wp-content/uploads/2017/06/14813uxVsXjAPBFmIovEzZkHNnR.jpg') !important; "></div>
+                      <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background-image:url('https://www.learnathome.ru/files/media/food.jpg') !important; "></div>
                       <div class="col-lg-6">
                         <div class="p-5">
                           <div class="text-center">
