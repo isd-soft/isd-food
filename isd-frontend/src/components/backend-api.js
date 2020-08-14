@@ -70,4 +70,11 @@ export default {
     getHistory(){
         return AXIOS.get("/orders");
     }
+    updateUser(user_id, firstName, lastName, skypeId, email){
+        return AXIOS.put("/user/edit/"+user_id+"?firstName="+firstName+"&lastName="+lastName+"&skypeId="+skypeId+"&email="+email);
+    },
+
+    changePass(user_id, password){
+        return AXIOS.put("/user/edit/password/"+user_id+"?password="+password)
+    }
 };

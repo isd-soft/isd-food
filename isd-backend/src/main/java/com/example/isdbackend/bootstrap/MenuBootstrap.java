@@ -146,6 +146,7 @@ public class MenuBootstrap implements CommandLineRunner {
 
         User user = new User();
         user.setFirstName("Petea");
+
         user.setLastName("Jhons");
         user.setEmail("Spartak@gmail.com");
         user.setPassword("$2y$12$Gytj7ahrI8suqFJxtYG2IevbkegKn.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
