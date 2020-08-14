@@ -1,65 +1,72 @@
 <template>
-  <div class="providers">
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field
-        v-model="name"
-        :counter="10"
-        :rules="nameRules"
-        label="Name"
-        required
-      ></v-text-field>
+  <v-app heavy>
+    <div class="providers">
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="name"
+          :counter="10"
+          :rules="nameRules"
+          label="Name"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        v-model="deliveryPrice"
-        :rules="deliveryPriceRules"
-        label="Delivery Price"
-        required
-      ></v-text-field>
+        <v-text-field
+          v-model="deliveryPrice"
+          :rules="deliveryPriceRules"
+          label="Delivery Price"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        v-model="contactInfo"
-        :rules="contactInfoRules"
-        label="Contact Info"
-        required
-      ></v-text-field>
+        <v-text-field
+          v-model="contactInfo"
+          :rules="contactInfoRules"
+          label="Contact Info"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        v-model="description"
-        :rules="descriptionRules"
-        label="Description"
-        required
-      ></v-text-field>
+        <v-text-field
+          v-model="description"
+          :rules="descriptionRules"
+          label="Description"
+          required
+        ></v-text-field>
 
-      <v-text-field v-model="image" label="Image" required></v-text-field>
+        <v-text-field v-model="image" label="Image" required></v-text-field>
 
-      <v-select
-        v-model="select"
-        :items="items"
-        :rules="[v => !!v || 'Item is required']"
-        label="Is Active"
-        required
-      ></v-select>
+        <v-select
+          v-model="select"
+          :items="items"
+          :rules="[v => !!v || 'Item is required']"
+          label="Is Active"
+          required
+        ></v-select>
 
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[v => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
-        required
-      ></v-checkbox>
+        <v-checkbox
+          v-model="checkbox"
+          :rules="[v => !!v || 'You must agree to continue!']"
+          label="Do you agree?"
+          required
+        ></v-checkbox>
 
-      <v-btn :disabled="!valid" color="green" class="mr-4" @click="validate">
-        Validate
-      </v-btn>
+        <v-btn
+          :disabled="!valid"
+          color="success"
+          class="mr-4"
+          @click="validate"
+        >
+          Validate
+        </v-btn>
 
-      <v-btn color="red" class="mr-4" @click="reset">
-        Reset Form
-      </v-btn>
+        <v-btn color="error" class="mr-4" @click="reset">
+          Reset Form
+        </v-btn>
 
-      <v-btn color="orange" @click="resetValidation">
-        Reset Validation
-      </v-btn>
-    </v-form>
-  </div>
+        <v-btn color="warning" @click="resetValidation">
+          Reset Validation
+        </v-btn>
+      </v-form>
+    </div>
+  </v-app>
 </template>
 
 <script>
@@ -88,7 +95,6 @@ export default {
     items: ["Yes", "No"],
     checkbox: false
   }),
-
 
   methods: {
     reset() {

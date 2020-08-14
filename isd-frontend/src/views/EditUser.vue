@@ -7,7 +7,7 @@
       <div class="col mb-3">
         <div class="card">
           <div class="card-body">
-            <div class="e-profile">        
+            <div class="e-profile">
 
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
