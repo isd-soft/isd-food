@@ -48,7 +48,7 @@ public class UserController {
 
     @PutMapping("/edit/password/{currentId}")
     @ResponseBody
-    public String editUser(@PathVariable Long currentId,@RequestParam char[] password){
+    public String editUser(@PathVariable Long currentId,@RequestParam String password){
         userService.changePass(currentId, password);
         return "Success";
     }
