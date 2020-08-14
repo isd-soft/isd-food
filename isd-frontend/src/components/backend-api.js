@@ -68,6 +68,6 @@ export default {
       },
 
     getHistory(){
-        return AXIOS.get("/get/all");
+        return AXIOS.get("/orders");
     }
 };

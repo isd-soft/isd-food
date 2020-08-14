@@ -7,8 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.SimpleFormatter;
 
 @Component
 public class MenuBootstrap implements CommandLineRunner {
@@ -154,6 +157,14 @@ public class MenuBootstrap implements CommandLineRunner {
         order.setMenuType(S3);
         user.getOrders().add(order);
         order.setUser(user);
+        order.setOrdered(false);
+
+
+        Order order1 = new Order();
+        order1.setMenuType(S3);
+        user.getOrders().add(order1);
+        order1.setUser(user);
+        order1.setOrdered(false);
 
 
         Provider provider = new Provider();

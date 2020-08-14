@@ -37,7 +37,7 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/orders")
     public ResponseEntity<Page<OrderView>> getAllOrders(
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter) {
