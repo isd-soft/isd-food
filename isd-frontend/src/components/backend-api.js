@@ -3,7 +3,7 @@ import axios from "axios";
 
 const AXIOS = axios.create({
     baseURL: `/api`,
-    timeout: 10000000
+    timeout: 10000
 });
 
 
@@ -58,10 +58,16 @@ export default {
     getHistory(){
         return AXIOS.get("orders/allOrders/1");
     },
-    getUser(){
-        return AXIOS.get("users/currentUser");
+
+    getUser(user_id){
+        return AXIOS.get("/user/"+user_id);
     },
-    updateUser(user){
-        return AXIOS.put('/users', user);
+
+    updateUser(user_id, firstName, lastName, skypeId, email){
+        return AXIOS.put("/user/edit/"+user_id+"?firstName="+firstName+"&lastName="+lastName+"&skypeId="+skypeId+"&email="+email);
+    },
+
+    changePass(user_id, password){
+        return AXIOS.put("/user/edit/password/"+user_id+"?password="+password)
     }
 };
