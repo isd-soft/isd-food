@@ -1,7 +1,11 @@
 <template>
-  <v-app class="home">
-    <MenuList/>
-  </v-app>
+<!--  <v-app class="home">-->
+<!--    <MenuList/>-->
+<!--  </v-app>-->
+  <!-- Page Heading -->
+<div class="container-fluid">
+     <MenuList/>
+</div>
 </template>
 
 <script>

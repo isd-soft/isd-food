@@ -1,68 +1,12 @@
 <template>
-<div class="menu">
-  <div class="text-center">
-    <h1>Menus</h1>
-    <v-btn @click="callMenuApi()" color="warning">Show menu</v-btn>
-  </div>
-<br>
-<br>
- <!--<v-carousel
-    cycle
-    height="400"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-     v-for="product in products"
-     :key="product.name"
-    >
+  <div class="row">
+    {{callOnce()}}
     <MenuItem
-     :product_data="product"
-     />
+        v-for="product in products"
+        :key="product.name"
+        :product_data="product"/>
 
-    </v-carousel-item>
-  </v-carousel>-->
-
-     <div class="menu_list">
-     <MenuItem
-     v-for="product in products"
-     :key="product.name"
-     :product_data="product"
-     />
-     </div>
-
-
-
-
-<!--<div class="container-fluid">
-<div class="row">
-  <div class="col-md-3 col-lg-5 mb-3" style="background: red; border-radius:40px">
-    as
   </div>
-  <div class="col-auto"></div>
-    <div class="col-md-3 col-lg-5 mb-3" style="background: red; border-radius:40px">
-    as
-  </div>
-  <div class="col-auto"></div>
-    <div class="col-md-3 col-lg-5 mb-3" style="background: red; border-radius:40px">
-    as
-  </div>
-  <div class="col-auto"></div>
-    <div class="col-md-3  col-lg-5 mb-3" style="background: red; border-radius:40px">
-    as
-  </div>
-  <div class="col-auto"></div>
-    <div class="col-md-3 col-lg-5 mb-3" style="background: red; border-radius:40px">
-    as
-  </div>
-  <div class="col-auto"></div>
-  
-  
-</div>    
-</div>-->
-</div>
-
-
 </template>
 
 <script>
@@ -80,10 +24,22 @@ import MenuItem from './MenuItem.vue'
         menu_types: [],
         helloResponse: [],
         errors: [],
+        get: false,
+        alignments: [
+        'start',
+        'center',
+        'end',
+      ],
       }
     },
     methods: {
       // Fetches posts when the component is created.
+      callOnce(){
+        if(!this.get){
+          this.callMenuApi();
+          this.get = true
+        }
+      },
       callMenuApi () {
         api.getMenu().then(response => {
             this.products = response.data;
@@ -111,6 +67,16 @@ import MenuItem from './MenuItem.vue'
           this.errors.push(error)
         })
       },
+      next () {
+        this.onboarding = this.onboarding + 1 === this.length
+          ? 0
+          : this.onboarding + 1
+      },
+      prev () {
+        this.onboarding = this.onboarding - 1 < 0
+          ? this.length - 1
+          : this.onboarding - 1
+      },
     }
   }
 </script>
@@ -124,5 +90,8 @@ import MenuItem from './MenuItem.vue'
     justify-content: space-between;
     align-items: center;
   }
+}
+.rounded-card{
+    border-radius:500px;
 }
 </style>
