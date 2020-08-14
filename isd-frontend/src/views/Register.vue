@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-dialog v-model="dialog" value="true">DIalog</v-dialog>
       <v-form
         ref="form"
         v-model="valid"

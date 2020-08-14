@@ -9,12 +9,13 @@ import com.example.isdbackend.projection.UserOrderView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
-@Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT o.id, " +
@@ -33,6 +34,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "AND (:#{#orderFilter.dateFrom} = '0' OR cast(o.date as date) >= cast(:#{#orderFilter.dateFrom} as date)) " +
             "AND (:#{#orderFilter.dateTo} = '0' OR cast(o.date as date) <= cast(:#{#orderFilter.dateTo} as date)) " +
             "AND ((:#{#orderFilter.providers}) IS NULL OR p.name IN (:#{#orderFilter.providers})) " +
+            "AND ( ordered = :#{#orderFilter.ordered}) " +
             "GROUP BY o.id, m.id, p.image, p.id,mt.type,mt.price", nativeQuery = true)
     Page<OrderView> findAllBy(Pageable pageable, Long userId, OrderFilter orderFilter);
 
@@ -52,7 +54,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "WHERE (:#{#orderFilter.dateFrom} = '0' OR cast(o.date as date) >= cast(:#{#orderFilter.dateFrom} as date)) " +
             "AND (:#{#orderFilter.dateTo} = '0' OR cast(o.date as date) <= cast(:#{#orderFilter.dateTo} as date)) " +
             "AND (ordered = :#{#orderFilter.ordered}) " +
-            "GROUP BY u.id,o.date,mt.price,p.id,p.delivery_price " +
             "ORDER BY u.id,o.date", nativeQuery = true)
     List<UserOrderView> findUsersOrders(OrderFilter orderFilter);
 
@@ -66,4 +67,23 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "AND (ordered = :#{#orderFilter.ordered}) " +
             "GROUP BY cast(o.date as date), p.id", nativeQuery = true)
     List<DeliveryPrice> findOrderDeliveryPrice(OrderFilter orderFilter);
+
+    @Query(value = "SELECT COUNT(id)\n" +
+            "FROM orders o\n" +
+            "WHERE cast(o.date as date) = cast(:orderDate as date)\n" +
+            "  AND o.user_id = :userId", nativeQuery = true)
+    int findOrdersCountByDateAndUserId(Date orderDate, long userId);
+
+    @Query(value = "SELECT (extract(isodow from cast(:orderDate as date)) = m.day_of_week)\n" +
+            "FROM menu_type mt\n" +
+            "         JOIN menu m on m.id = mt.menu_id\n" +
+            "WHERE mt.id = :menuTypeId", nativeQuery = true)
+    boolean findMenuDayEqualsOrderDay(Date orderDate, long menuTypeId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE orders o\n" +
+            "SET ordered = true\n" +
+            "WHERE cast(o.date as date) = cast(:orderDate as date)", nativeQuery = true)
+    void setOrdersAsPlaced(Date orderDate);
 }

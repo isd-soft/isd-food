@@ -1,6 +1,9 @@
 package com.example.isdbackend.controller;
 
+import com.example.isdbackend.dto.OrderDTO;
+import com.example.isdbackend.exception.OrderException;
 import com.example.isdbackend.filter.OrderFilter;
+import com.example.isdbackend.model.Order;
 import com.example.isdbackend.projection.OrderFullView;
 import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.service.OrderService;
@@ -11,10 +14,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @AllArgsConstructor
 @RestController
@@ -34,7 +36,7 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<Page<OrderView>> getAllOrders(
-            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 20, sort = "o.date", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter) {
 
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, 0L), HttpStatus.OK);
@@ -44,4 +46,61 @@ public class OrderController {
     public ResponseEntity<OrderFullView> getOrder(@PathVariable long orderId) {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO) throws OrderException {
+
+        if (orderService.areOrdersDisabled(orderDTO.getDate()))
+            throw new OrderException("Orders are already placed");
+
+        String orderAvailableMessage = orderService.canMakeOrder(orderDTO);
+
+        if (orderAvailableMessage != null)
+            throw new OrderException(orderAvailableMessage);
+
+        Order newOrder = orderService.save(orderDTO);
+        if (newOrder != null)
+            return new ResponseEntity<>(HttpStatus.CREATED);
+
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateOrder(@RequestBody OrderDTO orderDTO) throws OrderException {
+        if (orderService.areOrdersDisabled(orderDTO.getDate()))
+            throw new OrderException("Orders are already placed");
+
+        String orderAvailableMessage = orderService.canUpdateOrder(orderDTO);
+
+        if (orderAvailableMessage != null)
+            throw new OrderException(orderAvailableMessage);
+
+        orderService.update(orderDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<?> deleteOrder(@PathVariable long orderId) throws OrderException {
+        String deleteOrderAvailableMessage = orderService.canDeleteOrder(orderId);
+
+        if (deleteOrderAvailableMessage != null)
+            throw new OrderException(deleteOrderAvailableMessage);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/place")
+    public ResponseEntity<?> placeTheOrder() {
+        orderService.placeTheOrder(new Date());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+//    TODO revert the order
+//    @PostMapping("/revert")
+//    public ResponseEntity<?> returnTheOrder() {
+//        orderService.revertTheOrder(new Date());
+//
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }

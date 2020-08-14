@@ -1,10 +1,9 @@
 import axios from "axios";
 
 const AXIOS = axios.create({
-    baseURL: `/api`,
+    baseURL: `http://localhost:8088/api`,
     timeout: 10000000
 });
-
 
 // Add a response interceptor
 AXIOS.interceptors.response.use(
@@ -26,11 +25,11 @@ AXIOS.interceptors.response.use(
     }
 );
 
-
 // Add a request interceptor
 AXIOS.interceptors.request.use(
     function(config) {
         // Do something before request is sent
+        console.log(config)
         if (!config.baseURL.includes("login"))
             config.headers.Authorization = localStorage.getItem("access_token");
 
@@ -57,7 +56,5 @@ export default {
     getHistory(){
         return AXIOS.get("orders/allOrders/1");
     }
-
-
 
 };

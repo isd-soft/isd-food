@@ -4,6 +4,7 @@ import com.example.isdbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,14 +31,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().
-        headers().frameOptions().disable().and()
+        http.csrf().disable()
+//        headers().frameOptions().disable().and()
                 // remove csrf and state in session because in jwt we do not need them
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                // add jwt filters (1. authentication, 2. authorization)
-//                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtToken))
-//                .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository, jwtToken))
+//                 add jwt filters (1. authentication, 2. authorization)
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtToken))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository, jwtToken))
                 .authorizeRequests()
                 // configure access rules
 //                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
@@ -45,7 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST, "/users").hasAuthority("ROLE_supervisor")
                 .anyRequest().permitAll();
 
-        http.headers().frameOptions().disable();
     }
 
     @Bean

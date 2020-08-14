@@ -8,18 +8,25 @@ import com.example.isdbackend.projection.UserOrderView;
 import com.example.isdbackend.repository.OrderRepository;
 import com.example.isdbackend.repository.UserRepository;
 import com.example.isdbackend.service.payment.PaymentCalculator;
-import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@AllArgsConstructor
 @Service
 public class SupervisorService extends PaymentCalculator {
 
     private final OrderRepository orderRepository;
 
     private final UserRepository userRepository;
+
+    private final Logger logger = LoggerFactory.getLogger(SupervisorService.class);
+
+    public SupervisorService(OrderRepository orderRepository, UserRepository userRepository) {
+        this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
+    }
 
     public List<UserPaymentData> getAllPaymentData(OrderFilter orderFilter) {
 
