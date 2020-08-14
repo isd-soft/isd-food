@@ -5,7 +5,7 @@
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary" >History</h6>
     </div>
-
+    {{getOnce()}}
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -20,21 +20,18 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-          </tr>
-          {{userHistory}}
+
+
           <tr v-for="order of userHistory" :key="order.id">
-            <td>{{order.menu}}</td>
-            <td>{{order.id}}</td>
-            <td>{{order.id}}</td>
-            <td>{{order.id}}</td>
-            <td>{{order.id}}</td>
+            <td>{{order.providerName}}</td>
+            <td>{{order.menuName}}</td>
+            <td>{{order.menuType}}</td>
+            <td>{{order.date}}</td>
+            <td>{{order.price}} lei</td>
           </tr>
+
+
+
 
           </tbody>
         </table>
@@ -56,13 +53,20 @@ export default {
   name: "Home",
    data (){
      return{
-       userHistory:[]
+       userHistory:[],
+       getHistory: false
      }
    },
   methods:{
    getHistoryUser(){
-     api.getHistory().then(r => {this.userHistory = r.data;console.log(r.data)})
-   }
+     api.getHistory().then(r => {this.userHistory = r.data.content;console.log(r.data)})
+   },
+    getOnce(){
+     if (!this.getHistory){
+       this.getHistoryUser()
+       this.getHistory = true
+     }
+    }
   }
 };
 
