@@ -36,7 +36,9 @@ public class OrderService extends AbstractServiceCrud {
     public void createOrder(Long user_id, Long menuType_id){
         User user = userRepository.findById(user_id).orElseThrow();
         MenuType menuType = menuTypeRepository.findById(menuType_id).orElseThrow();
-        orderRepository.save(new Order(user, menuType));
+        Order order =new Order(user, menuType);
+        order.setOrdered(false);
+        orderRepository.save(order);
     }
 
     public List<Order> getAll(){

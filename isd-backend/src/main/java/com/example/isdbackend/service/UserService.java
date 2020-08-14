@@ -5,7 +5,14 @@ import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.NotificationSettings;
 import com.example.isdbackend.model.Order;
 import com.example.isdbackend.model.User;
+
 import com.example.isdbackend.repository.*;
+
+import com.example.isdbackend.projection.UserView;
+import com.example.isdbackend.repository.MenuRepository;
+import com.example.isdbackend.repository.OrderRepository;
+import com.example.isdbackend.repository.ProviderRepository;
+import com.example.isdbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -24,6 +31,10 @@ public class UserService extends AbstractServiceCrud {
         return userRepository.findById(id).orElseThrow();
     }
 
+    public UserView findByIdUser(Long id){
+        return userRepository.findAllById(id);
+    }
+
     public void setNotificationSettings(Long id, Boolean active) {
         User user = userRepository.findById(id).orElseThrow();
         userRepository.save(user);
@@ -37,6 +48,23 @@ public class UserService extends AbstractServiceCrud {
     public List<User> findAll(){
         return userRepository.findAll();
     }
+
+    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email){
+        User user = userRepository.findById(id).orElseThrow();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setSkypeId(SkypeId);
+        user.setEmail(email);
+        userRepository.save(user);
+    }
+
+    public void changePass(Long id, char[] password){
+        User user = userRepository.findById(id).orElseThrow();
+        user.setPassword(password);
+        userRepository.save(user);
+    }
+
+
 
     public Set<Order> getHistory(Long id) {
         return userRepository.findById(id).orElseThrow().getOrders();
