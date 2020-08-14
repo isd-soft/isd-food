@@ -6,8 +6,14 @@
 
     <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #ff9800">
 
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-text mx-3">ISD-food</div>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center">
+
+        <li class="nav-item text-center">
+          <span  class="nav-link" >
+            <v-icon style="color: white; font-size: 20px">fas fa-utensils</v-icon>
+            <span class="ml-md-5">Isd-food</span></span>
+        </li>
+
       </a>
 
       <hr class="sidebar-divider my-0" >
@@ -39,17 +45,7 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-warning" type="button">
-                  <i class="fas fa-search fa-sm white--texti"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
