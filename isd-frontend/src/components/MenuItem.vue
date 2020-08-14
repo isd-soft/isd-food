@@ -1,6 +1,6 @@
 <template>
 
-    <div class="item">
+    <div class="item my-3"  >
     <div>
      <v-img  class="image" src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/chorizo-mozarella-gnocchi-bake-cropped.jpg" aspect-ratio="1.7"></v-img>
     </div>
@@ -8,18 +8,20 @@
          <p>Name: {{product_data.name}}</p>
          <p>Provider: {{product_data.provider.name}}</p>
 
-            <v-radio-group class="radio-group" v-model="type" id="type" :mandatory="false" row>
-            <span class="pr-3">Type:</span>
-            <v-radio
-                label="M"
-                color="warning" 
-                value="M">
-            </v-radio>
-            <v-radio
-              label="S"
-              color="warning"
-              value="S"
-            ></v-radio>
+            <v-radio-group class="radio-group" v-model="type" id="type" :mandatory="false" row >
+            <span class="pr-3" style="color:black">Type:</span>
+            <div class="row" style="color:black">
+              <v-radio
+                  label="M"
+                  color="warning" 
+                  value="M">
+              </v-radio>
+              <v-radio
+                label="S"
+                color="warning"
+                value="S"
+              ></v-radio>
+            </div>
           </v-radio-group>
        
          <div v-if= "type === 'M'">
@@ -52,7 +54,7 @@
     >
 
       <template v-slot:activator="{ on, attrs }">
-          <v-card-actions class="justify-center">
+          <v-card-actions class="justify-center" >
          <v-btn 
          @click="makeOrder()" 
           v-bind="attrs"
@@ -142,8 +144,9 @@ props:{
     flex-basis: 25%;
     box-shadow: 0 0 8px 0 orange;
     padding: 16px;
-    margin-bottom: 8px;
     border-radius: 30px;
+    color: black;
+    height: 500px;
 }
 .image{
     border-radius: 15px;
