@@ -27,16 +27,31 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping()
-
-    @RequestMapping(value = "/account/{id}", method = RequestMethod.GET)
-    public User getInfoUser(@PathVariable Long id) {
+    /*@RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public User getInfoUser(@PathVariable Long id){
         return userService.findUserById(id);
     }
 
-    @RequestMapping(value = "/account/edit/{id}", method = RequestMethod.POST)
-    public void editUser(@RequestParam User user) {
+    @RequestMapping(value = "/save/{id}", method = RequestMethod.POST)
+    public void editUser(@RequestParam User user){
         userService.save(user);
+    }*/
+
+    @GetMapping("/{currentId}")
+    public ResponseEntity<UserView> getInfoUser(@PathVariable Long currentId){
+        return new ResponseEntity<>(userService.findByIdUser(currentId), HttpStatus.OK);
     }
 
-}
+    @PutMapping("/edit/{currentId}")
+    @ResponseBody
+    public String editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,@RequestParam String skypeId,@RequestParam String email){
+        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email);
+        return "Success";
+    }
+
+    @PutMapping("/edit/password/{currentId}")
+    @ResponseBody
+    public String editUser(@PathVariable Long currentId,@RequestParam String password){
+        userService.changePass(currentId, password);
+        return "Success";
+    }

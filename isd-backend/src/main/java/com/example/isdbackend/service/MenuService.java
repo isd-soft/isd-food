@@ -1,16 +1,14 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.model.Menu;
-import com.example.isdbackend.repository.MenuRepository;
-import com.example.isdbackend.repository.OrderRepository;
-import com.example.isdbackend.repository.ProviderRepository;
-import com.example.isdbackend.repository.UserRepository;
+import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MenuService extends AbstractServiceCrud {
-    public MenuService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
-        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
+
+    public MenuService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository) {
+        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
     }
 
     public Iterable<Menu> getAllMenus(){

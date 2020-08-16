@@ -37,6 +37,10 @@ public class UserService extends AbstractServiceCrud {
         return userRepository.findById(id).orElseThrow();
     }
 
+    public UserView findByIdUser(Long id){
+        return userRepository.findAllById(id);
+    }
+
     public void setNotificationSettings(Long id, Boolean active) {
         User user = userRepository.findById(id).orElseThrow();
         userRepository.save(user);
@@ -47,6 +51,27 @@ public class UserService extends AbstractServiceCrud {
         user.setNotificationSettings(notificationSettings);
         userRepository.save(user);
     }
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
+
+    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email){
+        User user = userRepository.findById(id).orElseThrow();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setSkypeId(SkypeId);
+        user.setEmail(email);
+        userRepository.save(user);
+    }
+
+    public void changePass(Long id, String password){
+        User user = userRepository.findById(id).orElseThrow();
+
+        user.setPassword(passwordEncoder.encode(password).toCharArray());
+        userRepository.save(user);
+    }
+
+
 
     public Set<Order> getHistory(Long id) {
         return userRepository.findById(id).orElseThrow().getOrders();

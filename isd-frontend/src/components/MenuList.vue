@@ -1,42 +1,45 @@
 <template>
-<div class="menu">
-    <h1>Menus</h1>
-    <v-btn @click="callMenuApi()" small color="warning">Action</v-btn>
-<br>
-<br>
-     <div class="menu_list">
-     <MenuItem
-     v-for="product in products"
-     :key="product.name"
-     :product_data="product"
-     />
+  <div class="row">
+    {{this.callOnce()}}
+    <MenuItem
+        v-for="product in products"
+        :key="product.name"
+        :product_data="product"/>
 
-</div>
-</div>
+  </div>
 </template>
 
 <script>
 import api from './backend-api';
 import MenuItem from './MenuItem.vue'
-
   export default {
     name: 'menu',
-
   components: {
     MenuItem,
   },
-
     data () {
       return {
         msg: 'Display some info from spring',
         products: [],
         menu_types: [],
         helloResponse: [],
-        errors: []
+        errors: [],
+        get: false,
+        alignments: [
+        'start',
+        'center',
+        'end',
+      ],
       }
     },
     methods: {
       // Fetches posts when the component is created.
+      callOnce(){
+        if(!this.get){
+          this.callMenuApi();
+          this.get = true
+        }
+      },
       callMenuApi () {
         api.getMenu().then(response => {
             this.products = response.data;
@@ -64,9 +67,18 @@ import MenuItem from './MenuItem.vue'
           this.errors.push(error)
         })
       },
+      next () {
+        this.onboarding = this.onboarding + 1 === this.length
+          ? 0
+          : this.onboarding + 1
+      },
+      prev () {
+        this.onboarding = this.onboarding - 1 < 0
+          ? this.length - 1
+          : this.onboarding - 1
+      },
     }
   }
-
 </script>
 
 <style lang = "scss">
@@ -79,5 +91,7 @@ import MenuItem from './MenuItem.vue'
     align-items: center;
   }
 }
+.rounded-card{
+    border-radius:500px;
+}
 </style>
-

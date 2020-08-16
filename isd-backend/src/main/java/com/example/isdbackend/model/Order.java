@@ -1,5 +1,7 @@
 package com.example.isdbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -19,11 +21,18 @@ public class Order {
     @JoinColumn(name = "menu_type_id")
     private MenuType menuType;
 
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     public Order() {
+    }
+
+    public Order(User user, MenuType menuType) {
+        this.menuType = menuType;
+        this.user = user;
     }
 
     public Boolean getOrdered() {

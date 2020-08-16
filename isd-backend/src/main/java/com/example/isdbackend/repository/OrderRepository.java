@@ -44,8 +44,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT u.id userId, " +
             "       cast(o.date as date), " +
-            "       mt.price,p.id providerId, " +
-            "       p.delivery_price deliveryPrice " +
+            "       mt.price,p.id providerId " +
             "FROM orders o " +
             "         LEFT JOIN users u ON o.user_id = u.id " +
             "         LEFT JOIN menu_type mt on mt.id = o.menu_type_id " +

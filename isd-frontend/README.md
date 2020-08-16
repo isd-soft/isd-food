@@ -5,6 +5,10 @@
 npm install
 ```
 
+## VeeValidate
+
+npm install vee-validate --save
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve

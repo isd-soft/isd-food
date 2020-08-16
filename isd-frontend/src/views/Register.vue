@@ -1,76 +1,79 @@
 <template>
-  <v-container>
-    <v-row justify="center">
-      <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-        @submit.prevent="submitHandler"
-        id="register-form"
-      >
-        <v-col>
-          <v-text-field
-            v-model="firstName"
-            label="First name"
-            outlined
-            required
-          ></v-text-field>
+  <v-app>
+    <v-container>
+      <v-row justify="left">
+        <v-dialog v-model="dialog" value="true">Dialog</v-dialog>
+        <v-form
+          ref="form"
+          v-model="valid"
+          lazy-validation
+          @submit.prevent="submitHandler"
+          id="register-form"
+        >
+          <v-col>
+            <v-text-field
+              v-model="firstName"
+              label="First name"
+              outlined
+              required
+            ></v-text-field>
 
-          <v-text-field
-            v-model="lastName"
-            label="Last name"
-            outlined
-            required
-          ></v-text-field>
+            <v-text-field
+              v-model="lastName"
+              label="Last name"
+              outlined
+              required
+            ></v-text-field>
 
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="Email"
-            outlined
-            required
-          ></v-text-field>
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="Email"
+              outlined
+              required
+            ></v-text-field>
 
-          <v-text-field
-            v-model="skypeId"
-            :rules="skypeIdRules"
-            label="Skype Id"
-            outlined
-            required
-          ></v-text-field>
+            <v-text-field
+              v-model="skypeId"
+              :rules="skypeIdRules"
+              label="Skype Id"
+              outlined
+              required
+            ></v-text-field>
 
-          <v-text-field
-            v-model="employmentDate"
-            :rules="employmentDateRules"
-            label="Employment date"
-            outlined
-            required
-          ></v-text-field>
+            <v-text-field
+              v-model="employmentDate"
+              :rules="employmentDateRules"
+              label="Employment date"
+              outlined
+              required
+            ></v-text-field>
 
-          <v-radio-group class="radio-group" v-model="role" id="roles" row>
-            <span class="pr-3">Role</span>
-            <v-radio label="User" color="primary" value="User"></v-radio>
-            <v-radio
-              label="Supervisor"
-              color="primary"
-              value="Supervisor"
-            ></v-radio>
-          </v-radio-group>
+            <v-radio-group class="radio-group" v-model="role" id="roles" row>
+              <span class="pr-3">Role</span>
+              <v-radio label="User" color="primary" value="User"></v-radio>
+              <v-radio
+                label="Supervisor"
+                color="primary"
+                value="Supervisor"
+              ></v-radio>
+            </v-radio-group>
 
-          <v-btn
-            class="col-12"
-            color="warning"
-            depressed="true"
-            type="submit"
-            form="register-form"
-            :disabled="$store.getters.isLoggingInProcess"
-            :loading="$store.getters.isLoggingInProcess"
-            >Register</v-btn
-          >
-        </v-col>
-      </v-form>
-    </v-row>
-  </v-container>
+            <v-btn
+              class="col-12"
+              color="warning"
+              depressed="true"
+              type="submit"
+              form="register-form"
+              :disabled="$store.getters.isLoggingInProcess"
+              :loading="$store.getters.isLoggingInProcess"
+              >Register</v-btn
+            >
+          </v-col>
+        </v-form>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 <script>
 export default {
@@ -80,6 +83,10 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
+      emailRules: [
+        v => !!v || "Email is required",
+        v => /.+@.+\..+/.test(v) || "Email must be valid"
+      ],
       skypeId: "",
       employmentDate: "",
       role: ""

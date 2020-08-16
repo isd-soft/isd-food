@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -25,6 +26,12 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     private final OrderService orderService;
+
+    @GetMapping("/get/all")
+    public List<Order> orderList(){
+       return orderService.getAll();
+    }
+
 
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<?> getOrders(
