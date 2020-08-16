@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
@@ -26,17 +27,23 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/users/{userId}/orders")
-    public ResponseEntity<Page<OrderView>> getOrders(
+    public ResponseEntity<?> getOrders(
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter,
             @PathVariable long userId) {
 
-        return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
+        Page<OrderView> orders = orderService.getOrders(pageable, orderFilter, userId);
+
+        if (!orderFilter.isOrdered()) {
+            return new ResponseEntity<>(orders.get().collect(Collectors.toList()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<Page<OrderView>> getAllOrders(
-            @PageableDefault(size = 20, sort = "o.date", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 20, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter) {
 
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, 0L), HttpStatus.OK);
@@ -65,8 +72,8 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    @PutMapping
-    public ResponseEntity<?> updateOrder(@RequestBody OrderDTO orderDTO) throws OrderException {
+    @PutMapping("/{orderId}")
+    public ResponseEntity<?> updateOrder(@PathVariable long orderId, @RequestBody OrderDTO orderDTO) throws OrderException {
         if (orderService.areOrdersDisabled(orderDTO.getDate()))
             throw new OrderException("Orders are already placed");
 
@@ -96,11 +103,4 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    TODO revert the order
-//    @PostMapping("/revert")
-//    public ResponseEntity<?> returnTheOrder() {
-//        orderService.revertTheOrder(new Date());
-//
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 }

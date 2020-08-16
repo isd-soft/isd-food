@@ -20,14 +20,14 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User user) throws UserException {
-        user.setEmail(user.getEmail().toLowerCase());
-
         if (userService.existsByEmail(user.getEmail()))
             throw new UserException("Thi email is already in use");
 
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @GetMapping()
 
     @RequestMapping(value = "/account/{id}", method = RequestMethod.GET)
     public User getInfoUser(@PathVariable Long id) {

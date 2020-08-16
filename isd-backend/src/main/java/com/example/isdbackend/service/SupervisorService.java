@@ -1,5 +1,7 @@
 package com.example.isdbackend.service;
 
+import com.example.isdbackend.util.*;
+import com.example.isdbackend.dto.PaymentDataDTO;
 import com.example.isdbackend.dto.UserPaymentData;
 import com.example.isdbackend.filter.OrderFilter;
 import com.example.isdbackend.projection.DeliveryPrice;
@@ -28,7 +30,16 @@ public class SupervisorService extends PaymentCalculator {
         this.userRepository = userRepository;
     }
 
-    public List<UserPaymentData> getAllPaymentData(OrderFilter orderFilter) {
+    public PaymentDataDTO getAllPaymentData(OrderFilter orderFilter) {
+
+        orderFilter.setOrdered(true);
+
+        PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
+        if (orderFilter.getDateFrom() != "0")
+            paymentDataDTO.setDateFrom(orderFilter.getDateFrom());
+        if (orderFilter.getDateTo() != "0")
+            paymentDataDTO.setDateTo(orderFilter.getDateTo());
+        else paymentDataDTO.setDateTo(DateUtil.getDateFromDateTime(new Date()));
 
         List<UserPaymentData> userPaymentDataList = new ArrayList<>();
 
@@ -69,7 +80,9 @@ public class SupervisorService extends PaymentCalculator {
             }
             userPaymentDataList.add(userPaymentData);
         }
-        return userPaymentDataList;
+        paymentDataDTO.setUserPayments(userPaymentDataList);
+
+        return paymentDataDTO;
     }
 
     private boolean areTheSameDates(Date d1, Date d2) {
