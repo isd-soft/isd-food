@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 @Service
@@ -30,7 +32,7 @@ public class MailSender {
     private String username;
 
 
-    public void sendSimpleMessage(String emailTo,String subject,String message){
+    public void sendSimpleMessage(String emailTo, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(username);
         mailMessage.setTo(emailTo);
@@ -38,26 +40,26 @@ public class MailSender {
         mailMessage.setText(message + generatePassword.generatePassayPassword());
         javaMailSender.send(mailMessage);
     }
-    public void sendHtmlMessage(String emailTo,String subject,String message){
+
+    public void sendHtmlMessage(String emailTo, String subject, String message) {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             mimeMessage.setSubject(subject);
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true);
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
             helper.setFrom(username);
             helper.setTo(emailTo);
-            helper.setText(message,true);
+            helper.setText(message, true);
             javaMailSender.send(mimeMessage);
-        }
-        catch (MessagingException e) {
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
 
-    public String getHtmlFromFile(String filePath,String pass) throws IOException {
+    public String getHtmlFromFile(String filePath, String pass) throws IOException {
         Resource resource = new ClassPathResource(filePath);
-        String link = "#",res,password;
+        String link = "#", res, password;
 
-        try(BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))) {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
 
@@ -68,7 +70,7 @@ public class MailSender {
 
             res = sb.toString();
             password = pass;
-            res = res.replace("{{password}}",password).replace("{{link}}",link);
+            res = res.replace("{{password}}", password).replace("{{link}}", link);
         }
         return res;
     }

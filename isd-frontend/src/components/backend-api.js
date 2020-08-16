@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const AXIOS = axios.create({
-  baseURL: `/api`,
-  timeout: 10000000
+  baseURL: `http://localhost:8098/api`,
+  timeout: 10000
 });
 
 // Add a response interceptor
@@ -73,7 +73,7 @@ export default {
   },
 
   getHistory() {
-    return AXIOS.get("/orders");
+    return AXIOS.get("/users/orders");
   },
   updateUser(user_id, firstName, lastName, skypeId, email) {
     return AXIOS.put(

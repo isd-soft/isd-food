@@ -5,7 +5,7 @@ public interface MenuView {
 
     String getName();
 
-    String getDayOfWeek();
+    int getDayOfWeek();
 
     String getImage();
 

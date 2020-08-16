@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository, jwtToken))
                 .authorizeRequests()
                 // configure access rules
-//                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
 //                .antMatchers(HttpMethod.POST, "/login").permitAll()
 //                .antMatchers(HttpMethod.POST, "/users").hasAuthority("ROLE_supervisor")
                 .anyRequest().permitAll();

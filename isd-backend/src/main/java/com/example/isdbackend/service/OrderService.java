@@ -7,35 +7,35 @@ import com.example.isdbackend.model.Order;
 import com.example.isdbackend.model.Properties;
 import com.example.isdbackend.projection.OrderFullView;
 import com.example.isdbackend.projection.OrderView;
-import com.example.isdbackend.repository.*;
+import com.example.isdbackend.repository.OrderRepository;
+import com.example.isdbackend.repository.PropertiesRepository;
+import com.example.isdbackend.util.DateUtil;
 import com.example.isdbackend.validation.OrderValidation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
-public class OrderService extends AbstractServiceCrud {
+public class OrderService {
 
     private final OrderConverter orderConverter;
     private final PropertiesRepository propertiesRepository;
+    private final OrderRepository orderRepository;
     private final UserService userService;
 
-    public OrderService(UserService userService, PropertiesRepository propertiesRepository, OrderConverter orderConverter, MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository) {
-        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository);
-
+    public OrderService(UserService userService, PropertiesRepository propertiesRepository, OrderRepository orderRepository, OrderConverter orderConverter) {
         this.orderConverter = orderConverter;
         this.propertiesRepository = propertiesRepository;
+        this.orderRepository = orderRepository;
         this.userService = userService;
     }
 
-    public boolean areOrdersDisabled(Date orderOnDate) {
+    public boolean areOrdersEnabled(Date orderOnDate) {
         Date lastOrderDate = propertiesRepository.findLastOrderDate();
 
-        return (lastOrderDate == null || !lastOrderDate.before(orderOnDate));
+        return (lastOrderDate == null || lastOrderDate.before(orderOnDate));
     }
 
     public String canMakeOrder(OrderDTO orderDTO) {
@@ -82,8 +82,7 @@ public class OrderService extends AbstractServiceCrud {
     }
 
     public void placeTheOrder(Date orderDate) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = dateFormat.format(orderDate);
+        String strDate = DateUtil.getDateFromDateTime(orderDate);
 
         orderRepository.setOrdersAsPlaced(orderDate);
         Properties updatedProperties = new Properties();
