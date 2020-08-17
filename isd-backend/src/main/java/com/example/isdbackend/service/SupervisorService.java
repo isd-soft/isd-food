@@ -1,5 +1,7 @@
 package com.example.isdbackend.service;
 
+import com.example.isdbackend.util.*;
+import com.example.isdbackend.dto.PaymentDataDTO;
 import com.example.isdbackend.dto.UserPaymentData;
 import com.example.isdbackend.filter.OrderFilter;
 import com.example.isdbackend.projection.DeliveryPrice;
@@ -8,12 +10,12 @@ import com.example.isdbackend.projection.UserOrderView;
 import com.example.isdbackend.repository.OrderRepository;
 import com.example.isdbackend.repository.UserRepository;
 import com.example.isdbackend.service.payment.PaymentCalculator;
-import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@AllArgsConstructor
 @Service
 public class SupervisorService extends PaymentCalculator {
 
@@ -21,8 +23,23 @@ public class SupervisorService extends PaymentCalculator {
 
     private final UserRepository userRepository;
 
+    private final Logger logger = LoggerFactory.getLogger(SupervisorService.class);
 
-    public List<UserPaymentData> getAllPaymentData(OrderFilter orderFilter) {
+    public SupervisorService(OrderRepository orderRepository, UserRepository userRepository) {
+        this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
+    }
+
+    public PaymentDataDTO getAllPaymentData(OrderFilter orderFilter) {
+
+        orderFilter.setOrdered(true);
+
+        PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
+        if (!orderFilter.getDateFrom().equals("0"))
+            paymentDataDTO.setDateFrom(orderFilter.getDateFrom());
+        if (!orderFilter.getDateTo().equals("0"))
+            paymentDataDTO.setDateTo(orderFilter.getDateTo());
+        else paymentDataDTO.setDateTo(DateUtil.getDateFromDateTime(new Date()));
 
         List<UserPaymentData> userPaymentDataList = new ArrayList<>();
 
@@ -63,7 +80,9 @@ public class SupervisorService extends PaymentCalculator {
             }
             userPaymentDataList.add(userPaymentData);
         }
-        return userPaymentDataList;
+        paymentDataDTO.setUserPayments(userPaymentDataList);
+
+        return paymentDataDTO;
     }
 
     private boolean areTheSameDates(Date d1, Date d2) {

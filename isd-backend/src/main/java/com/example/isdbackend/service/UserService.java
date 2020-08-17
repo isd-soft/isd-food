@@ -1,18 +1,17 @@
 package com.example.isdbackend.service;
 
-import com.example.isdbackend.exception.IsOrderedException;
 import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.NotificationSettings;
 import com.example.isdbackend.model.Order;
 import com.example.isdbackend.model.User;
-
-import com.example.isdbackend.repository.*;
-
 import com.example.isdbackend.projection.UserView;
-import com.example.isdbackend.repository.MenuRepository;
-import com.example.isdbackend.repository.OrderRepository;
-import com.example.isdbackend.repository.ProviderRepository;
 import com.example.isdbackend.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,19 +21,27 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService extends AbstractServiceCrud {
-    PasswordEncoder passwordEncoder;
+public class UserService {
 
-    public UserService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository, PasswordEncoder passwordEncoder) {
-        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
+    private final GeneratePassword generatePassword;
+    private final MailSender mailSender;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    public UserService(PasswordEncoder passwordEncoder, GeneratePassword generatePassword, MailSender mailSender, UserRepository userRepository) {
+        this.generatePassword = generatePassword;
+        this.mailSender = mailSender;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow();
     }
 
-    public UserView findByIdUser(Long id){
+    public UserView findByIdUser(Long id) {
         return userRepository.findAllById(id);
     }
 
@@ -43,16 +50,15 @@ public class UserService extends AbstractServiceCrud {
         userRepository.save(user);
     }
 
-    public void setNotificationSettings(Long id, NotificationSettings notificationSettings) {
-        User user = userRepository.findById(id).orElseThrow();
-        user.setNotificationSettings(notificationSettings);
-        userRepository.save(user);
-    }
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email){
+    public Page<UserView> getAll(Pageable pageable) {
+        return userRepository.findAllBy(pageable);
+    }
+
+    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email) {
         User user = userRepository.findById(id).orElseThrow();
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -61,26 +67,19 @@ public class UserService extends AbstractServiceCrud {
         userRepository.save(user);
     }
 
-    public void changePass(Long id, String password){
+    public void changePass(Long id, String password) {
         User user = userRepository.findById(id).orElseThrow();
 
         user.setPassword(passwordEncoder.encode(password).toCharArray());
         userRepository.save(user);
     }
 
-
-
     public Set<Order> getHistory(Long id) {
         return userRepository.findById(id).orElseThrow().getOrders();
     }
 
-
     public List<Order> getCurrentOrders(Long id) {
         return userRepository.findById(id).orElseThrow().getOrders().stream().filter(order -> order.isOrdered()).collect(Collectors.toList());
-    }
-
-    public Iterable<Menu> getProviderMenus(Long providerId) {
-        return providerRepository.findById(providerId).orElseThrow().getMenus();
     }
 
     public Iterable<Menu> filter(Long providerId, Long userId) {
@@ -89,24 +88,55 @@ public class UserService extends AbstractServiceCrud {
         return menus;
     }
 
-    public void newOrder(Long id, Order order) {
-        User user = userRepository.findById(id).orElseThrow();
-        user.getOrders().add(order);
-        userRepository.save(user);
-    }
-
-    public void orderUpload(Order orderUpload) throws IsOrderedException {
-        if (!orderRepository.findById(orderUpload.getId()).orElseThrow().isOrdered())
-            orderRepository.save(orderUpload);
-        else
-            throw new IsOrderedException();
-    }
-
     public void delete(User user) {
         userRepository.delete(user);
     }
 
     public void save(User user) {
-        userRepository.save(user);
+        logger.debug("Saving an user");
+
+        String password = generatePassword.generatePassayPassword();
+
+        NotificationSettings notificationSettings = new NotificationSettings();
+        notificationSettings.setEnabled(true);
+
+        user.setNotificationEnabled(true);
+
+        user.setPassword(passwordEncoder.encode(password).toCharArray());
+        user.setEnabled(true);
+        try {
+            userRepository.save(user);
+            logger.debug("The user is saved in the database");
+        } catch (Exception e) {
+            logger.error("Could not save the user");
+            e.printStackTrace();
+        }
+
+        mailSender.sendSimpleMessage(user.getEmail(), "ISD-food", "Your password: " + password);
+        logger.debug("The user's password is sent on his email");
     }
+
+    public void resetPassword(String email) {
+        String password = generatePassword.generatePassayPassword();
+        User user = userRepository.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(password).toCharArray());
+        userRepository.save(user);
+
+        mailSender.sendSimpleMessage(email, "ISD-food password reset", "Your new password: " + password);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.findByEmail(email) != null;
+    }
+
+    public long getCurrentUserId() {
+        return userRepository.findByEmail(getCurrentUserEmail()).getId();
+    }
+
+    public String getCurrentUserEmail() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return auth.getPrincipal().toString();
+    }
+
 }

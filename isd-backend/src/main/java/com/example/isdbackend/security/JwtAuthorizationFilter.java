@@ -30,6 +30,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         // Read the Authorization header, where the JWT token should be
         String header = request.getHeader(JwtProperties.HEADER_STRING);
 
+        // If header does not contain BEARER or is null delegate to Spring impl and exit
+        if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         String token = request.getHeader(JwtProperties.HEADER_STRING)
                 .replace(JwtProperties.TOKEN_PREFIX, "");
 
@@ -38,12 +44,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             String email = jwtToken.decodeToken(token).getSubject();
             String newToken = jwtToken.createToken(email);
             response.addHeader("Authorization", newToken);
-        }
-
-        // If header does not contain BEARER or is null delegate to Spring impl and exit
-        if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
-            chain.doFilter(request, response);
-            return;
         }
 
         // If header is present, try grab user principal from database and perform authorization

@@ -1,5 +1,7 @@
 package com.example.isdbackend.controller;
 
+import com.example.isdbackend.dto.OrderDTO;
+import com.example.isdbackend.exception.OrderException;
 import com.example.isdbackend.filter.OrderFilter;
 import com.example.isdbackend.model.Order;
 import com.example.isdbackend.projection.OrderFullView;
@@ -14,38 +16,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Date;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/get/all")
-    public List<Order> orderList(){
-       return orderService.getAll();
-    }
-
-    @PostMapping("/edit/orders/{id}")
-    public void editOrder(@RequestParam Order order,@PathVariable Long id){
-       Order order1 = orderService.findById(id);
-       order1.setMenuType(order.getMenuType());
-       orderService.save(order1);
-    }
-
-    @GetMapping("/users/{userId}/orders")
-    public ResponseEntity<Page<OrderView>> getOrders(
-            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+    @GetMapping
+    public ResponseEntity<Page<OrderView>> getAllOrders(
+            @PageableDefault(size = 20, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter,
-            @PathVariable long userId) {
+            Long userId) {
+
+        if (userId == null) userId = 0L;
 
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/orders/{id}")
-    public void delete(@PathVariable Long id){
-       orderService.delete(orderService.findById(id));
     }
 
     @GetMapping("/orders")
@@ -56,32 +44,58 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, 0L), HttpStatus.OK);
     }
 
-    @GetMapping("/orders/{orderId}")
+    @GetMapping("/{orderId}")
     public ResponseEntity<OrderFullView> getOrder(@PathVariable long orderId) {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
 
-    @PutMapping("/{orderId}")
-    public ResponseEntity<OrderFullView> updateOrder(@PathVariable long orderId) {
-        return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
-    }
-
     @PostMapping
-    public ResponseEntity<Order> addOrder(@RequestBody Order order) {
-        Order savedOrder = orderService.save(order);
-        if (savedOrder != null)
-            return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+    public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO) throws OrderException {
+
+        if (!orderService.areOrdersEnabled(orderDTO.getDate()))
+            throw new OrderException("Orders are already placed");
+
+        String orderAvailableMessage = orderService.canMakeOrder(orderDTO);
+
+        if (orderAvailableMessage != null)
+            throw new OrderException(orderAvailableMessage);
+
+        Order newOrder = orderService.save(orderDTO);
+        if (newOrder != null)
+            return new ResponseEntity<>(HttpStatus.CREATED);
 
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    @RequestMapping(path = "/order/{user_id}/{menuType_id}", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addNewOrder (@PathVariable("user_id") Long user_id, @PathVariable("menuType_id") Long menu_id) {
+    @PutMapping("/{orderId}")
+    public ResponseEntity<?> updateOrder(@PathVariable long orderId, @RequestBody OrderDTO orderDTO) throws OrderException {
+        if (!orderService.areOrdersEnabled(orderDTO.getDate()))
+            throw new OrderException("Orders are already placed");
 
-        orderService.createOrder(user_id, menu_id);
-        System.out.println("Succesfull");
-        return "Success";
+        String orderAvailableMessage = orderService.canUpdateOrder(orderDTO);
+
+        if (orderAvailableMessage != null)
+            throw new OrderException(orderAvailableMessage);
+
+        orderService.update(orderDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<?> deleteOrder(@PathVariable long orderId) throws OrderException {
+        String deleteOrderAvailableMessage = orderService.canDeleteOrder(orderId);
+
+        if (deleteOrderAvailableMessage != null)
+            throw new OrderException(deleteOrderAvailableMessage);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/place")
+    public ResponseEntity<?> placeTheOrder() {
+        orderService.placeTheOrder(new Date());
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

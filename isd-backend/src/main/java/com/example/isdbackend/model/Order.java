@@ -15,8 +15,6 @@ public class Order {
 
     private Date date;
 
-    private Float price;
-
     private Boolean ordered;
 
     @OneToOne

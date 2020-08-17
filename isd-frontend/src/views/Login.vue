@@ -7,7 +7,7 @@
         <v-card width="100vw" height="100vh" class="mx-auto">
           <body style="background: orange">
 
-          <div class="container " style="padding-top: 20vh" >
+          <div class="container " style="padding-top: 20vh">
 
             <!-- Outer Row -->
             <div class="row justify-content-center ">
@@ -18,11 +18,15 @@
                   <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                      <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background-image:url('https://www.learnathome.ru/files/media/food.jpg') !important; "></div>
+                      <div class="col-lg-6 d-none d-lg-block bg-login-image"
+                           style="background-image:url('https://www.learnathome.ru/files/media/food.jpg') !important; "></div>
                       <div class="col-lg-6">
                         <div class="p-5">
                           <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Welcome to isd-food</h1>
+                            <v-alert class="lg-col-16" v-if="$store.state.login.loginError" type="warning">
+                              {{ $store.state.login.error }}
+                            </v-alert>
                           </div>
 
 
@@ -60,20 +64,20 @@
                                     :disabled="$store.getters.isLoggingInProcess"
                                     :loading="$store.getters.isLoggingInProcess"
 
-                                >Login</v-btn
+                                >Login
+                                </v-btn
                                 >
                               </v-col>
                             </v-form>
 
 
-
-
-
                           </div>
                           <hr>
+
                           <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            <span class="small forgot-pass" @click="showForgotDialog()">Forgot Password?</span>
                           </div>
+                          <ForgotDialog showDialog="showDialog"/>
                         </div>
                       </div>
                     </div>
@@ -87,7 +91,6 @@
           </div>
 
 
-
           </body>
         </v-card>
       </v-app>
@@ -97,9 +100,11 @@
 </template>
 <script>
 
-export default {
+import ForgotDialog from "@/components/ForgotDialog.vue";
 
-  name: "login",
+export default {
+  name: "dialog",
+  components: { ForgotDialog },
   data() {
     return {
       email: "",
@@ -107,21 +112,25 @@ export default {
     };
   },
   methods: {
+    showForgotDialog() {
+      console.log(this.email)
+      this.$store.state.login.showDialog = true;
+      this.$store.state.login.email = this.email;
+    },
     submitHandler() {
-      
+
       console.log(this);
 
       this.$store
-        .dispatch("login", { email: this.email, password: this.password })
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch(error => {
-          console.log(error);
-          this.loginError = true;
-          this.errors.push(error);
-          this.error = true;
-        });
+          .dispatch("login", {email: this.email, password: this.password})
+          .then(() => {
+            this.$router.push("/");
+          })
+          .catch(error => {
+            this.loginError = true;
+            this.errors.push(error);
+            this.error = true;
+          });
     }
   }
 };

@@ -1,17 +1,13 @@
 package com.example.isdbackend.projection;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public interface UserView {
-        Long getId();
+    Long getId();
 
-        String getEmail();
+    String getEmail();
 
-        String getSkypeId();
+    String getSkypeId();
 
-        String getFirstName();
+    String getFirstName();
 
-        String getLastName();
-
-
+    String getLastName();
 }
