@@ -17,6 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -72,11 +76,19 @@ public class UserController {
         return new ResponseEntity<>(userService.findByIdUser(currentId), HttpStatus.OK);
     }
 
+//    @GetMapping
+//    public List<User> getAllUsers(){
+//        return userService.findAll();
+//    }
+
     @PutMapping("/edit/{currentId}")
-    @ResponseBody
-    public String editUser(@PathVariable Long currentId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String skypeId, @RequestParam String email) {
-        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email);
-        return "Success";
+    public void editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,
+                         @RequestParam String skypeId,@RequestParam String email,@RequestParam Boolean enable, @RequestParam String data) throws ParseException {
+        System.out.println(data);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateForChange = sdf1.parse(data);
+        java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
+        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
     }
 
     @PutMapping("/edit/password/{currentId}")
