@@ -49,6 +49,15 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
 
+    @GetMapping("/users/{userId}/orders")
+    public ResponseEntity<Page<OrderView>> getOrders(
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            OrderFilter orderFilter,
+            @PathVariable long userId) {
+
+        return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
+    }
+    
     @PostMapping
     public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO) throws OrderException {
 
@@ -81,7 +90,8 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/{orderId}")
+
+    @DeleteMapping("/orders/{orderId}")
     public ResponseEntity<?> deleteOrder(@PathVariable long orderId) throws OrderException {
         String deleteOrderAvailableMessage = orderService.canDeleteOrder(orderId);
 

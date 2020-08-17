@@ -43,6 +43,13 @@ AXIOS.interceptors.request.use(
 );
 
 export default {
+    deleteOrder(id){
+        return AXIOS.delete('/orders/' + id)
+    },
+    getHistory(id){
+        return AXIOS.get("/users/"+id+"/orders");
+    },
+
     createUser(user) {
         console.log(user);
         return AXIOS.post(`/users`, user);
@@ -77,9 +84,6 @@ export default {
     return AXIOS.get("/user/" + user_id);
   },
 
-  getHistory() {
-    return AXIOS.get("/orders");
-  },
   updateUser(user_id, firstName, lastName, skypeId, email) {
     return AXIOS.put(
       "/user/edit/" +
