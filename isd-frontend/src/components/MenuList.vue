@@ -8,7 +8,7 @@
     {{callOnce()}}
     <v-app  class="col-12 pb-5 mb-5" style="background: none">
       <v-btn-toggle class="d-flex justify-content-center" v-model="weekDay" tile color="warning" group>
-        <v-btn  @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mon</v-btn>
+        <v-btn @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mon</v-btn>
         <v-btn @click="getDayMenu('TUESDAY')" value="TUESDAY" :disabled="getWeekDayId() > 2 || getWeekDayId()==0">Tu</v-btn>
         <v-btn @click="getDayMenu('WEDNESDAY')" value="WEDNESDAY" :disabled="getWeekDayId() > 3 || getWeekDayId()==0">Wed</v-btn>
         <v-btn @click="getDayMenu('THURSDAY')" value="THURSDAY" :disabled="getWeekDayId() > 4 || getWeekDayId()==0">Th</v-btn>
