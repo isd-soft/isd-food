@@ -27,6 +27,12 @@ public class OrderController {
        return orderService.getAll();
     }
 
+    @PostMapping("/edit/orders/{id}")
+    public void editOrder(@RequestParam Order order,@PathVariable Long id){
+       Order order1 = orderService.findById(id);
+       order1.setMenuType(order.getMenuType());
+       orderService.save(order1);
+    }
 
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Page<OrderView>> getOrders(
@@ -37,6 +43,11 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
     }
 
+    @DeleteMapping("/orders/{id}")
+    public void delete(@PathVariable Long id){
+       orderService.delete(orderService.findById(id));
+    }
+
     @GetMapping("/orders")
     public ResponseEntity<Page<OrderView>> getAllOrders(
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
@@ -45,7 +56,7 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, 0L), HttpStatus.OK);
     }
 
-    @GetMapping("/{orderId}")
+    @GetMapping("/orders/{orderId}")
     public ResponseEntity<OrderFullView> getOrder(@PathVariable long orderId) {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }

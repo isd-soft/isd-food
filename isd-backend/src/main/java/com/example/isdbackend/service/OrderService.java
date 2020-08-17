@@ -12,6 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,8 +43,22 @@ public class OrderService extends AbstractServiceCrud {
         User user = userRepository.findById(user_id).orElseThrow();
         MenuType menuType = menuTypeRepository.findById(menuType_id).orElseThrow();
         Order order =new Order(user, menuType);
+
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+
+
+        order.setDate(new Date(dtf.format(localDate)));
+
         order.setOrdered(false);
         orderRepository.save(order);
+    }
+    public Order findById(Long id){
+        return orderRepository.findById(id).orElseThrow();
+    }
+    public void delete(Order order){
+        orderRepository.delete(order);
     }
 
     public List<Order> getAll(){

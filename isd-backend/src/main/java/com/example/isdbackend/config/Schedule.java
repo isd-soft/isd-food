@@ -36,6 +36,7 @@ public class Schedule {
                 if(!user.getNotificationSettings().getEnable() && user.getNotificationSettings().getDate().equals(currentDay) && user.getNotificationSettings().getDate() != null){
                     user.getNotificationSettings().setEnable(true);
                     user.getNotificationSettings().setDate(null);
+                    userService.save(user);
                 }
 
 
