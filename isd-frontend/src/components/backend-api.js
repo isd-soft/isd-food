@@ -46,8 +46,8 @@ export default {
     deleteOrder(id){
         return AXIOS.delete('/orders/' + id)
     },
-    getHistory(id){
-        return AXIOS.get("/users/"+id+"/orders");
+    getHistory(){
+        return AXIOS.get("/users/orders");
     },
 
     createUser(user) {
