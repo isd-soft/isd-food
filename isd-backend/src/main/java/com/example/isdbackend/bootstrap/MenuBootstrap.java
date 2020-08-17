@@ -197,6 +197,8 @@ public class MenuBootstrap implements CommandLineRunner {
         user.setSkypeId("JhonesId");
         user.setPassword("$2y$12$Gytj7ahrI8suqFJxtYG2IevbkegKn.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
         user.setOrders(new HashSet<>());
+        user.setNotificationEnabled(true);
+
 
 
         Order order = new Order();
