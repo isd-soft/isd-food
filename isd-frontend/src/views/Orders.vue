@@ -1,10 +1,8 @@
-<template >
-
+<template>
 <div>
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-warning">Orders</h6>
-
       <ul class="nav d-flex mb-3 mt-4" id="pills-tab" role="tablist">
         <li class="nav-item mr-3" role="presentation">
           <a class="btn btn-outline-warning active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Current orders</a>
@@ -13,14 +11,12 @@
           <a class="btn btn-outline-warning" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Orders history</a>
         </li>
       </ul>
-
     </div>
     <div class="card-body">
       <div  class="table-responsive">
         <div  class="tab-content" id="pills-tabContent">
           <!---Current--->
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
             <table class="table table-bordered"  width="100%" cellspacing="0">
               <thead>
               <tr>
@@ -48,7 +44,6 @@
                 </tbody>
             </table>
           </div>
-
           <!---Orders History--->
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <table class="table table-bordered"  width="100%" cellspacing="0">
@@ -59,12 +54,9 @@
                 <th>Menu type</th>
                 <th>Data</th>
                 <th>Price</th>
-
               </tr>
               </thead>
               <tbody v-for="order of userHistory" :key="order.id">
-
-
               <tr v-if="order.ordered">
                 <td>{{order.providerName}}</td>
                 <td>{{order.menuName}}</td>
@@ -72,25 +64,14 @@
                 <td>{{order.date}}</td>
                 <td>{{order.price}} lei</td>
               </tr>
-
-
-
-
               </tbody>
             </table>
-
-
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
-
 </div>
-
-
 </template>
 
 <script>
