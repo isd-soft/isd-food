@@ -57,7 +57,7 @@ public class OrderController {
 
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
     }
-    
+
     @PostMapping
     public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO) throws OrderException {
 

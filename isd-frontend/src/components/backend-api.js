@@ -85,7 +85,7 @@ export default {
   },
 
 
-  updateUser(user_id, firstName, lastName, skypeId, email) {
+  updateUser(user_id, firstName, lastName, skypeId, email,enable,data) {
 
 
     return AXIOS.put(
