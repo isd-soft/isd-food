@@ -154,7 +154,6 @@ public class MenuBootstrap implements CommandLineRunner {
         user.setOrders(new HashSet<>());
 
 
-
         Order order = new Order();
         order.setMenuType(S3);
         user.getOrders().add(order);
@@ -166,7 +165,7 @@ public class MenuBootstrap implements CommandLineRunner {
         order1.setMenuType(S3);
         user.getOrders().add(order1);
         order1.setUser(user);
-        order1.setOrdered(false);
+        order1.setOrdered(true);
 
 
         Provider provider = new Provider();

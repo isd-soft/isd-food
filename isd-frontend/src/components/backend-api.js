@@ -74,8 +74,8 @@ export default {
     deleteOrder(id){
       return AXIOS.delete('/orders/' + id)
     },
-    getHistory(){
-        return AXIOS.get("/orders");
+    getHistory(id){
+        return AXIOS.get("/users/"+id+"/orders");
     },
     updateUser(user_id, firstName, lastName, skypeId, email){
         return AXIOS.put("/user/edit/"+user_id+"?firstName="+firstName+"&lastName="+lastName+"&skypeId="+skypeId+"&email="+email);

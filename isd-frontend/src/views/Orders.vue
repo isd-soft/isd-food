@@ -57,7 +57,7 @@
                 </tbody>
             </table>
 
-    
+
 
 
           </div>
@@ -125,7 +125,7 @@ export default {
     }
   },
   beforeCreate() {
-    api.getHistory().then(r => {this.userHistory = r.data.content;console.log(r.data)})
+    api.getHistory(1).then(r => {this.userHistory = r.data.content;console.log(r.data)})
 
   }
 };
