@@ -15,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -58,12 +60,14 @@ public class UserService {
         return userRepository.findAllBy(pageable);
     }
 
-    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email) {
+    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email, Boolean enable, Date data){
         User user = userRepository.findById(id).orElseThrow();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setSkypeId(SkypeId);
         user.setEmail(email);
+        user.setNotificationEnabled(enable);
+        user.setDateToChange(data);
         userRepository.save(user);
     }
 
@@ -97,9 +101,8 @@ public class UserService {
 
         String password = generatePassword.generatePassayPassword();
 
-        NotificationSettings notificationSettings = new NotificationSettings();
-        notificationSettings.setEnabled(true);
-
+        //NotificationSettings notificationSettings = new NotificationSettings();
+        //notificationSettings.setEnabled(true);
         user.setNotificationEnabled(true);
 
         user.setPassword(passwordEncoder.encode(password).toCharArray());
