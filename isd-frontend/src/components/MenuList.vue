@@ -1,5 +1,5 @@
 <template>
-<v-app>
+<v-app style="background: none">
   <div class="row">
 
   <v-container fluid>
