@@ -78,7 +78,6 @@ export default {
 
     getMenuDay(day){
         return AXIOS.get("/menu/day?day="+day)
-<<<<<<< HEAD
     }
         ,
 
@@ -96,14 +95,6 @@ export default {
         return AXIOS.put("/user/edit/password/"+user_id+"?password="+password)
     }
 
-=======
-    },
-    
-  changePass(user_id, password) {
-    return AXIOS.put(
-      "/user/edit/password/" + user_id + "?password=" + password
-    );
-  }
->>>>>>> 683ba82387eaeecbd13bb1205460f0474324f6e7
+
 
 };
