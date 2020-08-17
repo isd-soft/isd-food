@@ -74,7 +74,7 @@
                           Order confirmed!
                         </v-card-title>
 
-                        <v-card-text>
+                        <v-card-text class="mt-2">
                           Enjoy your food! <br>
                           Isd-food with love🧡
                         </v-card-text>
@@ -101,80 +101,7 @@
         </div>
       </div>
     </div>
-
   </div>
-
-
-
-<!--  <div v-if= "type === 'M'">-->
-<!--      <div v-for="item in product_data.menuTypes" :key="item.type">-->
-<!--        <div v-if= "item.type === 'M'">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      {{check_menu('M')}}-->
-<!--    </div>-->
-<!--    <div v-else>-->
-<!--      {{check_menu('S')}}-->
-<!--    </div>-->
-
-<!--    <p>Items:</p>-->
-
-<!--    <li v-for="item in product_data.menuTypes[(type_id)].items" :key="item.name">-->
-<!--      {{ item.name }}-->
-<!--    </li>-->
-<!--    <br>-->
-<!--    &lt;!&ndash; <p>Delivery price: {{product_data.provider.deliveryPrice}} mdl.</p>-->
-<!--      <p>Price: {{product_data.menuTypes[(type_id)].price}} mdl.</p>-->
-<!--      <p>Total price: {{Number(product_data.provider.deliveryPrice) + Number(product_data.menuTypes[(type_id)].price)}}  mdl.</p>-->
-<!--     <br>&ndash;&gt;-->
-
-
-<!--    <div class="text-center">-->
-<!--      <v-dialog-->
-<!--          v-model="dialog"-->
-<!--          width="500"-->
-<!--      >-->
-
-<!--        <template v-slot:activator="{ on, attrs }">-->
-<!--          <v-card-actions class="justify-center" >-->
-<!--            <v-btn-->
-<!--                @click="makeOrder()"-->
-<!--                v-bind="attrs"-->
-<!--                v-on="on"-->
-<!--                large-->
-<!--                rounded-->
-<!--                color="warning"-->
-<!--                align="center">-->
-<!--              Order-->
-<!--            </v-btn>-->
-<!--          </v-card-actions>-->
-
-<!--        </template>-->
-<!--        <v-card>-->
-<!--          <v-card-title class="headline grey lighten-2">-->
-<!--            Order confirmed!-->
-<!--          </v-card-title>-->
-
-<!--          <v-card-text>-->
-<!--            Enjoy your food! <br>-->
-<!--            Isd-food with love🧡-->
-<!--          </v-card-text>-->
-
-<!--          <v-divider></v-divider>-->
-
-<!--          <v-card-actions>-->
-<!--            <v-spacer></v-spacer>-->
-<!--            <v-btn-->
-<!--                color="warning"-->
-<!--                text-->
-<!--                @click="dialog = false"-->
-<!--            >-->
-<!--              Excelent-->
-<!--            </v-btn>-->
-<!--          </v-card-actions>-->
-<!--        </v-card>-->
-<!--      </v-dialog>-->
-<!--    </div>-->
 </template>
 
 <script>

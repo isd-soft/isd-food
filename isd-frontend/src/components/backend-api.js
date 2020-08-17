@@ -74,34 +74,26 @@ export default {
   },
 
 
-  getHistory() {
-    return AXIOS.get("/orders");
-  },
-  updateUser(user_id, firstName, lastName, skypeId, email) {
-    return AXIOS.put(
-      "/user/edit/" +
-        user_id +
-        "?firstName=" +
-        firstName +
-        "&lastName=" +
-        lastName +
-        "&skypeId=" +
-        skypeId +
-        "&email=" +
-        email
-    );
-  },
-
 
 
     getMenuDay(day){
         return AXIOS.get("/menu/day?day="+day)
     }
-    
-  changePass(user_id, password) {
-    return AXIOS.put(
-      "/user/edit/password/" + user_id + "?password=" + password
-    );
-  }
+        ,
+
+    deleteOrder(id){
+      return AXIOS.delete('/orders/' + id)
+    },
+    getHistory(id){
+        return AXIOS.get("/users/"+id+"/orders");
+    },
+    updateUser(user_id, firstName, lastName, skypeId, email){
+        return AXIOS.put("/user/edit/"+user_id+"?firstName="+firstName+"&lastName="+lastName+"&skypeId="+skypeId+"&email="+email);
+    },
+
+    changePass(user_id, password){
+        return AXIOS.put("/user/edit/password/"+user_id+"?password="+password)
+    }
+
 
 };

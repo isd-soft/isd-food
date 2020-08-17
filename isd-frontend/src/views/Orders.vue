@@ -1,64 +1,84 @@
-<template >
-
+<template>
 <div>
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-warning" >History</h6>
+      <h6 class="m-0 font-weight-bold text-warning">Orders</h6>
+      <ul class="nav d-flex mb-3 mt-4" id="pills-tab" role="tablist">
+        <li class="nav-item mr-3" role="presentation">
+          <a class="btn btn-outline-warning active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Current orders</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="btn btn-outline-warning" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Orders history</a>
+        </li>
+      </ul>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-          <tr>
-            <th>Provider</th>
-            <th>Menu</th>
-            <th>Menu type</th>
-            <th>Data</th>
-            <th>Price</th>
+      <div  class="table-responsive">
+        <div  class="tab-content" id="pills-tabContent">
+          <!---Current--->
+          <div  class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <table v-if="!this.isEmptyCurrent()" class="table table-bordered"  width="100%" cellspacing="0">
+              <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Menu</th>
+                <th>Menu type</th>
+                <th>Data</th>
+                <th>Price</th>
+                <th>Delete</th>
+              </tr>
+                </thead>
+                <tbody v-for="order of userHistory" :key="order.id">
+                <tr v-if="!order.ordered">
+                  <td>{{order.providerName}}</td>
+                  <td>{{order.menuName}}</td>
+                  <td>{{order.menuType}}</td>
+                  <td>{{order.date}}</td>
+                  <td>{{order.price}} lei</td>
+                  <td class="text-center">
+                     <button type="submit" @click="deleteOrder(order.id)" onclick="window.location.reload();">
+                       <v-icon  data-toggle="modal"  data-target="#exampleModal">fas fa-trash-alt</v-icon>
+                     </button>
+                  </td>
+                </tr>
+                </tbody>
+            </table>
+            <div v-else class="text-center">
+              <h1 class="mt-1">Empty </h1>
+            </div>
+          </div>
 
-          </tr>
-          </thead>
-          <tbody>
-
-
-          <tr v-for="order of userHistory" :key="order.id">
-<!--            <td>{{order.providerName}}</td>-->
-<!--            <td>{{order.menuName}}</td>-->
-<!--            <td>{{order.menuType}}</td>-->
-<!--            <td>{{order.date}}</td>-->
-<!--            <td>{{order.price}} lei</td>-->
-
-            <td v-if="order.providerName == null">Default</td>
-            <td v-else>{{order.providerName}}</td>
-
-            <td v-if="order.menuName != null">{{order.menuName}}</td>
-            <td v-else>Default</td>
-
-            <td v-if="order.menuType != null">{{order.menuType}}</td>
-            <td v-else>Default</td>
-
-            <td v-if="order.date != null">{{order.date}}</td>
-            <td v-else>Default</td>
-
-            <td v-if="order.price == null">Default</td>
-            <td v-else>{{order.price}}</td>
-
-
-
-          </tr>
-
-
-
-
-          </tbody>
-        </table>
+          <!---Orders History--->
+          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <table v-if="this.isEmptyHistory()" class="table table-bordered"  width="100%" cellspacing="0">
+              <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Menu</th>
+                <th>Menu type</th>
+                <th>Data</th>
+                <th>Price</th>
+              </tr>
+              </thead>
+              <tbody v-for="order of userHistory" :key="order.id">
+              <tr v-if="order.ordered">
+                <td>{{order.providerName}}</td>
+                <td>{{order.menuName}}</td>
+                <td>{{order.menuType}}</td>
+                <td>{{order.date}}</td>
+                <td>{{order.price}} lei</td>
+              </tr>
+              </tbody>
+            </table>
+            <div v-else class="text-center">
+              <h1 class="mt-1">Empty History</h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
-
-
 </template>
 
 <script>
@@ -71,15 +91,33 @@ export default {
    data (){
      return{
        userHistory:[],
-       getHistory: false
+       getHistory: false,
      }
    },
+  methods:{
+    isEmptyCurrent(){
+      for(let i = 0; i < this.userHistory.length;i++)
+        if(!this.userHistory[i].ordered)
+          return false
+      return true
+    },
+    isEmptyHistory(){
+      for(let i = 0; i < this.userHistory.length;i++)
+        if(this.userHistory[i].ordered)
+          return true
+      return false
+    },
+    deleteOrder(id){
+      api.deleteOrder(id)
+    }
+  },
   beforeCreate() {
-    api.getHistory().then(r => {this.userHistory = r.data.content;console.log(r.data)})
+    api.getHistory(1).then(r => {this.userHistory = r.data.content;console.log(r.data)})
   }
 };
 
 </script>
 
 <style>
+
 </style>
