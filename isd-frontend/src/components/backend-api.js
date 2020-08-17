@@ -96,7 +96,7 @@ export default {
 
     getMenuDay(day){
         return AXIOS.get("/menu/day?day="+day)
-    }
+    },
     
   changePass(user_id, password) {
     return AXIOS.put(
