@@ -16,9 +16,8 @@
 
     </div>
     <div class="card-body">
-      <div class="table-responsive">
-
-        <div class="tab-content" id="pills-tabContent">
+      <div  class="table-responsive">
+        <div  class="tab-content" id="pills-tabContent">
           <!---Current--->
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
@@ -31,35 +30,23 @@
                 <th>Data</th>
                 <th>Price</th>
                 <th>Delete</th>
-
-
               </tr>
                 </thead>
-
-
-
                 <tbody v-for="order of userHistory" :key="order.id">
-
                 <tr v-if="!order.ordered">
                   <td>{{order.providerName}}</td>
                   <td>{{order.menuName}}</td>
                   <td>{{order.menuType}}</td>
                   <td>{{order.date}}</td>
                   <td>{{order.price}} lei</td>
-
                   <td class="text-center">
                      <button type="submit" @click="deleteOrder(order.id)" onclick="window.location.reload();">
                        <v-icon  data-toggle="modal"  data-target="#exampleModal">fas fa-trash-alt</v-icon>
                      </button>
                   </td>
-
                 </tr>
                 </tbody>
             </table>
-
-
-
-
           </div>
           <!---Orders History--->
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -116,17 +103,22 @@ export default {
      return{
        userHistory:[],
        getHistory: false,
+       e: this.getCurrent()
      }
    },
   methods:{
-
-    deleteOrder(id){
+    getCurrent(){
+      for(let i = 0; i < this.userHistory.length;i++)
+        if(!this.userHistory[i].ordered)
+          return false
+      return true
+    }
+    ,deleteOrder(id){
       api.deleteOrder(id)
     }
   },
   beforeCreate() {
     api.getHistory(1).then(r => {this.userHistory = r.data.content;console.log(r.data)})
-
   }
 };
 
