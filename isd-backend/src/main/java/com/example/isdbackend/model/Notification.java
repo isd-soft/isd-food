@@ -9,9 +9,9 @@ public class Notification {
     private Long id;
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "users_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "users_id")
+//    private User user;
 
     public Long getId() {
         return id;

@@ -43,21 +43,32 @@ public class UserService extends AbstractServiceCrud {
         userRepository.save(user);
     }
 
-    public void setNotificationSettings(Long id, NotificationSettings notificationSettings) {
-        User user = userRepository.findById(id).orElseThrow();
-        user.setNotificationSettings(notificationSettings);
-        userRepository.save(user);
-    }
+//    public void setNotificationSettings(Long id, NotificationSettings notificationSettings) {
+//        User user = userRepository.findById(id).orElseThrow();
+//        user.setNotificationSettings(notificationSettings);
+//        userRepository.save(user);
+//    }
     public List<User> findAll(){
         return userRepository.findAll();
     }
 
-    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email){
+//    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email){
+//        User user = userRepository.findById(id).orElseThrow();
+//        user.setFirstName(firstName);
+//        user.setLastName(lastName);
+//        user.setSkypeId(SkypeId);
+//        user.setEmail(email);
+//        userRepository.save(user);
+//    }
+
+    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email, Boolean enable, String data){
         User user = userRepository.findById(id).orElseThrow();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setSkypeId(SkypeId);
         user.setEmail(email);
+        user.setNotificationEnabled(enable);
+        user.setNotificationData(data);
         userRepository.save(user);
     }
 

@@ -75,7 +75,7 @@ export default {
   getHistory() {
     return AXIOS.get("/orders");
   },
-  updateUser(user_id, firstName, lastName, skypeId, email) {
+  updateUser( user_id, firstName, lastName, skypeId, email, enable, data) {
     return AXIOS.put(
       "/user/edit/" +
         user_id +
@@ -86,7 +86,11 @@ export default {
         "&skypeId=" +
         skypeId +
         "&email=" +
-        email
+        email +
+        "&enable=" +
+        enable +
+        "&data=" +
+        data
     );
   },
 
@@ -94,5 +98,8 @@ export default {
     return AXIOS.put(
       "/user/edit/password/" + user_id + "?password=" + password
     );
+  },
+  changeNotification(user_id, notification_active, data){
+    return AXIOS.put()
   }
 };

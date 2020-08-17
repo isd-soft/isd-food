@@ -33,9 +33,9 @@ public class Schedule {
         String currentDay = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         for (User user : users)
-                if(!user.getNotificationSettings().getEnable() && user.getNotificationSettings().getDate().equals(currentDay) && user.getNotificationSettings().getDate() != null){
-                    user.getNotificationSettings().setEnable(true);
-                    user.getNotificationSettings().setDate(null);
+                if(!user.getNotificationEnabled() && user.getNotificationDataToChange().equals(currentDay) && user.getNotificationDataToChange() != null){
+                    user.setNotificationEnabled(true);
+                    user.setNotificationDataToChange(null);
                 }
 
 
@@ -45,7 +45,7 @@ public class Schedule {
     public void scheduleNotification(){
         List<User> users = userService.findAll();
         for (User user : users)
-            if (user.getNotificationSettings().getEnable() && user.getEmail() != null)
+            if (user.getNotificationEnabled() && user.getEmail() != null)
                 mailSender.sendSimpleMessage(user.getEmail(),"Time to eat","Message");
 
    }

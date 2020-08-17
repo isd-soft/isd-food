@@ -11,21 +11,21 @@ public class NotificationSettings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     private Boolean isEnable;
 
     private String date;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public Boolean getEnable() {
         return isEnable;
@@ -55,10 +55,10 @@ public class NotificationSettings {
         this.id = id;
     }
 
-    public NotificationSettings(Long id, User user, Boolean isEnable) {
-        this.id = id;
-        this.user = user;
-        this.isEnable = isEnable;
-
-    }
+//    public NotificationSettings(Long id, User user, Boolean isEnable) {
+//        this.id = id;
+//        this.user = user;
+//        this.isEnable = isEnable;
+//
+//    }
 }

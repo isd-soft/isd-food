@@ -25,8 +25,11 @@ public class User {
 
     private char[] password;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private NotificationSettings notificationSettings;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+//    private NotificationSettings notificationSettings;
+    private Boolean notificationEnabled;
+
+    private Date notificationDataToChange;
 
     private Date employmentDate;
 
@@ -102,13 +105,13 @@ public class User {
         this.password = password;
     }
 
-    public NotificationSettings getNotificationSettings() {
-        return notificationSettings;
-    }
-
-    public void setNotificationSettings(NotificationSettings notificationSettings) {
-        this.notificationSettings = notificationSettings;
-    }
+//    public NotificationSettings getNotificationSettings() {
+//        return notificationSettings;
+//    }
+//
+//    public void setNotificationSettings(NotificationSettings notificationSettings) {
+//        this.notificationSettings = notificationSettings;
+//    }
 
     public Boolean getEnabled() {
         return enabled;
@@ -140,5 +143,21 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Boolean getNotificationEnabled() {
+        return notificationEnabled;
+    }
+
+    public void setNotificationEnabled(Boolean notificationEnabled) {
+        this.notificationEnabled = notificationEnabled;
+    }
+
+    public Date getNotificationDataToChange() {
+        return notificationDataToChange;
+    }
+
+    public void setNotificationDataToChange(Date notificationDataToChange) {
+        this.notificationDataToChange = notificationDataToChange;
     }
 }

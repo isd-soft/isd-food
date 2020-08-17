@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -39,12 +40,23 @@ public class UserController {
         return new ResponseEntity<>(userService.findByIdUser(currentId), HttpStatus.OK);
     }
 
-    @PutMapping("/edit/{currentId}")
-    @ResponseBody
-    public String editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,@RequestParam String skypeId,@RequestParam String email){
-        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email);
-        return "Success";
+    @GetMapping
+    public List<User> getAllUsers(){
+        return userService.findAll();
     }
+
+    @PutMapping("/edit/{currentId}")
+    public void editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,
+                         @RequestParam String skypeId,@RequestParam String email,@RequestParam Boolean enable,@RequestParam String data){
+        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, data);
+    }
+
+//    @PutMapping("/edit/{currentId}")
+//    @ResponseBody
+//    public String editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,@RequestParam String skypeId,@RequestParam String email){
+//        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email);
+//        return "Success";
+//    }
 
     @PutMapping("/edit/password/{currentId}")
     @ResponseBody
@@ -57,4 +69,6 @@ public class UserController {
     @ResponseBody
     public String showRequest(@RequestParam String str){
         return str;
-}    }
+}
+
+}

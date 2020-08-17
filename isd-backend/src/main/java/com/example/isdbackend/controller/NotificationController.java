@@ -26,17 +26,20 @@ public class NotificationController {
         userService.save(usr);
     }
 
-    @RequestMapping(value = "/setNewSettings/{id}", method = RequestMethod.POST)
-    public void setUserNotification(@RequestParam NotificationSettings notification, @PathVariable Long id) {
-        User usr = userService.findUserById(id);
-        usr.setNotificationSettings(notification);
-        userService.save(usr);
-    }
+//    @RequestMapping(value = "/setNewSettings/{id}", method = RequestMethod.POST)
+//    public void setUserNotification(@RequestParam NotificationSettings notification, @PathVariable Long id) {
+//        User usr = userService.findUserById(id);
+//        usr.setNotificationSettings(notification);
+//        userService.save(usr);
+//    }
 
     @RequestMapping(value = "/newNotification/{id}", method = RequestMethod.POST)
     public void newNotification(@PathVariable Long id, Notification notification) {
         User user = userService.findUserById(id);
         userService.save(user);
     }
+
+
+
 
 }
