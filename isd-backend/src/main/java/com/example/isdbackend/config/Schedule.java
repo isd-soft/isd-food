@@ -26,30 +26,30 @@ public class Schedule {
         this.mailSender = mailSender;
     }
 
-
-    @Scheduled(cron = "0 0-5 7 * * ?\n",zone="GMT+3.00")
-    public void checkDate(){
-        List<User> users = userService.findAll();
-        String currentDay = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
-        for (User user : users)
-                if(!user.getNotificationSettings().getEnable() && user.getNotificationSettings().getDate().equals(currentDay) && user.getNotificationSettings().getDate() != null){
-                    user.getNotificationSettings().setEnable(true);
-                    user.getNotificationSettings().setDate(null);
-                    userService.save(user);
-                }
-
-
-    }
-
-    @Scheduled(cron = "0 30 9 ? * MON-FRI\n",zone="GMT+3.00")
-    public void scheduleNotification(){
-        List<User> users = userService.findAll();
-        for (User user : users)
-            if (user.getNotificationSettings().getEnable() && user.getEmail() != null)
-                mailSender.sendSimpleMessage(user.getEmail(),"Time to eat","Message");
-
-   }
+//
+//    @Scheduled(cron = "0 0-5 7 * * ?\n",zone="GMT+3.00")
+//    public void checkDate(){
+//        List<User> users = userService.findAll();
+//        String currentDay = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//
+//        for (User user : users)
+//                if(!user.getNotificationSettings().getEnable() && user.getNotificationSettings().getDate().equals(currentDay) && user.getNotificationSettings().getDate() != null){
+//                    user.getNotificationSettings().setEnable(true);
+//                    user.getNotificationSettings().setDate(null);
+//                    userService.save(user);
+//                }
+//
+//
+//    }
+//
+//    @Scheduled(cron = "0 30 9 ? * MON-FRI\n",zone="GMT+3.00")
+//    public void scheduleNotification(){
+//        List<User> users = userService.findAll();
+//        for (User user : users)
+//            if (user.getNotificationSettings().getEnable() && user.getEmail() != null)
+//                mailSender.sendSimpleMessage(user.getEmail(),"Time to eat","Message");
+//
+//   }
 
 
 }
