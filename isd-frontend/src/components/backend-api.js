@@ -84,7 +84,10 @@ export default {
     return AXIOS.get("/user/" + user_id);
   },
 
+
   updateUser(user_id, firstName, lastName, skypeId, email) {
+
+
     return AXIOS.put(
       "/user/edit/" +
         user_id +
@@ -95,7 +98,11 @@ export default {
         "&skypeId=" +
         skypeId +
         "&email=" +
-        email
+        email +
+        "&enable=" +
+        enable +
+        "&data=" +
+        data
     );
   },
 
