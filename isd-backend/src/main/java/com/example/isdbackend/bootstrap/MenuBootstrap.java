@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -65,15 +66,32 @@ public class MenuBootstrap implements CommandLineRunner {
         S3.setType('S');
         menuTypeRepository.save(S3);
 
+        MenuType M4 = new MenuType();
+        M4.setPrice(150f);
+        M4.setType('M');
+        menuTypeRepository.save(M4);
+
+        MenuType S4 = new MenuType();
+        S4.setPrice(120f);
+        S4.setType('S');
+        menuTypeRepository.save(S4);
+
         Provider andys = new Provider();
         andys.setName("Andys pizza");
         andys.setDeliveryPrice(40);
 
         providerRepository.save(andys);
 
+        Provider mac = new Provider();
+        andys.setName("Mac Donalds");
+        andys.setDeliveryPrice(20);
+
+        providerRepository.save(andys);
+
         Menu salat = new Menu();
         salat.setName("Bistro");
         salat.setProvider(andys);
+        salat.setDayOfWeek(DayOfWeek.MONDAY);
         S1.setMenu(salat);
         M1.setMenu(salat);
         menuRepository.save(salat);
@@ -84,6 +102,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat2 = new Menu();
         salat2.setName("Indean");
         salat2.setProvider(andys);
+        salat2.setDayOfWeek(DayOfWeek.MONDAY);
         S2.setMenu(salat2);
         M2.setMenu(salat2);
         menuRepository.save(salat2);
@@ -93,11 +112,22 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat3 = new Menu();
         salat3.setName("Japan");
         salat3.setProvider(andys);
+        salat3.setDayOfWeek(DayOfWeek.THURSDAY);
         S3.setMenu(salat3);
         M3.setMenu(salat3);
         menuRepository.save(salat3);
         menuTypeRepository.save(S3);
         menuTypeRepository.save(M3);
+
+        Menu salat4 = new Menu();
+        salat4.setName("Moldavian");
+        salat4.setProvider(andys);
+        salat4.setDayOfWeek(DayOfWeek.TUESDAY);
+        S4.setMenu(salat4);
+        M4.setMenu(salat4);
+        menuRepository.save(salat4);
+        menuTypeRepository.save(S4);
+        menuTypeRepository.save(M4);
 
         Item mamaliga = new Item();
         mamaliga.setName("Mamaliga");
@@ -143,6 +173,18 @@ public class MenuBootstrap implements CommandLineRunner {
         S3.getItems().add(mamaliga);
         S3.getItems().add(sashlic);
         menuTypeRepository.save(S3);
+
+        M4.setItems(new HashSet<>());
+        M4.getItems().add(mamaliga);
+        M4.getItems().add(sashlic);
+        M4.getItems().add(poncho);
+        menuTypeRepository.save(M4);
+
+        S4.setItems(new HashSet<>());
+        S4.getItems().add(mamaliga);
+        S4.getItems().add(sashlic);
+        menuTypeRepository.save(S4);
+
 
         User user = new User();
         user.setFirstName("Petea");
