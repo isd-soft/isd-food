@@ -11,7 +11,7 @@
 <script>
 import MenuList from '../components/MenuList.vue'
 export default {
-  name: "Home",
+  name: "Menu",
     components: {
     MenuList,
   },

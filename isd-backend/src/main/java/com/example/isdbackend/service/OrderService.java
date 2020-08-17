@@ -1,34 +1,96 @@
 package com.example.isdbackend.service;
 
+import com.example.isdbackend.dto.OrderDTO;
+import com.example.isdbackend.dto.converter.OrderConverter;
 import com.example.isdbackend.filter.OrderFilter;
-import com.example.isdbackend.model.Menu;
-import com.example.isdbackend.model.MenuType;
 import com.example.isdbackend.model.Order;
-import com.example.isdbackend.model.User;
+import com.example.isdbackend.model.Properties;
 import com.example.isdbackend.projection.OrderFullView;
 import com.example.isdbackend.projection.OrderView;
-import com.example.isdbackend.repository.*;
+import com.example.isdbackend.repository.OrderRepository;
+import com.example.isdbackend.repository.PropertiesRepository;
+import com.example.isdbackend.util.DateUtil;
+import com.example.isdbackend.validation.OrderValidation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 
 @Service
-public class OrderService extends AbstractServiceCrud {
+public class OrderService {
 
-    public OrderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository) {
-        super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
+    private final OrderConverter orderConverter;
+    private final PropertiesRepository propertiesRepository;
+    private final OrderRepository orderRepository;
+    private final UserService userService;
+
+    public OrderService(UserService userService, PropertiesRepository propertiesRepository, OrderRepository orderRepository, OrderConverter orderConverter) {
+        this.orderConverter = orderConverter;
+        this.propertiesRepository = propertiesRepository;
+        this.orderRepository = orderRepository;
+        this.userService = userService;
     }
 
-    public Order save(Order order) {
-        return orderRepository.save(order);
+    public boolean areOrdersEnabled(Date orderOnDate) {
+        Date lastOrderDate = propertiesRepository.findLastOrderDate();
+
+        return (lastOrderDate == null || lastOrderDate.before(orderOnDate));
+    }
+
+    public String canMakeOrder(OrderDTO orderDTO) {
+        orderDTO.setUserId(userService.getCurrentUserId());
+
+        int ordersCount = orderRepository.findOrdersCountByDateAndUserId(orderDTO.getDate(), orderDTO.getUserId());
+        boolean menuDayEqualsOrderDay = orderRepository.findMenuDayEqualsOrderDay(orderDTO.getDate(), orderDTO.getMenuTypeId());
+
+        if (ordersCount > 1) return "You already made 2 orders on this day";
+
+        if (!menuDayEqualsOrderDay) return "This menu is not available on this day";
+
+        OrderValidation orderValidation = new OrderValidation(orderDTO.getDate(), new Date());
+
+        String message = orderValidation.validate();
+
+        return message;
+    }
+
+    public Order save(OrderDTO orderDTO) {
+        return orderRepository.save(orderConverter.convertFromDto(orderDTO));
+    }
+
+    public String canUpdateOrder(OrderDTO orderDTO) {
+        boolean menuDayEqualsOrderDay = orderRepository.findMenuDayEqualsOrderDay(orderDTO.getDate(), orderDTO.getMenuTypeId());
+        if (!menuDayEqualsOrderDay) return "This menu is not available on this day";
+
+        return null;
+    }
+
+    public String canDeleteOrder(long orderId) {
+        OrderFullView order = orderRepository.findAllById(orderId);
+
+        if (order == null) return "This order doesn't exist";
+
+        if (order.isOrdered()) return "Can not delete the placed order";
+
+        return null;
+    }
+
+    public void update(OrderDTO orderDTO) {
+        orderDTO.setUserId(userService.getCurrentUserId());
+        orderRepository.save(orderConverter.convertFromDto(orderDTO));
+    }
+
+    public void placeTheOrder(Date orderDate) {
+        String strDate = DateUtil.getDateFromDateTime(orderDate);
+
+        orderRepository.setOrdersAsPlaced(orderDate);
+        Properties updatedProperties = new Properties();
+        updatedProperties.setId("last_order");
+        updatedProperties.setValue(strDate);
+        updatedProperties.setType("date");
+
+        propertiesRepository.save(updatedProperties);
     }
 
     public OrderFullView findOrderById(long id) {
@@ -37,32 +99,6 @@ public class OrderService extends AbstractServiceCrud {
 
     public Page<OrderView> getOrders(Pageable pageable, OrderFilter orderFilter, Long userId) {
         return orderRepository.findAllBy(pageable, userId, orderFilter);
-    }
-
-    public void createOrder(Long user_id, Long menuType_id){
-        User user = userRepository.findById(user_id).orElseThrow();
-        MenuType menuType = menuTypeRepository.findById(menuType_id).orElseThrow();
-        Order order =new Order(user, menuType);
-
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDate localDate = LocalDate.now();
-
-
-        order.setDate(new Date(dtf.format(localDate)));
-
-        order.setOrdered(false);
-        orderRepository.save(order);
-    }
-    public Order findById(Long id){
-        return orderRepository.findById(id).orElseThrow();
-    }
-    public void delete(Order order){
-        orderRepository.delete(order);
-    }
-
-    public List<Order> getAll(){
-        return orderRepository.findAll();
     }
 
 }

@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class IsdBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(IsdBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(IsdBackendApplication.class, args);
+    }
 
 
 }
