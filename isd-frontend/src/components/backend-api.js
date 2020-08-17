@@ -65,12 +65,14 @@ export default {
     return AXIOS.post(`/provider`, provider);
   },
 
+
   getMenuType() {
     return AXIOS.get("/menu_type");
   },
   getUser(user_id) {
     return AXIOS.get("/user/" + user_id);
   },
+
 
   getHistory() {
     return AXIOS.get("/orders");
@@ -90,9 +92,16 @@ export default {
     );
   },
 
+
+
+    getMenuDay(day){
+        return AXIOS.get("/menu/day?day="+day)
+    }
+    
   changePass(user_id, password) {
     return AXIOS.put(
       "/user/edit/password/" + user_id + "?password=" + password
     );
   }
+
 };

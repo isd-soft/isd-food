@@ -1,8 +1,12 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.model.Menu;
+import com.example.isdbackend.projection.MenuView;
 import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
+
+import java.time.DayOfWeek;
+import java.util.List;
 
 @Service
 public class MenuService extends AbstractServiceCrud {
@@ -22,6 +26,14 @@ public class MenuService extends AbstractServiceCrud {
     }
     public void delete(Menu menu){
         menuRepository.delete(menu);
+    }
+
+   /* public Iterable<Menu> getMenusByDay(DayOfWeek day){
+        return menuRepository.findByDayOfWeek(day);
+    }*/
+
+    public Iterable<Menu> getMenusByDay (DayOfWeek day){
+        return menuRepository.findByDayOfWeek(day);
     }
 
 

@@ -8,6 +8,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 12px">
               <div class="ml-1">
                 <p>Provider : {{product_data.provider.name}}</p>
+                <p>Day : {{product_data.dayOfWeek}}</p>
                 <div>
                   <img src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/chorizo-mozarella-gnocchi-bake-cropped.jpg" class="image" alt="">
                 </div>
