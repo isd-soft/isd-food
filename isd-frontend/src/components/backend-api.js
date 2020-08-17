@@ -106,6 +106,10 @@ export default {
     );
   },
 
+  getMenuDay(day){
+    return AXIOS.get("/menu/day?day="+day)
+},
+
   changePass(user_id, password) {
     return AXIOS.put(
       "/user/edit/password/" + user_id + "?password=" + password

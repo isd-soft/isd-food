@@ -16,38 +16,40 @@ import java.util.List;
 @EnableScheduling
 public class Schedule {
 
-    private final UserService userService;
-    private final MailSender mailSender;
-
-
-
-    public Schedule(UserService userService, MailSender mailSender) {
-        this.userService = userService;
-        this.mailSender = mailSender;
-    }
-
-
-    @Scheduled(cron = "0 0-5 7 * * ?\n",zone="GMT+3.00")
-    public void checkDate(){
-        List<User> users = userService.findAll();
-        String currentDay = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
-        for (User user : users)
-            if(!user.isNotificationEnabled() && user.getDateToChange().equals(currentDay)){
-                user.setNotificationEnabled(true);
-                user.setDateToChange(null);
-                userService.save(user);
-            }
-    }
-
-    @Scheduled(cron = "0 30 9 ? * MON-FRI\n",zone="GMT+3.00")
-    public void scheduleNotification(){
-        List<User> users = userService.findAll();
-        for (User user : users)
-            if (user.isNotificationEnabled())
-                mailSender.sendSimpleMessage(user.getEmail(),"Time to eat","Message");
-
-   }
-
+//    private final UserService userService;
+//    private final MailSender mailSender;
+//
+//
+//
+//    public Schedule(UserService userService, MailSender mailSender) {
+//        this.userService = userService;
+//        this.mailSender = mailSender;
+//    }
+//
+//
+//    @Scheduled(cron = "0 0-5 7 * * ?\n",zone="GMT+3.00")
+//    public void checkDate(){
+//        List<User> users = userService.findAll();
+//        String currentDay = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//
+//        for (User user : users)
+//                if(!user.getNotificationSettings().getEnable() && user.getNotificationSettings().getDate().equals(currentDay) && user.getNotificationSettings().getDate() != null){
+//                    user.getNotificationSettings().setEnable(true);
+//                    user.getNotificationSettings().setDate(null);
+//                    userService.save(user);
+//                }
+//
+//
+//    }
+//
+//    @Scheduled(cron = "0 30 9 ? * MON-FRI\n",zone="GMT+3.00")
+//    public void scheduleNotification(){
+//        List<User> users = userService.findAll();
+//        for (User user : users)
+//            if (user.getNotificationSettings().getEnable() && user.getEmail() != null)
+//                mailSender.sendSimpleMessage(user.getEmail(),"Time to eat","Message");
+//
+//   }
+//
 
 }
