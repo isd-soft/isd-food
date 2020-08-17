@@ -7,7 +7,6 @@ import com.example.isdbackend.model.Order;
 import com.example.isdbackend.projection.OrderFullView;
 import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.service.OrderService;
-import com.example.isdbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +34,14 @@ public class OrderController {
         if (userId == null) userId = 0L;
 
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/orders")
+    public ResponseEntity<Page<OrderView>> getAllOrders(
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            OrderFilter orderFilter) {
+
+        return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, 0L), HttpStatus.OK);
     }
 
     @GetMapping("/{orderId}")

@@ -1,12 +1,58 @@
 <template>
+
+<v-app style="background: none">
   <div class="row">
-    {{this.callOnce()}}
+
+  <v-container fluid>
+    <v-row>
+     <v-col
+        cols="12"
+        sm="6"
+        class="py-2"
+      >
+<div class="text-center"> 
+      {{callOnce()}}
+       <h2 class="font-style-apple" style="color:black"> Select day:</h2>
+       <!-- {{dailyMenu}} -->
+</div>
+
+        <v-btn-toggle
+          v-model="weekDay"
+          tile
+          color="warning"
+          group
+        >
+          <v-btn  @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">
+            Monday
+          </v-btn>
+
+          <v-btn @click="getDayMenu('TUESDAY')" value="TUESDAY" :disabled="getWeekDayId() > 2 || getWeekDayId()==0">
+            Tuesday
+          </v-btn>
+
+          <v-btn @click="getDayMenu('WEDNESDAY')" value="WEDNESDAY" :disabled="getWeekDayId() > 3 || getWeekDayId()==0">
+            Wednesday
+          </v-btn>
+
+          <v-btn @click="getDayMenu('THURSDAY')" value="THURSDAY" :disabled="getWeekDayId() > 4 || getWeekDayId()==0">
+            Thursday
+          </v-btn>
+           <v-btn @click="getDayMenu('FRIDAY')" value="FRIDAY" :disabled="getWeekDayId() > 5 || getWeekDayId()==0">
+            Friday
+          </v-btn>
+        </v-btn-toggle>
+      </v-col>
+    </v-row>
+  </v-container>
+
+
     <MenuItem
-        v-for="product in products"
+        v-for="product in dailyMenu"
         :key="product.name"
         :product_data="product"/>
-
   </div>
+
+</v-app>
 </template>
 
 <script>
@@ -19,8 +65,10 @@ import MenuItem from './MenuItem.vue'
   },
     data () {
       return {
+        weekDay: this.getWeekDay(),
         msg: 'Display some info from spring',
         products: [],
+        dailyMenu: [],
         menu_types: [],
         helloResponse: [],
         errors: [],
@@ -36,10 +84,21 @@ import MenuItem from './MenuItem.vue'
       // Fetches posts when the component is created.
       callOnce(){
         if(!this.get){
-          this.callMenuApi();
+          this.getMenuFirst();
           this.get = true
         }
       },
+
+      getDayMenu(day) {
+        api.getMenuDay(day).then(response => {
+            this.dailyMenu = response.data;
+            console.log(response.data)
+        })
+        .catch(error => {
+          this.errors.push(error)
+        })
+      },
+      
       callMenuApi () {
         api.getMenu().then(response => {
             this.products = response.data;
@@ -58,6 +117,26 @@ import MenuItem from './MenuItem.vue'
           this.errors.push(error)
         })
       },
+
+      getWeekDayId(){
+          
+          var date = new Date()
+          var count = date.getDay()
+          console.log(date.getHours())
+          if(date.getHours() > 10)
+            count++;
+          if(count == 7)
+            count = 0
+          console.log(count)
+          return count
+      },
+
+      getWeekDay() {
+      let days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+      return days[this.getWeekDayId()];
+      },
+
+
       callMenuType(){
         api.getMenuType().then(response => {
             this.menu_types = response.data;
@@ -77,11 +156,19 @@ import MenuItem from './MenuItem.vue'
           ? this.length - 1
           : this.onboarding - 1
       },
-    }
+
+      getMenuFirst(){
+        this.getDayMenu(this.getWeekDay());
+      },
+    },
   }
 </script>
 
 <style lang = "scss">
+
+.font-style-apple{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 .menu{
   &_list{
     margin: 0 auto;

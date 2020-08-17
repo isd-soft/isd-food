@@ -29,6 +29,7 @@ public class OrderValidation {
         if (!isTheOrderForCurrentWeek()) return "You can make an order only for current week";
         else if (isTheCurrentDateOnWeekend()) return "You can not make an order from weekend";
         else if (!isTheOrderForCurrentOrNextDate()) return "You can not make an order for previous day";
+
         return null;
     }
 

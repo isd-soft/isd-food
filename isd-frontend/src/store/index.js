@@ -143,13 +143,13 @@ export default new Vuex.Store({
             });
         },
 
-    },
-    modules: {},
-    getters: {
-        isLoggedIn: state => state.login.loginSuccess,
-        hasLoginErrored: state => state.login.loginError,
-        isLoggingInProcess: state => state.login.loading,
-        getEmail: state => state.login.email,
-        getPassword: state => state.login.password
-    }
+  },
+  modules: {},
+  getters: {
+    isLoggedIn: state => state.login.loginSuccess,
+    hasLoginErrored: state => state.login.loginError,
+    isLoggingInProcess: state => state.login.loading,
+    getEmail: state => state.login.email,
+    getPassword: state => state.login.password
+  }
 });
