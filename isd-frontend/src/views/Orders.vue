@@ -48,6 +48,7 @@
                 </tbody>
             </table>
           </div>
+
           <!---Orders History--->
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <table class="table table-bordered"  width="100%" cellspacing="0">
@@ -103,17 +104,10 @@ export default {
      return{
        userHistory:[],
        getHistory: false,
-       e: this.getCurrent()
      }
    },
   methods:{
-    getCurrent(){
-      for(let i = 0; i < this.userHistory.length;i++)
-        if(!this.userHistory[i].ordered)
-          return false
-      return true
-    }
-    ,deleteOrder(id){
+    deleteOrder(id){
       api.deleteOrder(id)
     }
   },
