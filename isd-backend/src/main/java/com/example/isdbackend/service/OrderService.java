@@ -40,6 +40,12 @@ public class OrderService extends AbstractServiceCrud {
         order.setOrdered(false);
         orderRepository.save(order);
     }
+    public Order findById(Long id){
+        return orderRepository.findById(id).orElseThrow();
+    }
+    public void delete(Order order){
+        orderRepository.delete(order);
+    }
 
     public List<Order> getAll(){
         return orderRepository.findAll();

@@ -64,15 +64,16 @@ export default {
   createProvider(provider) {
     console.log(provider);
     return AXIOS.post(`/provider`, provider);
-  }
-
+  },
     getMenuType(){
         return AXIOS.get('/menu_type')
       },
     getUser(user_id){
-        return AXIOS.get("/user/"+user_id);
+        return AXIOS.get("/user/"+ user_id);
     },
-
+    deleteOrder(id){
+      return AXIOS.delete('/orders/' + id)
+    },
     getHistory(){
         return AXIOS.get("/orders");
     },
