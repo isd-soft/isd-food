@@ -22,6 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
@@ -71,15 +76,15 @@ public class UserController {
         userService.save(user);
     }*/
 
+    @GetMapping("/getUser")
+    public User getCurrentUser(){
+        return userService.getCurrentUser();
+    }
+
     @GetMapping("/{currentId}")
     public ResponseEntity<UserView> getInfoUser(@PathVariable Long currentId) {
         return new ResponseEntity<>(userService.findByIdUser(currentId), HttpStatus.OK);
     }
-
-//    @GetMapping
-//    public List<User> getAllUsers(){
-//        return userService.findAll();
-//    }
 
     @PutMapping("/edit/{currentId}")
     public void editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,

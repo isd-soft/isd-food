@@ -63,6 +63,9 @@ export default {
     resetPassword(email) {
         return AXIOS.post(`/users/password/reset?email=` + email,);
     },
+    getUserWithoutId() {
+        return AXIOS.get("users/getUser");
+    },
 
   getMenu() {
     return AXIOS.get(`/menu`);
@@ -85,11 +88,9 @@ export default {
   },
 
 
-  updateUser(user_id, firstName, lastName, skypeId, email,enable,data) {
-
-
+  updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
     return AXIOS.put(
-      "/user/edit/" +
+      "/users/edit/" +
         user_id +
         "?firstName=" +
         firstName +
