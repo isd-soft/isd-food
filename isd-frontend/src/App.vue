@@ -6,7 +6,7 @@
           <li class="nav-item text-center">
             <span  class="nav-link" >
               <v-icon style="color: white; font-size: 20px">fas fa-utensils</v-icon>
-              <span class="ml-md-5">Isd-food</span></span>
+              <span class="ml-md-5" style="cursor: pointer">Isd-food</span></span>
           </li>
         </a>
         <hr class="sidebar-divider my-0" >
@@ -40,11 +40,13 @@
             </li>
           </ul>
         </nav>
-
         <!---------------------------------==Main Content==----------------------------------->
         <div class="container-fluid">
 
-          <router-view></router-view>
+
+          <router-view>
+          </router-view>
+
 
         </div>
         <!-----------------------------------==Main Content==----------------------------------->
@@ -56,13 +58,11 @@
     <script  type="application/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </div>
 </template>
-
 <script >
 export default {
   name: "App",
   data: () => ({
     links :[
-
       {icon: "fas fa-user", text:"Account",route:"/edit"},
       {icon: "fas fa-pizza-slice", text:"Menus",route:"/menu"},
       {icon: "fas fa-history", text:"Orders",route:"/orders"},
@@ -70,7 +70,6 @@ export default {
 
     ],
   })
-
 };
 </script>
 <style>

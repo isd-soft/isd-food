@@ -47,7 +47,6 @@
               <h1 class="mt-1">Current orders list is empty</h1>
             </div>
           </div>
-
           <!---Orders History--->
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <table v-if="this.isEmptyHistory()" class="table table-bordered"  width="100%" cellspacing="0">
@@ -84,9 +83,7 @@
 <script>
 
 import api from "@/components/backend-api.js"
-
 export default {
-
   name: "Home",
    data (){
      return{
