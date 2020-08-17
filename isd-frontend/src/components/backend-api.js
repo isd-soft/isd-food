@@ -60,33 +60,48 @@ export default {
     return AXIOS.post(`/order/` + user_id + "/" + menu_type_id);
   },
 
-
   createProvider(provider) {
     console.log(provider);
     return AXIOS.post(`/provider`, provider);
   },
 
-    getMenuType(){
-        return AXIOS.get('/menu_type')
-      },
-      
-    getUser(user_id){
-        return AXIOS.get("/user/"+user_id);
-    },
 
-    getHistory(){
-        return AXIOS.get("/orders");
-    },
-    updateUser(user_id, firstName, lastName, skypeId, email){
-        return AXIOS.put("/user/edit/"+user_id+"?firstName="+firstName+"&lastName="+lastName+"&skypeId="+skypeId+"&email="+email);
-    },
+  getMenuType() {
+    return AXIOS.get("/menu_type");
+  },
+  getUser(user_id) {
+    return AXIOS.get("/user/" + user_id);
+  },
 
-    changePass(user_id, password){
-        return AXIOS.put("/user/edit/password/"+user_id+"?password="+password)
-    },
+
+  getHistory() {
+    return AXIOS.get("/orders");
+  },
+  updateUser(user_id, firstName, lastName, skypeId, email) {
+    return AXIOS.put(
+      "/user/edit/" +
+        user_id +
+        "?firstName=" +
+        firstName +
+        "&lastName=" +
+        lastName +
+        "&skypeId=" +
+        skypeId +
+        "&email=" +
+        email
+    );
+  },
+
+
 
     getMenuDay(day){
         return AXIOS.get("/menu/day?day="+day)
     }
     
+  changePass(user_id, password) {
+    return AXIOS.put(
+      "/user/edit/password/" + user_id + "?password=" + password
+    );
+  }
+
 };
