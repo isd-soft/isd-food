@@ -44,7 +44,7 @@
                 </tbody>
             </table>
             <div v-else class="text-center">
-              <h1 class="mt-1">Empty </h1>
+              <h1 class="mt-1">Current orders list is empty</h1>
             </div>
           </div>
 
@@ -71,7 +71,7 @@
               </tbody>
             </table>
             <div v-else class="text-center">
-              <h1 class="mt-1">Empty History</h1>
+              <h1 class="mt-1">History is empty</h1>
             </div>
           </div>
         </div>

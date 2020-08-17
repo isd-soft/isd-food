@@ -1,30 +1,28 @@
 <template>
   <div  id="page-top">
-  <div  id="wrapper">
-    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #ff9800">
-      <a class="sidebar-brand d-flex align-items-center justify-content-center">
-        <li class="nav-item text-center">
-          <span  class="nav-link" >
-            <v-icon style="color: white; font-size: 20px">fas fa-utensils</v-icon>
-            <span class="ml-md-5">Isd-food</span></span>
-        </li>
-      </a>
-      <hr class="sidebar-divider my-0" >
+    <div  id="wrapper">
+      <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #ff9800">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center">
+          <li class="nav-item text-center">
+            <span  class="nav-link" >
+              <v-icon style="color: white; font-size: 20px">fas fa-utensils</v-icon>
+              <span class="ml-md-5">Isd-food</span></span>
+          </li>
+        </a>
+        <hr class="sidebar-divider my-0" >
 
-      <li class="nav-item " v-for="link in links" :key="link.text" >
-        <router-link class="nav-link" :to = "link.route">
-         <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
-          <span> {{ link.text }}</span></router-link>
-        <hr class="sidebar-divider my-0">
-      </li>
-    </ul>
+        <li class="nav-item " v-for="link in links" :key="link.text" >
+          <router-link class="nav-link" :to = "link.route">
+           <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
+            <span> {{ link.text }}</span></router-link>
+          <hr class="sidebar-divider my-0">
+        </li>
+      </ul>
     <!-- End of Sidebar -->
     <div id="content-wrapper"  class="d-flex flex-column">
       <div id="content">
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
           <!-- Topbar Navbar -->
-
           <ul class="navbar-nav ml-auto">
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
@@ -34,7 +32,6 @@
                 <span class="badge badge-danger badge-counter">1</span>
               </a>
             </li>
-
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,11 +41,13 @@
           </ul>
         </nav>
 
+        <!---------------------------------==Main Content==----------------------------------->
         <div class="container-fluid">
 
           <router-view></router-view>
 
         </div>
+        <!-----------------------------------==Main Content==----------------------------------->
       </div>
     </div>
   </div>
@@ -67,7 +66,6 @@ export default {
       {icon: "fas fa-user", text:"Account",route:"/edit"},
       {icon: "fas fa-pizza-slice", text:"Menus",route:"/menu"},
       {icon: "fas fa-history", text:"Orders",route:"/orders"},
-        
       {icon: "fas fa-sign-out-alt", text:"Log out",route:"/"},
 
     ],

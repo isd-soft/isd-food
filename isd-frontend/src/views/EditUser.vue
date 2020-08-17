@@ -8,7 +8,6 @@
         <div class="card">
           <div class="card-body">
             <div class="e-profile">
-
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
                   <form class="form" novalidate="">
@@ -19,7 +18,6 @@
                             <div class="form-group" >
                               <label>First Name</label>
                               <input class="form-control" type="text" name="firstName" v-model="firstName" >
-
                             </div>
                           </div>
                           <div class="col">
