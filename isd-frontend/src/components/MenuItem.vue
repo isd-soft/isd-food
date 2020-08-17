@@ -57,7 +57,7 @@
                       <template v-slot:activator="{ on, attrs }">
                         <v-card-actions class="justify-center" >
                           <v-btn style="border-radius: 5px !important;"
-                                 @click="makeOrder()"
+                                 @click="newOrder()"
                                  v-bind="attrs"
                                  v-on="on"
                                  large
@@ -134,6 +134,13 @@ props:{
                     }
                     else i++
                 });
+        },
+
+        newOrder(){
+          api.addOrder(
+            {menuTypeId: this.product_data.menuTypes[this.type_id].id,
+             date: new Date().getDate
+          })
         },
 
       makeOrder() {

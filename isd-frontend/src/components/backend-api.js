@@ -72,6 +72,10 @@ export default {
     return AXIOS.post(`/order/` + user_id + "/" + menu_type_id);
   },
 
+  addOrder(order){
+    return AXIOS.post(`/orders`, order);
+  },
+
   createProvider(provider) {
     console.log(provider);
     return AXIOS.post(`/provider`, provider);
