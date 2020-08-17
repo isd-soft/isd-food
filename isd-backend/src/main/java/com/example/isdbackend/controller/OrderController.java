@@ -25,14 +25,16 @@ import java.util.Date;
 public class OrderController {
 
     private final OrderService orderService;
-    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<Page<OrderView>> getAllOrders(
             @PageableDefault(size = 20, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
-            OrderFilter orderFilter) {
+            OrderFilter orderFilter,
+            Long userId) {
 
-        return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, 0L), HttpStatus.OK);
+        if (userId == null) userId = 0L;
+
+        return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, userId), HttpStatus.OK);
     }
 
     @GetMapping("/{orderId}")

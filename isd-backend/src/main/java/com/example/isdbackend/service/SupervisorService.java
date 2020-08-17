@@ -35,9 +35,9 @@ public class SupervisorService extends PaymentCalculator {
         orderFilter.setOrdered(true);
 
         PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
-        if (orderFilter.getDateFrom() != "0")
+        if (!orderFilter.getDateFrom().equals("0"))
             paymentDataDTO.setDateFrom(orderFilter.getDateFrom());
-        if (orderFilter.getDateTo() != "0")
+        if (!orderFilter.getDateTo().equals("0"))
             paymentDataDTO.setDateTo(orderFilter.getDateTo());
         else paymentDataDTO.setDateTo(DateUtil.getDateFromDateTime(new Date()));
 

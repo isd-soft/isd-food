@@ -8,6 +8,8 @@ import com.example.isdbackend.projection.UserView;
 import com.example.isdbackend.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +28,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    private Logger logger = LoggerFactory.getLogger(UserService.class);
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public UserService(PasswordEncoder passwordEncoder, GeneratePassword generatePassword, MailSender mailSender, UserRepository userRepository) {
         this.generatePassword = generatePassword;
@@ -48,14 +50,12 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void setNotificationSettings(Long id, NotificationSettings notificationSettings) {
-        User user = userRepository.findById(id).orElseThrow();
-        user.setNotificationSettings(notificationSettings);
-        userRepository.save(user);
-    }
-
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public Page<UserView> getAll(Pageable pageable) {
+        return userRepository.findAllBy(pageable);
     }
 
     public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email) {
@@ -73,7 +73,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(password).toCharArray());
         userRepository.save(user);
     }
-
 
     public Set<Order> getHistory(Long id) {
         return userRepository.findById(id).orElseThrow().getOrders();
@@ -98,18 +97,32 @@ public class UserService {
 
         String password = generatePassword.generatePassayPassword();
 
+        NotificationSettings notificationSettings = new NotificationSettings();
+        notificationSettings.setEnabled(true);
+
+        user.setNotificationEnabled(true);
+
         user.setPassword(passwordEncoder.encode(password).toCharArray());
         user.setEnabled(true);
         try {
             userRepository.save(user);
             logger.debug("The user is saved in the database");
         } catch (Exception e) {
-            logger.error("Could not save the users");
+            logger.error("Could not save the user");
             e.printStackTrace();
         }
 
         mailSender.sendSimpleMessage(user.getEmail(), "ISD-food", "Your password: " + password);
         logger.debug("The user's password is sent on his email");
+    }
+
+    public void resetPassword(String email) {
+        String password = generatePassword.generatePassayPassword();
+        User user = userRepository.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(password).toCharArray());
+        userRepository.save(user);
+
+        mailSender.sendSimpleMessage(email, "ISD-food password reset", "Your new password: " + password);
     }
 
     public boolean existsByEmail(String email) {
@@ -125,4 +138,5 @@ public class UserService {
 
         return auth.getPrincipal().toString();
     }
+
 }

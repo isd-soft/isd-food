@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<?> getOrders(
-            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<?> getUserOrders(
+            @PageableDefault(size = 20, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter) {
 
         Page<OrderView> orders = orderService.getOrders(pageable, orderFilter, userService.getCurrentUserId());
@@ -48,6 +48,13 @@ public class UserController {
         }
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<UserView>> getAllUsers(
+            @PageableDefault(size = 20, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
     }
 
     /*@RequestMapping(value = "/{id}",method = RequestMethod.GET)
@@ -79,4 +86,13 @@ public class UserController {
         return "Success";
     }
 
+    @PostMapping("/password/reset")
+    public ResponseEntity<?> resetPassword(@RequestParam String email) throws UserException {
+        if (!userService.existsByEmail(email))
+            throw new UserException("This email is not used");
+
+        userService.resetPassword(email);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

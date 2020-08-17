@@ -17,7 +17,6 @@ public class UserConverter extends Converter<UserDTO, User> {
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setEnabled(user.getEnabled());
-        userDTO.setNotificationSettings(user.getNotificationSettings());
         userDTO.setPassword(user.getPassword());
 
         return userDTO;
@@ -29,7 +28,6 @@ public class UserConverter extends Converter<UserDTO, User> {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setEmploymentDate(userDTO.getEmploymentDate());
-        user.setNotificationSettings(userDTO.getNotificationSettings());
         user.setEnabled(userDTO.getEnabled());
         user.setPassword(userDTO.getPassword());
 

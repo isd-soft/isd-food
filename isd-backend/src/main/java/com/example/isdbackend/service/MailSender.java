@@ -20,24 +20,21 @@ import java.io.IOException;
 public class MailSender {
     private final MailConfig mailConfig;
     private final JavaMailSender javaMailSender;
-    private final GeneratePassword generatePassword;
 
-    public MailSender(MailConfig mailConfig, GeneratePassword generatePassword) {
+    public MailSender(MailConfig mailConfig) {
         this.mailConfig = mailConfig;
         this.javaMailSender = mailConfig.getMailSender();
-        this.generatePassword = generatePassword;
     }
 
     @Value("${spring.mail.username}")
     private String username;
-
 
     public void sendSimpleMessage(String emailTo, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(username);
         mailMessage.setTo(emailTo);
         mailMessage.setSubject(subject);
-        mailMessage.setText(message + generatePassword.generatePassayPassword());
+        mailMessage.setText(message);
         javaMailSender.send(mailMessage);
     }
 

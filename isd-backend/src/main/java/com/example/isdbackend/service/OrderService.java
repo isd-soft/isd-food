@@ -88,7 +88,7 @@ public class OrderService {
         Properties updatedProperties = new Properties();
         updatedProperties.setId("last_order");
         updatedProperties.setValue(strDate);
-        updatedProperties.setType("string");
+        updatedProperties.setType("date");
 
         propertiesRepository.save(updatedProperties);
     }

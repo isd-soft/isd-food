@@ -1,17 +1,11 @@
 package com.example.isdbackend.bootstrap;
 
 import com.example.isdbackend.model.*;
-import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.SimpleFormatter;
 
 @Component
 public class MenuBootstrap implements CommandLineRunner {
@@ -152,7 +146,6 @@ public class MenuBootstrap implements CommandLineRunner {
         user.setSkypeId("JhonesId");
         user.setPassword("$2y$12$Gytj7ahrI8suqFJxtYG2IevbkegKn.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
         user.setOrders(new HashSet<>());
-
 
 
         Order order = new Order();
