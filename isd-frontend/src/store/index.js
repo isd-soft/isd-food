@@ -79,6 +79,7 @@ export default new Vuex.Store({
           });
       });
     },
+    
     createProvider({ commit }, provider) {
       return new Promise((resolve, reject) => {
         // this.state.login.loading = true;

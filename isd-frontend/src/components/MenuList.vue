@@ -1,5 +1,5 @@
 <template>
-<v-app>
+<v-app style = "background:none">
   <div class="row">
 
   <v-container fluid>
@@ -9,11 +9,11 @@
         sm="6"
         class="py-2"
       >
-
+<div class="text-center"> 
       {{callOnce()}}
-       Select day
+       <h2 class="font-style-apple" style="color:black"> Select day:</h2>
        <!-- {{dailyMenu}} -->
-        
+</div>
 
         <v-btn-toggle
           v-model="weekDay"
@@ -118,6 +118,7 @@ import MenuItem from './MenuItem.vue'
       },
 
       getWeekDayId(){
+          
           var date = new Date()
           var count = date.getDay()
           console.log(date.getHours())
@@ -163,6 +164,10 @@ import MenuItem from './MenuItem.vue'
 </script>
 
 <style lang = "scss">
+
+.font-style-apple{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 .menu{
   &_list{
     margin: 0 auto;

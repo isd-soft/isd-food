@@ -97,12 +97,15 @@ export default {
   }),
 
   methods: {
+
     reset() {
       this.$refs.form.reset();
     },
+
     resetValidation() {
       this.$refs.form.resetValidation();
     },
+    
     validate() {
       this.$store
         .dispatch("createProvider", {

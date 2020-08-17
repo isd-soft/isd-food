@@ -83,15 +83,15 @@ public class MenuBootstrap implements CommandLineRunner {
         providerRepository.save(andys);
 
         Provider mac = new Provider();
-        andys.setName("Mac Donalds");
-        andys.setDeliveryPrice(20);
+        mac.setName("Mac Donalds");
+        mac.setDeliveryPrice(20);
 
-        providerRepository.save(andys);
+        providerRepository.save(mac);
 
         Menu salat = new Menu();
         salat.setName("Bistro");
         salat.setProvider(andys);
-        salat.setDayOfWeek(DayOfWeek.MONDAY);
+        salat.setDayOfWeek(DayOfWeek.FRIDAY);
         S1.setMenu(salat);
         M1.setMenu(salat);
         menuRepository.save(salat);
@@ -102,7 +102,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat2 = new Menu();
         salat2.setName("Indean");
         salat2.setProvider(andys);
-        salat2.setDayOfWeek(DayOfWeek.MONDAY);
+        salat2.setDayOfWeek(DayOfWeek.WEDNESDAY);
         S2.setMenu(salat2);
         M2.setMenu(salat2);
         menuRepository.save(salat2);
