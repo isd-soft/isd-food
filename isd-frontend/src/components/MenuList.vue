@@ -1,58 +1,24 @@
 <template>
 
-<v-app style="background: none">
+<div >
   <div class="row">
-
-  <v-container fluid>
-    <v-row>
-     <v-col
-        cols="12"
-        sm="6"
-        class="py-2"
-      >
-<div class="text-center"> 
-      {{callOnce()}}
-       <h2 class="font-style-apple" style="color:black"> Select day:</h2>
-       <!-- {{dailyMenu}} -->
-</div>
-
-        <v-btn-toggle
-          v-model="weekDay"
-          tile
-          color="warning"
-          group
-        >
-          <v-btn  @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">
-            Monday
-          </v-btn>
-
-          <v-btn @click="getDayMenu('TUESDAY')" value="TUESDAY" :disabled="getWeekDayId() > 2 || getWeekDayId()==0">
-            Tuesday
-          </v-btn>
-
-          <v-btn @click="getDayMenu('WEDNESDAY')" value="WEDNESDAY" :disabled="getWeekDayId() > 3 || getWeekDayId()==0">
-            Wednesday
-          </v-btn>
-
-          <v-btn @click="getDayMenu('THURSDAY')" value="THURSDAY" :disabled="getWeekDayId() > 4 || getWeekDayId()==0">
-            Thursday
-          </v-btn>
-           <v-btn @click="getDayMenu('FRIDAY')" value="FRIDAY" :disabled="getWeekDayId() > 5 || getWeekDayId()==0">
-            Friday
-          </v-btn>
-        </v-btn-toggle>
-      </v-col>
-    </v-row>
-  </v-container>
-
-
-    <MenuItem
-        v-for="product in dailyMenu"
-        :key="product.name"
-        :product_data="product"/>
+    <div class="col-12 text-center">
+      <h2 class="font-style-apple" style="color:black"> Select day:</h2>
+    </div>
+    {{callOnce()}}
+    <v-app  class="col-12 pb-5 mb-5" style="background: none">
+      <v-btn-toggle class="d-flex justify-content-center" v-model="weekDay" tile color="warning" group>
+        <v-btn  @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mon</v-btn>
+        <v-btn @click="getDayMenu('TUESDAY')" value="TUESDAY" :disabled="getWeekDayId() > 2 || getWeekDayId()==0">Tu</v-btn>
+        <v-btn @click="getDayMenu('WEDNESDAY')" value="WEDNESDAY" :disabled="getWeekDayId() > 3 || getWeekDayId()==0">Wed</v-btn>
+        <v-btn @click="getDayMenu('THURSDAY')" value="THURSDAY" :disabled="getWeekDayId() > 4 || getWeekDayId()==0">Th</v-btn>
+        <v-btn @click="getDayMenu('FRIDAY')" value="FRIDAY" :disabled="getWeekDayId() > 5 || getWeekDayId()==0">Fr</v-btn>
+      </v-btn-toggle>
+      <MenuItem v-for="product in dailyMenu" :key="product.name" :product_data="product"/>
+    </v-app>
   </div>
 
-</v-app>
+</div>
 </template>
 
 <script>

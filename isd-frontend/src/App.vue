@@ -1,52 +1,30 @@
 <template>
   <div  id="page-top">
-
-
   <div  id="wrapper">
-
     <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #ff9800">
-
       <a class="sidebar-brand d-flex align-items-center justify-content-center">
-
         <li class="nav-item text-center">
           <span  class="nav-link" >
             <v-icon style="color: white; font-size: 20px">fas fa-utensils</v-icon>
             <span class="ml-md-5">Isd-food</span></span>
         </li>
-
       </a>
-
       <hr class="sidebar-divider my-0" >
-
       <li class="nav-item " v-for="link in links" :key="link.text" >
         <router-link class="nav-link" :to = "link.route">
          <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
           <span> {{ link.text }}</span></router-link>
         <hr class="sidebar-divider my-0">
       </li>
-
-
-
-
-
     </ul>
     <!-- End of Sidebar -->
-
-
     <div id="content-wrapper"  class="d-flex flex-column">
-
-
       <div id="content">
-
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
-
-
-
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
             <!-- Nav Item - Alerts -->
@@ -57,7 +35,6 @@
                 <span class="badge badge-danger badge-counter">3+</span>
               </a>
             </li>
-
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,13 +42,8 @@
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
             </li>
-
           </ul>
-
         </nav>
-
-
-
         <div class="container-fluid">
 
           <router-view></router-view>
@@ -79,14 +51,7 @@
         </div>
 
       </div>
-
-
-
-
-
     </div>
-
-
   </div>
 
   <a class="scroll-to-top rounded" href="#page-top">
