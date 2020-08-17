@@ -171,7 +171,7 @@ public class MenuBootstrap implements CommandLineRunner {
         order1.setMenuType(S3);
         user.getOrders().add(order1);
         order1.setUser(user);
-        order1.setOrdered(true);
+        order1.setOrdered(false);
         order.setDate(new Date(dtf.format(localDate)));
         order1.setDate(new Date(dtf.format(localDate)));
 

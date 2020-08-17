@@ -16,8 +16,8 @@
       <div  class="table-responsive">
         <div  class="tab-content" id="pills-tabContent">
           <!---Current--->
-          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <table class="table table-bordered"  width="100%" cellspacing="0">
+          <div  class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <table v-if="!this.isEmptyCurrent()" class="table table-bordered"  width="100%" cellspacing="0">
               <thead>
               <tr>
                 <th>Provider</th>
@@ -43,10 +43,14 @@
                 </tr>
                 </tbody>
             </table>
+            <div v-else class="text-center">
+              <h1 class="mt-1">Empty </h1>
+            </div>
           </div>
+
           <!---Orders History--->
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <table class="table table-bordered"  width="100%" cellspacing="0">
+            <table v-if="this.isEmptyHistory()" class="table table-bordered"  width="100%" cellspacing="0">
               <thead>
               <tr>
                 <th>Provider</th>
@@ -66,6 +70,9 @@
               </tr>
               </tbody>
             </table>
+            <div v-else class="text-center">
+              <h1 class="mt-1">Empty History</h1>
+            </div>
           </div>
         </div>
       </div>
@@ -88,6 +95,18 @@ export default {
      }
    },
   methods:{
+    isEmptyCurrent(){
+      for(let i = 0; i < this.userHistory.length;i++)
+        if(!this.userHistory[i].ordered)
+          return false
+      return true
+    },
+    isEmptyHistory(){
+      for(let i = 0; i < this.userHistory.length;i++)
+        if(this.userHistory[i].ordered)
+          return true
+      return false
+    },
     deleteOrder(id){
       api.deleteOrder(id)
     }
