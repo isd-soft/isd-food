@@ -46,8 +46,8 @@ export default {
     deleteOrder(id){
         return AXIOS.delete('/orders/' + id)
     },
-    getHistory(id){
-        return AXIOS.get("/users/"+id+"/orders");
+    getHistory(){
+        return AXIOS.get("/users/orders");
     },
 
     createUser(user) {
@@ -62,6 +62,9 @@ export default {
     },
     resetPassword(email) {
         return AXIOS.post(`/users/password/reset?email=` + email,);
+    },
+    getUserWithoutId() {
+        return AXIOS.get("users/getUser");
     },
 
   getMenu() {
@@ -89,11 +92,9 @@ export default {
   },
 
 
-  updateUser(user_id, firstName, lastName, skypeId, email,enable,data) {
-
-
+  updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
     return AXIOS.put(
-      "/user/edit/" +
+      "/users/edit/" +
         user_id +
         "?firstName=" +
         firstName +

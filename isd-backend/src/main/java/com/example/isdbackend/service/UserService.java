@@ -21,6 +21,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.xml.crypto.Data;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -58,6 +64,10 @@ public class UserService {
 
     public Page<UserView> getAll(Pageable pageable) {
         return userRepository.findAllBy(pageable);
+    }
+
+    public User getCurrentUser(){
+        return userRepository.findByEmail(getCurrentUserEmail());
     }
 
     public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email, Boolean enable, Date data){

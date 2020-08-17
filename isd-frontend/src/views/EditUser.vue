@@ -191,7 +191,7 @@ export default {
       dataNotification: ""
     };
   },
-  /*  created () {
+/*  created () {
   this.fetchAuthenticatedUser()
   },*/
   methods: {
@@ -263,7 +263,8 @@ export default {
     }
   },
 
-  /*fetchAuthenticatedUser () {
+
+    /*fetchAuthenticatedUser () {
       this.$store.dispatch('updateUser',{
          firstName: this.firstName,
           lastName: this.lastName,
@@ -275,26 +276,27 @@ export default {
           //   this.$router.push("/");
         })*/
 
-  //     const token = localStorage.getItem('tweetr-token')
+    //     const token = localStorage.getItem('tweetr-token')
 
-  //     axios
-  //         .get('account/me', {
-  //             headers: {
-  //                 Authorization: `Bearer ${token}`
-  //             }
-  //         })
-  //         .then(response => {
-  //             this.name = response.data.data.name
-  //             this.username = response.data.data.username
-  //             this.email = response.data.data.email
-  //             this.location = response.data.data.location
-  //             this.bio = response.data.data.bio
-  //             this.websiteUrl = response.data.data.website_url
-  //         })
+    //     axios
+    //         .get('account/me', {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         })
+    //         .then(response => {
+    //             this.name = response.data.data.name
+    //             this.username = response.data.data.username
+    //             this.email = response.data.data.email
+    //             this.location = response.data.data.location
+    //             this.bio = response.data.data.bio
+    //             this.websiteUrl = response.data.data.website_url
+    //         })
+  
 
   beforeCreate() {
     api
-      .getUser(1)
+      .getUserWithoutId()
       .then(response => {
         console.log(response.data);
         this.firstName = response.data.firstName;

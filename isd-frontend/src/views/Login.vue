@@ -34,7 +34,6 @@
                               </v-col>
                             </v-form>
                           </div>
-
                           <div class="text-center">
                             <span class="small forgot-pass" @click="showForgotDialog()">Forgot Password?</span>
                           </div>
