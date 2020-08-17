@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -161,11 +163,17 @@ public class MenuBootstrap implements CommandLineRunner {
         order.setOrdered(false);
 
 
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+
         Order order1 = new Order();
         order1.setMenuType(S3);
         user.getOrders().add(order1);
         order1.setUser(user);
         order1.setOrdered(true);
+        order.setDate(new Date(dtf.format(localDate)));
+        order1.setDate(new Date(dtf.format(localDate)));
 
 
         Provider provider = new Provider();
