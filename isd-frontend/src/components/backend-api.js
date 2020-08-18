@@ -91,6 +91,14 @@ export default {
     return AXIOS.get("/user/" + user_id);
   },
 
+    getItems(){
+        return AXIOS.get("/items");
+    },
+
+    getProviders(){
+      return AXIOS.get("/providers");
+    },
+
 
   updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
     return AXIOS.put(
