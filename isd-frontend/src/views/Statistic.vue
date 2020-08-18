@@ -15,19 +15,21 @@
               </tr>
               </thead>
               <tbody v-for="menu of menus" :key="menu.id">
-              <tr v-if="menu.provider.name === provider.name" v->
+              <tr v-if="menu.provider.name === provider.name">
                 <td>{{menu.name}}</td>
                 <td>{{calcOnce(menu.name,provider.name,"S")}}</td>
                 <td>{{calcOnce(menu.name,provider.name,"M")}}</td>
               </tr>
               </tbody>
+
               <tbody >
               <tr>
                 <td><b>Total:</b></td>
-                <td>0</td>
-                <td>0</td>
+                <td>{{calcForEach(provider.name,"S")}}</td>
+                <td>{{calcForEach(provider.name,"M")}}</td>
               </tr>
               </tbody>
+
             </table>
 
           </div>
@@ -61,8 +63,14 @@ export default {
         }
       })
       return count;
-    }
-
+    },
+    calcForEach(provider,type){
+      let res = 0;
+      this.menus.forEach(el => {
+        res += this.calcOnce(el.name,provider,type);
+      })
+      return res;
+    },
   },
 
   beforeCreate() {
