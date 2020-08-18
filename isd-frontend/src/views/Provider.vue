@@ -1,6 +1,6 @@
 <template>
-  <v-app heavy>
-    <div class="providers">
+  <v-app class ="row" heavy>
+    <v-card class="providers col-md-7 container">
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
           v-model="name"
@@ -31,7 +31,11 @@
           required
         ></v-text-field>
 
-        <v-text-field v-model="image" label="Image" required></v-text-field>
+        <v-text-field
+            v-model="image"
+            :rules="imageRules"
+            label="Image"
+            required></v-text-field>
 
         <v-select
           v-model="select"
@@ -41,12 +45,6 @@
           required
         ></v-select>
 
-        <v-checkbox
-          v-model="checkbox"
-          :rules="[v => !!v || 'You must agree to continue!']"
-          label="Do you agree?"
-          required
-        ></v-checkbox>
 
         <v-btn
           :disabled="!valid"
@@ -54,18 +52,15 @@
           class="mr-4"
           @click="validate"
         >
-          Validate
+          Save
         </v-btn>
 
         <v-btn color="error" class="mr-4" @click="reset">
-          Reset Form
+          Reset
         </v-btn>
 
-        <v-btn color="warning" @click="resetValidation">
-          Reset Validation
-        </v-btn>
       </v-form>
-    </div>
+    </v-card>
   </v-app>
 </template>
 
@@ -82,7 +77,10 @@ export default {
       v => (v && v.length <= 10) || "Name must be less than 10 characters"
     ],
     deliveryPrice: "",
-    deliveryPriceRules: [v => !!v || "Delivery Price is required"],
+    deliveryPriceRules: [
+        v => !!v || "Delivery Price is required",
+        v => (v >=0 ) || "Must be a positive number"
+    ],
     contactInfo: "",
     contactInfoRules: [
       v => !!v || "Contact Info is required",
@@ -91,19 +89,17 @@ export default {
     description: "",
     descriptionRules: [v => !!v || "Delivery Price is required"],
     image: "",
-    select: null,
-    items: ["Yes", "No"],
-    checkbox: false
+    imageRules: [
+        v => /http+/.test(v) || "Must be a link"
+    ],
+    select: true,
+    items: ["true", "false"],
   }),
 
   methods: {
 
     reset() {
       this.$refs.form.reset();
-    },
-
-    resetValidation() {
-      this.$refs.form.resetValidation();
     },
     
     validate() {
@@ -114,7 +110,7 @@ export default {
           contactInfo: this.contactInfo,
           description: this.description,
           image: this.image,
-          items: this.items
+          active: this.select
         })
         // eslint-disable-next-line no-unused-vars
         .then(({ status }) => {

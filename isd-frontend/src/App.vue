@@ -159,6 +159,7 @@ export default {
       {icon: "fas fa-pizza-slice", text:"Menus",route:"/menu"},
       {icon: "fas fa-history", text:"Orders",route:"/orders"},
       {icon: "fas fa-envelope", text:"Mail",route:"/"},
+      {icon: "fas fa-dizzy", text:"All users", route: "/users/table"}
 
     ],
   })

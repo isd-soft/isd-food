@@ -99,6 +99,14 @@ export default {
     return AXIOS.get("/user/" + user_id);
   },
 
+    getUsers(){
+        return AXIOS.get("/users/allUsers");
+    },
+
+    deleteUser(id){
+        return AXIOS.delete("/users/deleteUser" + id);
+    },
+
 
   updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
     return AXIOS.put(
