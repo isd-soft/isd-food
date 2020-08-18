@@ -30,7 +30,7 @@ public class ProviderController {
         providerService.addProvider(provider);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Provider> getAllProviders(){
         return providerService.findAllProviders();
     }

@@ -43,13 +43,21 @@ AXIOS.interceptors.request.use(
 );
 
 export default {
+    getAllCurrentOrders(){
+     return AXIOS.get("/orders?ordered=false");
+    },
     deleteOrder(id){
         return AXIOS.delete('/orders/' + id)
     },
     getHistory(){
         return AXIOS.get("/users/orders");
     },
-
+    getProvidersOrders(){
+        return AXIOS.get("/orders?ordered=false");
+    },
+    getAllProviders(){
+        return AXIOS.get("/provider/all");
+    },
     createUser(user) {
         console.log(user);
         return AXIOS.post(`/users`, user);
