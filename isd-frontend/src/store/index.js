@@ -12,8 +12,13 @@ export default new Vuex.Store({
             email: null,
             password: null,
             loading: false,
-            error:null,
+            error: null,
             showDialog: false
+        },
+        orders: {
+            userCurrentOrders: [],
+            userOrdersHistory: null,
+            userOrdersType: "current"
         },
         register: {loading: false, error: false, success: false, errors: []},
         Provider: {loading: false}
@@ -84,8 +89,7 @@ export default new Vuex.Store({
                     .then(response => {
                         if (response.status == 200) {
                             localStorage.removeItem("access_token")
-                            commit("reset_password", {
-                            });
+                            commit("reset_password", {});
                         }
                         resolve(response);
                     })
@@ -99,7 +103,7 @@ export default new Vuex.Store({
                 api
                     .createUser(user)
                     .then(response => {
-                        if (response.status == 201&&response.data.errorType==null) {
+                        if (response.status == 201 && response.data.errorType == null) {
                             commit("register_success", {
                                 user: user
                             });
@@ -142,14 +146,59 @@ export default new Vuex.Store({
                     });
             });
         },
+        getUserCurrentOrders({commit}) {
+            return new Promise((resolve, reject) => {
+                // this.state.login.loading = true;
+                api
+                    .getUserCurrentOrders()
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.orders.userCurrentOrders = response.data
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        // place the loginError state into our vuex store
+                        // commit("login_error", {
+                        //   email: email,
+                        // });
+                        reject("Error");
+                    });
+            });
+        },
+        getUserOrdersHistory({commit}) {
+            return new Promise((resolve, reject) => {
+                // this.state.login.loading = true;
+                api
+                    .getUserOrdersHistory()
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.orders.userOrdersHistory = response.data.content
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        // place the loginError state into our vuex store
+                        // commit("login_error", {
+                        //   email: email,
+                        // });
+                        reject("Error");
+                    });
+            });
+        },
 
-  },
-  modules: {},
-  getters: {
-    isLoggedIn: state => state.login.loginSuccess,
-    hasLoginErrored: state => state.login.loginError,
-    isLoggingInProcess: state => state.login.loading,
-    getEmail: state => state.login.email,
-    getPassword: state => state.login.password
-  }
+
+    },
+    modules: {},
+    getters: {
+        isLoggedIn: state => state.login.loginSuccess,
+        hasLoginErrored: state => state.login.loginError,
+        isLoggingInProcess: state => state.login.loading,
+        getEmail: state => state.login.email,
+        getPassword: state => state.login.password,
+        userCurrentOrders: state => state.orders.userCurrentOrders,
+        userOrdersHistory: state => state.orders.userOrdersHistory,
+        userOrdersType: state => state.orders.userOrdersType,
+        userOrders: state => state.orders.userOrdersType === "current" ? state.orders.userCurrentOrders : state.orders.userOrdersHistory
+    }
 });

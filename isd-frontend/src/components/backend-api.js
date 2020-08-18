@@ -69,16 +69,20 @@ export default {
     console.log(provider);
     return AXIOS.post(`/provider`, provider);
   },
-
+    getMenuDay(day){
+        return AXIOS.get("/menu/day?day="+day)
+    },
   getMenuType() {
     return AXIOS.get("/menu_type");
   },
   getUser(user_id) {
     return AXIOS.get("/user/" + user_id);
   },
-
-  getHistory() {
-    return AXIOS.get("/orders");
+  getUserCurrentOrders() {
+      return AXIOS.get("/users/orders?ordered=false");
+  },
+  getUserOrdersHistory() {
+    return AXIOS.get("/users/orders");
   },
   updateUser(user_id, firstName, lastName, skypeId, email) {
     return AXIOS.put(

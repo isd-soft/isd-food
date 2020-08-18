@@ -72,6 +72,11 @@ public class UserController {
         return new ResponseEntity<>(userService.findByIdUser(currentId), HttpStatus.OK);
     }
 
+    @GetMapping("/current")
+    public ResponseEntity<User> getCurrentUser() {
+        return new ResponseEntity<>(userService.getCurrentUser(), HttpStatus.OK);
+    }
+
     @PutMapping("/edit/{currentId}")
     @ResponseBody
     public String editUser(@PathVariable Long currentId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String skypeId, @RequestParam String email) {

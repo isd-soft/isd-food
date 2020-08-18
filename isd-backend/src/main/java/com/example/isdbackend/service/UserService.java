@@ -129,6 +129,10 @@ public class UserService {
         return userRepository.findByEmail(email) != null;
     }
 
+    public User getCurrentUser() {
+        return userRepository.findByEmail(getCurrentUserEmail());
+    }
+
     public long getCurrentUserId() {
         return userRepository.findByEmail(getCurrentUserEmail()).getId();
     }
