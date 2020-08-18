@@ -36,6 +36,10 @@ public class UserController {
     private final UserService userService;
     private final OrderService orderService;
 
+    @GetMapping("/all")
+    public List<User> getAllUsers(){
+        return userService.findAll();
+    }
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User user) throws UserException {
         if (userService.existsByEmail(user.getEmail()))

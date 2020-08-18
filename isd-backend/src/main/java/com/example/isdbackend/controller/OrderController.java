@@ -48,7 +48,12 @@ public class OrderController {
     public ResponseEntity<OrderFullView> getOrder(@PathVariable long orderId) {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
-
+    @PutMapping("/confirm/{id}")
+    public void confirmOrder(@PathVariable Long id){
+        Order order = orderService.findById(id);
+        order.setOrdered(true);
+        orderService.save(order);
+    }
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Page<OrderView>> getOrders(
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,

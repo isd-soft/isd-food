@@ -14,4 +14,7 @@ public interface OrderView {
     String getProviderName();
 
     int getPrice();
+
+    int getUserId();
+
 }

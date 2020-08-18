@@ -54,9 +54,15 @@ public class OrderService {
 
         return message;
     }
+    public Order findById(Long id){
+        return orderRepository.findById(id).orElseThrow();
+    }
 
     public Order save(OrderDTO orderDTO) {
         return orderRepository.save(orderConverter.convertFromDto(orderDTO));
+    }
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 
     public String canUpdateOrder(OrderDTO orderDTO) {

@@ -44,10 +44,19 @@ AXIOS.interceptors.request.use(
 
 export default {
     getAllCurrentOrders(){
-     return AXIOS.get("/orders?ordered=false");
+     return AXIOS.get("/orders?ordered=true");
+    },
+    getAllOrders(){
+        return AXIOS.get("/orders?ordered=false");
+    },
+    getAllUsers(){
+        return AXIOS.get("/users/all");
     },
     deleteOrder(id){
         return AXIOS.delete('/orders/' + id)
+    },
+    confirmOrderId(id){
+        return AXIOS.put("/orders/confirm/" + id)
     },
     getHistory(){
         return AXIOS.get("/users/orders");
