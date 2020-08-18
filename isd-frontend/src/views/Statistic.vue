@@ -14,6 +14,7 @@
                 <th>M</th>
               </tr>
               </thead>
+
               <tbody v-for="menu of menus" :key="menu.id">
               <tr v-if="menu.provider.name === provider.name">
                 <td>{{menu.name}}</td>
@@ -75,7 +76,7 @@ export default {
 
   beforeCreate() {
     api.getAllProviders().then(r => {this.providers = r.data; console.log(r.data)})
-    api.getProvidersOrders().then(r => {this.orders = r.data.content; console.log(r.data)})
+    api.getAllCurrentOrders().then(r => {this.orders = r.data.content; console.log(r.data)})
     api.getMenu().then(r => {this.menus = r.data; console.log(r.data)})
   }
 }
