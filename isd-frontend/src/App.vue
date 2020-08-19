@@ -10,12 +10,23 @@
         </li>
       </a>
       <hr class="sidebar-divider my-0" >
-      <li class="nav-item " v-for="link in UserLinks" :key="link.text" >
-        <router-link class="nav-link" :to = "link.route">
-         <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
-          <span> {{ link.text }}</span></router-link>
-        <hr class="sidebar-divider my-0">
-      </li>
+      <div v-if="role == 'SuperVisor'">
+        <li class="nav-item " v-for="link in SuperVisorLinks" :key="link.text" >
+          <router-link class="nav-link" :to = "link.route">
+            <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
+            <span> {{ link.text }}</span></router-link>
+          <hr class="sidebar-divider my-0">
+        </li>
+      </div>
+      <div v-else>
+        <li class="nav-item " v-for="link in UserLinks" :key="link.text" >
+          <router-link class="nav-link" :to = "link.route">
+            <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
+            <span> {{ link.text }}</span></router-link>
+          <hr class="sidebar-divider my-0">
+        </li>
+      </div>
+
     </ul>
     <!-- End of Sidebar -->
     <div id="content-wrapper"  class="d-flex flex-column">
@@ -155,7 +166,7 @@ export default {
 
   data: () => ({
     user: " ",
-    role: " ",
+    role: "SuperVisor",
     UserLinks:
    [
       {icon: "fas fa-user", text:"Account",route:"/edit"},
@@ -167,7 +178,8 @@ export default {
     SuperVisorLinks : [
       {icon: "fas fa-user", text:"Users",route:"/"},
       {icon: "fas fa-pizza-slice", text:"Create menu",route:"/"},
-      {icon: "fas fas fa-cart-plus", text:"Create provider",route:"/"},
+      {icon: "fas fas fa-cart-plus", text:"Create provider",route:"/providers"},
+      {icon: "fas fas fa-user", text:"Providers",route:"/ProviderList"},
       {icon: "fas fas fa-user-plus", text:"Create user",route:"/"},
       {icon: "fas fa-history", text:"Orders",route:"/ProviderOrders"},
     ]
