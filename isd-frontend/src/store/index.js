@@ -18,10 +18,13 @@ export default new Vuex.Store({
         orders: {
             userCurrentOrders: [],
             userOrdersHistory: null,
-            userOrdersType: "current"
+            userOrdersType: "current",
+            createOrderSuccess: false
         },
         register: {loading: false, error: false, success: false, errors: []},
-        Provider: {loading: false}
+        Provider: {loading: false},
+        errorDialog: false,
+        errorModel: null
     },
     mutations: {
         login_success(state, payload) {
@@ -55,6 +58,10 @@ export default new Vuex.Store({
                 state.register.error = false
                 state.register.errors = [];
             }, 3000)
+        },
+        create_order_success(state) {
+            console.log(state)
+            state.orders.createOrderSuccess = true;
         }
     },
     actions: {
@@ -70,6 +77,11 @@ export default new Vuex.Store({
                                 email: email,
                                 password: password
                             });
+                            api.getUserRole().then(response => {
+                                localStorage.setItem("userRole",response.data)
+                            }).catch(()=>{
+
+                            })
                         }
                         resolve(response);
                     })
@@ -108,7 +120,6 @@ export default new Vuex.Store({
                                 user: user
                             });
                         } else {
-                            console.log(response)
                             commit("register_error", {
                                 message: response.data.message
                             });
@@ -125,8 +136,6 @@ export default new Vuex.Store({
         },
         createProvider({commit}, provider) {
             return new Promise((resolve, reject) => {
-                // this.state.login.loading = true;
-                console.log(provider);
                 api
                     .createProvider(provider)
                     .then(response => {
@@ -146,9 +155,27 @@ export default new Vuex.Store({
                     });
             });
         },
+        createOrder({commit}, order) {
+            return new Promise((resolve, reject) => {
+                api
+                    .createOrder(order)
+                    .then(response => {
+                        if (response.status == 201 && response.data.errorType == null) {
+                            commit("create_order_success");
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        // place the loginError state into our vuex store
+                        // commit("login_error", {
+                        //   email: email,
+                        // });
+                        reject("Error create order");
+                    });
+            });
+        },
         getUserCurrentOrders({commit}) {
             return new Promise((resolve, reject) => {
-                // this.state.login.loading = true;
                 api
                     .getUserCurrentOrders()
                     .then(response => {
@@ -158,10 +185,7 @@ export default new Vuex.Store({
                         resolve(response);
                     })
                     .catch(() => {
-                        // place the loginError state into our vuex store
-                        // commit("login_error", {
-                        //   email: email,
-                        // });
+
                         reject("Error");
                     });
             });
@@ -178,15 +202,26 @@ export default new Vuex.Store({
                         resolve(response);
                     })
                     .catch(() => {
-                        // place the loginError state into our vuex store
-                        // commit("login_error", {
-                        //   email: email,
-                        // });
                         reject("Error");
                     });
             });
         },
-
+        deleteUserOrder({commit, dispatch}, orderId) {
+            return new Promise((resolve, reject) => {
+                // this.state.login.loading = true;
+                api
+                    .deleteUserOrder(orderId)
+                    .then(response => {
+                        if (response.status == 200) {
+                            dispatch('getUserCurrentOrders')
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Error");
+                    });
+            });
+        },
 
     },
     modules: {},

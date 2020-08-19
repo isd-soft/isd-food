@@ -15,11 +15,12 @@ public class ExceptionHandlingController {
 
     @ExceptionHandler(OrderException.class)
     public ResponseEntity<ErrorDTO> orderException(OrderException oe) {
-        return new ResponseEntity<>(new ErrorDTO("orders", oe.getMessage()), HttpStatus.OK);
+        return new ResponseEntity<>(new ErrorDTO("Order", oe.getMessage()), HttpStatus.OK);
     }
 
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ErrorDTO> userException(UserException ue) {
-        return new ResponseEntity<>(new ErrorDTO("users", ue.getMessage()), HttpStatus.OK);
+        return new ResponseEntity<>(new ErrorDTO("User", ue.getMessage()), HttpStatus.OK);
     }
+
 }

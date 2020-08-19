@@ -3,17 +3,21 @@
 }
 
 .forgot-pass:hover {
-    cursor:pointer;
+    cursor: pointer;
     text-decoration: underline;
     color: #2d4373;
 }
 
 .orders-type-btn:hover {
     background-color: #f8f9fc !important;
-    color:#f6c23e !important;
+    color: #f6c23e !important;
 }
 
 .orders-type-btn.active:hover {
     background-color: #f6c23e !important;
-    color:white !important;
+    color: white !important;
+}
+
+.err-modal {
+    /*position: absolute;*/
 }

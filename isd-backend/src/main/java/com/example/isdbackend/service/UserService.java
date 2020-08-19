@@ -143,4 +143,10 @@ public class UserService {
         return auth.getPrincipal().toString();
     }
 
+    public String getCurrentUserRole() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return auth.getAuthorities().toArray()[0].toString();
+    }
+
 }

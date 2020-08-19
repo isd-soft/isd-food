@@ -24,7 +24,6 @@
         <td>{{ order.price }} lei</td>
         <td class="text-center" v-if="$store.getters.userOrdersType === 'current'">
           <button
-              type="submit"
               @click="deleteOrder(order.id)"
           >
             <v-icon data-toggle="modal" data-target="#exampleModal"
@@ -46,6 +45,10 @@ export default {
     };
   },
   methods: {
+    deleteOrder(orderId) {
+      console.log("delete order :"+orderId)
+      this.$store.dispatch("deleteUserOrder", orderId)
+    }
   }
 }
 </script>

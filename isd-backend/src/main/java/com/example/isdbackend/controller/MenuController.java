@@ -29,8 +29,8 @@ public class MenuController {
     }
 
     @GetMapping("/menu")
-    public List<Menu> getMenus(){
-        return (List<Menu>)menuService.getAllMenus();
+    public List<MenuType> getMenus(){
+        return menuService.getMenuTypes();
     }
 
     @GetMapping("/menu/day")

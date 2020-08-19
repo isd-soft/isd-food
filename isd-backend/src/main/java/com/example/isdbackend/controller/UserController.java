@@ -100,4 +100,9 @@ public class UserController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/role")
+    public ResponseEntity<?> getCurrentUserRole() {
+        return new ResponseEntity<>(userService.getCurrentUserRole(), HttpStatus.OK);
+    }
 }

@@ -1,20 +1,16 @@
 package com.example.isdbackend.dto;
 
-public class UserPaymentData {
+public class UserPaymentData extends PaymentModel {
 
     private int userId;
-
-    private double payment;
-
-    private String fullName;
 
     public UserPaymentData() {
     }
 
     public UserPaymentData(int userId, double payment, String fullName) {
         this.userId = userId;
-        this.payment = payment;
-        this.fullName = fullName;
+        super.setPayment(payment);
+        super.setFullName(fullName);
     }
 
     public int getUserId() {
@@ -25,19 +21,4 @@ public class UserPaymentData {
         this.userId = userId;
     }
 
-    public double getPayment() {
-        return payment;
-    }
-
-    public void setPayment(double payment) {
-        this.payment = payment;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 }

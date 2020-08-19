@@ -77,7 +77,7 @@ public class OrderController {
         if (orderAvailableMessage != null)
             throw new OrderException(orderAvailableMessage);
 
-        orderService.update(orderDTO);
+        orderService.update(orderDTO, orderId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -87,6 +87,8 @@ public class OrderController {
 
         if (deleteOrderAvailableMessage != null)
             throw new OrderException(deleteOrderAvailableMessage);
+
+        orderService.delete(orderId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

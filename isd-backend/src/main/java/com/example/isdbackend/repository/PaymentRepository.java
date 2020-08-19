@@ -1,4 +1,13 @@
 package com.example.isdbackend.repository;
 
-//public interface PaymentRepository extends JpaRepository<> {
-//}
+import com.example.isdbackend.model.Payment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
+
+    @Query(value = "SELECT * FROM payment WHERE EXTRACT(YEAR FROM date) = :year AND EXTRACT(MONTH FROM date) = :month ", nativeQuery = true)
+    List<Payment> findAllByDateMonthAndDateYear(int month, int year);
+}

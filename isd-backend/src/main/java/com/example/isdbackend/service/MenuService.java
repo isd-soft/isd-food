@@ -1,6 +1,7 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.model.Menu;
+import com.example.isdbackend.model.MenuType;
 import com.example.isdbackend.projection.MenuView;
 import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,13 @@ public class MenuService extends AbstractServiceCrud {
         return menuRepository.findByDayOfWeek(day);
     }
 
+    public List<MenuType> getMenuTypes() {
+        return menuTypeRepository.findAll();
+    }
+
+    public void abc(MenuType menuType) {
+        Menu menu = menuType.getMenu();
+        menuType.setMenu(menuRepository.save(menu));
+    }
 
 }
