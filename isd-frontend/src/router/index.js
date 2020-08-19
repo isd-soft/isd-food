@@ -23,14 +23,7 @@ const routes = [
         name: "Edit",
         component: () => import("../views/EditUser.vue")
     },
-    {
-      path: "/editProvider",
-        name: "ProviderItem",
 
-        props: true,
-        component: () => import("../views/EditProvider.vue")
-
-    },
     {
         path: "/ProviderList",
         name: "ProviderList",

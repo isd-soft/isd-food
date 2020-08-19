@@ -30,9 +30,17 @@ public class ProviderController {
         providerService.addProvider(provider);
     }
 
+    @GetMapping("/getProvider/{id}")
+    public Provider getProviderById(@PathVariable Integer id){
+        return providerService.findById(id);
+    }
     @GetMapping("/all")
     public List<Provider> getAllProviders(){
         return providerService.findAllProviders();
+    }
+    @DeleteMapping("/delete/{id}")
+    public void deleteProvider(@PathVariable Integer id){
+        providerService.delete(id);
     }
 
     @PutMapping("/edit/{id}/{name}/{contact}/{price}/{active}")

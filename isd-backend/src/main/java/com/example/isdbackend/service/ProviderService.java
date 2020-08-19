@@ -80,6 +80,10 @@ public class ProviderService extends AbstractServiceCrud {
     public void deleteProvider(int id) {
         providerRepository.deleteById((int) id);
     }
+    public void delete(Integer id) {
+        providerRepository.delete(providerRepository.findById(id).orElseThrow());
+    }
+
 
 
 

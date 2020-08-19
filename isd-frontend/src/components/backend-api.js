@@ -139,6 +139,12 @@ export default {
   getMenuDay(day){
     return AXIOS.get("/menu/day?day="+day)
 },
+    getProviderById(id){
+        return AXIOS.get("/provider/getProvider/" + id)
+    },
+    deleteProvider(id){
+       return AXIOS.delete("/provider/delete/" + id)
+    },
 
   changePass(user_id, password) {
     return AXIOS.put(
