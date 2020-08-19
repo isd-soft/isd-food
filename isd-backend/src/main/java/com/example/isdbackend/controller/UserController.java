@@ -70,6 +70,16 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/allUsers")
+    public List<User> getAllUsersWithoutPage(){
+        return userService.findAll();
+    }
+
+    @DeleteMapping("/deleteUser/{userId}")
+    public void deleteUser(@PathVariable Long userId){
+        userService.delete(userService.findUserById(userId));
+    }
+
     /*@RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public User getInfoUser(@PathVariable Long id){
         return userService.findUserById(id);
