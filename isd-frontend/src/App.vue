@@ -10,7 +10,7 @@
         </li>
       </a>
       <hr class="sidebar-divider my-0" >
-      <li class="nav-item " v-for="link in links" :key="link.text" >
+      <li class="nav-item " v-for="link in UserLinks" :key="link.text" >
         <router-link class="nav-link" :to = "link.route">
          <v-icon style="color: white; font-size: 18px">{{link.icon}}</v-icon>
           <span> {{ link.text }}</span></router-link>
@@ -153,15 +153,21 @@ export default {
   name: "App",
 
   data: () => ({
-    links :[
-
+    UserLinks:
+   [
       {icon: "fas fa-user", text:"Account",route:"/edit"},
       {icon: "fas fa-pizza-slice", text:"Menus",route:"/menu"},
       {icon: "fas fa-history", text:"Orders",route:"/orders"},
-      {icon: "fas fa-envelope", text:"Mail",route:"/"},
-      {icon: "fas fa-dizzy", text:"All users", route: "/users/table"}
 
     ],
+
+    SuperVisorLinks : [
+      {icon: "fas fa-user", text:"Users",route:"/"},
+      {icon: "fas fa-pizza-slice", text:"Create menu",route:"/"},
+      {icon: "fas fas fa-cart-plus", text:"Create provider",route:"/"},
+      {icon: "fas fas fa-user-plus", text:"Create user",route:"/"},
+      {icon: "fas fa-history", text:"Orders",route:"/ProviderOrders"},
+    ]
   })
 };
 </script>

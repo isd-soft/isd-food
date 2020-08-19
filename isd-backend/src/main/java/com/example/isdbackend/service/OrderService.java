@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -30,6 +31,10 @@ public class OrderService {
         this.propertiesRepository = propertiesRepository;
         this.orderRepository = orderRepository;
         this.userService = userService;
+    }
+
+    public List<Order> findAll(){
+        return orderRepository.findAll();
     }
 
     public boolean areOrdersEnabled(Date orderOnDate) {

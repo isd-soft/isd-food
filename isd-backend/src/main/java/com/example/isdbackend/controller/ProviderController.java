@@ -35,7 +35,15 @@ public class ProviderController {
         return providerService.findAllProviders();
     }
 
-
+    @PutMapping("/edit/{id}/{name}/{contact}/{price}/{active}")
+    public void editProvider(@PathVariable Integer id,@PathVariable String name,@PathVariable String contact,@PathVariable Integer price,@PathVariable Boolean active){
+        Provider provider = providerService.findById(id);
+        provider.setName(name);
+        provider.setContactInfo(contact);
+        provider.setDeliveryPrice(price);
+        provider.setActive(active);
+        providerService.addProvider(provider);
+    }
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void updateProvider(@RequestBody Provider provider){

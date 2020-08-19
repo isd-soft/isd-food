@@ -24,6 +24,22 @@ const routes = [
         component: () => import("../views/EditUser.vue")
     },
     {
+      path: "/editProvider",
+        name: "ProviderItem",
+
+        props: true,
+        component: () => import("../views/EditProvider.vue")
+
+    },
+    {
+        path: "/ProviderList",
+        name: "ProviderList",
+        props: true,
+
+
+        component: () => import("../views/ProviderList.vue")
+    },
+    {
         path: "/ProviderOrders",
         name: "Provider Orders",
         component: () => import("../views/ProviderOrders.vue")

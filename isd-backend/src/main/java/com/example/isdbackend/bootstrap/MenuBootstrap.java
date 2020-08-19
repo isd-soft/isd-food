@@ -131,7 +131,7 @@ public class MenuBootstrap implements CommandLineRunner {
         menuRepository.save(salat4);
         menuTypeRepository.save(S4);
         menuTypeRepository.save(M4);
-
+        andys.setActive(true);
         Item mamaliga = new Item();
         mamaliga.setName("Mamaliga");
         menuItemRepository.save(mamaliga);
@@ -187,7 +187,7 @@ public class MenuBootstrap implements CommandLineRunner {
         S4.getItems().add(mamaliga);
         S4.getItems().add(sashlic);
         menuTypeRepository.save(S4);
-
+        providerRepository.save(andys);
 
         User user = new User();
         user.setFirstName("Petea");
