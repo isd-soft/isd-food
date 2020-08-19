@@ -19,14 +19,14 @@ public class ProviderService extends AbstractServiceCrud {
         this.mailSender = mailSender1;
         this.generatePassword = generatePassword;
     }
-    public Provider findById(Long id){
+    public Provider findById(Integer id){
         return providerRepository.findById(id).orElseThrow();
     }
     public List<Provider> findAllProviders() {
         return providerRepository.findAll();
     }
 
-    public Iterable<Menu> getProviderMenus(Long providerId) {
+    public Iterable<Menu> getProviderMenus(Integer providerId) {
         return providerRepository.findById(providerId).orElseThrow().getMenus();
     }
 
@@ -78,7 +78,7 @@ public class ProviderService extends AbstractServiceCrud {
 
 
     public void deleteProvider(int id) {
-        providerRepository.deleteById((long) id);
+        providerRepository.deleteById((int) id);
     }
 
 
