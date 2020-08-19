@@ -133,7 +133,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="/login">Logout</a>
         </div>
       </div>
     </div>
@@ -159,6 +159,7 @@ export default {
       {icon: "fas fa-pizza-slice", text:"Menus",route:"/menu"},
       {icon: "fas fa-history", text:"Orders",route:"/orders"},
       {icon: "fas fa-envelope", text:"Mail",route:"/"},
+      {icon: "fas fa-dizzy", text:"All users", route: "/users/table"}
 
     ],
   })
