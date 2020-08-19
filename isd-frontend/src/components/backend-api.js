@@ -43,37 +43,51 @@ AXIOS.interceptors.request.use(
 );
 
 export default {
-  getAllCurrentOrders() {
-    return AXIOS.get("/orders?ordered=false");
-  },
-  deleteOrder(id) {
-    return AXIOS.delete("/orders/" + id);
-  },
-  getHistory() {
-    return AXIOS.get("/users/orders");
-  },
-  getProvidersOrders() {
-    return AXIOS.get("/orders?ordered=false");
-  },
-  getAllProviders() {
-    return AXIOS.get("/provider/all");
-  },
-  createUser(user) {
-    console.log(user);
-    return AXIOS.post(`/users`, user);
-  },
-  login(email, password) {
-    return AXIOS.post(`/login`, {
-      email: email,
-      password: password
-    });
-  },
-  resetPassword(email) {
-    return AXIOS.post(`/users/password/reset?email=` + email);
-  },
-  getUserWithoutId() {
-    return AXIOS.get("users/getUser");
-  },
+    getAllCurrentOrders(){
+     return AXIOS.get("/orders?ordered=false");
+    },
+    getConfirmedOrders(){
+        return AXIOS.get("/orders?ordered=true");
+
+    },
+    getAllOrders(){
+        return AXIOS.get("/orders?ordered=false");
+    },
+    getAllUsers(){
+        return AXIOS.get("/users/all");
+    },
+    deleteOrder(id){
+        return AXIOS.delete("/orders/delete/" + id)
+    },
+
+    confirmOrderId(id,confirm){
+        return AXIOS.put("/orders/confirm/" + id + "/" + confirm)
+    },
+    getHistory(){
+        return AXIOS.get("/users/orders");
+    },
+    getProvidersOrders(){
+        return AXIOS.get("/orders?ordered=false");
+    },
+    getAllProviders(){
+        return AXIOS.get("/provider/all");
+    },
+    createUser(user) {
+        console.log(user);
+        return AXIOS.post(`/users`, user);
+    },
+    login(email, password) {
+        return AXIOS.post(`/login`, {
+            email: email,
+            password: password
+        });
+    },
+    resetPassword(email) {
+        return AXIOS.post(`/users/password/reset?email=` + email,);
+    },
+    getUserWithoutId() {
+        return AXIOS.get("users/getUser");
+    },
 
   getMenu() {
     return AXIOS.get(`/menu`);
@@ -83,7 +97,7 @@ export default {
     return AXIOS.post(`/order/` + user_id + "/" + menu_type_id);
   },
 
-  addOrder(order) {
+  addOrder(order){
     return AXIOS.post(`/orders`, order);
   },
 

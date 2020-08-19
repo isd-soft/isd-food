@@ -24,9 +24,9 @@ const routes = [
         component: () => import("../views/EditUser.vue")
     },
     {
-        path: "/statistic",
-        name: "Statistic",
-        component: () => import("../views/Statistic.vue")
+        path: "/ProviderOrders",
+        name: "Provider Orders",
+        component: () => import("../views/ProviderOrders.vue")
     },
     {
         path: "/users/register",

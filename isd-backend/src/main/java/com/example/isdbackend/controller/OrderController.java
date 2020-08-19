@@ -48,6 +48,29 @@ public class OrderController {
     public ResponseEntity<OrderFullView> getOrder(@PathVariable long orderId) {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
+    @PutMapping("/confirm/{id}/{confirm}")
+    public void confirmOrder(@PathVariable Long id,@PathVariable boolean confirm){
+        Order order = orderService.findById(id);
+        order.setOrdered(confirm);
+        orderService.save(order);
+    }
+    @DeleteMapping("/delete/{id}")
+    public void deleteOrder(@PathVariable Long id){
+       orderService.delete(orderService.findById(id));
+    }
+
+
+
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<?> deleteOrder(@PathVariable long orderId) throws OrderException {
+        String deleteOrderAvailableMessage = orderService.canDeleteOrder(orderId);
+
+        if (deleteOrderAvailableMessage != null)
+            throw new OrderException(deleteOrderAvailableMessage);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Page<OrderView>> getOrders(
@@ -91,15 +114,6 @@ public class OrderController {
     }
 
 
-    @DeleteMapping("/orders/{orderId}")
-    public ResponseEntity<?> deleteOrder(@PathVariable long orderId) throws OrderException {
-        String deleteOrderAvailableMessage = orderService.canDeleteOrder(orderId);
-
-        if (deleteOrderAvailableMessage != null)
-            throw new OrderException(deleteOrderAvailableMessage);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @PostMapping("/place")
     public ResponseEntity<?> placeTheOrder() {
