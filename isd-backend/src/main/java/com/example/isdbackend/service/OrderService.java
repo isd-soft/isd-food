@@ -71,6 +71,9 @@ public class OrderService {
 
         return null;
     }
+    public void delete(Order order){
+        orderRepository.delete(order);
+    }
 
     public String canDeleteOrder(long orderId) {
         OrderFullView order = orderRepository.findAllById(orderId);

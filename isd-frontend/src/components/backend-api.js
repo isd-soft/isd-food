@@ -44,7 +44,11 @@ AXIOS.interceptors.request.use(
 
 export default {
     getAllCurrentOrders(){
-     return AXIOS.get("/orders?ordered=true");
+     return AXIOS.get("/orders?ordered=false");
+    },
+    getConfirmedOrders(){
+        return AXIOS.get("/orders?ordered=true");
+
     },
     getAllOrders(){
         return AXIOS.get("/orders?ordered=false");
@@ -53,10 +57,11 @@ export default {
         return AXIOS.get("/users/all");
     },
     deleteOrder(id){
-        return AXIOS.delete('/orders/' + id)
+        return AXIOS.delete("/orders/delete/" + id)
     },
-    confirmOrderId(id){
-        return AXIOS.put("/orders/confirm/" + id)
+
+    confirmOrderId(id,confirm){
+        return AXIOS.put("/orders/confirm/" + id + "/" + confirm)
     },
     getHistory(){
         return AXIOS.get("/users/orders");
