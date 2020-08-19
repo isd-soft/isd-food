@@ -71,9 +71,9 @@ public class UserController {
         return userService.findAll();
     }
 
-    @DeleteMapping("/deleteUser/{id}")
-    public void deleteUser(@PathVariable Long id){
-        userService.delete(userService.findUserById(id));
+    @DeleteMapping("/deleteUser/{userId}")
+    public void deleteUser(@PathVariable Long userId){
+        userService.delete(userService.findUserById(userId));
     }
 
     /*@RequestMapping(value = "/{id}",method = RequestMethod.GET)

@@ -3,7 +3,10 @@
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-warning">Users</h6>
-        <button style="float: right;" class="button button1" onclick="window.location.pathname= '/users/register'">Add new user</button>
+        <button style="float: right;" class="button button1" onclick="window.location.pathname= '/users/register'">
+          <v-icon  data-toggle="modal"  data-target="#exampleModal">fas fa-plus</v-icon>
+          Add user
+        </button>
       </div>
       <div class="card-body">
         <div  class="table-responsive">
@@ -18,6 +21,7 @@
                   <th>Last Name</th>
                   <th>Employment Date </th>
                   <th>skypeId</th>
+                  <th>Active</th>
                 </tr>
                 </thead>
                 <tbody >
@@ -28,6 +32,7 @@
                   <td>{{user.lastName}}</td>
                   <td>{{user.employmentDate}}</td>
                   <td>{{user.skypeId}}</td>
+                  <td>{{user.enabled}} </td>
                   <td class="text-center">
                     <button type="submit" @click="deleteUser(user.id)" onclick="window.location.reload();">
                       <v-icon  data-toggle="modal"  data-target="#exampleModal">fas fa-trash-alt</v-icon>
@@ -62,8 +67,8 @@ export default {
   },
 
   methods:{
-    deleteUser(id){
-      api.deleteUser(id);
+    deleteUser(user_id){
+      api.deleteUser(user_id);
     },
     getAllUsers() {
       api.getUsers().then(response => {this.Users = response.data;

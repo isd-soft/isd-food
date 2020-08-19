@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const AXIOS = axios.create({
-    baseURL: `http://localhost:8098/api`,
-    timeout: 10000
+  baseURL: `http://localhost:8098/api`,
+  timeout: 10000
 });
 
 // Add a response interceptor
@@ -27,53 +27,53 @@ AXIOS.interceptors.response.use(
 
 // Add a request interceptor
 AXIOS.interceptors.request.use(
-    function (config) {
-        // Do something before request is sent
-        console.log(config)
-        if (!config.url.includes("login") || !config.url.includes("password/reset"))
-            config.headers.Authorization = localStorage.getItem("access_token");
-        else delete config.headers.Authorization;
+  function(config) {
+    // Do something before request is sent
+    console.log(config);
+    if (!config.url.includes("login") || !config.url.includes("password/reset"))
+      config.headers.Authorization = localStorage.getItem("access_token");
+    else delete config.headers.Authorization;
 
-        return config;
-    },
-    function (error) {
-        // Do something with request error
-        return Promise.reject(error);
-    }
+    return config;
+  },
+  function(error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
 );
 
 export default {
-    getAllCurrentOrders(){
-     return AXIOS.get("/orders?ordered=false");
-    },
-    deleteOrder(id){
-        return AXIOS.delete('/orders/' + id)
-    },
-    getHistory(){
-        return AXIOS.get("/users/orders");
-    },
-    getProvidersOrders(){
-        return AXIOS.get("/orders?ordered=false");
-    },
-    getAllProviders(){
-        return AXIOS.get("/provider/all");
-    },
-    createUser(user) {
-        console.log(user);
-        return AXIOS.post(`/users`, user);
-    },
-    login(email, password) {
-        return AXIOS.post(`/login`, {
-            email: email,
-            password: password
-        });
-    },
-    resetPassword(email) {
-        return AXIOS.post(`/users/password/reset?email=` + email,);
-    },
-    getUserWithoutId() {
-        return AXIOS.get("users/getUser");
-    },
+  getAllCurrentOrders() {
+    return AXIOS.get("/orders?ordered=false");
+  },
+  deleteOrder(id) {
+    return AXIOS.delete("/orders/" + id);
+  },
+  getHistory() {
+    return AXIOS.get("/users/orders");
+  },
+  getProvidersOrders() {
+    return AXIOS.get("/orders?ordered=false");
+  },
+  getAllProviders() {
+    return AXIOS.get("/provider/all");
+  },
+  createUser(user) {
+    console.log(user);
+    return AXIOS.post(`/users`, user);
+  },
+  login(email, password) {
+    return AXIOS.post(`/login`, {
+      email: email,
+      password: password
+    });
+  },
+  resetPassword(email) {
+    return AXIOS.post(`/users/password/reset?email=` + email);
+  },
+  getUserWithoutId() {
+    return AXIOS.get("users/getUser");
+  },
 
   getMenu() {
     return AXIOS.get(`/menu`);
@@ -83,7 +83,7 @@ export default {
     return AXIOS.post(`/order/` + user_id + "/" + menu_type_id);
   },
 
-  addOrder(order){
+  addOrder(order) {
     return AXIOS.post(`/orders`, order);
   },
 
@@ -99,14 +99,13 @@ export default {
     return AXIOS.get("/user/" + user_id);
   },
 
-    getUsers(){
-        return AXIOS.get("/users/allUsers");
-    },
+  getUsers() {
+    return AXIOS.get("/users/allUsers");
+  },
 
-    deleteUser(id){
-        return AXIOS.delete("/users/deleteUser" + id);
-    },
-
+  deleteUser(user_id) {
+    return AXIOS.delete("/users/deleteUser/" + user_id);
+  },
 
   updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
     return AXIOS.put(
@@ -127,9 +126,9 @@ export default {
     );
   },
 
-  getMenuDay(day){
-    return AXIOS.get("/menu/day?day="+day)
-},
+  getMenuDay(day) {
+    return AXIOS.get("/menu/day?day=" + day);
+  },
 
   changePass(user_id, password) {
     return AXIOS.put(
