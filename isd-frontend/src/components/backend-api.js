@@ -147,7 +147,7 @@ export default {
     },
 
     getProviders(){
-      return AXIOS.get("/provider");
+      return AXIOS.get("/provider/all");
     },
 
   getUsers() {

@@ -5,6 +5,7 @@
                 <h6 class="m-0 font-weight-bold text-warning">Menus</h6>
 
             </div>
+            {{menus}}
             <div class="card-body">
                 <div  class="table-responsive">
                     <div  class="tab-content" id="pills-tabContent">

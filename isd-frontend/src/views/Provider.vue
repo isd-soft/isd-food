@@ -70,7 +70,7 @@
 export default {
   name: "Provider",
   data: () => ({
-    valid: true,
+    valid: false,
     name: "",
     nameRules: [
       v => !!v || "Name is required",

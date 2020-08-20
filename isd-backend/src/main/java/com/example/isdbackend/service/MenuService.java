@@ -39,14 +39,9 @@ public class MenuService extends AbstractServiceCrud {
         menuRepository.delete(menu);
     }
 
-   /* public Iterable<Menu> getMenusByDay(DayOfWeek day){
-        return menuRepository.findByDayOfWeek(day);
-    }*/
-
-    public Iterable<Menu> getMenusByDay (DayOfWeek day){
+     public Iterable<Menu> getMenusByDay(DayOfWeek day){
         return menuRepository.findByDayOfWeek(day);
     }
-
 
     public void addMenu(Menu menu) {
         menuRepository.save(menu);
@@ -55,21 +50,6 @@ public class MenuService extends AbstractServiceCrud {
     public void addMenuType(MenuType menuType) {
         menuTypeRepository.save(menuType);
     }
-
-//    public void addFullMenu(Menu menu, MenuType menuTypeS, MenuType menuTypeM) {
-//        Menu savedMenu = menuRepository.save(menu);
-//        menuTypeRepository.save(menuTypeS);
-//        menuTypeRepository.save(menuTypeM);
-//        menuTypeS.setMenu(savedMenu);
-//        menuTypeM.setMenu(savedMenu);
-//        menuTypeRepository.save(menuTypeS);
-//        menuTypeRepository.save(menuTypeM);
-//    }
-
-   /* public void addFullMenu(Menu menu){
-        menuRepository.save(menu);
-    }
-*/
 
 
     public Menu addFullMenu(MenuDTO menuDTO){

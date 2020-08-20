@@ -37,14 +37,13 @@ const routes = [
         component: () => import("../components/AllMenus.vue")
     },
 
-
+    {
         path: "/ProviderList",
         name: "ProviderList",
         props: true,
-
-
         component: () => import("../views/ProviderList.vue")
     },
+
     {
         path: "/ProviderOrders",
         name: "Provider Orders",
