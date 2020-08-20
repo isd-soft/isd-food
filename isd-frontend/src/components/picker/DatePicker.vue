@@ -13,18 +13,19 @@
             readonly
             v-bind="attrs"
             v-on="on"
+            @click="menu=true"
         ></v-text-field>
       </template>
-      <v-date-picker header-color="orange" color="warning" v-model="date" type="month" @change="$emit('dateChanged', date)"/>
+      <v-date-picker header-color="orange" color="warning" v-model="date" :type="pickerType" @change="$emit('dateChanged', date); menu = false"/>
     </v-menu>
 </template>
 <script>
 export default {
   name: "DatePicker",
-  props: ["label"],
+  props: ["label","pickerType"],
   data: () => ({
-    date: new Date().toISOString().substr(0, 10),
-    menu: true
+    date: new Date().toISOString().substr(0, 7),
+    menu: false
   }),
   methods: {
   }

@@ -34,7 +34,7 @@
               </button>
             </li>
             <li class="nav-item " role="presentation">
-              <DatePicker @dateChanged="setDate" :label="'Month to export'"/>
+              <DatePicker @dateChanged="setDate" :label="'Month to export'" :pickerType="'month'"/>
               <!--              <v-menu-->
               <!--                  ref="menu"-->
               <!--                  v-model="menu"-->
