@@ -56,8 +56,8 @@ export default {
         return AXIOS.get("/orders?ordered=true");
 
     },
-    editProvider(id,name,contact,price,active){
-        return AXIOS.put("/provider/edit/"+id+"/"+name +"/" + contact + "/" + price + "/" + active)
+    editProvider(id,name,contact,price,active,desc,img){
+        return AXIOS.put("/provider/edit/"+id+"/"+name +"/" + contact + "/" + price + "/" + active +"/" + desc +"/" + img)
     },
     getAllOrders(){
         return AXIOS.get("/orders?ordered=false");
