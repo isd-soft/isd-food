@@ -22,12 +22,15 @@
 <script>
 export default {
   name: "DatePicker",
-  props: ["label","pickerType"],
+  props: ["label","pickerType","initialDate"],
   data: () => ({
-    date: new Date().toISOString().substr(0, 7),
+    date: null,
     menu: false
   }),
   methods: {
+  },
+  beforeMount() {
+    this.date = this.initialDate;
   }
 }
 

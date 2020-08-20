@@ -18,6 +18,25 @@
     color: white !important;
 }
 
+.payment-dialog {
+    position: absolute;
+}
+.payment-value.v-text-field input{
+    color: black !important;
+}
+
+.payment-value.v-text-field label{
+    color: gray !important;
+}
+
+.nav-link:hover {
+    cursor: pointer;
+}
+
+.payment-table th{
+    width: 1000px !important;
+}
+
 .err-modal {
-    /*position: absolute;*/
+    position: absolute;
 }

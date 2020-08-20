@@ -24,12 +24,12 @@ public class PaymentController {
 
     @GetMapping
     public ResponseEntity<PaymentDataDTO> getAllPaymentData(OrderFilter orderFilter) {
-        return new ResponseEntity<>(paymentService.getAllPaymentData(orderFilter), HttpStatus.OK);
+        return new ResponseEntity<>(paymentService.getAllPaymentData(orderFilter, false), HttpStatus.OK);
     }
 
     @GetMapping("/monthly")
     public ResponseEntity<?> getMonthlyPaymentData(Integer month, Integer year) {
-        return new ResponseEntity<>(paymentService.getMonthlyPaymentData(month, year), HttpStatus.OK);
+        return new ResponseEntity<>(paymentService.getMonthlyPaymentData(month, year, false), HttpStatus.OK);
     }
 
     @GetMapping(value = "/export",

@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    @Query(value = "SELECT * FROM payment WHERE EXTRACT(YEAR FROM date) = :year AND EXTRACT(MONTH FROM date) = :month ", nativeQuery = true)
-    List<Payment> findAllByDateMonthAndDateYear(int month, int year);
+    @Query(value = "SELECT * FROM payment WHERE (:userId = 0 OR user_id = :userId) AND EXTRACT(YEAR FROM date) = :year AND EXTRACT(MONTH FROM date) = :month ", nativeQuery = true)
+    List<Payment> findAllByDateMonthAndDateYear(int month, int year, long userId);
 }

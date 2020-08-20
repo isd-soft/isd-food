@@ -32,14 +32,7 @@ public class PaymentService extends PaymentCalculator {
 
     private final PaymentExporter paymentExporter;
 
-    /**
-     * @param month - from which month select the payments
-     * @param year  - from which year select the payments
-     * @return payment data in json
-     */
-    public List<Payment> getMonthlyPaymentData(Integer month, Integer year) {
-        return paymentRepository.findAllByDateMonthAndDateYear(month, year);
-    }
+    private final UserService userService;
 
     /**
      * @param month - from which month select the payments
@@ -47,18 +40,39 @@ public class PaymentService extends PaymentCalculator {
      * @return a file with payment data selected from database
      */
     public FileResource exportMonthlyPayment(Integer month, Integer year) {
-        List<Payment> payments = paymentRepository.findAllByDateMonthAndDateYear(month, year);
+        List<Payment> payments = paymentRepository.findAllByDateMonthAndDateYear(month, year, 0L);
 
         return paymentExporter.exportMonthly(payments, DateUtil.getDateFromDateTime(payments.get(0).getDate()));
     }
 
     public FileResource exportPayment(OrderFilter orderFilter) {
-        PaymentDataDTO paymentData = getAllPaymentData(orderFilter);
+        PaymentDataDTO paymentData = getAllPaymentData(orderFilter, false);
 
         return paymentExporter.exportMonthly(paymentData.getUserPayments(), paymentData.getDateFrom() + "/" + paymentData.getDateTo());
     }
 
-    public PaymentDataDTO getAllPaymentData(OrderFilter orderFilter) {
+    /**
+     * @param month - from which month select the payments
+     * @param year  - from which year select the payments
+     * @return payment data in json
+     */
+    public List<Payment> getMonthlyPaymentData(Integer month, Integer year, boolean forCurrentUser) {
+        return paymentRepository.findAllByDateMonthAndDateYear(month, year, forCurrentUser ? userService.getCurrentUserId() : 0L);
+    }
+
+    public Payment getUserMonthlyPaymentData(Integer month, Integer year) {
+        List<Payment> payments = this.getMonthlyPaymentData(month, year, true);
+        if(payments.size()==0) return null;
+
+        return this.getMonthlyPaymentData(month, year, true).get(0);
+    }
+
+    public UserPaymentData getUserPaymentData(OrderFilter orderFilter) {
+        UserPaymentData userPaymentData = this.getAllPaymentData(orderFilter, true).getUserPayments().get(0);
+        return userPaymentData;
+    }
+
+    public PaymentDataDTO getAllPaymentData(OrderFilter orderFilter, boolean forCurrentUser) {
 
         orderFilter.setOrdered(true);
 
@@ -71,7 +85,9 @@ public class PaymentService extends PaymentCalculator {
 
         List<UserPaymentData> userPaymentDataList = new ArrayList<>();
 
-        List<UserIdAndNameView> users = userRepository.findAllByOrderByIdAsc();
+        long currentUserId = forCurrentUser ? userService.getCurrentUserId() : 0L;
+
+        List<UserIdAndNameView> users = userRepository.findAllByOrderByIdAsc(currentUserId);
         List<UserOrderView> usersOrders = orderRepository.findUsersOrders(orderFilter);
         Map<String, Integer> deliveryPricesMap = getDeliveryPriceByDateAndProvider(orderFilter);
 
@@ -117,6 +133,10 @@ public class PaymentService extends PaymentCalculator {
         return d1.equals(d2);
     }
 
+    /**
+     * @param orderFilter
+     * @return a map with key as order date and provider id, and value is the delivery price
+     */
     private Map<String, Integer> getDeliveryPriceByDateAndProvider(OrderFilter orderFilter) {
         Map<String, Integer> deliveryPricesMap = new HashMap<>();
         List<DeliveryPrice> deliveryPrices = orderRepository.findOrderDeliveryPrice(orderFilter);

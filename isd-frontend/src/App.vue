@@ -1,5 +1,6 @@
 <template>
   <div id="page-top">
+    <PaymentDialog v-if="$store.state.payment.displayUserPayment"/>
     <ErrorDialog v-if="$store.state.errorDialog"/>
     <CreateOrderDialog v-if="$store.state.orders.createOrderSuccess"/>
 
@@ -16,7 +17,7 @@
           </li>
         </a>
         <hr class="sidebar-divider my-0">
-        <div v-if="role.includes('supervisor')">
+        <div v-if="role==='ROLE_supervisor'">
           <li class="nav-item " v-for="link in SuperVisorLinks" :key="link.text">
             <router-link class="nav-link" :to="link.route">
               <v-icon style="color: white; font-size: 18px">{{ link.icon }}</v-icon>
@@ -43,9 +44,12 @@
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
 
-
-              <!-- Nav Item - Alerts -->
               <li class="nav-item dropdown no-arrow mx-1">
+                <span class="nav-link dropdown-toggle"
+                      @click="$store.state.payment.displayUserPayment = true">Payment</span>
+              </li>
+              <!-- Nav Item - Alerts -->
+              <li class="nav-item dropdown no-arrow mx-1 ">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-bell fa-fw"></i>
@@ -178,14 +182,15 @@
 import "@/assets/styles/app.css"
 import ErrorDialog from "@/components/modal/ErrorDialog";
 import CreateOrderDialog from "@/components/modal/CreateOrderDialog";
+import PaymentDialog from "@/components/modal/PaymentDialog";
 import api from "@/components/backend-api"
 
 export default {
   name: "App",
-  components: {ErrorDialog, CreateOrderDialog},
+  components: {ErrorDialog, CreateOrderDialog, PaymentDialog},
   data: () => ({
 
-    role : localStorage.getItem("userRole"),
+    role: localStorage.getItem("userRole"),
     links: [
 
       {icon: "fas fa-user", text: "Account", route: "/edit"},
@@ -202,12 +207,19 @@ export default {
       {icon: "fas fas fa-user", text: "Providers", route: "/ProviderList"},
       {icon: "fas fas fa-user-plus", text: "Create user", route: "/"},
       {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
+      {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
     ]
   }),
+  methods: {
+    // togglePayment() {
+    //   console.log("Should display payment dialog")
+    //   console.log(this.$store.state.payment.displayUserPayment)
+    //   this.$store.state.payment.displayUserPayment = !this.$store.state.payment.displayUserPayment;
+    // }
+  },
   beforeCreate() {
     api.getUserWithoutId().then(r => {
       this.user = r.data.firstName + " " + r.data.lastName;
-      console.log(r.data)
     })
 
   }

@@ -20,6 +20,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<UserView> findAllBy(Pageable pageable);
 
-    @Query(value = "SELECT id,first_name firstName,last_name lastName FROM users ORDER BY id", nativeQuery = true)
-    List<UserIdAndNameView> findAllByOrderByIdAsc();
+    @Query(value = "SELECT id,first_name firstName,last_name lastName " +
+            "FROM users " +
+            "WHERE :userId = 0 OR id = :userId " +
+            "ORDER BY id", nativeQuery = true)
+    List<UserIdAndNameView> findAllByOrderByIdAsc(long userId);
 }

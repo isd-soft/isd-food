@@ -21,6 +21,12 @@ export default new Vuex.Store({
             userOrdersType: "current",
             createOrderSuccess: false
         },
+        payment: {
+            userPayment: {payment: 0},
+            allUserPayments: null,
+            userPaymentLoading: false,
+            displayUserPayment: false
+        },
         register: {loading: false, error: false, success: false, errors: []},
         Provider: {loading: false},
         errorDialog: false,
@@ -78,8 +84,8 @@ export default new Vuex.Store({
                                 password: password
                             });
                             api.getUserRole().then(response => {
-                                localStorage.setItem("userRole",response.data)
-                            }).catch(()=>{
+                                localStorage.setItem("userRole", response.data)
+                            }).catch(() => {
 
                             })
                         }
@@ -222,6 +228,81 @@ export default new Vuex.Store({
                     .catch(() => {
                         reject("Error");
                     });
+            });
+        },
+        //payment actions
+        getUserPaymentOnMonth({commit}, {month, year}) {
+            return new Promise((resolve, reject) => {
+                this.state.payment.userPaymentLoading = true
+                api
+                    .getUserPaymentOnMonth(month, year)
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.payment.userPayment = response.data
+                            if (response.data.payment == null)
+                                this.state.payment.userPayment = {payment: 0};
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Error");
+                    });
+                this.state.payment.userPaymentLoading = false;
+
+            });
+        },
+        getUserPaymentOnPeriod({commit}, {dateFrom, dateTo}) {
+            return new Promise((resolve, reject) => {
+                this.state.payment.userPaymentLoading = true
+                api
+                    .getUserPaymentOnPeriod(dateFrom, dateTo)
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.payment.userPayment = response.data
+                            if (response.data.payment == null)
+                                this.state.payment.userPayment = {payment: 0};
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Error");
+                    });
+                this.state.payment.userPaymentLoading = false;
+            });
+        },
+        getAllUserPaymentOnMonth({commit}, {month, year}) {
+            return new Promise((resolve, reject) => {
+                this.state.payment.userPaymentLoading = true
+                api
+                    .getAllUserPaymentOnMonth(month, year)
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.payment.allUserPayments = response.data
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Error");
+                    });
+                this.state.payment.userPaymentLoading = false;
+
+            });
+        },
+        getAllUserPaymentOnPeriod({commit}, {dateFrom, dateTo}) {
+            return new Promise((resolve, reject) => {
+                this.state.payment.userPaymentLoading = true
+                api
+                    .getAllUserPaymentOnPeriod(dateFrom, dateTo)
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.payment.allUserPayments = response.data.userPayments
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Error");
+                    });
+                this.state.payment.userPaymentLoading = false;
             });
         },
 

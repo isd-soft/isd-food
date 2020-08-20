@@ -49,36 +49,36 @@ AXIOS.interceptors.request.use(
 );
 
 export default {
-    getAllCurrentOrders(){
-     return AXIOS.get("/orders?ordered=false");
+    getAllCurrentOrders() {
+        return AXIOS.get("/orders?ordered=false");
     },
-    getConfirmedOrders(){
+    getConfirmedOrders() {
         return AXIOS.get("/orders?ordered=true");
 
     },
-    editProvider(id,name,contact,price,active){
-        return AXIOS.put("/provider/edit/"+id+"/"+name +"/" + contact + "/" + price + "/" + active)
+    editProvider(id, name, contact, price, active) {
+        return AXIOS.put("/provider/edit/" + id + "/" + name + "/" + contact + "/" + price + "/" + active)
     },
-    getAllOrders(){
+    getAllOrders() {
         return AXIOS.get("/orders?ordered=false");
     },
-    getAllUsers(){
+    getAllUsers() {
         return AXIOS.get("/users/all");
     },
-    deleteOrder(id){
+    deleteOrder(id) {
         return AXIOS.delete("/orders/delete/" + id)
     },
 
-    confirmOrderId(id,confirm){
+    confirmOrderId(id, confirm) {
         return AXIOS.put("/orders/confirm/" + id + "/" + confirm)
     },
-    getHistory(){
+    getHistory() {
         return AXIOS.get("/users/orders");
     },
-    getProvidersOrders(){
+    getProvidersOrders() {
         return AXIOS.get("/orders?ordered=false");
     },
-    getAllProviders(){
+    getAllProviders() {
         return AXIOS.get("/provider/all");
     },
     createUser(user) {
@@ -101,66 +101,66 @@ export default {
         return AXIOS.get("users/getUser");
     },
 
-  getMenu() {
-    return AXIOS.get(`/menu`);
-  },
+    getMenu() {
+        return AXIOS.get(`/menu`);
+    },
 
     createOrder(order) {
         return AXIOS.post(`/orders`, order);
     },
 
-  addOrder(order){
-    return AXIOS.post(`/orders`, order);
-  },
+    addOrder(order) {
+        return AXIOS.post(`/orders`, order);
+    },
 
-  createProvider(provider) {
-    console.log(provider);
-    return AXIOS.post(`/provider`, provider);
-  },
+    createProvider(provider) {
+        console.log(provider);
+        return AXIOS.post(`/provider`, provider);
+    },
 
-  getMenuType() {
-    return AXIOS.get("/menu_type");
-  },
-  getUser(user_id) {
-    return AXIOS.get("/user/" + user_id);
-  },
+    getMenuType() {
+        return AXIOS.get("/menu_type");
+    },
+    getUser(user_id) {
+        return AXIOS.get("/user/" + user_id);
+    },
 
-  getUsers() {
-    return AXIOS.get("/users/allUsers");
-  },
+    getUsers() {
+        return AXIOS.get("/users/allUsers");
+    },
 
-  deleteUser(user_id) {
-    return AXIOS.delete("/users/deleteUser/" + user_id);
-  },
+    deleteUser(user_id) {
+        return AXIOS.delete("/users/deleteUser/" + user_id);
+    },
 
-  updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
-    return AXIOS.put(
-      "/users/edit/" +
-        user_id +
-        "?firstName=" +
-        firstName +
-        "&lastName=" +
-        lastName +
-        "&skypeId=" +
-        skypeId +
-        "&email=" +
-        email +
-        "&enable=" +
-        enable +
-        "&data=" +
-        data
-    );
-  },
+    updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
+        return AXIOS.put(
+            "/users/edit/" +
+            user_id +
+            "?firstName=" +
+            firstName +
+            "&lastName=" +
+            lastName +
+            "&skypeId=" +
+            skypeId +
+            "&email=" +
+            email +
+            "&enable=" +
+            enable +
+            "&data=" +
+            data
+        );
+    },
 
 
-  getMenuDay(day){
-    return AXIOS.get("/menu/day?day="+day)
-},
-    getProviderById(id){
+    getMenuDay(day) {
+        return AXIOS.get("/menu/day?day=" + day)
+    },
+    getProviderById(id) {
         return AXIOS.get("/provider/getProvider/" + id)
     },
-    deleteProvider(id){
-       return AXIOS.delete("/provider/delete/" + id)
+    deleteProvider(id) {
+        return AXIOS.delete("/provider/delete/" + id)
     },
 
     changePass(user_id, password) {
@@ -168,7 +168,26 @@ export default {
             "/user/edit/password/" + user_id + "?password=" + password
         );
     },
-    downloadPaymentData(month, year) {
+    // Payment endpoints
+    getUserPaymentOnMonth(month, year) {
+        return AXIOS.get("/users/payment/monthly?month=" + month + "&year=" + year);
+    },
+
+    getUserPaymentOnPeriod(dateFrom, dateTo) {
+        return AXIOS.get("/users/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo);
+    },
+    getAllUserPaymentOnMonth(month, year) {
+        return AXIOS.get("/payment/monthly?month=" + month + "&year=" + year);
+    },
+
+    getAllUserPaymentOnPeriod(dateFrom, dateTo) {
+        return AXIOS.get("/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo);
+    },
+    downloadMonthlyPaymentData(month, year) {
         window.location.href = "http://localhost:8098/api/payment/export?month=" + month + "&year=" + year;
+    },
+    downloadPaymentDataByPeriod(dateFrom, dateTo) {
+        window.location.href = "http://localhost:8098/api/payment/export?dateFrom=" + dateFrom + "&dateTo=" + dateTo;
     }
+
 };
