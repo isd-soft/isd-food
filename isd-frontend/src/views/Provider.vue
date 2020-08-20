@@ -1,7 +1,7 @@
 <template>
   <v-app class ="row" heavy style="background: none">
     <v-card class="providers col-md-7 container">
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid" >
         <v-text-field
           v-model="name"
           :counter="10"
