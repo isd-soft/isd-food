@@ -1,20 +1,29 @@
 package com.example.isdbackend.service;
 
+import com.example.isdbackend.dto.MenuDTO;
+import com.example.isdbackend.dto.OrderDTO;
+import com.example.isdbackend.dto.converter.MenuConverter;
 import com.example.isdbackend.model.Menu;
+
 import com.example.isdbackend.model.MenuType;
 import com.example.isdbackend.projection.MenuView;
+
 import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
-import java.util.LinkedList;
-import java.util.List;
+
 
 @Service
 public class MenuService extends AbstractServiceCrud {
 
-    public MenuService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository) {
+   public ItemRepository itemRepository;
+   public MenuConverter menuConverter;
+
+    public MenuService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository, ItemRepository itemRepository, MenuConverter menuConverter) {
         super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
+        this.itemRepository = itemRepository;
+        this.menuConverter = menuConverter;
     }
 
     public Iterable<Menu> getAllMenus(){
@@ -38,13 +47,37 @@ public class MenuService extends AbstractServiceCrud {
         return menuRepository.findByDayOfWeek(day);
     }
 
-    public List<MenuType> getMenuTypes() {
-        return menuTypeRepository.findAll();
+
+    public void addMenu(Menu menu) {
+        menuRepository.save(menu);
     }
 
-    public void abc(MenuType menuType) {
-        Menu menu = menuType.getMenu();
-        menuType.setMenu(menuRepository.save(menu));
+    public void addMenuType(MenuType menuType) {
+        menuTypeRepository.save(menuType);
     }
 
+//    public void addFullMenu(Menu menu, MenuType menuTypeS, MenuType menuTypeM) {
+//        Menu savedMenu = menuRepository.save(menu);
+//        menuTypeRepository.save(menuTypeS);
+//        menuTypeRepository.save(menuTypeM);
+//        menuTypeS.setMenu(savedMenu);
+//        menuTypeM.setMenu(savedMenu);
+//        menuTypeRepository.save(menuTypeS);
+//        menuTypeRepository.save(menuTypeM);
+//    }
+
+   /* public void addFullMenu(Menu menu){
+        menuRepository.save(menu);
+    }
+*/
+
+
+    public Menu addFullMenu(MenuDTO menuDTO){
+        Menu menu = menuRepository.save(menuConverter.convertFromDto(menuDTO));
+        for (MenuType menuType: menuDTO.getMenuTypes()) {
+            menuType.setMenu(menu);
+            menuTypeRepository.save(menuType);
+        }
+        return menu;
+    }
 }

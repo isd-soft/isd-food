@@ -118,12 +118,37 @@ export default {
     return AXIOS.post(`/provider`, provider);
   },
 
+    createMenu(menu) {
+        console.log(menu);
+        return AXIOS.post(`/new_menu`, menu);
+    },
+
+    createMenuType(menuType) {
+        console.log(menuType);
+        return AXIOS.post(`/new_menuType`, menuType);
+    },
+
+    createFullMenu(menu){
+        return AXIOS.post(`/newMenuFull`, menu).catch(err => console.log(err));
+    },
+
+
   getMenuType() {
     return AXIOS.get("/menu_type");
   },
+
   getUser(user_id) {
     return AXIOS.get("/user/" + user_id);
   },
+
+
+    getItems(){
+        return AXIOS.get("/items");
+    },
+
+    getProviders(){
+      return AXIOS.get("/provider");
+    },
 
   getUsers() {
     return AXIOS.get("/users/allUsers");
@@ -163,6 +188,13 @@ export default {
        return AXIOS.delete("/provider/delete/" + id)
     },
 
+
+
+
+    newItem(itemName){
+        return AXIOS.post("/new_item?name="+itemName);
+    },
+  
     changePass(user_id, password) {
         return AXIOS.put(
             "/user/edit/password/" + user_id + "?password=" + password
