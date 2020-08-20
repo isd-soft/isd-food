@@ -10,7 +10,7 @@
                 <p>Provider : {{product_data.provider.name}}</p>
                 <p>Day : {{product_data.dayOfWeek}}</p>
                 <div>
-                  <img src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/chorizo-mozarella-gnocchi-bake-cropped.jpg" class="image" alt="">
+                  <img src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg" class="image" alt="">
                 </div>
                 <v-app style="height: auto; max-height: 230px">
                   <v-radio-group class = "ml-1" v-model="type" id="type" :mandatory="false" style="color: orange !important" row>

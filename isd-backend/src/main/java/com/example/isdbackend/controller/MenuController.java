@@ -1,5 +1,6 @@
 package com.example.isdbackend.controller;
 
+import com.example.isdbackend.dto.MenuDTO;
 import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.Item;
 import com.example.isdbackend.model.Provider;
@@ -68,8 +69,8 @@ public class MenuController {
 
 
     @PostMapping("/newMenuFull")
-    public void addNewMenu(@RequestBody Menu menu, @RequestBody MenuType menuTypeS, @RequestBody MenuType menuTypeM){
-        menuService.addFullMenu(menu, menuTypeS, menuTypeM);
+    public void addNewMenu(@RequestBody MenuDTO menu){
+        menuService.addFullMenu(menu);
     }
 
 

@@ -95,7 +95,7 @@ export default {
     },
 
     createFullMenu(menu){
-        return AXIOS.post(`/newMenuFull`, menu);
+        return AXIOS.post(`/newMenuFull`, menu).catch(err => console.log(err));
     },
 
 

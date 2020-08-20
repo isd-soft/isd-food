@@ -59,11 +59,7 @@
                             <template v-slot:prepend-item>
                                 <v-list-item
                                         ripple
-                                        @click="toggle"
                                 >
-                                    <v-list-item-action>
-                                        <v-icon :color="itemsS.length > 0 ? 'orange' : ''">{{ icon }}</v-icon>
-                                    </v-list-item-action>
                                     <v-list-item-content>
                                         <v-list-item-title>Choose items:</v-list-item-title>
                                     </v-list-item-content>
@@ -137,11 +133,7 @@
                             <template v-slot:prepend-item>
                                 <v-list-item
                                         ripple
-                                        @click="toggle"
                                 >
-                                    <v-list-item-action>
-                                        <v-icon :color="itemsM.length > 0 ? 'indigo darken-4' : ''">{{ icon }}</v-icon>
-                                    </v-list-item-action>
                                     <v-list-item-content>
                                         <v-list-item-title>Choose items:</v-list-item-title>
                                     </v-list-item-content>
@@ -204,28 +196,9 @@
                 </v-card-text>
                 <v-divider class="mt-12"></v-divider>
                 <v-card-actions>
-                    <v-btn text>Cancel</v-btn>
+                    <v-btn>Cancel</v-btn>
                     <v-spacer></v-spacer>
-                    <v-slide-x-reverse-transition>
-                        <v-tooltip
-                                v-if="formHasErrors"
-                                left
-                        >
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                        icon
-                                        class="my-0"
-                                        v-bind="attrs"
-                                        @click="resetForm"
-                                        v-on="on"
-                                >
-                                    <v-icon>mdi-refresh</v-icon>
-                                </v-btn>
-                            </template>
-                            <span>Refresh form</span>
-                        </v-tooltip>
-                    </v-slide-x-reverse-transition>
-                    <v-btn color="success" text @click="createMenu()">Submit</v-btn>
+                    <v-btn color="success" @click="createMenu()">Submit</v-btn>
                 </v-card-actions>
             </v-card>
         </v-col>
@@ -240,6 +213,7 @@
             dialog: false,
             item: null,
             items: [],
+            image: null,
             itemSCount: 0,
             itemMCount: 0,
             itemsS: [],
@@ -251,6 +225,7 @@
             day: null,
             name: null,
             priceS: null,
+            priceM: null,
             formHasErrors: false,
         }),
 
@@ -276,15 +251,6 @@
 
         methods: {
 
-
-            resetForm () {
-                this.errorMessages = []
-                this.formHasErrors = false
-
-                Object.keys(this.form).forEach(f => {
-                    this.$refs[f].reset()
-                })
-            },
             submit () {
                 this.formHasErrors = false
 
@@ -312,28 +278,25 @@
                     })
             },
 
-
             createMenu(){
-                api.createFullMenu({
-                    menu:
+                api.createFullMenu(
                 {
                     name: this.name,
                     provider: this.provider,
                     image: this.image,
-                    dayOfWeek: this.day
-                },
-                    menuTypeS:
-                    {
+                    dayOfWeek: this.day,
+                    menuTypes:[
+                     {
                         type: 'S',
                         price: this.priceS,
                         items: this.itemsS
                     },
-                    menuTypeM:
                     {
                         type: 'M',
                         price: this.priceM,
                         items: this.itemsM
                     }
+                    ]
                 }
                 )
             }

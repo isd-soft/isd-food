@@ -31,6 +31,12 @@ const routes = [
     },
 
     {
+        path: "/allmenus",
+        name: "AllMenus",
+        component: () => import("../components/AllMenus.vue")
+    },
+
+    {
         path: "/users/register",
         name: "Register",
         component: () => import("../views/Register.vue")
