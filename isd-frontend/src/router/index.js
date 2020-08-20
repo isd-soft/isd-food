@@ -37,7 +37,7 @@ const routes = [
         component: () => import("../components/AllMenus.vue")
     },
 
-
+    {
         path: "/ProviderList",
         name: "ProviderList",
         props: true,

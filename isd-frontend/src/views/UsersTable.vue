@@ -1,93 +1,317 @@
 <template>
   <div>
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-warning">Users</h6>
-        <button style="float: right;" class="button button1" onclick="window.location.pathname= '/users/register'">
-          <v-icon  data-toggle="modal"  data-target="#exampleModal">fas fa-plus</v-icon>
-          Add user
-        </button>
-      </div>
-      <div class="card-body">
-        <div  class="table-responsive">
-          <div  class="tab-content" id="pills-tabContent">
-            <div  class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-              <table class="table table-bordered"  width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Email</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Employment Date </th>
-                  <th>skypeId</th>
-                  <th>Active</th>
-                </tr>
-                </thead>
-                <tbody >
-                <tr v-for="user of Users" :key="user.id">
-                  <td>{{user.id}}</td>
-                  <td>{{user.email}}</td>
-                  <td>{{user.firstName}}</td>
-                  <td>{{user.lastName}}</td>
-                  <td>{{user.employmentDate}}</td>
-                  <td>{{user.skypeId}}</td>
-                  <td>{{user.enabled}} </td>
-                  <td class="text-center">
-                    <button type="submit" @click="deleteUser(user.id)" onclick="window.location.reload();">
-                      <v-icon  data-toggle="modal"  data-target="#exampleModal">fas fa-trash-alt</v-icon>
-                    </button>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+    <div class="row container">
+      <div class="col-xl-12 col-md-12 mb-4">
+        <div class="card border-left-warning shadow h-100 py-1">
+          <div class="card-body">
+            <h3 class="mb-3">Users</h3>
+            <table class="table table-bordered" cellspacing="0">
+              <thead>
+              <tr>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Employment Date</th>
+                <th>Active</th>
+                <th class="text-center">Delete</th>
+                <th>Edit</th>
+              </tr>
+              </thead>
+
+              <tbody v-for="user of users" :key="user.id">
+              <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.employmentDate }}</td>
+                <td v-if="user.active === true" class="text-center">
+                  <i
+                      class="fas fa-check-circle"
+                      style="margin: 0; padding: 0;color: green !important; font-size: 25px"
+                  ></i>
+                </td>
+                <td v-else class="text-center">
+                  <i
+                      class="fas fa-times-circle"
+                      style="margin: 0; padding: 0;color: red !important; font-size: 25px"
+                  ></i>
+                </td>
+
+                <td class="text-center">
+                  <button
+                      style="outline: none"
+                      @click="deleteUser(user.id)"
+                      onclick="window.location.reload()"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+
+                <td>
+                  <v-app
+                      style="background: none; height: content-box !important; max-height: 30px"
+                      class="text-center"
+                  >
+                    <v-dialog v-model="dialogNote[user.id]" width="600">
+                      <template v-slot:activator="{ on, attrs }">
+                        <button
+                            style="background : none !important;box-shadow: none;color: grey; outline: none"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                          <i
+                              class="fas fa-edit"
+                              style="margin: 0 !important;padding: 0 !important"
+                          ></i>
+                        </button>
+                      </template>
+
+                      <v-card>
+                        <v-card-title
+                            class="headline orange lighten-2"
+                            style="color: white"
+                        >
+                          {{ user.email }}
+                        </v-card-title>
+
+                        <v-card-text>
+                          <div class="container text-left">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label>First Name</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    name="firstName"
+                                    v-model="user.firstName"
+                                />
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label>Last Name</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    name="lastName"
+                                    v-model="user.lastName"
+                                />
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label>Email</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    name="email"
+                                    v-model="user.email"
+                                />
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label>Skype Id</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    name="skypeId"
+                                    v-model="user.skypeId"
+                                />
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="col mb-6">
+                                <div class="form-group">
+                                  <v-menu
+                                      v-model="menu2"
+                                      :close-on-content-click="false"
+                                      :nudge-right="40"
+                                      transition="scale-transition"
+                                      offset-y
+                                      full-width
+                                      min-width="290px"
+                                  >
+                                    <template
+                                        v-slot:activator="{ on, attrs }"
+                                    >
+                                      <v-text-field
+                                          v-model="formattedDate"
+                                          label="Employment Date"
+                                          readonly
+                                          v-bind="attrs"
+                                          v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="user.employmentDate"
+                                        @input="menu2 = false"
+                                        color="warning"
+                                        @change="formatDate"
+                                        scrollable
+                                        default
+                                        elevation="15"
+                                    ></v-date-picker>
+                                  </v-menu>
+                                </div>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <v-select
+                                    v-model="user.role"
+                                    :items="role_items"
+                                    label="Role"
+                                    required
+                                ></v-select>
+                              </div>
+                            </div>
+                            <div class="form-group ml-1">
+                              <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="user.enabled"
+                                    required
+                                    id="gridCheck"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="gridCheck"
+                                >
+                                  Active
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </v-card-text>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                              color="primary"
+                              text
+                              @click.stop="$set(dialogNote, user.id, false)"
+                          >
+                            Close
+                          </v-btn>
+                          <v-btn
+                              color="warning"
+                              text
+                              @click="
+                                editUser(
+                                  user.id,
+                                  user.firstName,
+                                  user.lastName,
+                                  user.skypeId,
+                                  user.email,
+                                  user.role,
+                                  user.enabled,
+                                  user.employmentDate
+                                )
+                              "
+                          >
+                            Save
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-app>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+    <v-snackbar v-model="snackbar">
+      <div class="text-center">
+        {{ text }}
+      </div>
+    </v-snackbar>
   </div>
 </template>
 
 <script>
-
-import api from "@/components/backend-api.js"
+import api from "@/components/backend-api.js";
 
 export default {
-
-  name: "Home",
-  data (){
-    return{
-      Users:[],
-      getUsers: false,
-    }
+  name: "UsersTable",
+  data() {
+    return {
+      dialogNote: {},
+      users: [],
+      dialog: false,
+      snackbar: false,
+      text: "asd",
+      formattedDate: "",
+      employmentDate: new Date().toISOString().substr(0, 10),
+      menu2: false,
+      modal: false,
+      role_items: ["user", "supervisor"]
+    };
   },
-  mounted() {
-    this.getAllUsers();
-  },
-
-  methods:{
-    deleteUser(user_id){
-      api.deleteUser(user_id);
+  methods: {
+    formatDate() {
+      let array = this.employmentDate.split("-");
+      this.formattedDate = array[2] + "-" + array[1] + "-" + array[0];
     },
-    getAllUsers() {
-      api.getUsers().then(response => {this.Users = response.data;
-        console.log(response.data)})
+    editUser(
+        id,
+        firstName,
+        lastName,
+        skypeId,
+        email,
+        role,
+        enabled,
+        employmentDate
+    ) {
+      // if (name.length === 0) {
+      //   this.text = "Provider name cannot be empty!";
+      //   this.snackbar = true;
+      // } else if (contact.length === 0) {
+      //   this.text = "Provider email cannot be empty!";
+      //   this.snackbar = true;
+      // } else if (!contact.includes("@")) {
+      //   this.text = "The contact must contain an email address";
+      //   this.snackbar = true;
+      // } else if (price < 0) {
+      //   this.text = "Price can't be negative";
+      //   this.snackbar = true;
+      // } else {
+      api.updateUserBySupervisor(
+          id,
+          firstName,
+          lastName,
+          skypeId,
+          email,
+          role,
+          enabled,
+          employmentDate
+      );
+      window.location.reload();
+      //}
+    },
+    deleteUser(id) {
+      api.deleteUser(id);
     }
+  },
+
+  beforeCreate() {
+    api.getUsers().then(response => {
+      this.users = response.data;
+      console.log(response.data);
+    });
   }
 };
-
 </script>
 
-<style>
-.button1 {
-  background-color: orange;
-  color: white;
-  border: 2px solid orange;
+<style scoped>
+div.v-date-picker > table > tbody > tr > td {
+  padding: 0 !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.button1:hover {
-  background-color: darkorange;
-  color: white;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 </style>

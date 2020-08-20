@@ -198,7 +198,7 @@ export default {
     ],
 
     SuperVisorLinks: [
-      {icon: "fas fa-user", text: "Users", route: "/"},
+      {icon: "fas fa-user", text: "Users", route: "/users/table"},
       {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
       {icon: "fas fas fa-cart-plus", text: "Create provider", route: "/providers"},
       {icon: "fas fas fa-user", text: "Providers", route: "/ProviderList"},
