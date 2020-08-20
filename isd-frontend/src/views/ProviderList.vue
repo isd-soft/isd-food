@@ -15,7 +15,6 @@
               <th>Delivery price</th>
               <th>active</th>
               <th class="text-center">Delete</th>
-              <th class="text-center">Save</th>
               <th>Edit</th>
 
             </tr>
@@ -23,22 +22,23 @@
 
             <tbody v-for="provider of providers" :key="provider.id" >
             <tr>
-              <td><input type="text" style="width: 100%; outline: none; color: grey" v-model="provider.name" required ></td>
-              <td><input type="email" style="width: 100%; outline: none;color: grey" v-model="provider.contactInfo" required></td>
-              <td><input type="text" style="width: 100%; outline: none;color: grey" v-model="provider.deliveryPrice" required></td>
-              <td>
-                <input type="checkbox"  style="width: 100%; outline: none;color: grey" v-model="provider.active" required>
+              <td>{{provider.name}}</td>
+              <td>{{provider.contactInfo}}</td>
+              <td>{{provider.deliveryPrice}}</td>
+              <td v-if="provider.active === true" class="text-center">
+                <i class="fas fa-check-circle" style="margin: 0; padding: 0;color: green !important; font-size: 25px"></i>
               </td>
+              <td v-else class="text-center">
+                <i class="fas fa-times-circle" style="margin: 0; padding: 0;color: red !important; font-size: 25px"></i>
+              </td>
+
+
               <td class="text-center">
                 <button style="outline: none" @click="deleteProvider(provider.id)" onclick="window.location.reload()">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
-              <td class="text-center">
-              <button style="outline: none" @click="editProvider(provider.id,provider.name,provider.contactInfo,provider.deliveryPrice,provider.active,provider.description,provider.image)"   >
-                <i class="fas fa-save" style="font-size: 17px"></i>
-              </button>
-              </td>
+
               <td>
                   <v-app style="background: none; height: content-box !important; max-height: 30px" class="text-center">
                     <v-dialog
