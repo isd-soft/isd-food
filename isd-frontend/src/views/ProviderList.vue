@@ -184,6 +184,7 @@ export default {
       else{
         api.editProvider(id,name,contact,price,active,desc,img);
         window.location.reload()
+
       }
     },
     deleteProvider(id){
