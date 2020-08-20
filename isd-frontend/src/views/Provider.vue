@@ -1,5 +1,5 @@
 <template>
-  <v-app class ="row" heavy>
+  <v-app class ="row" heavy style="background: none">
     <v-card class="providers col-md-7 container">
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
@@ -125,6 +125,8 @@ export default {
         .catch(error => {
           this.providerExists = true;
         });
+
+      this.$router.push("/ProviderList");
     }
   }
 };
