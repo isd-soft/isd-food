@@ -6,4 +6,6 @@ public interface ProviderView {
     String getName();
 
     String getImage();
+
+
 }

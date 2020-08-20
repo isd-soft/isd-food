@@ -84,9 +84,25 @@ export default {
     return AXIOS.post(`/provider`, provider);
   },
 
+    createMenu(menu) {
+        console.log(menu);
+        return AXIOS.post(`/new_menu`, menu);
+    },
+
+    createMenuType(menuType) {
+        console.log(menuType);
+        return AXIOS.post(`/new_menuType`, menuType);
+    },
+
+    createFullMenu(menu){
+        return AXIOS.post(`/newMenuFull`, menu);
+    },
+
+
   getMenuType() {
     return AXIOS.get("/menu_type");
   },
+
   getUser(user_id) {
     return AXIOS.get("/user/" + user_id);
   },
@@ -96,9 +112,8 @@ export default {
     },
 
     getProviders(){
-      return AXIOS.get("/providers");
+      return AXIOS.get("/provider");
     },
-
 
   updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
     return AXIOS.put(
@@ -127,5 +142,10 @@ export default {
     return AXIOS.put(
       "/user/edit/password/" + user_id + "?password=" + password
     );
-  }
+  },
+
+
+    newItem(itemName){
+        return AXIOS.post("/new_item?name="+itemName);
+    }
 };

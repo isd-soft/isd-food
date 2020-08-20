@@ -2,6 +2,7 @@ package com.example.isdbackend.controller;
 
 import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.Item;
+import com.example.isdbackend.model.Provider;
 import com.example.isdbackend.projection.MenuView;
 import com.example.isdbackend.projection.UserView;
 import com.example.isdbackend.service.MenuService;
@@ -46,6 +47,34 @@ public class MenuController {
     public  ResponseEntity<List<Item>> getItems(){
         return new ResponseEntity<>((List<Item>)itemRepository.findAll(), HttpStatus.OK);
     }
+
+
+    @PostMapping("/new_menu")
+    public void addMenu(@RequestBody Menu menu){
+        menuService.addMenu(menu);
+    }
+
+    @PostMapping("/new_item")
+    public void addItem(@RequestParam String name) {
+        Item item = new Item();
+        item.setName(name);
+        itemRepository.save(item);
+    }
+
+    @PostMapping("/new_menuType")
+    public void addMenuType(@RequestBody MenuType menuType){
+        menuService.addMenuType(menuType);
+    }
+
+
+    @PostMapping("/newMenuFull")
+    public void addNewMenu(@RequestBody Menu menu, @RequestBody MenuType menuTypeS, @RequestBody MenuType menuTypeM){
+        menuService.addFullMenu(menu, menuTypeS, menuTypeM);
+    }
+
+
+
+
 
    /* @GetMapping("/menu/day")
     public ResponseEntity<List<MenuView>> getMenus(@RequestParam DayOfWeek day){
