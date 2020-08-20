@@ -10,32 +10,32 @@
             <tr>
 
 
-              <th>Provider name</th>
-              <th>Contact</th>
-              <th>Delivery price</th>
-              <th>active</th>
-              <th class="text-center">Delete</th>
-              <th>Edit</th>
+              <th class="text-14">Provider name</th>
+              <th class="text-14">Contact</th>
+              <th class="text-14">Delivery price</th>
+              <th class="text-14">active</th>
+              <th class="text-14 text-center" >Delete</th>
+              <th class="text-14">Edit</th>
 
             </tr>
             </thead>
 
             <tbody v-for="provider of providers" :key="provider.id" >
             <tr>
-              <td>{{provider.name}}</td>
-              <td>{{provider.contactInfo}}</td>
-              <td>{{provider.deliveryPrice}}</td>
-              <td v-if="provider.active === true" class="text-center">
-                <i class="fas fa-check-circle" style="margin: 0; padding: 0;color: green !important; font-size: 25px"></i>
+              <td class="text-14">{{provider.name}}</td>
+              <td class="text-14">{{provider.contactInfo}}</td>
+              <td class="text-14">{{provider.deliveryPrice}}</td>
+              <td  v-if="provider.active === true" class="text-center text-14">
+                <i class="fas fa-check-circle icons-text" style="margin: 0; padding: 0;color: green !important; font-size: 25px"></i>
               </td>
               <td v-else class="text-center">
-                <i class="fas fa-times-circle" style="margin: 0; padding: 0;color: red !important; font-size: 25px"></i>
+                <i class="fas fa-times-circle icons-text" style="margin: 0; padding: 0;color: red !important; font-size: 25px"></i>
               </td>
 
 
               <td class="text-center">
                 <button style="outline: none" @click="deleteProvider(provider.id)" onclick="window.location.reload()">
-                  <i class="fas fa-trash"></i>
+                  <i class="fas fa-trash icons-text"></i>
                 </button>
               </td>
 
@@ -207,5 +207,17 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance:textfield;
+}
+@media (max-width: 900px) {
+  .text-14{
+    font-size: 11px;
+  }
+
+}
+@media (max-width: 700px) {
+  .text-14{
+    font-size: 10px;
+  }
+
 }
 </style>
