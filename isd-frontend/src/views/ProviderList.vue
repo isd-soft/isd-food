@@ -169,6 +169,10 @@ export default {
         this.text = "Provider name cannot be empty!";
         this.snackbar = true;
       }
+      else if(contact.length === 0){
+        this.text = "Provider email cannot be empty!";
+        this.snackbar = true;
+      }
       else if(!contact.includes("@")){
         this.text = "The contact must contain an email address";
         this.snackbar = true;
