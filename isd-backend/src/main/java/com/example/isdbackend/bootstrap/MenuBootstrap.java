@@ -23,22 +23,34 @@ public class MenuBootstrap implements CommandLineRunner {
     private final ProviderRepository providerRepository;
     private final MenuTypeRepository menuTypeRepository;
     private final MenuItemRepository menuItemRepository;
-
+    private final CronNotificationRepository cronNotificationRepository;
     private final UserRepository userRepository;
 
-    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, UserRepository userRepository) {
-
+    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, CronNotificationRepository cronNotificationRepository, UserRepository userRepository) {
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
         this.menuTypeRepository = menuTypeRepository;
         this.menuItemRepository = menuItemRepository;
+        this.cronNotificationRepository = cronNotificationRepository;
         this.userRepository = userRepository;
-
     }
 
     @Override
     public void run(String... args) throws Exception {
 
+
+        //Cron
+        CronNotification cronNotification = new CronNotification();
+        cronNotification.setId("Default");
+        cronNotification.setFirstNotificationCron("0 30 9 ? * MON-FRI");
+        cronNotification.setSecondNotificationCron("0 30 9 ? * MON-FRI");
+        cronNotification.setTimeToCheckUsers("0 0-5 7 * * ?");
+        cronNotification.setChuckNorris("0 0-5 7 * * ?");
+
+        cronNotificationRepository.save(cronNotification);
+
+
+        //Cron
         MenuType M1 = new MenuType();
         M1.setPrice(50f);
         M1.setType('M');

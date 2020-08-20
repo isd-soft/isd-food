@@ -1,7 +1,8 @@
-package com.example.isdbackend.config;
+package com.example.isdbackend.scheduler;
 
 import com.example.isdbackend.model.Order;
 import com.example.isdbackend.model.User;
+import com.example.isdbackend.service.CronService;
 import com.example.isdbackend.service.MailSender;
 import com.example.isdbackend.service.OrderService;
 import com.example.isdbackend.service.UserService;
@@ -23,24 +24,27 @@ public class Schedule {
     private final OrderService orderService;
     private final UserService userService;
     private final MailSender mailSender;
+    private final CronService cronService;
 
-    public Schedule(OrderService orderService, UserService userService, MailSender mailSender) {
+    public Schedule(OrderService orderService, UserService userService, MailSender mailSender, CronService cronService) {
         this.orderService = orderService;
         this.userService = userService;
         this.mailSender = mailSender;
+        this.cronService = cronService;
     }
 
-//    @Scheduled(cron = "0 0 23 ? * MON-FRI\n",zone="GMT+3.00")
-//    public void scheduleNotification(){
-//        List<Order> list = orderService.findAll();
-//        Calendar calendar = Calendar.getInstance();
-//        for (Order order : list) {
-//            if(!order.isOrdered() && order.getDate().toString().equals(calendar.toString())){
-//                orderService.delete(order);
-//            }
-//        }
-//
-//   }
+
+    @Scheduled(cron = "#{cronService.getCron('Default').firstNotificationCron()}",zone="GMT+3.00")
+    public void scheduleNotification(){
+        List<Order> list = orderService.findAll();
+        Calendar calendar = Calendar.getInstance();
+        for (Order order : list) {
+            if(!order.isOrdered() && order.getDate().toString().equals(calendar.toString())){
+                orderService.delete(order);
+            }
+        }
+
+   }
 
 
 //
