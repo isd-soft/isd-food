@@ -131,7 +131,7 @@
 //        menuRepository.save(salat4);
 //        menuTypeRepository.save(S4);
 //        menuTypeRepository.save(M4);
-//
+//        andys.setActive(true);
 //        Item mamaliga = new Item();
 //        mamaliga.setName("Mamaliga");
 //        menuItemRepository.save(mamaliga);
@@ -187,7 +187,7 @@
 //        S4.getItems().add(mamaliga);
 //        S4.getItems().add(sashlic);
 //        menuTypeRepository.save(S4);
-//
+//        providerRepository.save(andys);
 //
 //        User user = new User();
 //        user.setFirstName("Petea");
@@ -197,6 +197,9 @@
 //        user.setSkypeId("JhonesId");
 //        user.setPassword("$2y$12$Gytj7ahrI8suqFJxtYG2IevbkegKn.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
 //        user.setOrders(new HashSet<>());
+//        user.setNotificationEnabled(true);
+//        user.setEnabled(true);
+//
 //
 //
 //        Order order = new Order();
@@ -210,13 +213,15 @@
 //        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 //        LocalDate localDate = LocalDate.now();
 //
-//        Order order1 = new Order();
-//        order1.setMenuType(S3);
-//        user.getOrders().add(order1);
-//        order1.setUser(user);
-//        order1.setOrdered(false);
+//
 //        order.setDate(new Date(dtf.format(localDate)));
-//        order1.setDate(new Date(dtf.format(localDate)));
+//
+//        Order order2 = new Order();
+//        order2.setMenuType(M3);
+//        user.getOrders().add(order2);
+//        order2.setUser(user);
+//        order2.setOrdered(false);
+//        order2.setDate(new Date(dtf.format(localDate)));
 //
 //
 //        Provider provider = new Provider();

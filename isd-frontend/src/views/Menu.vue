@@ -1,8 +1,4 @@
 <template>
-<!--  <v-app class="home">-->
-<!--    <MenuList/>-->
-<!--  </v-app>-->
-  <!-- Page Heading -->
 <div class="container-fluid">
      <MenuList/>
 </div>
@@ -19,8 +15,4 @@ export default {
 </script>
 
 <style>
-.menu{
-
-  margin: 0 auto;
-}
 </style>

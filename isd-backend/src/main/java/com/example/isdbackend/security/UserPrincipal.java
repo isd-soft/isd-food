@@ -21,10 +21,8 @@ public class UserPrincipal implements UserDetails {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         // Extract list of roles (ROLE_name)
-        this.user.getRoles().forEach(r -> {
-            GrantedAuthority role = new SimpleGrantedAuthority(r.getName());
-            authorities.add(role);
-        });
+        GrantedAuthority role = new SimpleGrantedAuthority(user.getRole().getName());
+        authorities.add(role);
 
         return authorities;
     }

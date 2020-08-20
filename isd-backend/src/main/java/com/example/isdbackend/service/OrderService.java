@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -30,6 +31,10 @@ public class OrderService {
         this.propertiesRepository = propertiesRepository;
         this.orderRepository = orderRepository;
         this.userService = userService;
+    }
+
+    public List<Order> findAll(){
+        return orderRepository.findAll();
     }
 
     public boolean areOrdersEnabled(Date orderOnDate) {
@@ -54,9 +59,15 @@ public class OrderService {
 
         return message;
     }
+    public Order findById(Long id){
+        return orderRepository.findById(id).orElseThrow();
+    }
 
     public Order save(OrderDTO orderDTO) {
         return orderRepository.save(orderConverter.convertFromDto(orderDTO));
+    }
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 
     public String canUpdateOrder(OrderDTO orderDTO) {
@@ -64,6 +75,9 @@ public class OrderService {
         if (!menuDayEqualsOrderDay) return "This menu is not available on this day";
 
         return null;
+    }
+    public void delete(Order order){
+        orderRepository.delete(order);
     }
 
     public String canDeleteOrder(long orderId) {

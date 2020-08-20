@@ -23,6 +23,20 @@ const routes = [
         name: "Edit",
         component: () => import("../views/EditUser.vue")
     },
+
+    {
+        path: "/ProviderList",
+        name: "ProviderList",
+        props: true,
+
+
+        component: () => import("../views/ProviderList.vue")
+    },
+    {
+        path: "/ProviderOrders",
+        name: "Provider Orders",
+        component: () => import("../views/ProviderOrders.vue")
+    },
     {
         path: "/users/register",
         name: "Register",
@@ -45,6 +59,17 @@ const routes = [
         name: "Provider",
         component: () => import("../views/Provider.vue"),
     },
+    {
+        path: '*',
+        name: "error",
+        component: () => import("../views/404"),
+    },
+
+    {
+        path: "/users/table",
+        name: "UsersTable",
+        component: () => import("../views/UsersTable.vue")
+    },
 
     {
         path: "/about",
@@ -55,6 +80,8 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "about" */ "../views/About.vue")
     }
+ 
+
 ];
 
 const router = new VueRouter({

@@ -17,6 +17,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -27,6 +36,10 @@ public class UserController {
     private final UserService userService;
     private final OrderService orderService;
 
+    @GetMapping("/all")
+    public List<User> getAllUsers(){
+        return userService.findAll();
+    }
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User user) throws UserException {
         if (userService.existsByEmail(user.getEmail()))
@@ -57,6 +70,16 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/allUsers")
+    public List<User> getAllUsersWithoutPage(){
+        return userService.findAll();
+    }
+
+    @DeleteMapping("/deleteUser/{userId}")
+    public void deleteUser(@PathVariable Long userId){
+        userService.delete(userService.findUserById(userId));
+    }
+
     /*@RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public User getInfoUser(@PathVariable Long id){
         return userService.findUserById(id);
@@ -67,21 +90,29 @@ public class UserController {
         userService.save(user);
     }*/
 
+    @GetMapping("/getUser")
+    public User getCurrentUser(){
+        return userService.getCurrentUser();
+    }
+
     @GetMapping("/{currentId}")
     public ResponseEntity<UserView> getInfoUser(@PathVariable Long currentId) {
         return new ResponseEntity<>(userService.findByIdUser(currentId), HttpStatus.OK);
     }
 
     @GetMapping("/current")
-    public ResponseEntity<User> getCurrentUser() {
+    public ResponseEntity<User> getCurrentUser2() {
         return new ResponseEntity<>(userService.getCurrentUser(), HttpStatus.OK);
     }
 
     @PutMapping("/edit/{currentId}")
-    @ResponseBody
-    public String editUser(@PathVariable Long currentId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String skypeId, @RequestParam String email) {
-        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email);
-        return "Success";
+    public void editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,
+                         @RequestParam String skypeId,@RequestParam String email,@RequestParam Boolean enable, @RequestParam String data) throws ParseException {
+        System.out.println(data);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateForChange = sdf1.parse(data);
+        java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
+        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
     }
 
     @PutMapping("/edit/password/{currentId}")

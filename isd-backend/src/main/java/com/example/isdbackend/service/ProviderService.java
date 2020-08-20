@@ -19,12 +19,14 @@ public class ProviderService extends AbstractServiceCrud {
         this.mailSender = mailSender1;
         this.generatePassword = generatePassword;
     }
-
+    public Provider findById(Integer id){
+        return providerRepository.findById(id).orElseThrow();
+    }
     public List<Provider> findAllProviders() {
         return providerRepository.findAll();
     }
 
-    public Iterable<Menu> getProviderMenus(Long providerId) {
+    public Iterable<Menu> getProviderMenus(Integer providerId) {
         return providerRepository.findById(providerId).orElseThrow().getMenus();
     }
 
@@ -53,6 +55,7 @@ public class ProviderService extends AbstractServiceCrud {
         }
     }
 
+
     public void createNewUser(User user) {
         userRepository.save(user);
     }
@@ -65,9 +68,9 @@ public class ProviderService extends AbstractServiceCrud {
         userRepository.delete(userRepository.findById(id).orElseThrow());
     }
 
-    public void setUserGroup(Long id, Role role) {
-        userRepository.findById(id).orElseThrow().getRoles().add(role);
-    }
+//    public void setUserGroup(Long id, Role role) {
+//        userRepository.findById(id).orElseThrow().getRoles().add(role);
+//    }
 
     public void updateProvider(Provider provider) {
         providerRepository.save(provider);
@@ -75,8 +78,13 @@ public class ProviderService extends AbstractServiceCrud {
 
 
     public void deleteProvider(int id) {
-        providerRepository.deleteById((long) id);
+        providerRepository.deleteById((int) id);
     }
+    public void delete(Integer id) {
+        providerRepository.delete(providerRepository.findById(id).orElseThrow());
+    }
+
+
 
 
 }
