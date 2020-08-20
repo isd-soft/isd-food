@@ -12,11 +12,19 @@ export default new Vuex.Store({
             email: null,
             password: null,
             loading: false,
-            error:null,
+            error: null,
             showDialog: false
         },
+        orders: {
+            userCurrentOrders: [],
+            userOrdersHistory: null,
+            userOrdersType: "current",
+            createOrderSuccess: false
+        },
         register: {loading: false, error: false, success: false, errors: []},
-        Provider: {loading: false}
+        Provider: {loading: false},
+        errorDialog: false,
+        errorModel: null
     },
     mutations: {
         login_success(state, payload) {
@@ -50,6 +58,10 @@ export default new Vuex.Store({
                 state.register.error = false
                 state.register.errors = [];
             }, 3000)
+        },
+        create_order_success(state) {
+            console.log(state)
+            state.orders.createOrderSuccess = true;
         }
     },
     actions: {
@@ -65,6 +77,11 @@ export default new Vuex.Store({
                                 email: email,
                                 password: password
                             });
+                            api.getUserRole().then(response => {
+                                localStorage.setItem("userRole",response.data)
+                            }).catch(()=>{
+
+                            })
                         }
                         resolve(response);
                     })
@@ -84,8 +101,7 @@ export default new Vuex.Store({
                     .then(response => {
                         if (response.status == 200) {
                             localStorage.removeItem("access_token")
-                            commit("reset_password", {
-                            });
+                            commit("reset_password", {});
                         }
                         resolve(response);
                     })
@@ -99,12 +115,11 @@ export default new Vuex.Store({
                 api
                     .createUser(user)
                     .then(response => {
-                        if (response.status == 201&&response.data.errorType==null) {
+                        if (response.status == 201 && response.data.errorType == null) {
                             commit("register_success", {
                                 user: user
                             });
                         } else {
-                            console.log(response)
                             commit("register_error", {
                                 message: response.data.message
                             });
@@ -142,15 +157,85 @@ export default new Vuex.Store({
                     });
             });
         },
+        createOrder({commit}, order) {
+            return new Promise((resolve, reject) => {
+                api
+                    .createOrder(order)
+                    .then(response => {
+                        if (response.status == 201 && response.data.errorType == null) {
+                            commit("create_order_success");
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        // place the loginError state into our vuex store
+                        // commit("login_error", {
+                        //   email: email,
+                        // });
+                        reject("Error create order");
+                    });
+            });
+        },
+        getUserCurrentOrders({commit}) {
+            return new Promise((resolve, reject) => {
+                api
+                    .getUserCurrentOrders()
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.orders.userCurrentOrders = response.data
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
 
+                        reject("Error");
+                    });
+            });
+        },
+        getUserOrdersHistory({commit}) {
+            return new Promise((resolve, reject) => {
+                // this.state.login.loading = true;
+                api
+                    .getUserOrdersHistory()
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.orders.userOrdersHistory = response.data.content
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Error");
+                    });
+            });
+        },
+        deleteUserOrder({commit, dispatch}, orderId) {
+            return new Promise((resolve, reject) => {
+                // this.state.login.loading = true;
+                api
+                    .deleteUserOrder(orderId)
+                    .then(response => {
+                        if (response.status == 200) {
+                            dispatch('getUserCurrentOrders')
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Error");
+                    });
+            });
+        },
 
-  },
-  modules: {},
-  getters: {
-    isLoggedIn: state => state.login.loginSuccess,
-    hasLoginErrored: state => state.login.loginError,
-    isLoggingInProcess: state => state.login.loading,
-    getEmail: state => state.login.email,
-    getPassword: state => state.login.password
-  }
+    },
+    modules: {},
+    getters: {
+        isLoggedIn: state => state.login.loginSuccess,
+        hasLoginErrored: state => state.login.loginError,
+        isLoggingInProcess: state => state.login.loading,
+        getEmail: state => state.login.email,
+        getPassword: state => state.login.password,
+        userCurrentOrders: state => state.orders.userCurrentOrders,
+        userOrdersHistory: state => state.orders.userOrdersHistory,
+        userOrdersType: state => state.orders.userOrdersType,
+        userOrders: state => state.orders.userOrdersType === "current" ? state.orders.userCurrentOrders : state.orders.userOrdersHistory
+    }
 });

@@ -100,6 +100,11 @@ public class UserController {
         return new ResponseEntity<>(userService.findByIdUser(currentId), HttpStatus.OK);
     }
 
+    @GetMapping("/current")
+    public ResponseEntity<User> getCurrentUser2() {
+        return new ResponseEntity<>(userService.getCurrentUser(), HttpStatus.OK);
+    }
+
     @PutMapping("/edit/{currentId}")
     public void editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,
                          @RequestParam String skypeId,@RequestParam String email,@RequestParam Boolean enable, @RequestParam String data) throws ParseException {
@@ -125,5 +130,10 @@ public class UserController {
         userService.resetPassword(email);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/role")
+    public ResponseEntity<?> getCurrentUserRole() {
+        return new ResponseEntity<>(userService.getCurrentUserRole(), HttpStatus.OK);
     }
 }

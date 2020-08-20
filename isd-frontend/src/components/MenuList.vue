@@ -77,7 +77,6 @@ import MenuItem from './MenuItem.vue'
         callHelloApi () {
         api.Hello().then(response => {
             this.helloResponse = response.data;
-            console.log(response.data)
         })
         .catch(error => {
           this.errors.push(error)
@@ -88,12 +87,10 @@ import MenuItem from './MenuItem.vue'
           
           var date = new Date()
           var count = date.getDay()
-          console.log(date.getHours())
           if(date.getHours() > 10)
             count++;
           if(count == 7)
             count = 0
-          console.log(count)
           return count
       },
 
@@ -101,7 +98,6 @@ import MenuItem from './MenuItem.vue'
       let days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
       return days[this.getWeekDayId()];
       },
-
 
       callMenuType(){
         api.getMenuType().then(response => {

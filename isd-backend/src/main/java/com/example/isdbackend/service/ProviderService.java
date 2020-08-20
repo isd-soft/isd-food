@@ -68,9 +68,9 @@ public class ProviderService extends AbstractServiceCrud {
         userRepository.delete(userRepository.findById(id).orElseThrow());
     }
 
-    public void setUserGroup(Long id, Role role) {
-        userRepository.findById(id).orElseThrow().getRoles().add(role);
-    }
+//    public void setUserGroup(Long id, Role role) {
+//        userRepository.findById(id).orElseThrow().getRoles().add(role);
+//    }
 
     public void updateProvider(Provider provider) {
         providerRepository.save(provider);

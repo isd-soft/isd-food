@@ -55,7 +55,7 @@
 </template>
 <script>
 
-import ForgotDialog from "@/components/ForgotDialog.vue";
+import ForgotDialog from "@/components/modal/ForgotDialog.vue";
 
 export default {
   name: "dialog",
@@ -68,13 +68,11 @@ export default {
   },
   methods: {
     showForgotDialog() {
-      console.log(this.email)
       this.$store.state.login.showDialog = true;
       this.$store.state.login.email = this.email;
     },
     submitHandler() {
 
-      console.log(this);
 
       this.$store
           .dispatch("login", {email: this.email, password: this.password})

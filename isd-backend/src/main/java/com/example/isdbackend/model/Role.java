@@ -12,9 +12,6 @@ public class Role {
     @Column(length = 30)
     private String name;
 
-    @ManyToMany
-    private Set<User> users;
-
     public Role() {
     }
 
