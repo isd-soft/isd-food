@@ -66,10 +66,6 @@ public class UserService {
         return userRepository.findAllBy(pageable);
     }
 
-    public User getCurrentUser(){
-        return userRepository.findByEmail(getCurrentUserEmail());
-    }
-
     public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email, Boolean enable, Date data){
         User user = userRepository.findById(id).orElseThrow();
         user.setFirstName(firstName);
@@ -142,6 +138,10 @@ public class UserService {
         return userRepository.findByEmail(email) != null;
     }
 
+    public User getCurrentUser() {
+        return userRepository.findByEmail(getCurrentUserEmail());
+    }
+
     public long getCurrentUserId() {
         return userRepository.findByEmail(getCurrentUserEmail()).getId();
     }
@@ -150,6 +150,12 @@ public class UserService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         return auth.getPrincipal().toString();
+    }
+
+    public String getCurrentUserRole() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return auth.getAuthorities().toArray()[0].toString();
     }
 
 }

@@ -6,7 +6,8 @@ import com.example.isdbackend.dto.converter.MenuConverter;
 import com.example.isdbackend.model.Menu;
 
 import com.example.isdbackend.model.MenuType;
-import com.example.isdbackend.model.Order;
+import com.example.isdbackend.projection.MenuView;
+
 import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,7 @@ public class MenuService extends AbstractServiceCrud {
         return menuRepository.findByDayOfWeek(day);
     }
 
+
     public void addMenu(Menu menu) {
         menuRepository.save(menu);
     }
@@ -68,6 +70,7 @@ public class MenuService extends AbstractServiceCrud {
         menuRepository.save(menu);
     }
 */
+
 
     public Menu addFullMenu(MenuDTO menuDTO){
         Menu menu = menuRepository.save(menuConverter.convertFromDto(menuDTO));

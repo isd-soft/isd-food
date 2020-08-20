@@ -36,6 +36,10 @@ public class UserController {
     private final UserService userService;
     private final OrderService orderService;
 
+    @GetMapping("/all")
+    public List<User> getAllUsers(){
+        return userService.findAll();
+    }
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User user) throws UserException {
         if (userService.existsByEmail(user.getEmail()))
@@ -66,6 +70,16 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/allUsers")
+    public List<User> getAllUsersWithoutPage(){
+        return userService.findAll();
+    }
+
+    @DeleteMapping("/deleteUser/{userId}")
+    public void deleteUser(@PathVariable Long userId){
+        userService.delete(userService.findUserById(userId));
+    }
+
     /*@RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public User getInfoUser(@PathVariable Long id){
         return userService.findUserById(id);
@@ -84,6 +98,11 @@ public class UserController {
     @GetMapping("/{currentId}")
     public ResponseEntity<UserView> getInfoUser(@PathVariable Long currentId) {
         return new ResponseEntity<>(userService.findByIdUser(currentId), HttpStatus.OK);
+    }
+
+    @GetMapping("/current")
+    public ResponseEntity<User> getCurrentUser2() {
+        return new ResponseEntity<>(userService.getCurrentUser(), HttpStatus.OK);
     }
 
     @PutMapping("/edit/{currentId}")
@@ -111,5 +130,10 @@ public class UserController {
         userService.resetPassword(email);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/role")
+    public ResponseEntity<?> getCurrentUserRole() {
+        return new ResponseEntity<>(userService.getCurrentUserRole(), HttpStatus.OK);
     }
 }

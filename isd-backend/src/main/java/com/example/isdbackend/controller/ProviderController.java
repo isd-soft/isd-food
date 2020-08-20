@@ -30,12 +30,30 @@ public class ProviderController {
         providerService.addProvider(provider);
     }
 
-    @GetMapping
+    @GetMapping("/getProvider/{id}")
+    public Provider getProviderById(@PathVariable Integer id){
+        return providerService.findById(id);
+    }
+    @GetMapping("/all")
     public List<Provider> getAllProviders(){
         return providerService.findAllProviders();
     }
+    @DeleteMapping("/delete/{id}")
+    public void deleteProvider(@PathVariable Integer id){
+        providerService.delete(id);
+    }
 
-
+    @PutMapping("/edit/{id}/{name}/{contact}/{price}/{active}/{description}/{img}")
+    public void editProvider(@PathVariable Integer id,@PathVariable String name,@PathVariable String contact,@PathVariable Integer price,@PathVariable Boolean active,@PathVariable String description,@PathVariable String img){
+        Provider provider = providerService.findById(id);
+        provider.setName(name);
+        provider.setContactInfo(contact);
+        provider.setDeliveryPrice(price);
+        provider.setActive(active);
+        provider.setImage(img);
+        provider.setDescription(description);
+        providerService.addProvider(provider);
+    }
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void updateProvider(@RequestBody Provider provider){

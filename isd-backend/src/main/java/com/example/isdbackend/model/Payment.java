@@ -1,6 +1,6 @@
 package com.example.isdbackend.model;
 
-import lombok.Data;
+import com.example.isdbackend.dto.PaymentModel;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +9,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-@Data
-public class Payment {
+public class Payment extends PaymentModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +19,28 @@ public class Payment {
 
     private int userId;
 
-    private double payment;
+    public long getId() {
+        return id;
+    }
 
-    private String fullName;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
 }

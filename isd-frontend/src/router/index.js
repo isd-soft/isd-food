@@ -25,6 +25,7 @@ const routes = [
     },
 
     {
+
         path: "/add_menu",
         name: "AddMenu",
         component: () => import("../components/Addmenu.vue")
@@ -34,6 +35,20 @@ const routes = [
         path: "/allmenus",
         name: "AllMenus",
         component: () => import("../components/AllMenus.vue")
+    },
+
+
+        path: "/ProviderList",
+        name: "ProviderList",
+        props: true,
+
+
+        component: () => import("../views/ProviderList.vue")
+    },
+    {
+        path: "/ProviderOrders",
+        name: "Provider Orders",
+        component: () => import("../views/ProviderOrders.vue")
     },
 
     {
@@ -62,6 +77,12 @@ const routes = [
         path: '*',
         name: "error",
         component: () => import("../views/404"),
+    },
+
+    {
+        path: "/users/table",
+        name: "UsersTable",
+        component: () => import("../views/UsersTable.vue")
     },
 
     {

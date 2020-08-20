@@ -37,7 +37,7 @@ public class OrderValidation {
         long diffInMillies = Math.abs(orderDate.getTime() - currentDate.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
-        return (diff > 0 && diff < 5);
+        return (diff >= 0 && diff < 5);
     }
 
     public boolean isTheOrderForCurrentOrNextDate() {

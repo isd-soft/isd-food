@@ -2,7 +2,7 @@
 #  datasource:
 #    url: jdbc:postgresql://localhost:5432/isd_food
 #    username: postgres
-#    password: ciolacu
+#    password: new_password
 #  jpa:
 #    properties:
 #      hibernate:

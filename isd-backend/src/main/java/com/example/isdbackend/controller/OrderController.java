@@ -49,6 +49,18 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
 
+    @PutMapping("/confirm/{id}/{confirm}")
+    public void confirmOrder(@PathVariable Long id, @PathVariable boolean confirm) {
+        Order order = orderService.findById(id);
+        order.setOrdered(confirm);
+        orderService.save(order);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteOrder(@PathVariable Long id) {
+        orderService.delete(orderService.findById(id));
+    }
+
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Page<OrderView>> getOrders(
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
@@ -86,17 +98,18 @@ public class OrderController {
         if (orderAvailableMessage != null)
             throw new OrderException(orderAvailableMessage);
 
-        orderService.update(orderDTO);
+        orderService.update(orderDTO, orderId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-    @DeleteMapping("/orders/{orderId}")
+    @DeleteMapping("/{orderId}")
     public ResponseEntity<?> deleteOrder(@PathVariable long orderId) throws OrderException {
         String deleteOrderAvailableMessage = orderService.canDeleteOrder(orderId);
 
         if (deleteOrderAvailableMessage != null)
             throw new OrderException(deleteOrderAvailableMessage);
+
+        orderService.delete(orderId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
