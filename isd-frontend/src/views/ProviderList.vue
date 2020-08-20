@@ -16,6 +16,7 @@
               <th>active</th>
               <th class="text-center">Delete</th>
               <th class="text-center">Save</th>
+              <th>Edit</th>
 
             </tr>
             </thead>
