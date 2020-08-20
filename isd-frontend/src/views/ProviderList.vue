@@ -23,18 +23,18 @@
             <tbody v-for="provider of providers" :key="provider.id" >
             <tr>
               <td><input type="text" style="width: 100%; outline: none; color: grey" v-model="provider.name" required ></td>
-              <td><input type="text" style="width: 100%; outline: none;color: grey" v-model="provider.contactInfo" required></td>
+              <td><input type="email" style="width: 100%; outline: none;color: grey" v-model="provider.contactInfo" required></td>
               <td><input type="text" style="width: 100%; outline: none;color: grey" v-model="provider.deliveryPrice" required></td>
               <td>
                 <input type="checkbox"  style="width: 100%; outline: none;color: grey" v-model="provider.active" required>
               </td>
               <td class="text-center">
-                <button style="outline: none" @click="deleteProvider(provider.id)"   onclick="window.location.reload();" >
+                <button style="outline: none" @click="deleteProvider(provider.id)" onclick="window.location.reload()">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
               <td class="text-center">
-              <button style="outline: none" @click="editProvider(provider.id,provider.name,provider.contactInfo,provider.deliveryPrice,provider.active)"  onclick="window.location.reload();" >
+              <button style="outline: none" @click="editProvider(provider.id,provider.name,provider.contactInfo,provider.deliveryPrice,provider.active)"   >
                 <i class="fas fa-save" style="font-size: 17px"></i>
               </button>
               </td>
@@ -45,7 +45,15 @@
       </div>
     </div>
   </div>
+      <v-snackbar
+          v-model="snackbar"
+      >
+        <div class="text-center">
+         {{ text }}
+        </div>
 
+
+      </v-snackbar>
 </div>
 </template>
 
@@ -58,12 +66,28 @@ export default {
     return{
       providers:[],
       dialog: false,
-
+      snackbar: false,
+      text: 'asd',
     }
   },
   methods:{
     editProvider(id,name,contact,price,active){
+      if(name.length === 0){
+        this.text = "Provider name cannot be empty!";
+        this.snackbar = true;
+      }
+      else if(!contact.includes("@")){
+        this.text = "The contact must contain an email address";
+        this.snackbar = true;
+      }
+      else if(price < 0){
+        this.text = "Price can't be negative";
+        this.snackbar = true;
+      }
+      else{
         api.editProvider(id,name,contact,price,active);
+        window.location.reload()
+      }
     },
     deleteProvider(id){
       api.deleteProvider(id)
@@ -71,7 +95,7 @@ export default {
   },
 
   beforeCreate() {
-    api.getAllProviders().then(r => {this.providers = r.data;console.log(r.data)})
+    api.getAllProviders().then(r => {this.providers = r.data;console.log(r.data)});
   }
 }
 </script>
