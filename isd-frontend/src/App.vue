@@ -16,7 +16,8 @@
           </li>
         </a>
         <hr class="sidebar-divider my-0">
-        <div v-if="role.includes('supervisor')">
+<!--        <div v-if="role.includes('supervisor')">-->
+        <div v-if="true">
           <li class="nav-item " v-for="link in SuperVisorLinks" :key="link.text">
             <router-link class="nav-link" :to="link.route">
               <v-icon style="color: white; font-size: 18px">{{ link.icon }}</v-icon>
@@ -25,7 +26,7 @@
           </li>
         </div>
         <div v-else>
-          <li class="nav-item " v-for="link in UserLinks" :key="link.text">
+          <li class="nav-item " v-for="link in links" :key="link.text">
             <router-link class="nav-link" :to="link.route">
               <v-icon style="color: white; font-size: 18px">{{ link.icon }}</v-icon>
               <span> {{ link.text }}</span></router-link>

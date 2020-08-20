@@ -85,7 +85,7 @@
 
                                 <div class="form-group col-md-6">
                                   <label for="inputCity" >Provider image</label>
-                                  <input type="text" v-model="provider.image" required  class="form-control" id="inputCity">
+                                  <input type="text" v-model="provider.image" required  class="form-control" >
                                 </div>
 
                               </div>
