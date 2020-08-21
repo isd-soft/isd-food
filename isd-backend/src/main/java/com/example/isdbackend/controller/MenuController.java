@@ -1,23 +1,14 @@
 package com.example.isdbackend.controller;
 
 import com.example.isdbackend.dto.MenuDTO;
-import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.Item;
-import com.example.isdbackend.model.Provider;
-import com.example.isdbackend.projection.MenuView;
-import com.example.isdbackend.projection.UserView;
+import com.example.isdbackend.model.Menu;
+import com.example.isdbackend.model.MenuType;
+import com.example.isdbackend.repository.ItemRepository;
 import com.example.isdbackend.service.MenuService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.isdbackend.model.MenuType;
-import com.example.isdbackend.repository.MenuTypeRepository;
-import com.example.isdbackend.repository.ItemRepository;
-import com.example.isdbackend.service.MenuService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.DayOfWeek;
 import java.util.List;
@@ -34,11 +25,11 @@ public class MenuController {
         this.itemRepository = itemRepository;
     }
 
-//    @GetMapping("/menu")
-//    public List<MenuType> getMenus(){
-//        return menuService.getMenuTypes();
-//    }
 
+    @GetMapping("/menu")
+    public List<Menu> getMenus(){
+        return (List<Menu>)menuService.getAllMenus();
+    }
     @GetMapping("/menu/day")
     public ResponseEntity<List<Menu>> getMenus(@RequestParam DayOfWeek day){
         return new ResponseEntity<>((List<Menu>)menuService.getMenusByDay(day), HttpStatus.OK);
@@ -73,6 +64,15 @@ public class MenuController {
         menuService.addFullMenu(menu);
     }
 
+    @DeleteMapping("menu/delete/{id}")
+    public void deleteMenu(@PathVariable Long id){
+        menuService.deleteMenu(id);
+    }
+
+    @PutMapping("/updateMenu")
+    public void updateMenu(@RequestBody Menu menu){
+        menuService.updateMenu(menu);
+    }
 
 
 

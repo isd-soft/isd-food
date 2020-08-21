@@ -1,7 +1,9 @@
 <template>
   <v-app class="row" heavy style="background: none">
     <v-card class="providers col-md-7 container">
+
       <v-form ref="form" v-model="valid">
+
         <v-text-field
           v-model="name"
           :counter="10"
@@ -69,7 +71,7 @@
 export default {
   name: "Provider",
   data: () => ({
-    valid: true,
+    valid: false,
     name: "",
     nameRules: [
       v => !!v || "Name is required",

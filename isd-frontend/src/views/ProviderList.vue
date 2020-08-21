@@ -32,12 +32,12 @@
                 <i class="fas fa-times-circle" style="margin: 0; padding: 0;color: red !important; font-size: 25px"></i>
               </td>
 
-
               <td class="text-center">
                 <button style="outline: none" @click="deleteProvider(provider.id)" onclick="window.location.reload()">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
+
 
               <td>
                   <v-app style="background: none; height: content-box !important; max-height: 30px" class="text-center">
@@ -123,12 +123,6 @@
                       </v-card>
                     </v-dialog>
                   </v-app>
-
-
-
-
-
-
               </td>
             </tr>
             </tbody>
@@ -208,4 +202,5 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance:textfield;
 }
+
 </style>
