@@ -302,19 +302,21 @@ export default {
     },
 
     saveItem() {
-      this.createItem();
-      this.dialog = false;
-      this.item = null;
+      this.createItem()
+      this.dialog = false
+      this.item = null
+      this.$store.re
       api
         .getItems()
         .then(response => {
-          this.items = response.data;
-          console.log(response.data);
+          this.items = response.data
+          console.log(response.data)
         })
         .catch(error => {
-          this.errors.push(error);
+          this.errors.push(error)
         });
     },
+
 
     createMenu() {
 

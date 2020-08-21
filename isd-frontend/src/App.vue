@@ -258,6 +258,7 @@
     SuperVisorLinks: [
       { icon: "fas fa-users", text: "Users", route: "/users/table" },
       { icon: "fas fa-pizza-slice", text: "Create menu", route: "/add_menu" },
+      { icon: "fas fa-pizza-slice", text: "Edit menus", route: "/allmenus" },
       {
         icon: "fas fas fa-cart-plus",
         text: "Create provider",
