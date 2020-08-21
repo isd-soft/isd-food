@@ -6,17 +6,17 @@
 
     <div id="wrapper">
       <ul
-        class="navbar-nav sidebar sidebar-dark accordion"
-        id="accordionSidebar"
-        style="background-color: #ff9800"
+          class="navbar-nav sidebar sidebar-dark accordion"
+          id="accordionSidebar"
+          style="background-color: #ff9800"
       >
         <a
-          class="sidebar-brand d-flex align-items-center justify-content-center"
+            class="sidebar-brand d-flex align-items-center justify-content-center"
         >
           <li class="nav-item text-center">
             <span class="nav-link">
               <v-icon style="color: white; font-size: 20px"
-                >fas fa-utensils</v-icon
+              >fas fa-utensils</v-icon
               >
               <span class="ml-md-5">Isd-food</span></span
             >
@@ -52,13 +52,13 @@
               <!-- Nav Item - Alerts -->
               <li class="nav-item dropdown no-arrow mx-1">
                 <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="alertsDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="alertsDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
                 >
                   <i class="fas fa-bell fa-fw"></i>
                   <!-- Counter - Alerts -->
@@ -66,8 +66,8 @@
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div
-                  class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                  aria-labelledby="alertsDropdown"
+                    class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="alertsDropdown"
                 >
                   <h6 class="dropdown-header">
                     Alerts Center
@@ -81,7 +81,7 @@
                     <div>
                       <div class="small text-gray-500">December 12, 2019</div>
                       <span class="font-weight-bold"
-                        >A new monthly report is ready to download!</span
+                      >A new monthly report is ready to download!</span
                       >
                     </div>
                   </a>
@@ -109,9 +109,9 @@
                     </div>
                   </a>
                   <a
-                    class="dropdown-item text-center small text-gray-500"
-                    href="#"
-                    >Show All Alerts</a
+                      class="dropdown-item text-center small text-gray-500"
+                      href="#"
+                  >Show All Alerts</a
                   >
                 </div>
               </li>
@@ -121,34 +121,34 @@
               <!-- Nav Item - User Information -->
               <li class="nav-item dropdown no-arrow">
                 <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="userDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="userDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
                 >
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
-                    user
-                  }}</span>
+                      user
+                    }}</span>
                   <img
-                    class="img-profile rounded-circle"
-                    src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
+                      class="img-profile rounded-circle"
+                      src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
                   />
                 </a>
                 <!-- Dropdown - User Information -->
                 <div
-                  class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                  aria-labelledby="userDropdown"
+                    class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="userDropdown"
                 >
                   <a class="dropdown-item" href="/edit">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                   </a>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item nav-link" @click="$store.state.payment.displayUserPayment = true">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Settings
+                    Payment
                   </a>
                   <a class="dropdown-item" href="#">
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -156,13 +156,13 @@
                   </a>
                   <div class="dropdown-divider"></div>
                   <a
-                    class="dropdown-item"
-                    href="#"
-                    data-toggle="modal"
-                    data-target="#logoutModal"
+                      class="dropdown-item"
+                      href="#"
+                      data-toggle="modal"
+                      data-target="#logoutModal"
                   >
                     <i
-                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                        class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
                     ></i>
                     Logout
                   </a>
@@ -182,22 +182,22 @@
     </a>
 
     <div
-      class="modal fade"
-      id="logoutModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
+        class="modal fade"
+        id="logoutModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
             <button
-              class="close"
-              type="button"
-              data-dismiss="modal"
-              aria-label="Close"
+                class="close"
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
             >
               <span aria-hidden="true">×</span>
             </button>
@@ -207,9 +207,9 @@
           </div>
           <div class="modal-footer">
             <button
-              class="btn btn-secondary"
-              type="button"
-              data-dismiss="modal"
+                class="btn btn-secondary"
+                type="button"
+                data-dismiss="modal"
             >
               Cancel
             </button>
@@ -225,7 +225,6 @@
 import "@/assets/styles/app.css";
 import ErrorDialog from "@/components/modal/ErrorDialog";
 import CreateOrderDialog from "@/components/modal/CreateOrderDialog";
-import api from "@/components/backend-api";
 import PaymentDialog from "@/components/modal/PaymentDialog";
 import api from "@/components/backend-api"
 
@@ -233,36 +232,30 @@ export default {
   name: "App",
   components: {ErrorDialog, CreateOrderDialog, PaymentDialog},
   data: () => ({
-    role : localStorage.getItem("userRole"),
+    role: localStorage.getItem("userRole"),
     links: [
-      { icon: "fas fa-user", text: "Account", route: "/edit" },
-      { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
-      { icon: "fas fa-history", text: "Orders", route: "/orders" },
-      { icon: "fas fa-envelope", text: "Mail", route: "/" }
+      {icon: "fas fa-user", text: "Account", route: "/edit"},
+      {icon: "fas fa-pizza-slice", text: "Menus", route: "/menu"},
+      {icon: "fas fa-history", text: "Orders", route: "/orders"},
+      {icon: "fas fa-envelope", text: "Mail", route: "/"}
     ],
 
     SuperVisorLinks: [
-      {icon: "fas fa-user", text: "Users", route: "/"},
-      {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
-      {icon: "fas fas fa-cart-plus", text: "Create provider", route: "/providers"},
-      {icon: "fas fas fa-user", text: "Providers", route: "/ProviderList"},
-      {icon: "fas fas fa-user-plus", text: "Create user", route: "/"},
-      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
       {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
-      { icon: "fas fa-users", text: "Users", route: "/users/table" },
-      { icon: "fas fa-pizza-slice", text: "Create menu", route: "/" },
+      {icon: "fas fa-users", text: "Users", route: "/users/table"},
+      {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
       {
         icon: "fas fas fa-cart-plus",
         text: "Create provider",
         route: "/providers"
       },
-      { icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList" },
+      {icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList"},
       {
         icon: "fas fas fa-user-plus",
         text: "Create user",
         route: "/users/register"
       },
-      { icon: "fas fa-history", text: "Orders", route: "/ProviderOrders" }
+      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"}
     ]
   }),
   beforeCreate() {

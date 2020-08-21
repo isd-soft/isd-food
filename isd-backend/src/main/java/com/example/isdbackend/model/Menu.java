@@ -69,7 +69,7 @@ public class Menu {
     }
 
     public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+        return dayOfWeek.minus(1L);
     }
 
     public void setDayOfWeek(DayOfWeek dayOfWeek) {

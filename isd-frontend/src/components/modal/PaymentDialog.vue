@@ -34,13 +34,8 @@
                 </div>
               </v-row>
 
-              <v-row no-gutters v-if="$store.state.payment.userPaymentLoading">
-                <v-col cols="5">
-                  <SkeletonLoader/>
-                </v-col>
-              </v-row>
 
-              <v-row no-gutters v-if="!$store.state.payment.userPaymentLoading">
+              <v-row no-gutters >
                 <v-col cols="4">
                   <v-text-field
                       class="payment-value"

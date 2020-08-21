@@ -183,11 +183,13 @@ export default new Vuex.Store({
             });
         },
         getUserCurrentOrders({commit}) {
+
             return new Promise((resolve, reject) => {
                 api
                     .getUserCurrentOrders()
                     .then(response => {
                         if (response.status == 200) {
+                            console.log("get orders")
                             this.state.orders.userCurrentOrders = response.data
                         }
                         resolve(response);
