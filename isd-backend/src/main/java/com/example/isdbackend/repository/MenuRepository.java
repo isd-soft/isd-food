@@ -1,7 +1,6 @@
 package com.example.isdbackend.repository;
 
 import com.example.isdbackend.model.Menu;
-import com.example.isdbackend.projection.MenuView;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.DayOfWeek;

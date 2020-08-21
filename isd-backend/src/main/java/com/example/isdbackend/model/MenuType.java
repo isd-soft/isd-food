@@ -21,6 +21,7 @@ public class MenuType {
             joinColumns = @JoinColumn(name = "menu_type_id"), inverseJoinColumns = @JoinColumn(name = "item_id" ))
     private Set<Item> items;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "menu_id")
     private Menu menu;

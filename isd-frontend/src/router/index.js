@@ -25,18 +25,31 @@ const routes = [
     },
 
     {
+
+        path: "/add_menu",
+        name: "AddMenu",
+        component: () => import("../components/Addmenu.vue")
+    },
+
+    {
+        path: "/allmenus",
+        name: "AllMenus",
+        component: () => import("../components/AllMenus.vue")
+    },
+
+    {
         path: "/ProviderList",
         name: "ProviderList",
         props: true,
-
-
         component: () => import("../views/ProviderList.vue")
     },
+
     {
         path: "/ProviderOrders",
         name: "Provider Orders",
         component: () => import("../views/ProviderOrders.vue")
     },
+
     {
         path: "/users/register",
         name: "Register",

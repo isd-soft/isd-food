@@ -43,13 +43,15 @@ public class ProviderController {
         providerService.delete(id);
     }
 
-    @PutMapping("/edit/{id}/{name}/{contact}/{price}/{active}")
-    public void editProvider(@PathVariable Integer id,@PathVariable String name,@PathVariable String contact,@PathVariable Integer price,@PathVariable Boolean active){
+    @PutMapping("/edit/{id}/{name}/{contact}/{price}/{active}/{description}/{img}")
+    public void editProvider(@PathVariable Integer id,@PathVariable String name,@PathVariable String contact,@PathVariable Integer price,@PathVariable Boolean active,@PathVariable String description,@PathVariable String img){
         Provider provider = providerService.findById(id);
         provider.setName(name);
         provider.setContactInfo(contact);
         provider.setDeliveryPrice(price);
         provider.setActive(active);
+        provider.setImage(img);
+        provider.setDescription(description);
         providerService.addProvider(provider);
     }
     @PutMapping

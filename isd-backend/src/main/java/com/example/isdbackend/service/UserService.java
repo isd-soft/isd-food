@@ -1,10 +1,11 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.model.Menu;
-import com.example.isdbackend.model.NotificationSettings;
 import com.example.isdbackend.model.Order;
+import com.example.isdbackend.model.Role;
 import com.example.isdbackend.model.User;
 import com.example.isdbackend.projection.UserView;
+import com.example.isdbackend.repository.RoleRepository;
 import com.example.isdbackend.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.xml.crypto.Data;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -35,14 +29,16 @@ public class UserService {
     private final MailSender mailSender;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public UserService(PasswordEncoder passwordEncoder, GeneratePassword generatePassword, MailSender mailSender, UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, GeneratePassword generatePassword, MailSender mailSender, UserRepository userRepository, RoleRepository roleRepository) {
         this.generatePassword = generatePassword;
         this.mailSender = mailSender;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public User findUserById(Long id) {
@@ -110,7 +106,8 @@ public class UserService {
         //NotificationSettings notificationSettings = new NotificationSettings();
         //notificationSettings.setEnabled(true);
         user.setNotificationEnabled(true);
-
+        Role role = roleRepository.findByNameContaining(user.getRole().getName());
+        user.setRoles(role);
         user.setPassword(passwordEncoder.encode(password).toCharArray());
         user.setEnabled(true);
         try {
@@ -156,6 +153,18 @@ public class UserService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         return auth.getAuthorities().toArray()[0].toString();
+    }
+    public void EditUserInfoBySupervisor(Long userId, String firstName, String lastName, String skypeId, String email,
+                                         String role, Boolean enable, Date sqlDate) {
+        User user = userRepository.findById(userId).orElseThrow();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setSkypeId(skypeId);
+        user.setEmail(email);
+        user.setEnabled(enable);
+        user.setEmploymentDate(sqlDate);
+//        user.getRoles().get(0).setName(role);
+        userRepository.save(user);
     }
 
 }

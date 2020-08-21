@@ -1,11 +1,8 @@
 package com.example.isdbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.time.DayOfWeek;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Menu {
@@ -26,7 +23,7 @@ public class Menu {
     private Provider provider;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu")
-    private Set<MenuType> menuTypes;
+    private List<MenuType> menuTypes;
 
     public Menu() {
     }
@@ -47,11 +44,11 @@ public class Menu {
         this.provider = provider;
     }
 
-    public Set<MenuType> getMenuTypes() {
+    public List<MenuType> getMenuTypes() {
         return menuTypes;
     }
 
-    public void setMenuTypes(Set<MenuType> menuTypes) {
+    public void setMenuTypes(List<MenuType> menuTypes) {
         this.menuTypes = menuTypes;
     }
 
