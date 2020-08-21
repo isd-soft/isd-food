@@ -24,16 +24,14 @@
           </a>
           <hr class="sidebar-divider my-0" />
           <!--        <div v-if="role.includes('supervisor')">-->
-          <div v-if="true">
+          <div v-if="false">
             <li
               class="nav-item "
               v-for="link in SuperVisorLinks"
               :key="link.text"
             >
               <router-link class="nav-link" :to="link.route">
-                <v-icon style="color: white; font-size: 18px">{{
-                  link.icon
-                }}</v-icon>
+                <v-icon style="color: white; font-size: 18px">{{link.icon }}</v-icon>
                 <span> {{ link.text }}</span></router-link
               >
               <hr class="sidebar-divider my-0" />

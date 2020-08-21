@@ -1,7 +1,6 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.model.Menu;
-import com.example.isdbackend.model.NotificationSettings;
 import com.example.isdbackend.model.Order;
 import com.example.isdbackend.model.User;
 import com.example.isdbackend.projection.UserView;
@@ -15,13 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.xml.crypto.Data;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -112,7 +104,7 @@ public class UserService {
         user.setNotificationEnabled(true);
 
         user.setPassword(passwordEncoder.encode(password).toCharArray());
-        user.setEnabled(true);
+        user.setEnabled(false);
         try {
             userRepository.save(user);
             logger.debug("The user is saved in the database");
@@ -123,6 +115,9 @@ public class UserService {
 
         mailSender.sendSimpleMessage(user.getEmail(), "ISD-food", "Your password: " + password);
         logger.debug("The user's password is sent on his email");
+    }
+    public void saveUser(User user){
+        userRepository.save(user);
     }
 
     public void resetPassword(String email) {
