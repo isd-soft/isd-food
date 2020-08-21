@@ -257,7 +257,7 @@ export default {
     getAllUserPaymentOnPeriod(dateFrom, dateTo, page) {
         return AXIOS.get("/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo + "&page=" + (page - 1));
     },
-    downloadPaymentData(month, year) {
+    downloadMonthlyPaymentData(month, year) {
         window.location.href = "http://localhost:8098/api/payment/export?month=" + month + "&year=" + year;
     },
     downloadPaymentDataByPeriod(dateFrom, dateTo) {

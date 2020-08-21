@@ -60,10 +60,9 @@
 <script>
 
 import DatePicker from "@/components/picker/DatePicker";
-import SkeletonLoader from "@/components/loader/SkeletonLoader";
 
 export default {
-  components: {DatePicker, SkeletonLoader},
+  components: {DatePicker},
   name: "Home",
   data() {
     return {
