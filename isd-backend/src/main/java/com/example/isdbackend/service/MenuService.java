@@ -1,13 +1,9 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.dto.MenuDTO;
-import com.example.isdbackend.dto.OrderDTO;
 import com.example.isdbackend.dto.converter.MenuConverter;
 import com.example.isdbackend.model.Menu;
-
 import com.example.isdbackend.model.MenuType;
-import com.example.isdbackend.projection.MenuView;
-
 import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +55,14 @@ public class MenuService extends AbstractServiceCrud {
             menuTypeRepository.save(menuType);
         }
         return menu;
+    }
+
+    public void updateMenu(Menu menu){
+        for (MenuType menuType: menu.getMenuTypes()) {
+            menuType.setMenu(menu);
+            menuTypeRepository.save(menuType);
+        }
+        menuRepository.save(menu);
     }
 
     public void deleteMenu(Long id) {

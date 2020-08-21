@@ -200,6 +200,11 @@ export default {
             "/user/edit/password/" + user_id + "?password=" + password
         );
     },
+
+    changeMenu(menu){
+        return AXIOS.put("/updateMenu", menu)
+    },
+
     downloadPaymentData(month, year) {
         window.location.href = "http://localhost:8098/api/payment/export?month=" + month + "&year=" + year;
     }

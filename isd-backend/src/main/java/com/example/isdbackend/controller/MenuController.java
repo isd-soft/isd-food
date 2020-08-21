@@ -1,23 +1,14 @@
 package com.example.isdbackend.controller;
 
 import com.example.isdbackend.dto.MenuDTO;
-import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.Item;
-import com.example.isdbackend.model.Provider;
-import com.example.isdbackend.projection.MenuView;
-import com.example.isdbackend.projection.UserView;
+import com.example.isdbackend.model.Menu;
+import com.example.isdbackend.model.MenuType;
+import com.example.isdbackend.repository.ItemRepository;
 import com.example.isdbackend.service.MenuService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.isdbackend.model.MenuType;
-import com.example.isdbackend.repository.MenuTypeRepository;
-import com.example.isdbackend.repository.ItemRepository;
-import com.example.isdbackend.service.MenuService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.DayOfWeek;
 import java.util.List;
@@ -79,8 +70,8 @@ public class MenuController {
     }
 
     @PutMapping("/updateMenu")
-    public void updateMenu(@RequestBody MenuDTO menu){
-        menuService.addFullMenu(menu);
+    public void updateMenu(@RequestBody Menu menu){
+        menuService.updateMenu(menu);
     }
 
 

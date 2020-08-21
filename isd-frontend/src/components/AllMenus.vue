@@ -43,12 +43,16 @@
                   </td>
 
                   <td class="text-center">
-                      <button style="outline: none" @click="deleteMenu(menu.id)" onclick="window.location.reload()">
-                          <i class="fas fa-trash"></i>
-                      </button>
+                    <button
+                      style="outline: none"
+                      @click="deleteMenu(menu.id)"
+                      onclick="window.location.reload()"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
                   </td>
 
-                <!--  <td>
+                  <!--  <td>
                       <button style="background : none !important;box-shadow: none;color: grey; outline: none"
 
                               v-bind="attrs"
@@ -58,165 +62,177 @@
                       </button>
                   </td>-->
 
-
                   <td>
-                    <v-app style="background: none; height: content-box !important; max-height: 30px" class="text-center">
-                      <v-dialog
-                              v-model="dialogNote[menu.id]"
-                              width="500"
-                      >
+                    <v-app
+                      style="background: none; height: content-box !important; max-height: 30px"
+                      class="text-center"
+                    >
+                      <v-dialog v-model="dialogNote[menu.id]" width="500">
                         <template v-slot:activator="{ on, attrs }">
-                          <button style="background : none !important;box-shadow: none;color: grey; outline: none"
-
-                                  v-bind="attrs"
-                                  v-on="on"
-
+                          <button
+                            style="background : none !important;box-shadow: none;color: grey; outline: none"
+                            v-bind="attrs"
+                            v-on="on"
                           >
-                            <i class="fas fa-edit" style="margin: 0 !important;padding: 0 !important"></i>
+                            <i
+                              class="fas fa-edit"
+                              style="margin: 0 !important;padding: 0 !important"
+                            ></i>
                           </button>
                         </template>
 
                         <v-card>
-                          <v-card-title class="headline orange lighten-2" style="color: white">
-                            {{menu.name}}
+                          <v-card-title
+                            class="headline orange lighten-2"
+                            style="color: white"
+                          >
+                            {{ menu.name }}
                           </v-card-title>
 
-                            <v-card-text>
+                          <v-card-text>
+                            <v-text-field
+                              ref="name"
+                              v-model="menu.name"
+                              :counter="15"
+                              label="Menu name"
+                              placeholder="Enter name"
+                              required
+                            ></v-text-field>
+
+                            <v-autocomplete
+                              ref="provider"
+                              return-object
+                              v-model="menu.provider.name"
+                              :items="providers"
+                              item-text="name"
+                              label="Provider"
+                              placeholder="Select..."
+                              required
+                            ></v-autocomplete>
+
+                            <v-autocomplete
+                              ref="weekday"
+                              v-model="menu.dayOfWeek"
+                              :rules="DayRules"
+                              :items="days"
+                              label="Day"
+                              placeholder="Select..."
+                              required
+                            ></v-autocomplete>
+
+                            <v-text-field
+                              ref="image"
+                              v-model="menu.image"
+                              :rules="imageRules"
+                              label="image"
+                              placeholder="image"
+                              required
+                            ></v-text-field>
+
+                            <br />
+                            <h4>Menu type S</h4>
+
+                            <v-container fluid>
+                              <v-select
+                                return-object
+                                v-model="menu.menuTypes[0].items"
+                                :items="items"
+                                :rules="itemRules"
+                                item-text="name"
+                                label="Items"
+                                multiple
+                                required
+                              >
+                                <template v-slot:prepend-item>
+                                  <v-list-item ripple>
+                                    <v-list-item-content>
+                                      <v-list-item-title
+                                        >Choose items:</v-list-item-title
+                                      >
+                                    </v-list-item-content>
+                                  </v-list-item>
+
+                                  <v-divider class="mt-2"></v-divider>
+                                </template>
+                              </v-select>
+                            </v-container>
+
+                            <v-text-field
+                              ref="priceS"
+                              v-model="menu.menuTypes[0].price"
+                              :rules="PriceRules"
+                              label="price"
+                              required
+                              placeholder="Enter price"
+                            ></v-text-field>
+
+                            <br />
+                            <h4>Menu type M</h4>
+                            <p>All items from S will be added automatically.</p>
+
+                            <v-container fluid>
+                              <v-select
+                                return-object
+                                v-model="menu.menuTypes[1].items"
+                                :items="items"
+                                :rules="itemRules"
+                                item-text="name"
+                                label="Items"
+                                multiple
+                                required
+                              >
+                                <template v-slot:prepend-item>
+                                  <v-list-item ripple>
+                                    <v-list-item-content>
+                                      <v-list-item-title
+                                        >Choose items:</v-list-item-title
+                                      >
+                                    </v-list-item-content>
+                                  </v-list-item>
+
+                                  <v-divider class="mt-2"></v-divider>
+                                </template>
+                              </v-select>
+
                               <v-text-field
-                                      ref="name"
-                                      v-model="menu.name"
-                                      :counter="15"
-                                      label="Menu name"
-                                      placeholder="Enter name"
-                                      required
+                                ref="priceS"
+                                v-model="menu.menuTypes[1].price"
+                                label="price"
+                                required
+                                placeholder="Enter price"
                               ></v-text-field>
+                            </v-container>
 
-                              <v-autocomplete
-                                      ref="provider"
-                                      return-object
-                                      v-model="menu.provider.name"
-                                      :items="providers"
-                                      item-text="name"
-                                      label="Provider"
-                                      placeholder="Select..."
-                                      required
-                              ></v-autocomplete>
+                            <div class="form-group ml-1">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" v-model="menu.active" required id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                  Active
+                                </label>
+                              </div>
+                            </div>
 
-                              <v-autocomplete
-                                      ref="weekday"
-                                      v-model="menu.dayOfWeek"
-                                      :rules="DayRules"
-                                      :items="days"
-                                      label="Day"
-                                      placeholder="Select..."
-                                      required
-                              ></v-autocomplete>
-
-                              <v-text-field
-                                      ref="image"
-                                      v-model="menu.image"
-                                      :rules="imageRules"
-                                      label="image"
-                                      placeholder="image"
-                                      required
-                              ></v-text-field>
-
-                              <br />
-                              <h4>Menu type S</h4>
-
-                              <v-container fluid>
-                                <v-select
-                                        return-object
-                                        v-model="menu.menuTypes[0].items"
-                                        :items="items"
-                                        :rules="itemRules"
-                                        item-text="name"
-                                        label="Items"
-                                        multiple
-                                        required
-                                >
-                                  <template v-slot:prepend-item>
-                                    <v-list-item ripple>
-                                      <v-list-item-content>
-                                        <v-list-item-title>Choose items:</v-list-item-title>
-                                      </v-list-item-content>
-                                    </v-list-item>
-
-                                    <v-divider class="mt-2"></v-divider>
-                                  </template>
-                                </v-select>
-                              </v-container>
-
-                              <v-text-field
-                                      ref="priceS"
-                                      v-model="menu.menuTypes[0].price"
-                                      :rules="PriceRules"
-                                      label="price"
-                                      required
-                                      placeholder="Enter price"
-                              ></v-text-field>
-
-                              <br />
-                              <h4>Menu type M</h4>
-                              <p>All items from S will be added automatically.</p>
-
-                              <v-container fluid>
-                                <v-select
-                                        return-object
-                                        v-model="menu.menuTypes[1].items"
-                                        :items="items"
-                                        :rules="itemRules"
-                                        item-text="name"
-                                        label="Items"
-                                        multiple
-                                        required
-                                >
-                                  <template v-slot:prepend-item>
-                                    <v-list-item ripple>
-                                      <v-list-item-content>
-                                        <v-list-item-title>Choose items:</v-list-item-title>
-                                      </v-list-item-content>
-                                    </v-list-item>
-
-                                    <v-divider class="mt-2"></v-divider>
-                                  </template>
-                                </v-select>
-
-                                <v-text-field
-                                        ref="priceS"
-                                        v-model="menu.menuTypes[1].price"
-                                        :rules="PriceRules"
-                                        label="price"
-                                        required
-                                        placeholder="Enter price"
-                                ></v-text-field>
-
-                              </v-container>
-                            </v-card-text>
+                          </v-card-text>
 
                           <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                    color="primary"
-                                    text
-                                    @click.stop="$set(dialogNote, menu.id, false)"
+                              color="primary"
+                              text
+                              @click.stop="$set(dialogNote, menu.id, false)"
                             >
                               Close
                             </v-btn>
-                            <v-btn
-                                    color="warning"
-                                    text
-                            >
+                            <v-btn color="warning"
+                                   text
+                                   @click = "changeMenu(menu)">
                               Save
                             </v-btn>
                           </v-card-actions>
                         </v-card>
                       </v-dialog>
                     </v-app>
-
                   </td>
-
-
                 </tbody>
               </table>
             </div>
@@ -228,9 +244,9 @@
 </template>
 
 <script>
-import api from "./backend-api";
+  import api from "./backend-api";
 
-export default {
+  export default {
   name: "Home",
   data() {
     return {
@@ -239,7 +255,7 @@ export default {
       days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"],
       providers: [],
       items: [],
-      dialogNote:{},
+      dialogNote: {},
       dialog: false,
       menus: [],
       userHistory: [],
@@ -247,16 +263,14 @@ export default {
     };
   },
   methods: {
-
-    findS(menu){
-        if(menu.menuTypes[0].type == "S") {
-          this.typeSId = 0
-          this.typeMId = 1
-        }
-        else{
-          this.typeSId = 1
-          this.typeMId = 0
-        }
+    findS(menu) {
+      if (menu.menuTypes[0].type == "S") {
+        this.typeSId = 0;
+        this.typeMId = 1;
+      } else {
+        this.typeSId = 1;
+        this.typeMId = 0;
+      }
     },
 
     callMenuApi() {
@@ -271,8 +285,13 @@ export default {
         });
     },
 
-    deleteMenu(id){
-        api.deleteMenu(id)
+    deleteMenu(id) {
+      api.deleteMenu(id);
+    },
+    changeMenu(menu){
+      api.changeMenu(menu)
+      window.location.reload()
+
     }
   },
   beforeCreate() {
@@ -286,23 +305,23 @@ export default {
         this.errors.push(error);
       });
     api
-            .getItems()
-            .then(response => {
-              this.items = response.data;
-              console.log(response.data);
-            })
-            .catch(error => {
-              this.errors.push(error);
-            }),
-            api
-                    .getProviders()
-                    .then(response => {
-                      this.providers = response.data;
-                      console.log(response.data);
-                    })
-                    .catch(error => {
-                      this.errors.push(error);
-                    });
+      .getItems()
+      .then(response => {
+        this.items = response.data;
+        console.log(response.data);
+      })
+      .catch(error => {
+        this.errors.push(error);
+      }),
+      api
+        .getProviders()
+        .then(response => {
+          this.providers = response.data;
+          console.log(response.data);
+        })
+        .catch(error => {
+          this.errors.push(error);
+        });
   }
 };
 </script>
