@@ -82,7 +82,6 @@ export default {
         return AXIOS.get("/provider/all");
     },
     createUser(user) {
-        console.log(user);
         return AXIOS.post(`/users`, user);
     },
     login(email, password) {
@@ -114,7 +113,6 @@ export default {
     },
 
     createProvider(provider) {
-        console.log(provider);
         return AXIOS.post(`/provider`, provider);
     },
 
@@ -176,12 +174,12 @@ export default {
     getUserPaymentOnPeriod(dateFrom, dateTo) {
         return AXIOS.get("/users/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo);
     },
-    getAllUserPaymentOnMonth(month, year) {
-        return AXIOS.get("/payment/monthly?month=" + month + "&year=" + year);
+    getAllUserPaymentOnMonth(month, year, page) {
+        return AXIOS.get("/payment/monthly?month=" + month + "&year=" + year + "&page=" + (page - 1));
     },
 
-    getAllUserPaymentOnPeriod(dateFrom, dateTo) {
-        return AXIOS.get("/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo);
+    getAllUserPaymentOnPeriod(dateFrom, dateTo, page) {
+        return AXIOS.get("/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo + "&page=" + (page - 1));
     },
     downloadMonthlyPaymentData(month, year) {
         window.location.href = "http://localhost:8098/api/payment/export?month=" + month + "&year=" + year;

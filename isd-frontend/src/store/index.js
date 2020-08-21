@@ -23,7 +23,7 @@ export default new Vuex.Store({
         },
         payment: {
             userPayment: {payment: 0},
-            allUserPayments: null,
+            allUserPayments: [],
             userPaymentLoading: false,
             displayUserPayment: false
         },
@@ -241,13 +241,14 @@ export default new Vuex.Store({
                             this.state.payment.userPayment = response.data
                             if (response.data.payment == null)
                                 this.state.payment.userPayment = {payment: 0};
+                            this.state.payment.userPaymentLoading = false;
                         }
                         resolve(response);
                     })
                     .catch(() => {
+                        this.state.payment.userPaymentLoading = false;
                         reject("Error");
                     });
-                this.state.payment.userPaymentLoading = false;
 
             });
         },
@@ -261,48 +262,62 @@ export default new Vuex.Store({
                             this.state.payment.userPayment = response.data
                             if (response.data.payment == null)
                                 this.state.payment.userPayment = {payment: 0};
+                            this.state.payment.userPaymentLoading = false;
                         }
                         resolve(response);
                     })
-                    .catch(() => {
+                    .catch((e) => {
+                        console.log(e)
+                        this.state.payment.userPaymentLoading = false;
                         reject("Error");
                     });
-                this.state.payment.userPaymentLoading = false;
-            });
-        },
-        getAllUserPaymentOnMonth({commit}, {month, year}) {
-            return new Promise((resolve, reject) => {
-                this.state.payment.userPaymentLoading = true
-                api
-                    .getAllUserPaymentOnMonth(month, year)
-                    .then(response => {
-                        if (response.status == 200) {
-                            this.state.payment.allUserPayments = response.data
-                        }
-                        resolve(response);
-                    })
-                    .catch(() => {
-                        reject("Error");
-                    });
-                this.state.payment.userPaymentLoading = false;
 
             });
         },
-        getAllUserPaymentOnPeriod({commit}, {dateFrom, dateTo}) {
+        getAllUserPaymentOnMonth({commit}, {month, year, page}) {
             return new Promise((resolve, reject) => {
-                this.state.payment.userPaymentLoading = true
+                // this.state.payment.userPaymentLoading = true
                 api
-                    .getAllUserPaymentOnPeriod(dateFrom, dateTo)
+                    .getAllUserPaymentOnMonth(month, year, page)
                     .then(response => {
+                        console.log(response)
                         if (response.status == 200) {
-                            this.state.payment.allUserPayments = response.data.userPayments
+                            this.state.payment.allUserPayments = {
+                                userPayments: response.data.content,
+                                totalPages: response.data.totalPages
+                            }
                         }
+                        this.state.payment.userPaymentLoading = false;
                         resolve(response);
                     })
                     .catch(() => {
+                        this.state.payment.userPaymentLoading = false;
                         reject("Error");
                     });
-                this.state.payment.userPaymentLoading = false;
+
+            });
+        },
+        getAllUserPaymentOnPeriod({commit}, {dateFrom, dateTo, page}) {
+            return new Promise((resolve, reject) => {
+                // this.state.payment.userPaymentLoading = true
+                api
+                    .getAllUserPaymentOnPeriod(dateFrom, dateTo, page)
+                    .then(response => {
+                        console.log(response)
+
+                        if (response.status == 200) {
+                            this.state.payment.allUserPayments = {
+                                userPayments: response.data.userPayments,
+                                totalPages: response.data.totalPages
+                            }
+                        }
+                        this.state.payment.userPaymentLoading = false;
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        this.state.payment.userPaymentLoading = false;
+                        reject("Error");
+                    });
             });
         },
 

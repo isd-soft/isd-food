@@ -29,10 +29,15 @@
           </v-col>
         </div>
       </v-row>
-      <table
-          class="table table-bordered payment-table"
-          width="100%"
-          cellspacing="0"
+      <v-row no-gutters v-if="$store.state.payment.userPaymentLoading">
+        <v-col cols="5">
+          <SkeletonLoader/>
+        </v-col>
+      </v-row>
+      <table v-else
+             class="table table-bordered payment-table"
+             width="100%"
+             cellspacing="0"
       >
         <thead>
         <tr>
@@ -40,18 +45,16 @@
           <th>Payment</th>
         </tr>
         </thead>
-        <tbody v-for="userPayment of $store.state.payment.allUserPayments" :key="userPayment.userId">
+        <tbody v-for="userPayment of $store.state.payment.allUserPayments.userPayments" :key="userPayment.userId">
         <tr>
           <td>{{ userPayment.fullName }}</td>
           <td>{{ userPayment.payment }}</td>
         </tr>
         </tbody>
       </table>
-      <v-row no-gutters v-if="$store.state.payment.userPaymentLoading">
-        <v-col cols="5">
-          <SkeletonLoader/>
-        </v-col>
-      </v-row>
+
+      <Pagination @pageChanged="setPage" :page="page"
+                  :totalPages="$store.state.payment.allUserPayments.totalPages"/>
 
     </v-container>
   </v-app>
@@ -60,20 +63,31 @@
 
 import DatePicker from "@/components/picker/DatePicker";
 import SkeletonLoader from "@/components/loader/SkeletonLoader";
+import Pagination from "@/components/Pagination";
 import api from "@/components/backend-api";
 
 export default {
-  components: {DatePicker, SkeletonLoader},
+  components: {DatePicker, SkeletonLoader, Pagination},
   name: "Home",
   data() {
     return {
       monthYearPicker: new Date().toISOString().substring(0, 7),
       dateFromPicker: null,
       dateToPicker: null,
-      filterType: "Month"
+      filterType: "Month",
+      page: 1
     }
   },
   methods: {
+    setPage(page) {
+      this.page = page
+      console.log(page)
+      if (this.monthYearPicker != null)
+        this.getAllUserPaymentOnMonth();
+
+      else this.getAllUserPaymentOnPeriod();
+
+    },
     setMonthAndYear(date) {
       this.monthYearPicker = date;
 
@@ -92,12 +106,18 @@ export default {
       let month = this.monthYearPicker.split('-')[1];
       this.dateFromPicker = null;
       this.dateToPicker = null;
-      this.$store.dispatch('getAllUserPaymentOnMonth', {month: month, year: year});
+      this.$store.dispatch('getAllUserPaymentOnMonth', {month: month, year: year, page: this.page}).catch(error => {
+        console.log(error)
+      });
     },
     getAllUserPaymentOnPeriod() {
       if (this.dateFromPicker != null && this.dateToPicker != null) {
         this.monthYearPicker = null;
-        this.$store.dispatch('getAllUserPaymentOnPeriod', {dateFrom: this.dateFromPicker, dateTo: this.dateToPicker});
+        this.$store.dispatch('getAllUserPaymentOnPeriod', {
+          dateFrom: this.dateFromPicker,
+          dateTo: this.dateToPicker,
+          page: this.page
+        });
       }
     },
     exportPayment() {

@@ -10,5 +10,6 @@ public class PaymentDataDTO {
     private String dateFrom;
     private String dateTo;
     List<UserPaymentData> userPayments;
+    private int totalPages;
 
 }

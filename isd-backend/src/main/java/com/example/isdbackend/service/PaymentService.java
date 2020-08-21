@@ -16,6 +16,10 @@ import com.example.isdbackend.service.payment.PaymentCalculator;
 import com.example.isdbackend.service.payment.PaymentExporter;
 import com.example.isdbackend.util.DateUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -40,13 +44,13 @@ public class PaymentService extends PaymentCalculator {
      * @return a file with payment data selected from database
      */
     public FileResource exportMonthlyPayment(Integer month, Integer year) {
-        List<Payment> payments = paymentRepository.findAllByDateMonthAndDateYear(month, year, 0L);
+        Page<Payment> payments = paymentRepository.findAllByDateMonthAndDateYear(month, year, 0L, null);
 
-        return paymentExporter.exportMonthly(payments, DateUtil.getDateFromDateTime(payments.get(0).getDate()));
+        return paymentExporter.exportMonthly(payments.getContent(), DateUtil.getDateFromDateTime(payments.getContent().get(0).getDate()));
     }
 
     public FileResource exportPayment(OrderFilter orderFilter) {
-        PaymentDataDTO paymentData = getAllPaymentData(orderFilter, false);
+        PaymentDataDTO paymentData = getAllPaymentData(orderFilter, null, false);
 
         return paymentExporter.exportMonthly(paymentData.getUserPayments(), paymentData.getDateFrom() + "/" + paymentData.getDateTo());
     }
@@ -56,23 +60,26 @@ public class PaymentService extends PaymentCalculator {
      * @param year  - from which year select the payments
      * @return payment data in json
      */
-    public List<Payment> getMonthlyPaymentData(Integer month, Integer year, boolean forCurrentUser) {
-        return paymentRepository.findAllByDateMonthAndDateYear(month, year, forCurrentUser ? userService.getCurrentUserId() : 0L);
+    public Page<Payment> getMonthlyPaymentData(Integer month, Integer year, Pageable pageable, boolean forCurrentUser) {
+        return paymentRepository.findAllByDateMonthAndDateYear(month, year, forCurrentUser ? userService.getCurrentUserId() : 0L, pageable);
     }
 
     public Payment getUserMonthlyPaymentData(Integer month, Integer year) {
-        List<Payment> payments = this.getMonthlyPaymentData(month, year, true);
-        if(payments.size()==0) return null;
+        Page<Payment> payments = this.getMonthlyPaymentData(month, year, null, true);
+        if (payments.getContent().size() == 0) return null;
 
-        return this.getMonthlyPaymentData(month, year, true).get(0);
+        return payments.getContent().get(0);
     }
 
     public UserPaymentData getUserPaymentData(OrderFilter orderFilter) {
-        UserPaymentData userPaymentData = this.getAllPaymentData(orderFilter, true).getUserPayments().get(0);
+        UserPaymentData userPaymentData = this.getAllPaymentData(orderFilter, null, true).getUserPayments().get(0);
         return userPaymentData;
     }
 
-    public PaymentDataDTO getAllPaymentData(OrderFilter orderFilter, boolean forCurrentUser) {
+    public PaymentDataDTO getAllPaymentData(OrderFilter orderFilter, Pageable pageable, boolean forCurrentUser) {
+
+        if (pageable == null)
+            pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort.by("users.employment_date"));
 
         orderFilter.setOrdered(true);
 
@@ -87,7 +94,10 @@ public class PaymentService extends PaymentCalculator {
 
         long currentUserId = forCurrentUser ? userService.getCurrentUserId() : 0L;
 
-        List<UserIdAndNameView> users = userRepository.findAllByOrderByIdAsc(currentUserId);
+        Page<UserIdAndNameView> usersPage = userRepository.findAllBy(currentUserId, pageable);
+        paymentDataDTO.setTotalPages(usersPage.getTotalPages());
+
+        List<UserIdAndNameView> users = usersPage.getContent();
         List<UserOrderView> usersOrders = orderRepository.findUsersOrders(orderFilter);
         Map<String, Integer> deliveryPricesMap = getDeliveryPriceByDateAndProvider(orderFilter);
 
@@ -99,8 +109,6 @@ public class PaymentService extends PaymentCalculator {
             for (int i = 0; i < ordersCount; i++) {
                 UserOrderView userOrder = usersOrders.get(i);
                 if (user.getId() != userOrder.getUserId()) {
-                    if (user.getId() < userOrder.getUserId())
-                        break;
                     continue;
                 }
 

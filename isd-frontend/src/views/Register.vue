@@ -146,7 +146,7 @@ export default {
           email: this.email,
           employmentDate: this.employmentDate,
           skypeId: this.skypeId,
-          role: this.role
+          role: {name:this.role}
         })
         .then(Response => {
           console.log(Response);
