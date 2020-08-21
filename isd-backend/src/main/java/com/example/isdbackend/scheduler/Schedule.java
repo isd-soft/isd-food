@@ -1,9 +1,7 @@
 package com.example.isdbackend.scheduler;
 
 import com.example.isdbackend.model.User;
-import com.example.isdbackend.service.CronService;
 import com.example.isdbackend.service.MailSender;
-import com.example.isdbackend.service.OrderService;
 import com.example.isdbackend.service.UserService;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,18 +14,16 @@ import java.util.List;
 @EnableScheduling
 public class Schedule {
 
-    private  OrderService orderService;
-    private  UserService userService;
-    private  MailSender mailSender;
-    private  CronService cronService;
+    private final UserService userService;
+    private final MailSender mailSender;
 
 
-    public Schedule(OrderService orderService, UserService userService, MailSender mailSender, CronService cronService) {
-        this.orderService = orderService;
+    public Schedule(UserService userService, MailSender mailSender) {
         this.userService = userService;
         this.mailSender = mailSender;
-        this.cronService = cronService;
     }
+
+
     @Scheduled(cron = "#{@firstNotification}")
     @Scheduled(cron = "#{@secondNotification}")
     public void sendFirstNotification(){

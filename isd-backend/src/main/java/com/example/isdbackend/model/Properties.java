@@ -16,8 +16,8 @@ public class Properties {
 
     private String type;
 
-    public Properties() {
-    }
+    public Properties() {}
+
     public Properties(String id, String value, String type){
         this.id = id;
         this.value = value;

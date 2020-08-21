@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CronService {
-    private PropertiesRepository propertiesRepository;
+    private final PropertiesRepository propertiesRepository;
 
     public CronService(PropertiesRepository propertiesRepository) {
         this.propertiesRepository = propertiesRepository;
