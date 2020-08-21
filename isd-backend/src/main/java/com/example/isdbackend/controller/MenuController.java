@@ -73,6 +73,15 @@ public class MenuController {
         menuService.addFullMenu(menu);
     }
 
+    @DeleteMapping("menu/delete/{id}")
+    public void deleteMenu(@PathVariable Long id){
+        menuService.deleteMenu(id);
+    }
+
+    @PutMapping("/updateMenu")
+    public void updateMenu(@RequestBody MenuDTO menu){
+        menuService.addFullMenu(menu);
+    }
 
 
 

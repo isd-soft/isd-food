@@ -60,4 +60,8 @@ public class MenuService extends AbstractServiceCrud {
         }
         return menu;
     }
+
+    public void deleteMenu(Long id) {
+        menuRepository.delete(menuRepository.findById(id).orElseThrow());
+    }
 }

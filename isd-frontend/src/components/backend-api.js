@@ -187,9 +187,9 @@ export default {
     deleteProvider(id){
        return AXIOS.delete("/provider/delete/" + id)
     },
-
-
-
+     deleteMenu(id){
+        return AXIOS.delete("/menu/delete/"+id)
+     },
 
     newItem(itemName){
         return AXIOS.post("/new_item?name="+itemName);

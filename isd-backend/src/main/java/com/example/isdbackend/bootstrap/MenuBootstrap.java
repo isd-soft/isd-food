@@ -94,6 +94,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat = new Menu();
         salat.setName("Bistro");
         salat.setProvider(andys);
+        salat.setActive(true);
         salat.setDayOfWeek(DayOfWeek.FRIDAY);
         S1.setMenu(salat);
         M1.setMenu(salat);
@@ -105,6 +106,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat2 = new Menu();
         salat2.setName("Indean");
         salat2.setProvider(andys);
+        salat2.setActive(true);
         salat2.setDayOfWeek(DayOfWeek.WEDNESDAY);
         S2.setMenu(salat2);
         M2.setMenu(salat2);
@@ -115,6 +117,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat3 = new Menu();
         salat3.setName("Japan");
         salat3.setProvider(andys);
+        salat3.setActive(false);
         salat3.setDayOfWeek(DayOfWeek.THURSDAY);
         S3.setMenu(salat3);
         M3.setMenu(salat3);
@@ -125,6 +128,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat4 = new Menu();
         salat4.setName("Moldavian");
         salat4.setProvider(andys);
+        salat4.setActive(true);
         salat4.setDayOfWeek(DayOfWeek.TUESDAY);
         S4.setMenu(salat4);
         M4.setMenu(salat4);
