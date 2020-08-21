@@ -70,7 +70,7 @@
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
         <div  class="row container">
-          <div class="col-xl-3 col-md-6 mb-4"  v-for="provider of this.providers" :key="provider.name + provider.deliveryPrice">
+          <div class="col-xl-6 col-md-6 mb-4"  v-for="provider of this.providers" :key="provider.name + provider.deliveryPrice">
             <div class="card border-left-warning shadow h-100 py-1">
               <div class="card-body">
 
@@ -167,10 +167,10 @@
 </template>
 
 <script>
-import api from "@/components/backend-api";
+  import api from "@/components/backend-api";
 
 
-export default {
+  export default {
   data (){
     return{
       n: 0,
