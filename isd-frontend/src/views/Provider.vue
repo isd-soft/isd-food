@@ -1,7 +1,7 @@
 <template>
-  <v-app class ="row" heavy style="background: none">
+  <v-app class="row" heavy style="background: none">
     <v-card class="providers col-md-7 container">
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid">
         <v-text-field
           v-model="name"
           :counter="10"
@@ -32,19 +32,19 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="image"
-            :rules="imageRules"
-            label="Image"
-            required></v-text-field>
+          v-model="image"
+          :rules="imageRules"
+          label="Image"
+          required
+        ></v-text-field>
 
         <v-select
           v-model="select"
           :items="items"
-          :rules="[v => !!v || 'Item is required']"
+          :rules="[ v => !!v || 'Item is required']"
           label="Is Active"
           required
         ></v-select>
-
 
         <v-btn
           :disabled="!valid"
@@ -58,7 +58,6 @@
         <v-btn color="error" class="mr-4" @click="reset">
           Reset
         </v-btn>
-
       </v-form>
     </v-card>
   </v-app>
@@ -78,8 +77,8 @@ export default {
     ],
     deliveryPrice: "",
     deliveryPriceRules: [
-        v => !!v || "Delivery Price is required",
-        v => (v >=0 ) || "Must be a positive number"
+      v => !!v || "Delivery Price is required",
+      v => v >= 0 || "Must be a positive number"
     ],
     contactInfo: "",
     contactInfoRules: [
@@ -89,44 +88,52 @@ export default {
     description: "",
     descriptionRules: [v => !!v || "Delivery Price is required"],
     image: "",
-    imageRules: [
-        v => /http+/.test(v) || "Must be a link"
-    ],
+    imageRules: [v => /http+/.test(v) || "Must be a link"],
     select: true,
-    items: ["true", "false"],
+    items: ["true", "false"]
   }),
 
   methods: {
-
     reset() {
       this.$refs.form.reset();
     },
-    
-    validate() {
-      this.$store
-        .dispatch("createProvider", {
-          name: this.name,
-          deliveryPrice: this.deliveryPrice,
-          contactInfo: this.contactInfo,
-          description: this.description,
-          image: this.image,
-          active: this.select
-        })
-        // eslint-disable-next-line no-unused-vars
-        .then(({ status }) => {
-          this.$store.commit("SET_NOTIFICATION", {
-            display: true,
-            text:
-              "Your account has been successfully created! you can now login.",
-            alertClass: "danger"
-          });
-        })
-        // eslint-disable-next-line no-unused-vars
-        .catch(error => {
-          this.providerExists = true;
-        });
 
-      this.$router.push("/ProviderList");
+    validate() {
+      // if (
+      //   this.name !== "" &&
+      //   this.deliveryPrice !== "" &&
+      //   this.contactInfo !== "" &&
+      //   this.description !== "" &&
+      //   this.image !== ""
+      // ) {
+        this.$store
+            .dispatch("createProvider", {
+              name: this.name,
+              deliveryPrice: this.deliveryPrice,
+              contactInfo: this.contactInfo,
+              description: this.description,
+              image: this.image,
+              active: this.select
+            })
+            // eslint-disable-next-line no-unused-vars
+            .then(({status}) => {
+              this.$store.commit("SET_NOTIFICATION", {
+                display: true,
+                text:
+                    "Your account has been successfully created! you can now login.",
+                alertClass: "danger"
+              });
+            })
+            // eslint-disable-next-line no-unused-vars
+            .catch(error => {
+              this.providerExists = true;
+            });
+
+        this.$router.push("/ProviderList");
+      // }
+      // else {
+      //   this.valid = false;
+      // }
     }
   }
 };

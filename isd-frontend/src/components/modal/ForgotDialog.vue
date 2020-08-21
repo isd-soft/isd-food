@@ -32,6 +32,7 @@
   </v-app>
 </template>
 <script>
+// eslint-disable-next-line no-unused-vars
 export default {
   data() {
     return {};

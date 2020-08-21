@@ -34,10 +34,10 @@ public class MenuController {
         this.itemRepository = itemRepository;
     }
 
-    @GetMapping("/menu")
-    public List<MenuType> getMenus(){
-        return menuService.getMenuTypes();
-    }
+//    @GetMapping("/menu")
+//    public List<MenuType> getMenus(){
+//        return menuService.getMenuTypes();
+//    }
 
     @GetMapping("/menu/day")
     public ResponseEntity<List<Menu>> getMenus(@RequestParam DayOfWeek day){
