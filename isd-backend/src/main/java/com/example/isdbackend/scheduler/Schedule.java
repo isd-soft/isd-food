@@ -35,7 +35,6 @@ public class Schedule {
                 mailSender.sendHtmlMessage(user.getEmail(),"time to eat","eat");
     }
 
-
     @Scheduled(cron = "#{@userUpDate}")
     public void checkUsers() throws ParseException {
         LocalDate data = LocalDate.now();
