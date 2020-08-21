@@ -159,10 +159,6 @@ export default {
   },
 
 
-    getItems(){
-        return AXIOS.get("/items");
-    },
-
     getProviders(){
       return AXIOS.get("/provider/all");
     },
@@ -234,16 +230,6 @@ export default {
     return AXIOS.delete("/provider/delete/" + id);
   },
 
-
-  getMenuDay(day){
-    return AXIOS.get("/menu/day?day="+day)
-},
-    getProviderById(id){
-        return AXIOS.get("/provider/getProvider/" + id)
-    },
-    deleteProvider(id){
-       return AXIOS.delete("/provider/delete/" + id)
-    },
      deleteMenu(id){
         return AXIOS.delete("/menu/delete/"+id)
      },

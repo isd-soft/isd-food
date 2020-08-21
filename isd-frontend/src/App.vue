@@ -238,12 +238,12 @@
 </template>
 <script>
 
-import "@/assets/styles/app.css";
-import ErrorDialog from "@/components/modal/ErrorDialog";
-import CreateOrderDialog from "@/components/modal/CreateOrderDialog";
-import api from "@/components/backend-api";
+  import "@/assets/styles/app.css";
+  import ErrorDialog from "@/components/modal/ErrorDialog";
+  import CreateOrderDialog from "@/components/modal/CreateOrderDialog";
+  import api from "@/components/backend-api";
 
-export default {
+  export default {
   name: "App",
   components: { ErrorDialog, CreateOrderDialog },
   data: () => ({
@@ -257,7 +257,7 @@ export default {
 
     SuperVisorLinks: [
       { icon: "fas fa-users", text: "Users", route: "/users/table" },
-      { icon: "fas fa-pizza-slice", text: "Create menu", route: "/" },
+      { icon: "fas fa-pizza-slice", text: "Create menu", route: "/add_menu" },
       {
         icon: "fas fas fa-cart-plus",
         text: "Create provider",
