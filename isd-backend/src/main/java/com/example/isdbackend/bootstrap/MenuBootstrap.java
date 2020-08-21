@@ -1,21 +1,15 @@
 package com.example.isdbackend.bootstrap;
 
 import com.example.isdbackend.model.*;
-import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.SimpleFormatter;
 
 @Component
 public class MenuBootstrap implements CommandLineRunner {
@@ -23,15 +17,13 @@ public class MenuBootstrap implements CommandLineRunner {
     private final ProviderRepository providerRepository;
     private final MenuTypeRepository menuTypeRepository;
     private final MenuItemRepository menuItemRepository;
-    private final CronNotificationRepository cronNotificationRepository;
     private final UserRepository userRepository;
 
-    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, CronNotificationRepository cronNotificationRepository, UserRepository userRepository) {
+    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, UserRepository userRepository) {
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
         this.menuTypeRepository = menuTypeRepository;
         this.menuItemRepository = menuItemRepository;
-        this.cronNotificationRepository = cronNotificationRepository;
         this.userRepository = userRepository;
     }
 
@@ -39,15 +31,7 @@ public class MenuBootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
-        //Cron
-        CronNotification cronNotification = new CronNotification();
-        cronNotification.setId("Default");
-        cronNotification.setFirstNotificationCron("0 30 9 ? * MON-FRI");
-        cronNotification.setSecondNotificationCron("0 30 9 ? * MON-FRI");
-        cronNotification.setTimeToCheckUsers("0 0-5 7 * * ?");
-        cronNotification.setChuckNorris("0 0-5 7 * * ?");
 
-        cronNotificationRepository.save(cronNotification);
 
 
         //Cron

@@ -1,4 +1,6 @@
 <template>
+  <v-app>
+
   <div id="page-top">
     <ErrorDialog v-if="$store.state.errorDialog"/>
     <CreateOrderDialog v-if="$store.state.orders.createOrderSuccess"/>
@@ -173,6 +175,7 @@
             crossorigin="anonymous"></script>
   </div>
 
+  </v-app>
 
 </template>
 

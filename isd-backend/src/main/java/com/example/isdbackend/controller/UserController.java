@@ -6,6 +6,7 @@ import com.example.isdbackend.filter.OrderFilter;
 import com.example.isdbackend.model.User;
 import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.projection.UserView;
+import com.example.isdbackend.service.CronService;
 import com.example.isdbackend.service.OrderService;
 import com.example.isdbackend.service.UserService;
 import lombok.AllArgsConstructor;
@@ -22,11 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
@@ -35,6 +31,8 @@ public class UserController {
 
     private final UserService userService;
     private final OrderService orderService;
+    private CronService cronService;
+
 
     @GetMapping("/all")
     public List<User> getAllUsers(){

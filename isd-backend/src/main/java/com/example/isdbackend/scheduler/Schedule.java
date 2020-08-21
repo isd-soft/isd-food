@@ -1,6 +1,5 @@
 package com.example.isdbackend.scheduler;
 
-import com.example.isdbackend.model.Order;
 import com.example.isdbackend.model.User;
 import com.example.isdbackend.service.CronService;
 import com.example.isdbackend.service.MailSender;
@@ -10,10 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -21,10 +16,11 @@ import java.util.List;
 @EnableScheduling
 public class Schedule {
 
-    private final OrderService orderService;
-    private final UserService userService;
-    private final MailSender mailSender;
-    private final CronService cronService;
+    private  OrderService orderService;
+    private  UserService userService;
+    private  MailSender mailSender;
+    private  CronService cronService;
+
 
     public Schedule(OrderService orderService, UserService userService, MailSender mailSender, CronService cronService) {
         this.orderService = orderService;
@@ -32,22 +28,24 @@ public class Schedule {
         this.mailSender = mailSender;
         this.cronService = cronService;
     }
+    @Scheduled(cron = "#{@firstNotification}")
+    @Scheduled(cron = "#{@secondNotification}")
+    public void sendFirstNotification(){
+        List<User> users = userService.findAll();
+        for (User user : users)
+            if(user.isNotificationEnabled() && user.getEnabled())
+                mailSender.sendHtmlMessage(user.getEmail(),"time to eat","eat");
+    }
+    @Scheduled(cron = "#{@userUpDate}")
+    public void checkUsers(){
+
+    }
 
 
-    @Scheduled(cron = "#{cronService.getCron('Default').firstNotificationCron()}",zone="GMT+3.00")
-    public void scheduleNotification(){
-        List<Order> list = orderService.findAll();
-        Calendar calendar = Calendar.getInstance();
-        for (Order order : list) {
-            if(!order.isOrdered() && order.getDate().toString().equals(calendar.toString())){
-                orderService.delete(order);
-            }
-        }
-
-   }
 
 
-//
+
+
 //    @Scheduled(cron = "0 0-5 7 * * ?\n",zone="GMT+3.00")
 //    public void checkDate(){
 //        List<User> users = userService.findAll();
@@ -62,15 +60,6 @@ public class Schedule {
 //
 //
 //    }
-//
-//    @Scheduled(cron = "0 30 9 ? * MON-FRI\n",zone="GMT+3.00")
-//    public void scheduleNotification(){
-//        List<User> users = userService.findAll();
-//        for (User user : users)
-//            if (user.getNotificationSettings().getEnable() && user.getEmail() != null)
-//                mailSender.sendSimpleMessage(user.getEmail(),"Time to eat","Message");
-//
-//   }
-//
+
 
 }

@@ -1,17 +1,22 @@
 package com.example.isdbackend.service;
 
-import com.example.isdbackend.model.CronNotification;
-import com.example.isdbackend.repository.CronNotificationRepository;
+import com.example.isdbackend.model.Properties;
+import com.example.isdbackend.repository.PropertiesRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CronService {
-    private CronNotificationRepository cronNotificationRepository;
+    private PropertiesRepository propertiesRepository;
 
-    public CronService(CronNotificationRepository cronNotificationRepository) {
-        this.cronNotificationRepository = cronNotificationRepository;
+    public CronService(PropertiesRepository propertiesRepository) {
+        this.propertiesRepository = propertiesRepository;
     }
-    public CronNotification getCron(String id){
-        return cronNotificationRepository.findById(id).orElseThrow();
+
+    public void save(Properties properties){
+        propertiesRepository.save(properties);
+    }
+    public Properties getCron(/*String id*/ String id, String value){
+//        return propertiesRepository.findById(string).orElseThrow();
+        return new Properties(id,value,"String");
     }
 }
