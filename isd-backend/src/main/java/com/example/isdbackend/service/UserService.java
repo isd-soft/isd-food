@@ -166,5 +166,8 @@ public class UserService {
 //        user.getRoles().get(0).setName(role);
         userRepository.save(user);
     }
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
 
 }
