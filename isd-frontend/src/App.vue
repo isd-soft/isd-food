@@ -22,8 +22,7 @@
           </li>
         </a>
         <hr class="sidebar-divider my-0" />
-        <!--        <div v-if="role.includes('supervisor')">-->
-        <div v-if="true">
+        <div v-if="role === 'ROLE_supervisor'">
           <li
             class="nav-item "
             v-for="link in SuperVisorLinks"

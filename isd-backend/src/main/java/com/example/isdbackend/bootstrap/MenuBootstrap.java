@@ -6,16 +6,12 @@ import com.example.isdbackend.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.SimpleFormatter;
 
 @Component
 public class MenuBootstrap implements CommandLineRunner {
@@ -25,8 +21,9 @@ public class MenuBootstrap implements CommandLineRunner {
     private final MenuItemRepository menuItemRepository;
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, UserRepository userRepository) {
+    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, UserRepository userRepository, RoleRepository roleRepository) {
 
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
@@ -34,6 +31,7 @@ public class MenuBootstrap implements CommandLineRunner {
         this.menuItemRepository = menuItemRepository;
         this.userRepository = userRepository;
 
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -200,7 +198,16 @@ public class MenuBootstrap implements CommandLineRunner {
         user.setNotificationEnabled(true);
         user.setEnabled(true);
 
+        Role role = new Role();
+        role.setName("ROLE_supervisor");
+        //role.setId((long) 1);
+        roleRepository.save(role);
 
+        Role role1 = new Role();
+        role1.setName("ROLE_user");
+        roleRepository.save(role1);
+
+        user.setRoles(role);
 
         Order order = new Order();
         order.setMenuType(S3);

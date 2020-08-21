@@ -86,11 +86,11 @@
             </v-menu>
             <v-radio-group class="radio-group" v-model="role" id="roles" row>
               <span class="pr-3">Role</span>
-              <v-radio label="User" color="primary" value="User"></v-radio>
+              <v-radio label="User" color="primary" value="user"></v-radio>
               <v-radio
                 label="Supervisor"
                 color="primary"
-                value="Supervisor"
+                value="supervisor"
               ></v-radio>
             </v-radio-group>
 
