@@ -39,7 +39,7 @@ const routes = [
 
     {
         path: "/ProviderList",
-        name: "Provider list",
+        name: "Providers",
         props: true,
         component: () => import("../views/ProviderList.vue")
     },
@@ -49,6 +49,13 @@ const routes = [
         name: "Orders",
         component: () => import("../views/ProviderOrders.vue")
     },
+
+    {
+        path: "/confirm",
+        name: "confirmation",
+        component: () => import("../components/confirmationDialog")
+    },
+
 
     {
         path: "/users/register",
@@ -63,7 +70,7 @@ const routes = [
 
     {
         path: "/menu",
-        name: "Menu",
+        name: "Menus",
         component: () => import("../views/Menu.vue"),
     },
 

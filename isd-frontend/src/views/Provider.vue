@@ -1,6 +1,6 @@
 <template>
   <v-app class="row" heavy style="background: none">
-    <v-card class="providers col-md-6 p-5 container">
+    <v-card class="providers col-md-6 p-5 border-left-warning container">
 
       <v-form ref="form" v-model="valid">
 
@@ -59,7 +59,7 @@
           Save
         </v-btn>
 
-        <v-btn color="error"  @click="reset">
+        <v-btn color="warning"  @click="reset">
           Reset
         </v-btn>
         </div>

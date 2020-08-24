@@ -6,7 +6,7 @@
 
     <div id="wrapper">
       <ul
-          class="navbar-nav  sidebar sidebar-dark accordion"
+          class="navbar-nav sidebar sidebar-dark accordion"
           id="accordionSidebar"
           style="background-color: #ff9800"
       >
@@ -44,7 +44,7 @@
         <div id="content">
           <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
             <!-- Sidebar Toggle (Topbar) -->
-
+            {{this.$route.name}}
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
               <!-- Nav Item - Alerts -->
@@ -60,57 +60,14 @@
                 >
                   <i class="fas fa-bell fa-fw"></i>
                   <!-- Counter - Alerts -->
-                  <span class="badge badge-danger badge-counter">3+</span>
+                  <span class="badge badge-danger badge-counter"> </span>
+
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div
                     class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="alertsDropdown"
                 >
-                  <h6 class="dropdown-header">
-                    Alerts Center
-                  </h6>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-primary">
-                        <i class="fas fa-file-alt text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">December 12, 2019</div>
-                      <span class="font-weight-bold"
-                      >A new monthly report is ready to download!</span
-                      >
-                    </div>
-                  </a>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-success">
-                        <i class="fas fa-donate text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">December 7, 2019</div>
-                      $290.29 has been deposited into your account!
-                    </div>
-                  </a>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-warning">
-                        <i class="fas fa-exclamation-triangle text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">December 2, 2019</div>
-                      Spending Alert: We've noticed unusually high spending for
-                      your account.
-                    </div>
-                  </a>
-                  <a
-                      class="dropdown-item text-center small text-gray-500"
-                      href="#"
-                  >Show All Alerts</a
-                  >
                 </div>
               </li>
 
@@ -168,19 +125,8 @@
               </li>
             </ul>
           </nav>
-          <div class="container-fluid">
+          <div class="mx-4" >
             <router-view></router-view>
-            <v-btn class="mx-2 scroll-btn bg-gray-900"
-                   v-show="scrollTop"
-                   @click="scroll"
-                   fab
-
-                   fixed
-                   bottom
-                   right
-                   color="primary">
-              <v-icon dark>mdi-chevron-up</v-icon>
-            </v-btn>
           </div>
         </div>
       </div>
@@ -247,6 +193,7 @@ export default {
   data: () => ({
     scrollTop: false,
     role: localStorage.getItem("role"),
+    n: false,
     links: [
       { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
@@ -255,21 +202,11 @@ export default {
     ],
 
     SuperVisorLinks: [
-      {icon: "fas fa-users", text: "Users", route: "/users/table"},
-      {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
-      {
-        icon: "fas fas fa-cart-plus",
-        text: "Create provider",
-        route: "/providers"
-      },
-      {icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList"},
-      {
-        icon: "fas fas fa-user-plus",
-        text: "Create user",
-        route: "/users/register"
-      },
-      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
-      {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
+
+      { icon: "fas fa-users", text: "Users", route: "/users/table" },
+      { icon: "fas fa-pizza-slice", text: "Menus", route: "/allmenus" },
+      { icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList" },
+      { icon: "fas fa-history", text: "Orders", route: "/ProviderOrders" }
 
     ]
   }),
