@@ -251,7 +251,7 @@ export default {
         text: "Create provider",
         route: "/providers"
       },
-      {icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList"},
+      {icon: "fas fa-utensils", text: "Providers", route: "/ProviderList"},
       {
         icon: "fas fas fa-user-plus",
         text: "Create user",

@@ -5,6 +5,7 @@
         <div class="card border-left-warning shadow h-100 py-1">
 
           <div class="card-body wrapScroll">
+            <h3 class="mb-3">Users</h3>
             <table class="table table-bordered" cellspacing="0">
               <thead>
                 <tr>
@@ -309,6 +310,5 @@ input[type="number"] {
 .wrapScroll{
   overflow: auto;
   white-space: nowrap;
-
 }
 </style>

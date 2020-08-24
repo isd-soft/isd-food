@@ -64,59 +64,6 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-12 col-sm-6 mb-3">
-                              <div class="mb-2"><b>Password</b></div>
-                              <v-btn
-                                @click="hidden = !hidden"
-                                rounded
-                                color="warning"
-                                >Change password</v-btn
-                              >
-                              <div class="row">
-                                <div class="col"></div>
-                              </div>
-                              <div v-if="!hidden" class="password">
-                                <div class="row">
-                                  <div class="col">
-                                    <div class="form-group">
-                                      <label>New Password</label>
-                                      <input
-                                        class="form-control"
-                                        name="password1"
-                                        type="password"
-                                        placeholder=""
-                                        v-model="password1"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col">
-                                    <div class="form-group">
-                                      <label
-                                        >Confirm
-                                        <span class="d-none d-xl-inline"
-                                          >Password</span
-                                        ></label
-                                      >
-                                      <input
-                                        class="form-control"
-                                        name="password2"
-                                        type="password"
-                                        placeholder=""
-                                        v-model="password2"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <v-btn
-                                  @click="checkPass()"
-                                  rounded
-                                  color="warning"
-                                  >Change</v-btn
-                                >
-                              </div>
-                            </div>
                             <div class="col-12 col-sm-3 offset-sm-1 mb-3">
                               <div class="mb-2"><b>Keeping in Touch</b></div>
                               <div class="row">
@@ -131,7 +78,10 @@
                                   </v-switch>
                                 </div>
                               </div>
-                              <div class="row" v-if="enableNotification === false">
+                              <div
+                                class="row"
+                                v-if="enableNotification === false"
+                              >
                                 <div class="col mb-1/2">
                                   <label>
                                     Data to enable
@@ -157,6 +107,51 @@
                               >
                             </div>
                           </div>
+                          <div class="col-12 col-sm-6 mb-3">
+                            <div class="mb-2"><b>Password</b></div>
+                            <form
+                              oninput='password2.setCustomValidity(password2.value !== password1.value ? "Passwords do not match." : "")'
+                            >
+                              <div class="row">
+                                <div class="col mb-3">
+                                  <div class="form-group">
+                                    <label for="password1">New Password</label>
+                                    <input
+                                      class="form-control validate"
+                                      id="password1"
+                                      name="password1"
+                                      type=password
+                                      required
+                                      v-model="password1"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="col mb-3">
+                                  <div class="form-group">
+                                    <label for="password2"
+                                      >Confirm
+                                      <span class="d-none d-xl-inline"
+                                        >Password</span
+                                      ></label
+                                    >
+                                    <input
+                                      class="form-control"
+                                      id="password2"
+                                      name="password2"
+                                      type=password
+                                      v-model="password2"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <v-btn
+                                @click="checkPass()"
+                                rounded
+                                color="warning"
+                                >Change</v-btn
+                              >
+                            </form>
+                          </div>
                         </form>
                       </div>
                     </div>
@@ -180,6 +175,7 @@ export default {
     return {
       hidden: true,
       UserInfo: [],
+      id: 0,
       firstName: "",
       lastName: "",
       email: "",
@@ -191,7 +187,7 @@ export default {
       dataNotification: ""
     };
   },
-/*  created () {
+  /*  created () {
   this.fetchAuthenticatedUser()
   },*/
   methods: {
@@ -235,7 +231,7 @@ export default {
     UpadateInfo() {
       api
         .updateUser(
-          1,
+          this.id,
           this.firstName,
           this.lastName,
           this.skypeId,
@@ -252,19 +248,16 @@ export default {
     },
 
     checkPass() {
-      if (this.password1 === this.password2 && this.password1.length > 7) {
-        alert("Меняем пароль");
-        api.changePass(1, this.password1);
-        console.log("Меняем пароль");
-      } else {
-        console.log("Не меняем пароль");
-        alert("Мы не меняем пароль");
-      }
+      //if (this.password1 === this.password2 && this.password1.length > 7) {
+        alert("Changing password");
+        api.changePass(this.password1);
+     // } else {
+        //alert("Cannot change");
+     // }
     }
   },
 
-
-    /*fetchAuthenticatedUser () {
+  /*fetchAuthenticatedUser () {
       this.$store.dispatch('updateUser',{
          firstName: this.firstName,
           lastName: this.lastName,
@@ -276,29 +269,29 @@ export default {
           //   this.$router.push("/");
         })*/
 
-    //     const token = localStorage.getItem('tweetr-token')
+  //     const token = localStorage.getItem('tweetr-token')
 
-    //     axios
-    //         .get('account/me', {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         })
-    //         .then(response => {
-    //             this.name = response.data.data.name
-    //             this.username = response.data.data.username
-    //             this.email = response.data.data.email
-    //             this.location = response.data.data.location
-    //             this.bio = response.data.data.bio
-    //             this.websiteUrl = response.data.data.website_url
-    //         })
-  
+  //     axios
+  //         .get('account/me', {
+  //             headers: {
+  //                 Authorization: `Bearer ${token}`
+  //             }
+  //         })
+  //         .then(response => {
+  //             this.name = response.data.data.name
+  //             this.username = response.data.data.username
+  //             this.email = response.data.data.email
+  //             this.location = response.data.data.location
+  //             this.bio = response.data.data.bio
+  //             this.websiteUrl = response.data.data.website_url
+  //         })
 
   beforeCreate() {
     api
       .getUserWithoutId()
       .then(response => {
         console.log(response.data);
+        this.id = response.data.id ;
         this.firstName = response.data.firstName;
         this.lastName = response.data.lastName;
         this.skypeId = response.data.skypeId;
