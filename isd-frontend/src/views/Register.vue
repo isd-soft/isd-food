@@ -115,12 +115,12 @@ export default {
       firstName: "",
       firstNameRules: [
         v => !!v || "First Name is required",
-        v => /^[A-Z]+[a-z]+$/.test(v) || "First Name must be only letters"
+        v => /^[A-Z]+[a-z]+$/.test(v) || "First Name must be only letters, big and small"
       ],
       lastName: "",
       lastNameRules: [
         v => !!v || "First Name is required",
-        v => /^[A-Z]+[a-z]+$/.test(v) || "First Name must be only letters"
+        v => /^[A-Z]+[a-z]+$/.test(v) || "First Name must be only letters, big and small"
       ],
       email: "",
       emailRules: [
