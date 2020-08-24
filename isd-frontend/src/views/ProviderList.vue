@@ -1,9 +1,9 @@
 <template>
 <div>
-  <div class="row container" >
+  <div class="row container-fluid" >
     <div class="col-xl-12 col-md-12 mb-4">
       <div class="card border-left-warning shadow h-100 py-1">
-        <div class="card-body">
+        <div class="card-body wrapScroll">
           <h3 class="mb-3">Providers</h3>
           <table  class="table table-bordered"  width="100%" cellspacing="0">
             <thead>
@@ -201,6 +201,10 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance:textfield;
+}
+.wrapScroll{
+  overflow: auto;
+  white-space: nowrap;
 }
 
 </style>
