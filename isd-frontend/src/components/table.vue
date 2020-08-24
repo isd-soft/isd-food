@@ -75,7 +75,9 @@
         <v-btn color="primary" @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
+    {{value}}
   </v-app>
+
 </template>
 
 <script>

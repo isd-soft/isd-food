@@ -155,8 +155,7 @@
 
 
   <div>
-    <Table v-bind:headers="headers">
-    </Table>
+    <Table v-bind:headers="headers" v-bind:value="value"></Table>
   </div>
 </template>
 
@@ -176,7 +175,9 @@ export default {
         {  text: "Confirm", value: "Confirm" },
         {  text: "Delete", value: "Delete" },
       ],
-      value: [],
+      value: [
+        {}
+      ],
 
 
 
