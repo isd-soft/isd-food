@@ -296,8 +296,8 @@
     },
 
     changeMenu(menu){
-      api.changeMenu(menu)
-      window.location.reload()
+      api.changeMenu(menu);
+      window.location.reload();
 
     }
   },

@@ -114,6 +114,9 @@ export default {
     getUserWithoutId() {
         return AXIOS.get("users/getUser");
     },
+    changeMenu(menu){
+        return AXIOS.put("/updateMenu", menu)
+    },
 
     getMenu() {
         return AXIOS.get(`/menu`);
