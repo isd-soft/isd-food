@@ -1,13 +1,11 @@
 package com.example.isdbackend.bootstrap;
 
 import com.example.isdbackend.model.*;
-import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -37,45 +35,48 @@ public class MenuBootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        MenuType M1 = new MenuType();
-        M1.setPrice(50f);
-        M1.setType('M');
-        menuTypeRepository.save(M1);
 
         MenuType S1 = new MenuType();
         S1.setPrice(100f);
         S1.setType('S');
         menuTypeRepository.save(S1);
 
-        MenuType M2 = new MenuType();
-        M2.setPrice(70f);
-        M2.setType('M');
-        menuTypeRepository.save(M2);
+        MenuType M1 = new MenuType();
+        M1.setPrice(50f);
+        M1.setType('M');
+        menuTypeRepository.save(M1);
 
         MenuType S2 = new MenuType();
         S2.setPrice(90f);
         S2.setType('S');
         menuTypeRepository.save(S2);
 
-        MenuType M3 = new MenuType();
-        M3.setPrice(50f);
-        M3.setType('M');
-        menuTypeRepository.save(M3);
+        MenuType M2 = new MenuType();
+        M2.setPrice(70f);
+        M2.setType('M');
+        menuTypeRepository.save(M2);
+
+
 
         MenuType S3 = new MenuType();
         S3.setPrice(100f);
         S3.setType('S');
         menuTypeRepository.save(S3);
 
-        MenuType M4 = new MenuType();
-        M4.setPrice(150f);
-        M4.setType('M');
-        menuTypeRepository.save(M4);
+        MenuType M3 = new MenuType();
+        M3.setPrice(50f);
+        M3.setType('M');
+        menuTypeRepository.save(M3);
 
         MenuType S4 = new MenuType();
         S4.setPrice(120f);
         S4.setType('S');
         menuTypeRepository.save(S4);
+
+        MenuType M4 = new MenuType();
+        M4.setPrice(150f);
+        M4.setType('M');
+        menuTypeRepository.save(M4);
 
         Provider andys = new Provider();
         andys.setName("Andys pizza");
@@ -92,6 +93,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat = new Menu();
         salat.setName("Bistro");
         salat.setProvider(andys);
+        salat.setActive(true);
         salat.setDayOfWeek(DayOfWeek.FRIDAY);
         S1.setMenu(salat);
         M1.setMenu(salat);
@@ -103,6 +105,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat2 = new Menu();
         salat2.setName("Indean");
         salat2.setProvider(andys);
+        salat2.setActive(true);
         salat2.setDayOfWeek(DayOfWeek.WEDNESDAY);
         S2.setMenu(salat2);
         M2.setMenu(salat2);
@@ -113,6 +116,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat3 = new Menu();
         salat3.setName("Japan");
         salat3.setProvider(andys);
+        salat3.setActive(false);
         salat3.setDayOfWeek(DayOfWeek.THURSDAY);
         S3.setMenu(salat3);
         M3.setMenu(salat3);
@@ -123,6 +127,7 @@ public class MenuBootstrap implements CommandLineRunner {
         Menu salat4 = new Menu();
         salat4.setName("Moldavian");
         salat4.setProvider(andys);
+        salat4.setActive(true);
         salat4.setDayOfWeek(DayOfWeek.TUESDAY);
         S4.setMenu(salat4);
         M4.setMenu(salat4);

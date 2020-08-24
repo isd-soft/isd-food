@@ -1,13 +1,9 @@
 package com.example.isdbackend.service;
 
 import com.example.isdbackend.dto.MenuDTO;
-import com.example.isdbackend.dto.OrderDTO;
 import com.example.isdbackend.dto.converter.MenuConverter;
 import com.example.isdbackend.model.Menu;
-
 import com.example.isdbackend.model.MenuType;
-import com.example.isdbackend.projection.MenuView;
-
 import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
 
@@ -39,14 +35,9 @@ public class MenuService extends AbstractServiceCrud {
         menuRepository.delete(menu);
     }
 
-   /* public Iterable<Menu> getMenusByDay(DayOfWeek day){
-        return menuRepository.findByDayOfWeek(day);
-    }*/
-
-    public Iterable<Menu> getMenusByDay (DayOfWeek day){
+     public Iterable<Menu> getMenusByDay(DayOfWeek day){
         return menuRepository.findByDayOfWeek(day);
     }
-
 
     public void addMenu(Menu menu) {
         menuRepository.save(menu);
@@ -56,21 +47,6 @@ public class MenuService extends AbstractServiceCrud {
         menuTypeRepository.save(menuType);
     }
 
-//    public void addFullMenu(Menu menu, MenuType menuTypeS, MenuType menuTypeM) {
-//        Menu savedMenu = menuRepository.save(menu);
-//        menuTypeRepository.save(menuTypeS);
-//        menuTypeRepository.save(menuTypeM);
-//        menuTypeS.setMenu(savedMenu);
-//        menuTypeM.setMenu(savedMenu);
-//        menuTypeRepository.save(menuTypeS);
-//        menuTypeRepository.save(menuTypeM);
-//    }
-
-   /* public void addFullMenu(Menu menu){
-        menuRepository.save(menu);
-    }
-*/
-
 
     public Menu addFullMenu(MenuDTO menuDTO){
         Menu menu = menuRepository.save(menuConverter.convertFromDto(menuDTO));
@@ -79,5 +55,17 @@ public class MenuService extends AbstractServiceCrud {
             menuTypeRepository.save(menuType);
         }
         return menu;
+    }
+
+    public void updateMenu(Menu menu){
+        for (MenuType menuType: menu.getMenuTypes()) {
+            menuType.setMenu(menu);
+            menuTypeRepository.save(menuType);
+        }
+        menuRepository.save(menu);
+    }
+
+    public void deleteMenu(Long id) {
+        menuRepository.delete(menuRepository.findById(id).orElseThrow());
     }
 }

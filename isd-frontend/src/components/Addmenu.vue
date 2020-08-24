@@ -7,7 +7,9 @@
             <v-text-field
               ref="name"
               v-model="name"
-              :rules="[v => !!v || 'Is it menu without name? Come on!']"
+
+              :counter="15"
+              :rules="nameRules"
               :error-messages="errorMessages"
               label="Menu name"
               placeholder="Enter name"
@@ -18,9 +20,9 @@
               ref="provider"
               return-object
               v-model="provider"
-              :rules="[
-                v => !!v || 'Was this menu made by your grandma or who?'
-              ]"
+
+              :rules="ProviderRules"
+
               :items="providers"
               item-text="name"
               label="Provider"
@@ -31,7 +33,9 @@
             <v-autocomplete
               ref="weekday"
               v-model="day"
-              :rules="[v => !!v || 'Please choose day!']"
+
+              :rules="DayRules"
+
               :items="days"
               label="Day"
               placeholder="Select..."
@@ -41,8 +45,10 @@
             <v-text-field
               ref="image"
               v-model="image"
+              :rules="imageRules"
               label="image"
               placeholder="image"
+              required
             ></v-text-field>
 
             <br />
@@ -53,8 +59,11 @@
                 return-object
                 v-model="itemsS"
                 :items="items"
+                :rules="itemRules"
                 item-text="name"
                 label="Items"
+                required
+
                 multiple
               >
                 <template v-slot:prepend-item>
@@ -111,7 +120,7 @@
             <v-text-field
               ref="priceS"
               v-model="priceS"
-              :rules="[v => !!v || 'This field is required']"
+              :rules="PriceRules"
               label="price"
               required
               placeholder="Enter price"
@@ -126,9 +135,12 @@
                 return-object
                 v-model="itemsM"
                 :items="items"
+                :rules="itemRules"
                 item-text="name"
                 label="Items"
                 multiple
+                required
+
               >
                 <template v-slot:prepend-item>
                   <v-list-item ripple>
@@ -179,12 +191,14 @@
               </v-row>
             </v-container>
 
+
             <br />
 
             <v-text-field
               ref="priceS"
               v-model="priceM"
               :rules="[v => !!v || 'This field is required']"
+
               label="price"
               required
               placeholder="Enter price"
@@ -192,9 +206,13 @@
           </v-card-text>
           <v-divider class="mt-12"></v-divider>
           <v-card-actions>
-            <v-btn>Cancel</v-btn>
+
+            <v-btn color="primary">Cancel</v-btn>
             <v-spacer></v-spacer>
-            <v-btn :disabled="!valid" color="success" @click="validate" >Submit</v-btn>
+            <v-btn :disabled="!valid" color="success" @click="createMenu()"
+              >Submit
+            </v-btn>
+
           </v-card-actions>
         </v-card>
       </v-col>
@@ -204,9 +222,29 @@
 
 <script>
 import api from "./backend-api";
+
 export default {
+    name: "AddMenu",
   data: () => ({
     valid: false,
+    nameRules: [
+      v => !!v || "Is it menu without name? Come on!",
+      v => (v && v.length <= 15) || "Name must be less than 15 characters"
+    ],
+
+    PriceRules: [
+      v => !!v || "Price is required",
+      v => v >= 0 || "Must be a positive number"
+    ],
+
+    ProviderRules: [v => !!v || "Was this menu mady by your grandma or who?"],
+
+    DayRules: [v => !!v || "Enter day!"],
+
+    imageRules: [v => /http+/.test(v) || "Must be a link"],
+
+    itemRules: [v => !!v || "Items can't be empty!"],
+
     dialog: false,
     item: null,
     items: [],
@@ -226,6 +264,7 @@ export default {
     formHasErrors: false
   }),
 
+
   computed: {
     form() {
       return {
@@ -240,6 +279,7 @@ export default {
     }
   },
 
+
   watch: {
     name() {
       this.errorMessages = "";
@@ -247,36 +287,39 @@ export default {
   },
 
   methods: {
-    // submit() {
-    //   this.formHasErrors = false;
-    //
-    //   Object.keys(this.form).forEach(f => {
-    //     if (!this.form[f]) this.formHasErrors = true;
-    //
-    //     this.$refs[f].validate(true);
-    //   });
-    // },
+    submit() {
+      this.formHasErrors = false;
+
+      Object.keys(this.form).forEach(f => {
+        if (!this.form[f]) this.formHasErrors = true;
+
+        this.$refs[f].submit(true);
+      });
+    },
 
     createItem() {
       api.newItem(this.item);
     },
 
     saveItem() {
-      this.createItem();
-      this.dialog = false;
-      this.item = null;
+      this.createItem()
+      this.dialog = false
+      this.item = null
+      this.$store.re
       api
         .getItems()
         .then(response => {
-          this.items = response.data;
-          console.log(response.data);
+          this.items = response.data
+          console.log(response.data)
         })
         .catch(error => {
-          this.errors.push(error);
+          this.errors.push(error)
         });
     },
 
-    validate() {
+
+    createMenu() {
+
       api.createFullMenu({
         name: this.name,
         provider: this.provider,

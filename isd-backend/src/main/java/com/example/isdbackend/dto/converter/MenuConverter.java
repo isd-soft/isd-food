@@ -34,6 +34,7 @@ public class MenuConverter extends Converter<MenuDTO, Menu> {
         menu.setDayOfWeek(dto.getDayOfWeek());
         menu.setImage(dto.getImage());
         menu.setProvider(dto.getProvider());
+        menu.setActive(true);
 
         for (MenuType menuType: dto.getMenuTypes()) {
             menuType.setMenu(menu);

@@ -5,9 +5,9 @@ import com.example.isdbackend.model.Provider;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.naming.ldap.PagedResultsControl;
 import java.time.DayOfWeek;
-import java.util.Set;
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -16,5 +16,5 @@ public class MenuDTO {
     private DayOfWeek dayOfWeek;
     private String image;
     private Provider provider;
-    private Set<MenuType> menuTypes;
+    private List<MenuType> menuTypes;
 }

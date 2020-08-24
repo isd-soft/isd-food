@@ -158,9 +158,11 @@ export default {
     return AXIOS.get("/items");
   },
 
-  getProviders() {
-    return AXIOS.get("/provider");
-  },
+
+    getProviders(){
+      return AXIOS.get("/provider/all");
+    },
+
 
   getUsers() {
     return AXIOS.get("/users/allUsers");
@@ -228,20 +230,26 @@ export default {
     return AXIOS.delete("/provider/delete/" + id);
   },
 
-  newItem(itemName) {
-    return AXIOS.post("/new_item?name=" + itemName);
-  },
+     deleteMenu(id){
+        return AXIOS.delete("/menu/delete/"+id)
+     },
 
-  changePass(user_id, password) {
-    return AXIOS.put(
-      "/user/edit/password/" + user_id + "?password=" + password
-    );
-  },
-  downloadPaymentData(month, year) {
-    window.location.href =
-      "http://localhost:8098/api/payment/export?month=" +
-      month +
-      "&year=" +
-      year;
-  }
+    newItem(itemName){
+        return AXIOS.post("/new_item?name="+itemName);
+    },
+  
+    changePass(user_id, password) {
+        return AXIOS.put(
+            "/user/edit/password/" + user_id + "?password=" + password
+        );
+    },
+
+    changeMenu(menu){
+        return AXIOS.put("/updateMenu", menu)
+    },
+
+    downloadPaymentData(month, year) {
+        window.location.href = "http://localhost:8098/api/payment/export?month=" + month + "&year=" + year;
+    }
+
 };

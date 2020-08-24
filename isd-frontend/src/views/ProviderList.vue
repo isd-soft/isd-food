@@ -1,9 +1,9 @@
 <template>
 <div>
-  <div class="row container" >
+  <div class="row container-fluid" >
     <div class="col-xl-12 col-md-12 mb-4">
       <div class="card border-left-warning shadow h-100 py-1">
-        <div class="card-body">
+        <div class="card-body wrapScroll">
           <h3 class="mb-3">Providers</h3>
           <table  class="table table-bordered"  width="100%" cellspacing="0">
             <thead>
@@ -32,12 +32,12 @@
                 <i class="fas fa-times-circle" style="margin: 0; padding: 0;color: red !important; font-size: 25px"></i>
               </td>
 
-
               <td class="text-center">
                 <button style="outline: none" @click="deleteProvider(provider.id)" onclick="window.location.reload()">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
+
 
               <td>
                   <v-app style="background: none; height: content-box !important; max-height: 30px" class="text-center">
@@ -123,12 +123,6 @@
                       </v-card>
                     </v-dialog>
                   </v-app>
-
-
-
-
-
-
               </td>
             </tr>
             </tbody>
@@ -208,4 +202,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance:textfield;
 }
+.wrapScroll{
+  overflow: auto;
+  white-space: nowrap;
+}
+
 </style>
