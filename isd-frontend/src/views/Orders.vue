@@ -17,6 +17,7 @@
         <div  class="tab-content" id="pills-tabContent">
           <!---Current--->
           <div  class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <confirmationDialog :action-button="'Agree'" :method="deleteOrder" :title="title" :message="message" :dialog1.sync="dialog1"/>
             <table v-if="!this.isEmptyCurrent()" class="table table-bordered"  width="100%" cellspacing="0">
               <thead>
               <tr>
@@ -36,7 +37,7 @@
                   <td>{{order.date}}</td>
                   <td>{{order.price}} lei</td>
                   <td class="text-center">
-                     <button type="submit" @click="deleteOrder(order.id)" onclick="window.location.reload();">
+                     <button type="submit" @click="openDialog(order.id)">
                        <v-icon  data-toggle="modal"  data-target="#exampleModal">fas fa-trash-alt</v-icon>
                      </button>
                   </td>
@@ -84,17 +85,30 @@
 <script>
 
 import api from "@/components/backend-api.js"
+import confirmationDialog from "../components/confirmationDialog";
 
 export default {
-
+  components: {
+    confirmationDialog,
+  },
   name: "Home",
    data (){
      return{
+       currentId: null,
+       title: "Confirmation",
+       message: "Do you really want to delete this user?",
+       dialog1: false,
        userHistory:[],
        getHistory: false,
      }
    },
   methods:{
+    openDialog(id){
+      this.dialog1 = true
+      this.currentId = id
+      console.log(this.currentId)
+    },
+
     isEmptyCurrent(){
       for(let i = 0; i < this.userHistory.length;i++)
         if(!this.userHistory[i].ordered)
@@ -107,8 +121,8 @@ export default {
           return true
       return false
     },
-    deleteOrder(id){
-      api.deleteOrder(id)
+    deleteOrder(){
+      api.deleteOrder(this.currentId)
     }
   },
   beforeCreate() {

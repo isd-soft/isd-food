@@ -14,8 +14,10 @@
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
-              <confirmationDialog :action-button="'Agree'" :method="deleteMenu" :title="title" :message="message" :dialog1.sync="dialog1"/>
-              <table class="table table-bordered" width="100%" cellspacing="0">
+
+              <confirmationDialog :action-button="'Agree'" :method="deleteMenu" :title="title" :message="message + currentName+ '?'" :dialog1.sync="dialog1"/>
+
+                <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -33,20 +35,20 @@
                   <td v-if="menu.active === true" class="text-center">
                     <i
                       class="fas fa-check-circle"
-                      style="margin: 0; padding: 0;color: green !important; font-size: 25px"
+                      style="margin: 0; padding: 0;color: #008000 !important; font-size: 25px"
                     ></i>
                   </td>
                   <td v-else class="text-center">
                     <i
                       class="fas fa-times-circle"
-                      style="margin: 0; padding: 0;color: red !important; font-size: 25px"
+                      style="margin: 0; padding: 0;color: rgb(255,0,0) !important; font-size: 25px"
                     ></i>
                   </td>
 
                   <td class="text-center">
                     <button
                       style="outline: none"
-                      @click="openDialog(menu.id)"
+                      @click="openDialog(menu.id, menu.name)"
                     >
                       <i class="fas fa-trash"></i>
                     </button>
@@ -251,9 +253,10 @@
   name: "Home",
   data() {
     return {
+      currentName: null,
       currentId: null,
       title: "Confirmation",
-      message: "Do you really want to delete it?",
+      message: "Do you really want to delete ",
       dialog1: false,
       typeSId: null,
       typeMId: null,
@@ -269,9 +272,10 @@
   },
   methods: {
 
-    openDialog(id){
+    openDialog(id, name){
       this.dialog1 = true
       this.currentId = id
+      this.currentName = name
       console.log(this.currentId)
     },
 

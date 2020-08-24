@@ -220,6 +220,18 @@ public class MenuBootstrap implements CommandLineRunner {
         order.setUser(user);
         order.setOrdered(false);
 
+        User user1 = new User();
+        user1.setFirstName("Vanea");
+
+        user1.setLastName("Sosiska");
+        user1.setEmail("Kubak@gmail.com");
+        user1.setSkypeId("JhonesId");
+        user1.setPassword("$2y$12$Gytj7ahrI8suq.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
+        user1.setOrders(new HashSet<>());
+        user1.setNotificationEnabled(true);
+        user1.setEnabled(true);
+        user1.setRoles(role1);
+
 
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -243,6 +255,7 @@ public class MenuBootstrap implements CommandLineRunner {
         provider.getMenus().add(salat3);
 
         userRepository.save(user);
+        userRepository.save(user1);
 
     }
 }
