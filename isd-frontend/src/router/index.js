@@ -51,6 +51,13 @@ const routes = [
     },
 
     {
+        path: "/confirm",
+        name: "confirmation",
+        component: () => import("../components/confirmationDialog")
+    },
+
+
+    {
         path: "/users/register",
         name: "Register",
         component: () => import("../views/Register.vue")

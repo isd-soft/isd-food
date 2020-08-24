@@ -14,6 +14,7 @@
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
+              <confirmationDialog :dialog1.sync="dialog1" />
               <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                   <tr>
@@ -45,8 +46,7 @@
                   <td class="text-center">
                     <button
                       style="outline: none"
-                      @click="deleteMenu(menu.id)"
-                      onclick="window.location.reload()"
+                      @click="dialog1=true"
                     >
                       <i class="fas fa-trash"></i>
                     </button>
@@ -113,7 +113,6 @@
                             <v-autocomplete
                               ref="weekday"
                               v-model="menu.dayOfWeek"
-                              :rules="DayRules"
                               :items="days"
                               label="Day"
                               placeholder="Select..."
@@ -123,7 +122,6 @@
                             <v-text-field
                               ref="image"
                               v-model="menu.image"
-                              :rules="imageRules"
                               label="image"
                               placeholder="image"
                               required
@@ -137,7 +135,6 @@
                                 return-object
                                 v-model="menu.menuTypes[0].items"
                                 :items="items"
-                                :rules="itemRules"
                                 item-text="name"
                                 label="Items"
                                 multiple
@@ -160,7 +157,6 @@
                             <v-text-field
                               ref="priceS"
                               v-model="menu.menuTypes[0].price"
-                              :rules="PriceRules"
                               label="price"
                               required
                               placeholder="Enter price"
@@ -175,7 +171,6 @@
                                 return-object
                                 v-model="menu.menuTypes[1].items"
                                 :items="items"
-                                :rules="itemRules"
                                 item-text="name"
                                 label="Items"
                                 multiple
@@ -245,11 +240,17 @@
 
 <script>
   import api from "./backend-api";
+  import confirmationDialog from "./confirmationDialog";
+
 
   export default {
+    components: {
+      confirmationDialog,
+    },
   name: "Home",
   data() {
     return {
+      dialog1: false,
       typeSId: null,
       typeMId: null,
       days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"],
@@ -263,15 +264,6 @@
     };
   },
   methods: {
-    findS(menu) {
-      if (menu.menuTypes[0].type == "S") {
-        this.typeSId = 0;
-        this.typeMId = 1;
-      } else {
-        this.typeSId = 1;
-        this.typeMId = 0;
-      }
-    },
 
     callMenuApi() {
       api

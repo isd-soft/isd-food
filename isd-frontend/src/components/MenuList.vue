@@ -89,8 +89,6 @@ import MenuItem from './MenuItem.vue'
           
           var date = new Date()
           var count = date.getDay()
-          if(date.getHours() > 10)
-            count++;
           if(count == 7)
             count = 0
           return count
