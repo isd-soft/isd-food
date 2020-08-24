@@ -1,6 +1,6 @@
 <template>
   <v-app class="row" heavy style="background: none">
-    <v-card class="providers col-md-7 container">
+    <v-card class="providers col-md-6 p-5 container">
 
       <v-form ref="form" v-model="valid">
 
@@ -48,18 +48,22 @@
           required
         ></v-select>
 
+        <div class="d-flex justify-content-between">
+
         <v-btn
           :disabled="!valid"
           color="success"
-          class="mr-4"
+          
           @click="validate"
         >
           Save
         </v-btn>
 
-        <v-btn color="error" class="mr-4" @click="reset">
+        <v-btn color="error"  @click="reset">
           Reset
         </v-btn>
+        </div>
+
       </v-form>
     </v-card>
   </v-app>
