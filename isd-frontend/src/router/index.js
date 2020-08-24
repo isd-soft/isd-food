@@ -39,7 +39,7 @@ const routes = [
 
     {
         path: "/ProviderList",
-        name: "Provider list",
+        name: "Providers",
         props: true,
         component: () => import("../views/ProviderList.vue")
     },
