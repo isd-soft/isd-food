@@ -244,21 +244,11 @@ export default {
     ],
 
     SuperVisorLinks: [
-      {icon: "fas fa-users", text: "Users", route: "/users/table"},
-      {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
-      {
-        icon: "fas fas fa-cart-plus",
-        text: "Create provider",
-        route: "/providers"
-      },
-      {icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList"},
-      {
-        icon: "fas fas fa-user-plus",
-        text: "Create user",
-        route: "/users/register"
-      },
-      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
-      {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
+
+      { icon: "fas fa-users", text: "Users", route: "/users/table" },
+      { icon: "fas fa-pizza-slice", text: "Menus", route: "/allmenus" },
+      { icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList" },
+      { icon: "fas fa-history", text: "Orders", route: "/ProviderOrders" }
 
     ]
   }),

@@ -139,6 +139,8 @@
 
 
       </v-snackbar>
+  <router-link class="btn btn-warning mb-3 btn-lg" style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 20px 23px;font-size: 20px !important;" :to="'/providers'"><i class="fas fa-user-plus"></i></router-link>
+
 </div>
 </template>
 
