@@ -62,7 +62,7 @@ import MenuItem from './MenuItem.vue'
           this.errors.push(error)
         })
       },
-      
+
       callMenuApi () {
         api.getMenu().then(response => {
             this.products = response.data;
@@ -82,14 +82,16 @@ import MenuItem from './MenuItem.vue'
       },
 
       getWeekDayId(){
-          
-          var date = new Date()
-          var count = date.getDay()
-          if(date.getHours() > 10)
-            count++;
-          if(count == 7)
-            count = 0
-          return count
+
+          // var date = new Date()
+          // var count = date.getDay()
+          // if(date.getHours() > 10)
+          //   count++;
+          // if(count == 7)
+          //   count = 0
+          // return count
+
+        return new Date().getDay();
       },
 
       getWeekDay() {
@@ -106,17 +108,6 @@ import MenuItem from './MenuItem.vue'
           this.errors.push(error)
         })
       },
-      next () {
-        this.onboarding = this.onboarding + 1 === this.length
-          ? 0
-          : this.onboarding + 1
-      },
-      prev () {
-        this.onboarding = this.onboarding - 1 < 0
-          ? this.length - 1
-          : this.onboarding - 1
-      },
-
       getMenuFirst(){
         this.getDayMenu(this.getWeekDay());
       },

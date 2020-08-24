@@ -1,78 +1,62 @@
 <template>
   <div id="page-top">
-    <ErrorDialog v-if="$store.state.errorDialog" />
-    <CreateOrderDialog v-if="$store.state.orders.createOrderSuccess" />
+    <PaymentDialog v-if="$store.state.payment.displayUserPayment"/>
+    <ErrorDialog v-if="$store.state.errorDialog"/>
+    <CreateOrderDialog v-if="$store.state.orders.createOrderSuccess"/>
 
     <div id="wrapper">
       <ul
-        class="navbar-nav sidebar sidebar-dark accordion"
-        id="accordionSidebar"
-        style="background-color: #ff9800"
+          class="navbar-nav fixed-top sidebar sidebar-dark accordion"
+          id="accordionSidebar"
+          style="background-color: #ff9800"
       >
         <a
-          class="sidebar-brand d-flex align-items-center justify-content-center"
+            class="sidebar-brand d-flex align-items-center justify-content-center"
         >
           <li class="nav-item text-center">
-            <span class="nav-link">
-              <v-icon style="color: white; font-size: 20px"
-                >fas fa-utensils</v-icon
-              >
-              <span class="ml-md-5">Isd-food</span></span
+            <span class="nav-link mt-2">
+              <img width="50px" src="./assets/food-bot.png"/>
+              <span class="ml-2">Isd-food</span></span
             >
           </li>
         </a>
-        <hr class="sidebar-divider my-0" />
-        <div v-if="role === 'ROLE_supervisor'">
-          <li
-            class="nav-item "
-            v-for="link in SuperVisorLinks"
-            :key="link.text"
-          >
+        <hr class="sidebar-divider my-0">
+        <div v-if="role==='ROLE_supervisor'">
+          <li class="nav-item " v-for="link in SuperVisorLinks" :key="link.text">
             <router-link class="nav-link" :to="link.route">
-              <v-icon style="color: white; font-size: 18px">{{
-                link.icon
-              }}</v-icon>
-              <span> {{ link.text }}</span></router-link
-            >
-            <hr class="sidebar-divider my-0" />
+              <v-icon style="color: white; font-size: 18px">{{ link.icon }}</v-icon>
+              <span> {{ link.text }}</span></router-link>
+            <hr class="sidebar-divider my-0">
           </li>
         </div>
         <div v-else>
           <li class="nav-item " v-for="link in links" :key="link.text">
-            <router-link class="nav-link" :to="link.route" v-bind:route = link.route>
-              <v-icon style="color: white; font-size: 18px">{{
-                link.icon
-              }}</v-icon>
-              <span> {{ link.text }}</span></router-link
-            >
-            <hr class="sidebar-divider my-0" />
+            <router-link class="nav-link" :to="link.route">
+              <v-icon style="color: white; font-size: 18px">{{ link.icon }}</v-icon>
+              <span> {{ link.text }}</span></router-link>
+            <hr class="sidebar-divider my-0">
           </li>
         </div>
+
       </ul>
       <!-- End of Sidebar -->
       <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-          <nav
-            class="navbar navbar-expand navbar-light bg-white navbar-fixed-top topbar mb-4 static-top shadow"
-            role="navigation"
-          >
+          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
             <!-- Sidebar Toggle (Topbar) -->
-
-            <h5>{{this.$route.name}}</h5>
-
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
               <!-- Nav Item - Alerts -->
               <li class="nav-item dropdown no-arrow mx-1">
                 <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="alertsDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="alertsDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
                 >
                   <i class="fas fa-bell fa-fw"></i>
                   <!-- Counter - Alerts -->
@@ -80,8 +64,8 @@
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div
-                  class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                  aria-labelledby="alertsDropdown"
+                    class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="alertsDropdown"
                 >
                   <h6 class="dropdown-header">
                     Alerts Center
@@ -95,7 +79,7 @@
                     <div>
                       <div class="small text-gray-500">December 12, 2019</div>
                       <span class="font-weight-bold"
-                        >A new monthly report is ready to download!</span
+                      >A new monthly report is ready to download!</span
                       >
                     </div>
                   </a>
@@ -123,31 +107,32 @@
                     </div>
                   </a>
                   <a
-                    class="dropdown-item text-center small text-gray-500"
-                    href="#"
-                    >Show All Alerts</a
+                      class="dropdown-item text-center small text-gray-500"
+                      href="#"
+                  >Show All Alerts</a
                   >
                 </div>
               </li>
 
               <div class="topbar-divider d-none d-sm-block"></div>
+
               <!-- Nav Item - User Information -->
               <li class="nav-item dropdown no-arrow">
                 <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="userDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="userDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
                 >
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
-                    user
-                  }}</span>
+                      user
+                    }}</span>
                   <img
-                    class="img-profile rounded-circle"
-                    src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
+                      class="img-profile rounded-circle"
+                      src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
                   />
                 </a>
                 <!-- Dropdown - User Information -->
@@ -239,15 +224,17 @@
 </template>
 <script>
 
-  import "@/assets/styles/app.css";
-  import ErrorDialog from "@/components/modal/ErrorDialog";
-  import CreateOrderDialog from "@/components/modal/CreateOrderDialog";
-  import api from "@/components/backend-api";
+import "@/assets/styles/app.css";
+import ErrorDialog from "@/components/modal/ErrorDialog";
+import CreateOrderDialog from "@/components/modal/CreateOrderDialog";
+import PaymentDialog from "@/components/modal/PaymentDialog";
+import api from "@/components/backend-api"
 
-  export default {
+export default {
   name: "App",
-  components: { ErrorDialog, CreateOrderDialog },
+  components: {ErrorDialog, CreateOrderDialog, PaymentDialog},
   data: () => ({
+    scrollTop: false,
     role: localStorage.getItem("userRole"),
     links: [
       { icon: "fas fa-user", text: "Account", route: "/edit" },
@@ -257,30 +244,48 @@
     ],
 
     SuperVisorLinks: [
-      { icon: "fas fa-users", text: "Users", route: "/users/table" },
-      { icon: "fas fa-pizza-slice", text: "Create menu", route: "/add_menu" },
-      { icon: "fas fa-pizza-slice", text: "Edit menus", route: "/allmenus" },
+      {icon: "fas fa-users", text: "Users", route: "/users/table"},
+      {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
       {
         icon: "fas fas fa-cart-plus",
         text: "Create provider",
         route: "/providers"
       },
-      { icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList" },
+      {icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList"},
       {
         icon: "fas fas fa-user-plus",
         text: "Create user",
         route: "/users/register"
       },
-      { icon: "fas fa-history", text: "Orders", route: "/ProviderOrders" }
+      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
+      {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
+
     ]
   }),
+  methods: {
+    handleScroll(event) {
+      this.scrollTop = window.scrollY > 300;
+    },
+    scroll() {
+      console.log("scrolling")
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
+  },
   beforeCreate() {
     api.getUserWithoutId().then(r => {
       this.user = r.data.firstName + " " + r.data.lastName;
-      console.log(this.$route.matched);
-
     });
-  }
+  },
+  created() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
 };
 </script>
 <style>

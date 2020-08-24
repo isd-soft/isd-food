@@ -83,7 +83,11 @@ const routes = [
         name: "Users",
         component: () => import("../views/UsersTable.vue")
     },
-
+    {
+        path: "/payment",
+        name: "Payment",
+        component: () => import("../views/Payment.vue")
+    },
     {
         path: "/about",
         name: "About",

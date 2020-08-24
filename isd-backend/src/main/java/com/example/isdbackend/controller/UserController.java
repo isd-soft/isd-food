@@ -1,6 +1,7 @@
 package com.example.isdbackend.controller;
 
 
+import com.example.isdbackend.dto.UserPaymentData;
 import com.example.isdbackend.exception.UserException;
 import com.example.isdbackend.filter.OrderFilter;
 import com.example.isdbackend.model.Role;
@@ -8,6 +9,7 @@ import com.example.isdbackend.model.User;
 import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.projection.UserView;
 import com.example.isdbackend.service.OrderService;
+import com.example.isdbackend.service.PaymentService;
 import com.example.isdbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,11 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
@@ -36,11 +33,13 @@ public class UserController {
 
     private final UserService userService;
     private final OrderService orderService;
+    private final PaymentService paymentService;
 
     @GetMapping("/all")
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userService.findAll();
     }
+
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User user) throws UserException {
         if (userService.existsByEmail(user.getEmail()))
@@ -66,18 +65,18 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserView>> getAllUsers(
-            @PageableDefault(size = 20, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 50, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/allUsers")
-    public List<User> getAllUsersWithoutPage(){
+    public List<User> getAllUsersWithoutPage() {
         return userService.findAll();
     }
 
     @DeleteMapping("/deleteUser/{userId}")
-    public void deleteUser(@PathVariable Long userId){
+    public void deleteUser(@PathVariable Long userId) {
         userService.delete(userService.findUserById(userId));
     }
 
@@ -92,7 +91,7 @@ public class UserController {
     }*/
 
     @GetMapping("/getUser")
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         return userService.getCurrentUser();
     }
 
@@ -107,14 +106,15 @@ public class UserController {
     }
 
     @PutMapping("/edit/{currentId}")
-    public void editUser(@PathVariable Long currentId,@RequestParam String firstName,@RequestParam String lastName,
-                         @RequestParam String skypeId,@RequestParam String email,@RequestParam Boolean enable, @RequestParam String data) throws ParseException {
+    public void editUser(@PathVariable Long currentId, @RequestParam String firstName, @RequestParam String lastName,
+                         @RequestParam String skypeId, @RequestParam String email, @RequestParam Boolean enable, @RequestParam String data) throws ParseException {
         System.out.println(data);
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         Date dateForChange = sdf1.parse(data);
         java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
         userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
     }
+
     @PutMapping("/editBySupervisor/{userId}")
     public void editUserBySupervisor(@PathVariable Long userId, @RequestParam String firstName,
                                      @RequestParam String lastName, @RequestParam String skypeId,
@@ -147,5 +147,15 @@ public class UserController {
     @GetMapping("/role")
     public ResponseEntity<?> getCurrentUserRole() {
         return new ResponseEntity<>(userService.getCurrentUserRole(), HttpStatus.OK);
+    }
+
+    @GetMapping("/payment")
+    public ResponseEntity<UserPaymentData> getUserPaymentData(OrderFilter orderFilter) {
+        return new ResponseEntity<>(paymentService.getUserPaymentData(orderFilter), HttpStatus.OK);
+    }
+
+    @GetMapping("/payment/monthly")
+    public ResponseEntity<?> getMonthlyPaymentData(Integer month, Integer year) {
+        return new ResponseEntity<>(paymentService.getUserMonthlyPaymentData(month, year), HttpStatus.OK);
     }
 }

@@ -18,13 +18,13 @@ public class PaymentExporter {
 
         excel.createRow(1);
 
-        excel.createCell(0, "Period");
-        excel.createCell(1, period);
+        excel.createCell(0, "Period", true);
+        excel.createCell(1, period, true);
 
         excel.createRow(3);
 
         for (int i = 0; i < userFields.size(); i++) {
-            excel.createCell(i, userFields.get(i));
+            excel.createCell(i, userFields.get(i), true);
         }
 
         for (int i = 0; i < payments.size(); i++) {

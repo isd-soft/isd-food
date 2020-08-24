@@ -13,8 +13,8 @@ import java.time.DayOfWeek;
 @Service
 public class MenuService extends AbstractServiceCrud {
 
-   public ItemRepository itemRepository;
-   public MenuConverter menuConverter;
+    public ItemRepository itemRepository;
+    public MenuConverter menuConverter;
 
     public MenuService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository, ItemRepository itemRepository, MenuConverter menuConverter) {
         super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
@@ -22,21 +22,24 @@ public class MenuService extends AbstractServiceCrud {
         this.menuConverter = menuConverter;
     }
 
-    public Iterable<Menu> getAllMenus(){
+    public Iterable<Menu> getAllMenus() {
         return menuRepository.findAll();
     }
-    public Menu getMenuById(Long id){
+
+    public Menu getMenuById(Long id) {
         return menuRepository.findById(id).orElseThrow();
     }
-    public void save(Menu menu){
+
+    public void save(Menu menu) {
         menuRepository.save(menu);
     }
-    public void delete(Menu menu){
+
+    public void delete(Menu menu) {
         menuRepository.delete(menu);
     }
 
-     public Iterable<Menu> getMenusByDay(DayOfWeek day){
-        return menuRepository.findByDayOfWeek(day);
+    public Iterable<Menu> getMenusByDay(DayOfWeek day) {
+        return menuRepository.findByDayOfWeek(day.plus(1));
     }
 
     public void addMenu(Menu menu) {
@@ -48,17 +51,17 @@ public class MenuService extends AbstractServiceCrud {
     }
 
 
-    public Menu addFullMenu(MenuDTO menuDTO){
+    public Menu addFullMenu(MenuDTO menuDTO) {
         Menu menu = menuRepository.save(menuConverter.convertFromDto(menuDTO));
-        for (MenuType menuType: menuDTO.getMenuTypes()) {
+        for (MenuType menuType : menuDTO.getMenuTypes()) {
             menuType.setMenu(menu);
             menuTypeRepository.save(menuType);
         }
         return menu;
     }
 
-    public void updateMenu(Menu menu){
-        for (MenuType menuType: menu.getMenuTypes()) {
+    public void updateMenu(Menu menu) {
+        for (MenuType menuType : menu.getMenuTypes()) {
             menuType.setMenu(menu);
             menuTypeRepository.save(menuType);
         }
