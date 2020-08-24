@@ -1,24 +1,24 @@
 <template>
   <div>
-    <ul class="nav nav-pills" id="pills-tab" role="tablist">
-      <li class="nav-item ml-3 mr-2" role="presentation">
-        <a class="nav-link btn-outline-warning  active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Current orders</a>
+    <ul class="nav nav-pills d-flex justify-content-center" id="pills-tab" role="tablist">
+      <li class="nav-item mr-2" role="presentation">
+        <a class="nav-link btn-media btn-outline-warning  active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Current orders</a>
       </li>
       <li class="nav-item mr-2" role="presentation">
-        <a class="nav-link btn-outline-warning  " id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Menu statistic</a>
+        <a class="nav-link btn-media btn-outline-warning  " id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Menu statistic</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link btn-outline-warning" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Confirmed orders
+        <a class="nav-link btn-media btn-outline-warning" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Confirmed orders
         </a>
       </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
       <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
-        <div  class="row container" v-if="ordersFalse.length != 0" >
+        <div  class="row" v-if="ordersFalse.length != 0" >
           <div class="col-xl-12 col-md-12 mb-4">
             <div class="card border-left-warning shadow h-100 py-1">
-              <div class="card-body">
+              <div class="card-body wrapScroll ">
 
 
                 <table  class="table table-bordered"  width="100%" cellspacing="0" >
@@ -69,10 +69,10 @@
       </div>
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-        <div  class="row container">
+        <div  class="row ">
           <div class="col-xl-6 col-md-6 mb-4"  v-for="provider of this.providers" :key="provider.name + provider.deliveryPrice">
             <div class="card border-left-warning shadow h-100 py-1">
-              <div class="card-body">
+              <div class="card-body wrapScroll">
 
                 <table  class="table table-bordered"  width="100%" cellspacing="0">
                   <thead>
@@ -112,10 +112,10 @@
       </div>
       <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 
-        <div  class="row container" v-if="ordersTrue.length != 0" >
+        <div  class="row " v-if="ordersTrue.length != 0" >
           <div class="col-xl-12 col-md-12 mb-4">
             <div class="card border-left-warning shadow h-100 py-1">
-              <div class="card-body">
+              <div class="card-body wrapScroll">
 
 
                 <table  class="table table-bordered"  width="100%" cellspacing="0" >
@@ -239,5 +239,13 @@
 </script>
 
 <style scoped>
-
+.wrapScroll{
+  overflow: auto;
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .btn-media{
+    font-size: 12px;
+  }
+}
 </style>

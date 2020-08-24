@@ -31,7 +31,7 @@ public class GeneratePassword {
             }
 
             public String getCharacters() {
-                return "!@#$%^&*()_+";
+                return "!@#$%&*_+";
             }
         };
         CharacterRule splCharRule = new CharacterRule(specialChars);

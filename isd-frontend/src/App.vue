@@ -22,8 +22,7 @@
           </li>
         </a>
         <hr class="sidebar-divider my-0" />
-        <!--        <div v-if="role.includes('supervisor')">-->
-        <div v-if="true">
+        <div v-if="role === 'ROLE_supervisor'">
           <li
             class="nav-item "
             v-for="link in SuperVisorLinks"
@@ -40,7 +39,7 @@
         </div>
         <div v-else>
           <li class="nav-item " v-for="link in links" :key="link.text">
-            <router-link class="nav-link" :to="link.route">
+            <router-link class="nav-link" :to="link.route" v-bind:route = link.route>
               <v-icon style="color: white; font-size: 18px">{{
                 link.icon
               }}</v-icon>
@@ -58,6 +57,9 @@
             role="navigation"
           >
             <!-- Sidebar Toggle (Topbar) -->
+
+            <h5>{{this.$route.name}}</h5>
+
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -129,7 +131,6 @@
               </li>
 
               <div class="topbar-divider d-none d-sm-block"></div>
-
               <!-- Nav Item - User Information -->
               <li class="nav-item dropdown no-arrow">
                 <a
@@ -276,7 +277,8 @@
   beforeCreate() {
     api.getUserWithoutId().then(r => {
       this.user = r.data.firstName + " " + r.data.lastName;
-      console.log(r.data);
+      console.log(this.$route.matched);
+
     });
   }
 };
