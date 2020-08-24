@@ -6,7 +6,7 @@
 
     <div id="wrapper">
       <ul
-          class="navbar-nav fixed-top sidebar sidebar-dark accordion"
+          class="navbar-nav  sidebar sidebar-dark accordion"
           id="accordionSidebar"
           style="background-color: #ff9800"
       >
@@ -170,6 +170,17 @@
           </nav>
           <div class="container-fluid">
             <router-view></router-view>
+            <v-btn class="mx-2 scroll-btn bg-gray-900"
+                   v-show="scrollTop"
+                   @click="scroll"
+                   fab
+
+                   fixed
+                   bottom
+                   right
+                   color="primary">
+              <v-icon dark>mdi-chevron-up</v-icon>
+            </v-btn>
           </div>
         </div>
       </div>
@@ -235,7 +246,7 @@ export default {
   components: {ErrorDialog, CreateOrderDialog, PaymentDialog},
   data: () => ({
     scrollTop: false,
-    role: localStorage.getItem("userRole"),
+    role: localStorage.getItem("role"),
     links: [
       { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },

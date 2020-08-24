@@ -4,7 +4,6 @@ package com.example.isdbackend.controller;
 import com.example.isdbackend.dto.UserPaymentData;
 import com.example.isdbackend.exception.UserException;
 import com.example.isdbackend.filter.OrderFilter;
-import com.example.isdbackend.model.Role;
 import com.example.isdbackend.model.User;
 import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.projection.UserView;
@@ -51,7 +50,7 @@ public class UserController {
 
     @GetMapping("/orders")
     public ResponseEntity<?> getUserOrders(
-            @PageableDefault(size = 20, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 50, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter) {
 
         Page<OrderView> orders = orderService.getOrders(pageable, orderFilter, userService.getCurrentUserId());
@@ -142,11 +141,6 @@ public class UserController {
         userService.resetPassword(email);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/role")
-    public ResponseEntity<?> getCurrentUserRole() {
-        return new ResponseEntity<>(userService.getCurrentUserRole(), HttpStatus.OK);
     }
 
     @GetMapping("/payment")

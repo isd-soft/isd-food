@@ -80,17 +80,14 @@ export default new Vuex.Store({
                     .login(email, password)
                     .then(response => {
                         if (response.status == 200) {
+                            localStorage.setItem("role", response.data.role);
                             commit("login_success", {
                                 email: email,
                                 password: password
                             });
-                            api.getUserRole().then(response => {
-                                localStorage.setItem("userRole", response.data)
-                            }).catch(() => {
-
-                            })
                         }
                         resolve(response);
+                        window.reload();
                     })
                     .catch(() => {
                         // place the loginError state into our vuex store
@@ -184,13 +181,13 @@ export default new Vuex.Store({
             });
         },
         getUserCurrentOrders({commit}) {
-
             return new Promise((resolve, reject) => {
                 api
                     .getUserCurrentOrders()
                     .then(response => {
                         if (response.status == 200) {
                             console.log("get orders")
+                            console.log(response.data)
                             this.state.orders.userCurrentOrders = response.data
                         }
                         resolve(response);
@@ -208,6 +205,7 @@ export default new Vuex.Store({
                     .getUserOrdersHistory()
                     .then(response => {
                         if (response.status == 200) {
+                            console.log(response.data)
                             this.state.orders.userOrdersHistory = response.data.content
                         }
                         resolve(response);
