@@ -3,6 +3,7 @@ package com.example.isdbackend.controller;
 
 import com.example.isdbackend.exception.UserException;
 import com.example.isdbackend.filter.OrderFilter;
+import com.example.isdbackend.model.Role;
 import com.example.isdbackend.model.User;
 import com.example.isdbackend.projection.OrderView;
 import com.example.isdbackend.projection.UserView;
@@ -117,7 +118,7 @@ public class UserController {
     @PutMapping("/editBySupervisor/{userId}")
     public void editUserBySupervisor(@PathVariable Long userId, @RequestParam String firstName,
                                      @RequestParam String lastName, @RequestParam String skypeId,
-                                     @RequestParam String email, @RequestParam String role,@RequestParam Boolean enable,
+                                     @RequestParam String email, @RequestParam String role, @RequestParam Boolean enable,
                                      @RequestParam String data) throws ParseException {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         Date dateForChange = sdf1.parse(data);
