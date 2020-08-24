@@ -130,7 +130,6 @@
                 </div>
               </li>
 
-              <div class="topbar-divider d-none d-sm-block"></div>
               <!-- Nav Item - User Information -->
               <li class="nav-item dropdown no-arrow">
                 <a
@@ -258,19 +257,8 @@
 
     SuperVisorLinks: [
       { icon: "fas fa-users", text: "Users", route: "/users/table" },
-      { icon: "fas fa-pizza-slice", text: "Create menu", route: "/add_menu" },
-      { icon: "fas fa-pizza-slice", text: "Edit menus", route: "/allmenus" },
-      {
-        icon: "fas fas fa-cart-plus",
-        text: "Create provider",
-        route: "/providers"
-      },
+      { icon: "fas fa-pizza-slice", text: "Menus", route: "/allmenus" },
       { icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList" },
-      {
-        icon: "fas fas fa-user-plus",
-        text: "Create user",
-        route: "/users/register"
-      },
       { icon: "fas fa-history", text: "Orders", route: "/ProviderOrders" }
     ]
   }),
@@ -278,7 +266,6 @@
     api.getUserWithoutId().then(r => {
       this.user = r.data.firstName + " " + r.data.lastName;
       console.log(this.$route.matched);
-
     });
   }
 };
