@@ -63,7 +63,7 @@ const routes = [
 
     {
         path: "/menu",
-        name: "Menu",
+        name: "Menus",
         component: () => import("../views/Menu.vue"),
     },
 
