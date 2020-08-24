@@ -19,8 +19,9 @@ public class MenuBootstrap implements CommandLineRunner {
     private final MenuItemRepository menuItemRepository;
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, UserRepository userRepository) {
+    public MenuBootstrap(MenuRepository menuRepository, ProviderRepository providerRepository, MenuTypeRepository menuTypeRepository, MenuItemRepository menuItemRepository, UserRepository userRepository, RoleRepository roleRepository) {
 
         this.menuRepository = menuRepository;
         this.providerRepository = providerRepository;
@@ -28,6 +29,7 @@ public class MenuBootstrap implements CommandLineRunner {
         this.menuItemRepository = menuItemRepository;
         this.userRepository = userRepository;
 
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -201,7 +203,16 @@ public class MenuBootstrap implements CommandLineRunner {
         user.setNotificationEnabled(true);
         user.setEnabled(true);
 
+        Role role = new Role();
+        role.setName("ROLE_supervisor");
+        //role.setId((long) 1);
+        roleRepository.save(role);
 
+        Role role1 = new Role();
+        role1.setName("ROLE_user");
+        roleRepository.save(role1);
+
+        user.setRoles(role);
 
         Order order = new Order();
         order.setMenuType(S3);

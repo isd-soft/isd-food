@@ -155,7 +155,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                   <v-select
-                                    v-model="user.role"
+                                    v-model="user.role.name"
                                     :items="role_items"
                                     label="Role"
                                     required
@@ -201,7 +201,7 @@
                                   user.lastName,
                                   user.skypeId,
                                   user.email,
-                                  user.role,
+                                  user.role.name,
                                   user.enabled,
                                   user.employmentDate
                                 )
@@ -244,7 +244,7 @@ export default {
       formattedDate: "",
       menu2: false,
       modal: false,
-      role_items: ["user", "supervisor"]
+      role_items: ["ROLE_user", "ROLE_supervisor"]
     };
   },
   methods: {
