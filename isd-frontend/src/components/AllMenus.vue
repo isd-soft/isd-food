@@ -14,7 +14,7 @@
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
-              <confirmationDialog :dialog1.sync="dialog1" />
+              <confirmationDialog :action-button="'Agree'" :method="deleteMenu" :title="title" :message="message" :dialog1.sync="dialog1"/>
               <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                   <tr>
@@ -46,7 +46,7 @@
                   <td class="text-center">
                     <button
                       style="outline: none"
-                      @click="dialog1=true"
+                      @click="openDialog(menu.id)"
                     >
                       <i class="fas fa-trash"></i>
                     </button>
@@ -67,6 +67,7 @@
                       style="background: none; height: content-box !important; max-height: 30px"
                       class="text-center"
                     >
+
                       <v-dialog v-model="dialogNote[menu.id]" width="500">
                         <template v-slot:activator="{ on, attrs }">
                           <button
@@ -250,6 +251,9 @@
   name: "Home",
   data() {
     return {
+      currentId: null,
+      title: "Confirmation",
+      message: "Do you really want to delete it?",
       dialog1: false,
       typeSId: null,
       typeMId: null,
@@ -265,6 +269,13 @@
   },
   methods: {
 
+    openDialog(id){
+      this.dialog1 = true
+      this.currentId = id
+      console.log(this.currentId)
+    },
+
+
     callMenuApi() {
       api
         .getMenu()
@@ -277,9 +288,10 @@
         });
     },
 
-    deleteMenu(id) {
-      api.deleteMenu(id);
+    deleteMenu() {
+      api.deleteMenu(this.currentId);
     },
+
     changeMenu(menu){
       api.changeMenu(menu)
       window.location.reload()
@@ -316,6 +328,7 @@
         });
   }
 };
+
 </script>
 
 <style></style>
