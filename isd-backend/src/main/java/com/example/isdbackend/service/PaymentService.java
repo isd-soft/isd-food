@@ -156,4 +156,8 @@ public class PaymentService extends PaymentCalculator {
         return deliveryPricesMap;
     }
 
+    public List<String> getAvailableMonths() {
+        return paymentRepository.findAvailableMonths();
+    }
+
 }

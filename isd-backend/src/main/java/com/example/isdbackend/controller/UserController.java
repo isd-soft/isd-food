@@ -64,7 +64,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserView>> getAllUsers(
-            @PageableDefault(size = 20, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 50, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
     }
@@ -113,10 +113,11 @@ public class UserController {
         java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
         userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
     }
+
     @PutMapping("/editBySupervisor/{userId}")
     public void editUserBySupervisor(@PathVariable Long userId, @RequestParam String firstName,
                                      @RequestParam String lastName, @RequestParam String skypeId,
-                                     @RequestParam String email, @RequestParam String role,@RequestParam Boolean enable,
+                                     @RequestParam String email, @RequestParam String role, @RequestParam Boolean enable,
                                      @RequestParam String data) throws ParseException {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         Date dateForChange = sdf1.parse(data);

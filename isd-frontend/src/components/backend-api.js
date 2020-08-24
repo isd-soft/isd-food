@@ -246,14 +246,15 @@ export default {
     getUserPaymentOnMonth(month, year) {
         return AXIOS.get("/users/payment/monthly?month=" + month + "&year=" + year);
     },
-
     getUserPaymentOnPeriod(dateFrom, dateTo) {
         return AXIOS.get("/users/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo);
     },
     getAllUserPaymentOnMonth(month, year, page) {
         return AXIOS.get("/payment/monthly?month=" + month + "&year=" + year + "&page=" + (page - 1));
     },
-
+    getAvailableMonths() {
+        return AXIOS.get("/payment/months");
+    },
     getAllUserPaymentOnPeriod(dateFrom, dateTo, page) {
         return AXIOS.get("/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo + "&page=" + (page - 1));
     },

@@ -5,6 +5,8 @@
         :length="totalPages"
         :total-visible="7"
         @input="$emit('pageChanged', page);"
+        circle
+        color="warning"
     ></v-pagination>
   </div>
 </template>

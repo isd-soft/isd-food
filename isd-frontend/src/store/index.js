@@ -25,7 +25,8 @@ export default new Vuex.Store({
             userPayment: {payment: 0},
             allUserPayments: [],
             userPaymentLoading: false,
-            displayUserPayment: false
+            displayUserPayment: false,
+            availableMonths: []
         },
         register: {loading: false, error: false, success: false, errors: []},
         Provider: {loading: false},
@@ -254,6 +255,22 @@ export default new Vuex.Store({
 
             });
         },
+        getPaymentAvailableMonths({commit}) {
+            return new Promise((resolve, reject) => {
+                api
+                    .getAvailableMonths()
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.state.payment.availableMonths = response.data;
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Error");
+                    });
+
+            });
+        },
         getUserPaymentOnPeriod({commit}, {dateFrom, dateTo}) {
             return new Promise((resolve, reject) => {
                 this.state.payment.userPaymentLoading = true
@@ -282,7 +299,6 @@ export default new Vuex.Store({
                 api
                     .getAllUserPaymentOnMonth(month, year, page)
                     .then(response => {
-                        console.log(response)
                         if (response.status == 200) {
                             this.state.payment.allUserPayments = {
                                 userPayments: response.data.content,
@@ -305,7 +321,6 @@ export default new Vuex.Store({
                 api
                     .getAllUserPaymentOnPeriod(dateFrom, dateTo, page)
                     .then(response => {
-                        console.log(response)
 
                         if (response.status == 200) {
                             this.state.payment.allUserPayments = {

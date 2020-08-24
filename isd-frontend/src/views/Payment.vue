@@ -3,7 +3,7 @@
 
     <v-container>
       <v-radio-group v-model="filterType" row>
-        <span class="theme--light pr-5">Filter by</span>
+        <span class="theme--light pr-5 pt-1">Filter by</span>
         <v-radio
             label="Month"
             value="Month"
@@ -12,20 +12,23 @@
             label="Period"
             value="Period"
         ></v-radio>
-        <v-btn class="ml-3 export-btn" color="warning" @click="exportPayment">Export</v-btn>
+        <v-btn class="ml-4 export-btn" color="warning" @click="exportPayment">Export</v-btn>
       </v-radio-group>
 
       <v-row>
         <v-col v-if="filterType==='Month'" cols="2">
           <DatePicker label="Select month" picker-type="month" :initial-date="monthYearPicker"
+                      :availableDates="$store.state.payment.availableMonths"
                       @dateChanged="setMonthAndYear"/>
         </v-col>
         <div class="row ml-1" v-if="filterType!=='Month'">
           <v-col cols="2">
-            <DatePicker label="Date from" picker-type="date" :initial-date="dateFromPicker" @dateChanged="setDateFrom"/>
+            <DatePicker label="Date from" picker-type="date" :initial-date="dateFromPicker"
+                        @dateChanged="setDateFrom"/>
           </v-col>
           <v-col cols="2">
-            <DatePicker label="Date to" picker-type="date" :initial-date="dateToPicker" @dateChanged="setDateTo"/>
+            <DatePicker label="Date to" picker-type="date" :initial-date="dateToPicker"
+                        @dateChanged="setDateTo"/>
           </v-col>
         </div>
       </v-row>
@@ -80,8 +83,13 @@ export default {
   },
   methods: {
     setPage(page) {
+      if (page !== this.page)
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
       this.page = page
-      console.log(page)
       if (this.monthYearPicker != null)
         this.getAllUserPaymentOnMonth();
 
@@ -111,6 +119,7 @@ export default {
       });
     },
     getAllUserPaymentOnPeriod() {
+      console.log(this.dateFromPicker != null && this.dateToPicker != null)
       if (this.dateFromPicker != null && this.dateToPicker != null) {
         this.monthYearPicker = null;
         this.$store.dispatch('getAllUserPaymentOnPeriod', {
@@ -136,6 +145,7 @@ export default {
   },
 
   beforeMount() {
+    this.$store.dispatch('getPaymentAvailableMonths')
     this.getAllUserPaymentOnMonth();
   }
 }

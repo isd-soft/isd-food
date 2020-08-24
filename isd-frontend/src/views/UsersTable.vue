@@ -282,7 +282,6 @@ export default {
   beforeCreate() {
     api.getUsers().then(response => {
       this.users = response.data;
-      console.log(response.data);
     });
   }
 };

@@ -6,7 +6,7 @@
 
     <div id="wrapper">
       <ul
-          class="navbar-nav sidebar sidebar-dark accordion"
+          class="navbar-nav fixed-top sidebar sidebar-dark accordion"
           id="accordionSidebar"
           style="background-color: #ff9800"
       >
@@ -14,11 +14,9 @@
             class="sidebar-brand d-flex align-items-center justify-content-center"
         >
           <li class="nav-item text-center">
-            <span class="nav-link">
-              <v-icon style="color: white; font-size: 20px"
-              >fas fa-utensils</v-icon
-              >
-              <span class="ml-md-5">Isd-food</span></span
+            <span class="nav-link mt-2">
+              <img width="50px" src="./assets/food-bot.png"/>
+              <span class="ml-2">Isd-food</span></span
             >
           </li>
         </a>
@@ -146,10 +144,11 @@
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                   </a>
-                  <a class="dropdown-item nav-link" @click="$store.state.payment.displayUserPayment = true">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <span class="dropdown-item" @click="$store.state.payment.displayUserPayment = true">
+                    <i class="far fa-credit-card fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <!--                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
                     Payment
-                  </a>
+                  </span>
                   <a class="dropdown-item" href="#">
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                     Activity Log
@@ -172,6 +171,17 @@
           </nav>
           <div class="container-fluid">
             <router-view></router-view>
+            <v-btn class="mx-2 scroll-btn bg-gray-900"
+                   v-show="scrollTop"
+                   @click="scroll"
+                   fab
+
+                   fixed
+                   bottom
+                   right
+                   color="primary">
+              <v-icon dark>mdi-chevron-up</v-icon>
+            </v-btn>
           </div>
         </div>
       </div>
@@ -232,6 +242,7 @@ export default {
   name: "App",
   components: {ErrorDialog, CreateOrderDialog, PaymentDialog},
   data: () => ({
+    scrollTop: false,
     role: localStorage.getItem("userRole"),
     links: [
       {icon: "fas fa-user", text: "Account", route: "/edit"},
@@ -241,7 +252,6 @@ export default {
     ],
 
     SuperVisorLinks: [
-      {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
       {icon: "fas fa-users", text: "Users", route: "/users/table"},
       {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
       {
@@ -255,15 +265,35 @@ export default {
         text: "Create user",
         route: "/users/register"
       },
-      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"}
+      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
+      {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
+
     ]
   }),
+  methods: {
+    handleScroll(event) {
+      this.scrollTop = window.scrollY > 300;
+    },
+    scroll() {
+      console.log("scrolling")
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
+  },
   beforeCreate() {
     api.getUserWithoutId().then(r => {
       this.user = r.data.firstName + " " + r.data.lastName;
-      console.log(r.data);
     });
-  }
+  },
+  created() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
 };
 </script>
 <style>
