@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="row container-fluid">
-      <div class="col-xl-12 col-md-12 mb-4">
+      <div class="col-xl-12 col-md-12">
         <div class="card border-left-warning shadow h-100 py-1">
+
           <div class="card-body wrapScroll">
-            <h3 class="mb-3">Users</h3>
             <table class="table table-bordered" cellspacing="0">
               <thead>
                 <tr>
@@ -226,6 +226,8 @@
         {{ text }}
       </div>
     </v-snackbar>
+    <router-link class="btn btn-warning mb-3 btn-lg" style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 20px 23px;font-size: 20px !important;" :to="'/users/register'"><i class="fas fa-user-plus"></i></router-link>
+
   </div>
 </template>
 
