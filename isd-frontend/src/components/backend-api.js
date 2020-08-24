@@ -89,12 +89,6 @@ export default {
     getHistory() {
         return AXIOS.get("/users/orders");
     },
-    getUserCurrentOrders() {
-        return AXIOS.get("/users/orders?ordered=false");
-    },
-    getUserOrdersHistory() {
-        return AXIOS.get("/users/orders");
-    },
     getProvidersOrders() {
         return AXIOS.get("/orders?ordered=false");
     },
@@ -151,9 +145,6 @@ export default {
     createFullMenu(menu) {
         return AXIOS.post(`/newMenuFull`, menu).catch(err => console.log(err));
     },
-    getMenuDay(day) {
-        return AXIOS.get("/menu/day?day=" + day);
-    },
 
     getMenuType() {
         return AXIOS.get("/menu_type");
@@ -170,7 +161,6 @@ export default {
     getProviders() {
         return AXIOS.get("/provider/all");
     },
-
 
     getUsers() {
         return AXIOS.get("/users/allUsers");
@@ -226,6 +216,16 @@ export default {
             "&data=" +
             data
         );
+    },
+
+    getMenuDay(day) {
+        return AXIOS.get("/menu/day?day=" + day);
+    },
+    getProviderById(id) {
+        return AXIOS.get("/provider/getProvider/" + id);
+    },
+    deleteProvider(id) {
+        return AXIOS.delete("/provider/delete/" + id);
     },
 
     deleteMenu(id) {

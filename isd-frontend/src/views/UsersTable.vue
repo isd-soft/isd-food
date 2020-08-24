@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="row container">
-      <div class="col-xl-12 col-md-12 mb-4">
+    <div class="row ">
+      <div class="col-xl-12 col-md-12">
         <div class="card border-left-warning shadow h-100 py-1">
-          <div class="card-body">
-            <h3 class="mb-3">Users</h3>
+
+          <div class="card-body wrapScroll">
             <table class="table table-bordered" cellspacing="0">
               <thead>
                 <tr>
@@ -155,7 +155,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                   <v-select
-                                    v-model="user.role"
+                                    v-model="user.role.name"
                                     :items="role_items"
                                     label="Role"
                                     required
@@ -201,7 +201,7 @@
                                   user.lastName,
                                   user.skypeId,
                                   user.email,
-                                  user.role,
+                                  user.role.name,
                                   user.enabled,
                                   user.employmentDate
                                 )
@@ -226,6 +226,8 @@
         {{ text }}
       </div>
     </v-snackbar>
+    <router-link class="btn btn-warning mb-3 btn-lg" style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 20px 23px;font-size: 20px !important;" :to="'/users/register'"><i class="fas fa-user-plus"></i></router-link>
+
   </div>
 </template>
 
@@ -244,7 +246,7 @@ export default {
       formattedDate: "",
       menu2: false,
       modal: false,
-      role_items: ["user", "supervisor"]
+      role_items: ["ROLE_user", "ROLE_supervisor"]
     };
   },
   methods: {
@@ -303,5 +305,10 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+.wrapScroll{
+  overflow: auto;
+  white-space: nowrap;
+
 }
 </style>

@@ -27,32 +27,32 @@ const routes = [
     {
 
         path: "/add_menu",
-        name: "AddMenu",
+        name: "Create menu",
         component: () => import("../components/Addmenu.vue")
     },
 
     {
         path: "/allmenus",
-        name: "AllMenus",
+        name: "Menus",
         component: () => import("../components/AllMenus.vue")
     },
 
     {
         path: "/ProviderList",
-        name: "ProviderList",
+        name: "Provider list",
         props: true,
         component: () => import("../views/ProviderList.vue")
     },
 
     {
         path: "/ProviderOrders",
-        name: "Provider Orders",
+        name: "Orders",
         component: () => import("../views/ProviderOrders.vue")
     },
 
     {
         path: "/users/register",
-        name: "Register",
+        name: "Create user",
         component: () => import("../views/Register.vue")
     },
     {
@@ -63,13 +63,13 @@ const routes = [
 
     {
         path: "/menu",
-        name: "menu",
+        name: "Menu",
         component: () => import("../views/Menu.vue"),
     },
 
     {
         path: "/providers",
-        name: "Provider",
+        name: "Create new provider",
         component: () => import("../views/Provider.vue"),
     },
     {
@@ -80,7 +80,7 @@ const routes = [
 
     {
         path: "/users/table",
-        name: "UsersTable",
+        name: "Users",
         component: () => import("../views/UsersTable.vue")
     },
     {

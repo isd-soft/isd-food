@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background: none">
     <v-row justify="center">
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card ref="form" v-model="valid">
@@ -302,19 +302,21 @@ export default {
     },
 
     saveItem() {
-      this.createItem();
-      this.dialog = false;
-      this.item = null;
+      this.createItem()
+      this.dialog = false
+      this.item = null
+      this.$store.re
       api
         .getItems()
         .then(response => {
-          this.items = response.data;
-          console.log(response.data);
+          this.items = response.data
+          console.log(response.data)
         })
         .catch(error => {
-          this.errors.push(error);
+          this.errors.push(error)
         });
     },
+
 
     createMenu() {
 

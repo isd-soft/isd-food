@@ -163,7 +163,11 @@ public class UserService {
         user.setEmail(email);
         user.setEnabled(enable);
         user.setEmploymentDate(sqlDate);
-//        user.getRoles().get(0).setName(role);
+        Role role1 = roleRepository.findByNameContaining(role);
+        user.setRoles(role1);
+        userRepository.save(user);
+    }
+    public void saveUser(User user){
         userRepository.save(user);
     }
 
