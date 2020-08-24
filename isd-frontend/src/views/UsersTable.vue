@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row ">
+    <div class="row">
       <div class="col-xl-12 col-md-12">
         <div class="card border-left-warning shadow h-100 py-1">
 

@@ -6,7 +6,7 @@
 
     <div id="wrapper">
       <ul
-          class="navbar-nav fixed-top sidebar sidebar-dark accordion"
+          class="navbar-nav  sidebar sidebar-dark accordion"
           id="accordionSidebar"
           style="background-color: #ff9800"
       >
@@ -168,7 +168,7 @@
               </li>
             </ul>
           </nav>
-          <div class="container-fluid">
+          <div class="mx-4" >
             <router-view></router-view>
           </div>
         </div>
