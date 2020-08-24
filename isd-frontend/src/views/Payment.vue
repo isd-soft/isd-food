@@ -74,7 +74,7 @@ export default {
   name: "Home",
   data() {
     return {
-      monthYearPicker: new Date().toISOString().substring(0, 7),
+      monthYearPicker: null,
       dateFromPicker: null,
       dateToPicker: null,
       filterType: "Month",
@@ -110,6 +110,7 @@ export default {
       this.getAllUserPaymentOnPeriod();
     },
     getAllUserPaymentOnMonth() {
+      console.log(this.monthYearPicker)
       let year = this.monthYearPicker.split('-')[0];
       let month = this.monthYearPicker.split('-')[1];
       this.dateFromPicker = null;
@@ -119,7 +120,6 @@ export default {
       });
     },
     getAllUserPaymentOnPeriod() {
-      console.log(this.dateFromPicker != null && this.dateToPicker != null)
       if (this.dateFromPicker != null && this.dateToPicker != null) {
         this.monthYearPicker = null;
         this.$store.dispatch('getAllUserPaymentOnPeriod', {
@@ -145,8 +145,10 @@ export default {
   },
 
   beforeMount() {
-    this.$store.dispatch('getPaymentAvailableMonths')
-    this.getAllUserPaymentOnMonth();
+    this.$store.dispatch('getPaymentAvailableMonths').then(() => {
+      this.monthYearPicker = this.$store.state.payment.availableMonths.length > 0 ? this.$store.state.payment.availableMonths[0] : null;
+      this.getAllUserPaymentOnMonth();
+    })
   }
 }
 

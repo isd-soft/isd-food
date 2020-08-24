@@ -243,7 +243,16 @@ export default {
             "/user/edit/password/" + user_id + "?password=" + password
         );
     },
-
+    getUserCurrentOrders() {
+        return AXIOS.get(
+            "/users/orders?ordered=false"
+        );
+    },
+    getUserOrdersHistory() {
+        return AXIOS.get(
+            "/users/orders?ordered=true"
+        );
+    },
     // Payment endpoints
     getUserPaymentOnMonth(month, year) {
         return AXIOS.get("/users/payment/monthly?month=" + month + "&year=" + year);

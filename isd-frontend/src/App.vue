@@ -6,7 +6,7 @@
 
     <div id="wrapper">
       <ul
-          class="navbar-nav  sidebar sidebar-dark accordion"
+          class="navbar-nav sidebar sidebar-dark accordion"
           id="accordionSidebar"
           style="background-color: #ff9800"
       >
@@ -192,12 +192,13 @@ export default {
   components: {ErrorDialog, CreateOrderDialog, PaymentDialog},
   data: () => ({
     scrollTop: false,
-    role: localStorage.getItem("userRole"),
+    role: localStorage.getItem("role"),
     n: false,
     links: [
       { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
       { icon: "fas fa-history", text: "Orders", route: "/orders" },
+      { icon: "fas fa-envelope", text: "Mail", route: "/" }
     ],
 
     SuperVisorLinks: [
@@ -224,8 +225,6 @@ export default {
       });
     }
   },
-
-
   beforeCreate() {
     api.getUserWithoutId().then(r => {
       this.user = r.data.firstName + " " + r.data.lastName;
