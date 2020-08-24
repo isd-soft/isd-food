@@ -117,7 +117,6 @@ export default {
     changeMenu(menu){
         return AXIOS.put("/updateMenu", menu)
     },
-
     getMenu() {
         return AXIOS.get(`/menu`);
     },
