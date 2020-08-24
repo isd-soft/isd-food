@@ -153,7 +153,7 @@
                                 @click="UpadateInfo()"
                                 rounded
                                 color="warning"
-                                >Edit info</v-btn
+                                >Save</v-btn
                               >
                             </div>
                           </div>
