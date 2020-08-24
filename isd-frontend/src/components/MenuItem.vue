@@ -49,50 +49,16 @@
 
 
                   <div class="text-center">
-                    <v-dialog
-                        v-model="dialog"
-                        width="500"
-                    >
+                    <v-btn style="border-radius: 5px !important;"
+                           @click="makeOrder()"
+                           large
+                           rounded
+                           color="warning"
+                           align="center">
+                      Order
+                    </v-btn>
 
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-card-actions class="justify-center" >
-                          <v-btn style="border-radius: 5px !important;"
-                                 @click="newOrder()"
-                                 v-bind="attrs"
-                                 v-on="on"
-                                 large
-                                 rounded
-                                 color="warning"
-                                 align="center">
-                            Order
-                          </v-btn>
-                        </v-card-actions>
 
-                      </template>
-                      <v-card>
-                        <v-card-title class="headline grey lighten-2">
-                          Order confirmed!
-                        </v-card-title>
-
-                        <v-card-text class="mt-2">
-                          Enjoy your food! <br>
-                          Isd-food with love🧡
-                        </v-card-text>
-
-                        <v-divider></v-divider>
-
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn
-                              color="warning"
-                              text
-                              @click="dialog = false"
-                          >
-                            Excelent
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
                   </div>
                 </v-app>
               </div>
@@ -106,6 +72,8 @@
 
 <script>
 import api from './backend-api';
+import moment from "moment"
+
 export default {
     name: "menuItem",
     data () {
@@ -113,6 +81,7 @@ export default {
         type: 'M',
         type_id: 0,
         dialog: false,
+        weekDays: {'MONDAY': 1, 'TUESDAY': 2, 'WEDNESDAY': 3, 'THURSDAY': 4, 'FRIDAY': 5}
       }
     },
 props:{
@@ -136,20 +105,16 @@ props:{
                 });
         },
 
-        newOrder(){
-          api.addOrder(
-            {menuTypeId: this.product_data.menuTypes[this.type_id].id,
-             date: new Date().getDate
-          })
-        },
-
       makeOrder() {
-        api.createOrder(1, this.product_data.menuTypes[this.type_id].id).then(response => {
-            this.response = response.data;
-          })
-          .catch(e => {
-            this.errors.push(e)
-          })
+        var currentDate = new Date(moment(new Date()).format('yyyy-MM-DD'));
+        var result = new Date(currentDate);
+        result.setDate(result.getDate() + ((this.weekDays[this.product_data.dayOfWeek]-1) - currentDate.getDay()) + 1);
+
+        this.$store
+            .dispatch("createOrder", {
+              menuTypeId: this.product_data.menuTypes[this.type_id].id,
+              date: moment(result).format('yyyy-MM-DD')
+            })
       },
     }
 }

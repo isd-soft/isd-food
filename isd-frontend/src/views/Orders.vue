@@ -73,65 +73,60 @@
             </table>
             <div v-else class="text-center">
               <h1 class="mt-1">Empty History</h1>
+
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </v-app>
 </template>
 
 <script>
 
-import api from "@/components/backend-api.js"
-import confirmationDialog from "../components/confirmationDialog";
+import api from "@/components/backend-api.js";
+import OrderTable from "@/components/OrderTable";
 
 export default {
-  components: {
-    confirmationDialog,
-  },
+  components: {OrderTable},
   name: "Home",
-   data (){
-     return{
-       currentId: null,
-       title: "Confirmation",
-       message: "Do you really want to delete this user?",
-       dialog1: false,
-       userHistory:[],
-       getHistory: false,
-     }
-   },
-  methods:{
-    openDialog(id){
-      this.dialog1 = true
-      this.currentId = id
-      console.log(this.currentId)
+  data() {
+    return {
+      userHistory: [],
+      getHistory: false,
+      ordersType: "current",
+      currentOrders: [],
+      historyOrders: [],
+    };
+  },
+  methods: {
+    isEmptyCurrent() {
+      for (let i = 0; i < this.historyOrders.length; i++)
+        if (!this.historyOrders[i].ordered) return false;
+      return true;
+    },
+    isEmptyHistory() {
+      for (let i = 0; i < this.historyOrders.length; i++)
+        if (this.historyOrders[i].ordered) return true;
+      return false;
+    },
+    deleteOrder(id) {
+      api.deleteOrder(id);
+    },
+    switchOrdersType(e) {
+      this.label = "updated";
+      this.$store.state.orders.userOrdersType = e.target.name;
     },
 
-    isEmptyCurrent(){
-      for(let i = 0; i < this.userHistory.length;i++)
-        if(!this.userHistory[i].ordered)
-          return false
-      return true
-    },
-    isEmptyHistory(){
-      for(let i = 0; i < this.userHistory.length;i++)
-        if(this.userHistory[i].ordered)
-          return true
-      return false
-    },
     deleteOrder(){
       api.deleteOrder(this.currentId)
     }
-  },
+
   beforeCreate() {
-    api.getHistory().then(r => {this.userHistory = r.data.content;console.log(r.data)})
+    this.$store.dispatch("getUserCurrentOrders");
+    this.$store.dispatch("getUserOrdersHistory");
   }
 };
-
 </script>
 
-<style>
-
-</style>
+<style></style>

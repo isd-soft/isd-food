@@ -22,7 +22,7 @@ public class OrderValidation {
         this.orderDateDay = cal.get(Calendar.DAY_OF_WEEK);
 
         cal.setTime(currentDate);
-        this.currentDateDay = cal.get(Calendar.DAY_OF_WEEK);
+        this.currentDateDay = cal.get(Calendar.DAY_OF_WEEK) - 1;
     }
 
     public String validate() {

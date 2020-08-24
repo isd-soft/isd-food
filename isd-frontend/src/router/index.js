@@ -39,7 +39,7 @@ const routes = [
 
     {
         path: "/ProviderList",
-        name: "Provider list",
+        name: "Providers",
         props: true,
         component: () => import("../views/ProviderList.vue")
     },
@@ -70,7 +70,7 @@ const routes = [
 
     {
         path: "/menu",
-        name: "Menu",
+        name: "Menus",
         component: () => import("../views/Menu.vue"),
     },
 
@@ -90,7 +90,11 @@ const routes = [
         name: "Users",
         component: () => import("../views/UsersTable.vue")
     },
-
+    {
+        path: "/payment",
+        name: "Payment",
+        component: () => import("../views/Payment.vue")
+    },
     {
         path: "/about",
         name: "About",

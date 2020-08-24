@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-warning">Menus</h6>
-      </div>
+    <div class="card border-left-warning shadow mb-4">
       <div class="card-body">
         <div class="table-responsive">
           <div class="tab-content" id="pills-tabContent">
@@ -238,6 +235,8 @@
         </div>
       </div>
     </div>
+    <router-link class="btn btn-warning mb-3 btn-lg" style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 26px 23px;font-size: 20px !important;" :to="'/add_menu'"><i class="fas fa-hamburger"></i><i class="fas fa-plus ml-1" style="font-size:15px "> </i></router-link>
+
   </div>
 </template>
 

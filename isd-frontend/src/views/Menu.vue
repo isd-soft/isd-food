@@ -1,5 +1,5 @@
 <template>
-<div class="container-fluid">
+<div class="mx-3">
      <MenuList/>
 </div>
 </template>

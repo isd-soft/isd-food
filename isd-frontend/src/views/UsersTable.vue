@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row ">
+    <div class="row">
       <div class="col-xl-12 col-md-12">
         <div class="card border-left-warning shadow h-100 py-1">
 
@@ -304,7 +304,6 @@ export default {
   beforeCreate() {
     api.getUsers().then(response => {
       this.users = response.data;
-      console.log(response.data);
     });
   }
 };
