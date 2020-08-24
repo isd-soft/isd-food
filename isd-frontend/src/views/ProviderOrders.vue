@@ -1,11 +1,11 @@
 <template>
   <div>
-    <ul class="nav nav-pills d-flex justify-content-center" id="pills-tab" role="tablist">
+    <ul class="nav nav-pills d-flex justify-content-center mb-3" id="pills-tab" role="tablist">
       <li class="nav-item mr-2" role="presentation">
         <a class="nav-link btn-media btn-outline-warning  active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Current orders</a>
       </li>
       <li class="nav-item mr-2" role="presentation">
-        <a class="nav-link btn-media btn-outline-warning  " id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Menu statistic</a>
+        <a class="nav-link btn-media btn-outline-warning  " id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Current menus</a>
       </li>
       <li class="nav-item" role="presentation">
         <a class="nav-link btn-media btn-outline-warning" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Confirmed orders
