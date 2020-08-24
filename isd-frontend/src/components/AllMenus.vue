@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-warning">Menus</h6>
-      </div>
+    <div class="card border-left-warning shadow mb-4">
       <div class="card-body">
         <div class="table-responsive">
           <div class="tab-content" id="pills-tabContent">
@@ -14,7 +11,10 @@
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
-              <table class="table table-bordered" width="100%" cellspacing="0">
+
+              <confirmationDialog :action-button="'Agree'" :method="deleteMenu" :title="title" :message="message + currentName+ '?'" :dialog1.sync="dialog1"/>
+
+                <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -32,21 +32,20 @@
                   <td v-if="menu.active === true" class="text-center">
                     <i
                       class="fas fa-check-circle"
-                      style="margin: 0; padding: 0;color: green !important; font-size: 25px"
+                      style="margin: 0; padding: 0;color: #008000 !important; font-size: 25px"
                     ></i>
                   </td>
                   <td v-else class="text-center">
                     <i
                       class="fas fa-times-circle"
-                      style="margin: 0; padding: 0;color: red !important; font-size: 25px"
+                      style="margin: 0; padding: 0;color: rgb(255,0,0) !important; font-size: 25px"
                     ></i>
                   </td>
 
                   <td class="text-center">
                     <button
                       style="outline: none"
-                      @click="deleteMenu(menu.id)"
-                      onclick="window.location.reload()"
+                      @click="openDialog(menu.id, menu.name)"
                     >
                       <i class="fas fa-trash"></i>
                     </button>
@@ -67,6 +66,7 @@
                       style="background: none; height: content-box !important; max-height: 30px"
                       class="text-center"
                     >
+
                       <v-dialog v-model="dialogNote[menu.id]" width="500">
                         <template v-slot:activator="{ on, attrs }">
                           <button
@@ -113,7 +113,6 @@
                             <v-autocomplete
                               ref="weekday"
                               v-model="menu.dayOfWeek"
-                              :rules="DayRules"
                               :items="days"
                               label="Day"
                               placeholder="Select..."
@@ -123,7 +122,6 @@
                             <v-text-field
                               ref="image"
                               v-model="menu.image"
-                              :rules="imageRules"
                               label="image"
                               placeholder="image"
                               required
@@ -137,7 +135,6 @@
                                 return-object
                                 v-model="menu.menuTypes[0].items"
                                 :items="items"
-                                :rules="itemRules"
                                 item-text="name"
                                 label="Items"
                                 multiple
@@ -160,7 +157,6 @@
                             <v-text-field
                               ref="priceS"
                               v-model="menu.menuTypes[0].price"
-                              :rules="PriceRules"
                               label="price"
                               required
                               placeholder="Enter price"
@@ -175,7 +171,6 @@
                                 return-object
                                 v-model="menu.menuTypes[1].items"
                                 :items="items"
-                                :rules="itemRules"
                                 item-text="name"
                                 label="Items"
                                 multiple
@@ -240,16 +235,28 @@
         </div>
       </div>
     </div>
+    <router-link class="btn btn-warning mb-3 btn-lg" style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 26px 23px;font-size: 20px !important;" :to="'/add_menu'"><i class="fas fa-hamburger"></i><i class="fas fa-plus ml-1" style="font-size:15px "> </i></router-link>
+
   </div>
 </template>
 
 <script>
   import api from "./backend-api";
+  import confirmationDialog from "./confirmationDialog";
+
 
   export default {
+    components: {
+      confirmationDialog,
+    },
   name: "Home",
   data() {
     return {
+      currentName: null,
+      currentId: null,
+      title: "Confirmation",
+      message: "Do you really want to delete ",
+      dialog1: false,
       typeSId: null,
       typeMId: null,
       days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"],
@@ -263,15 +270,14 @@
     };
   },
   methods: {
-    findS(menu) {
-      if (menu.menuTypes[0].type == "S") {
-        this.typeSId = 0;
-        this.typeMId = 1;
-      } else {
-        this.typeSId = 1;
-        this.typeMId = 0;
-      }
+
+    openDialog(id, name){
+      this.dialog1 = true
+      this.currentId = id
+      this.currentName = name
+      console.log(this.currentId)
     },
+
 
     callMenuApi() {
       api
@@ -285,9 +291,10 @@
         });
     },
 
-    deleteMenu(id) {
-      api.deleteMenu(id);
+    deleteMenu() {
+      api.deleteMenu(this.currentId);
     },
+
     changeMenu(menu){
       api.changeMenu(menu)
       window.location.reload()
@@ -324,6 +331,7 @@
         });
   }
 };
+
 </script>
 
 <style></style>

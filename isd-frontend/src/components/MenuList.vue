@@ -83,6 +83,7 @@ import MenuItem from './MenuItem.vue'
 
       getWeekDayId(){
 
+
           // var date = new Date()
           // var count = date.getDay()
           // if(date.getHours() > 10)
@@ -90,8 +91,8 @@ import MenuItem from './MenuItem.vue'
           // if(count == 7)
           //   count = 0
           // return count
-
         return new Date().getDay();
+
       },
 
       getWeekDay() {

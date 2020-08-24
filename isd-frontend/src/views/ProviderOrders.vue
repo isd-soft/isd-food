@@ -1,11 +1,13 @@
 <template>
+
   <div>
-    <ul class="nav nav-pills d-flex justify-content-center" id="pills-tab" role="tablist">
+
+    <ul class="nav nav-pills d-flex justify-content-center mb-3" id="pills-tab" role="tablist">
       <li class="nav-item mr-2" role="presentation">
         <a class="nav-link btn-media btn-outline-warning  active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Current orders</a>
       </li>
       <li class="nav-item mr-2" role="presentation">
-        <a class="nav-link btn-media btn-outline-warning  " id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Menu statistic</a>
+        <a class="nav-link btn-media btn-outline-warning  " id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Current menus</a>
       </li>
       <li class="nav-item" role="presentation">
         <a class="nav-link btn-media btn-outline-warning" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Confirmed orders
@@ -35,6 +37,8 @@
                   </tr>
                   </thead>
 
+                  <confirmationDialog :action-button="'Agree'" :method="deleteOrder" :title="title" :message="message" :dialog1.sync="dialog1"/>
+
                   <tbody v-for="order in ordersFalse" :key = "order.providerName + order.date">
                   <tr>
                     <td>{{ getUserName(order.userId) }}</td>
@@ -47,9 +51,10 @@
                       </button>
                     </td>
                     <td >
-                      <button type="submit" @click="deleteOrder(order.id)" onclick="window.location.reload();" >
+                      <button type="submit" @click="openDialog(order.id)" >
                         <v-icon  data-toggle="modal" data-target="#exampleModal">fas fa-trash</v-icon>
                       </button>
+
                     </td>
                   </tr>
 
@@ -142,13 +147,10 @@
                         <v-icon  data-toggle="modal" data-target="#exampleModal">fas fa-times-circle</v-icon>
                       </button>
                     </td>
-
                   </tr>
-
                   </tbody>
-
-
                 </table>
+
 
 
               </div>
@@ -158,8 +160,6 @@
         <div v-else class="text-center" style="margin-top: 25vh"><h2>Empty</h2></div>
       </div>
     </div>
-
-    <!---Statistic--->
   </div>
 
 
@@ -168,9 +168,13 @@
 
 <script>
   import api from "@/components/backend-api";
-
+  import confirmationDialog from "../components/confirmationDialog";
 
   export default {
+    name: "ProviderOrders",
+    components: {
+      confirmationDialog,
+    },
   data (){
     return{
       n: 0,
@@ -180,11 +184,22 @@
       menus: [],
       users:[],
       ordersFalse:[],
-      ordersTrue:[]
+      ordersTrue:[],
+      currentId: null,
+      title: "Confirmation",
+      message: "Do you really want to delete this order?",
+      dialog1: false
     }
   },
-  name: "Statistic",
+
   methods:{
+
+    openDialog(id){
+      this.dialog1 = true
+      this.currentId = id
+      console.log(this.currentId)
+    },
+
     calcOnce(menuName,Provider,Type){
       let count = 0;
       this.orders.forEach(el => {
@@ -214,9 +229,10 @@
       api.confirmOrderId(id,bool);
     },
 
-    deleteOrder(id){
-      api.deleteOrder(id)
+    deleteOrder(){
+      api.deleteOrder(this.currentId)
     },
+
     confirmAll(Provider){
       this.ordersFalse.forEach(el => {
         if(el.providerName === Provider){

@@ -1,26 +1,27 @@
 <template>
   <v-app class="row" heavy style="background: none">
-    <v-card class="col-md-7 container">
+    <v-card class="col-md-6 container border-left-warning" style="margin-top: 20px">
       <v-form
         ref="form"
         v-model="valid"
         @submit.prevent="submitHandler"
         id="register-form"
+        class="py-5"
       >
-        <v-col class="lg-col-16">
+        <v-col class="col-sm-12">
           <v-alert
-            class="lg-col-16"
+            class="col-sm-12"
             v-if="$store.state.register.success"
             type="success"
           >
             User saved
           </v-alert>
-          <div class="lg-col-16" v-if="$store.state.register.errors.length > 0">
+          <div class="col-lg-12" v-if="$store.state.register.errors.length > 0">
             <v-alert
               v-bind:key="error"
               v-for="error in $store.state.register.errors"
               type="error"
-            >
+              style="font-size: 20px; width: 100%">
               {{ error }}
             </v-alert>
           </div>

@@ -4,6 +4,7 @@
     <div class="col-xl-12 col-md-12 mb-4">
       <div class="card border-left-warning shadow h-100 py-1">
         <div class="card-body wrapScroll">
+          <confirmationDialog :action-button="'Agree'" :method="deleteProvider" :title="title" :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
           <table  class="table table-bordered"  width="100%" cellspacing="0">
             <thead>
             <tr>
@@ -32,7 +33,7 @@
               </td>
 
               <td class="text-center">
-                <button style="outline: none" @click="deleteProvider(provider.id)" onclick="window.location.reload()">
+                <button style="outline: none" @click="openDialog(provider.id, provider.name)">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
@@ -139,16 +140,27 @@
 
 
       </v-snackbar>
+  <router-link class="btn btn-warning mb-3 btn-lg" style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 20px 23px;font-size: 20px !important;" :to="'/providers'"><i class="fas fa-user-plus"></i></router-link>
+
 </div>
 </template>
 
 <script>
 import api from "@/components/backend-api.js"
+import confirmationDialog from "../components/confirmationDialog";
 
 export default {
   name: "ProviderList",
+  components: {
+    confirmationDialog,
+  },
   data (){
     return{
+      currentName: null,
+      currentId: null,
+      title: "Confirmation",
+      message: "Do you really want to delete ",
+      dialog1: false,
       dialogNote:{},
       providers:[],
       dialog: false,
@@ -157,6 +169,14 @@ export default {
     }
   },
   methods:{
+
+    openDialog(id, name){
+      this.dialog1 = true
+      this.currentId = id
+      this.currentName = name
+      console.log(this.currentId)
+    },
+
     editProvider(id,name,contact,price,active,desc,img){
       if(name.length === 0){
         this.text = "Provider name cannot be empty!";
@@ -180,8 +200,8 @@ export default {
 
       }
     },
-    deleteProvider(id){
-      api.deleteProvider(id)
+    deleteProvider(){
+      api.deleteProvider(this.currentId)
     }
   },
 

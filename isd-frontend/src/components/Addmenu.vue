@@ -2,7 +2,7 @@
   <v-app style="background: none">
     <v-row justify="center">
       <v-col cols="12" sm="10" md="8" lg="6">
-        <v-card ref="form" v-model="valid">
+        <v-card class="border-left-warning" ref="form" v-model="valid">
           <v-card-text>
             <v-text-field
               ref="name"
@@ -209,7 +209,7 @@
 
             <v-btn color="primary">Cancel</v-btn>
             <v-spacer></v-spacer>
-            <v-btn :disabled="!valid" color="success" @click="createMenu()"
+            <v-btn color="success" @click="createMenu()"
               >Submit
             </v-btn>
 
@@ -217,6 +217,15 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar
+            v-model="snackbar"
+    >
+      <div class="text-center">
+        {{ text }}
+      </div>
+
+
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -261,7 +270,9 @@ export default {
     name: null,
     priceS: null,
     priceM: null,
-    formHasErrors: false
+    formHasErrors: false,
+    snackbar: false,
+    text: 'pcela',
   }),
 
 
@@ -305,7 +316,6 @@ export default {
       this.createItem()
       this.dialog = false
       this.item = null
-      this.$store.re
       api
         .getItems()
         .then(response => {
@@ -319,25 +329,49 @@ export default {
 
 
     createMenu() {
-
-      api.createFullMenu({
-        name: this.name,
-        provider: this.provider,
-        image: this.image,
-        dayOfWeek: this.day,
-        menuTypes: [
-          {
-            type: "S",
-            price: this.priceS,
-            items: this.itemsS
-          },
-          {
-            type: "M",
-            price: this.priceM,
-            items: this.itemsM
-          }
-        ]
-      });
+      if (this.name === null) {
+        this.snackbar = true;
+        this.text = "Where is name?"
+      } else if (this.provider === null) {
+        this.snackbar = true;
+        this.text = "Who is provider?"
+      } else if (this.itemsS === null) {
+        this.snackbar = true;
+        this.text = "Items for S please"
+      } else if (this.itemsM === null) {
+        this.snackbar = true;
+        this.text = "Items for M please"
+      } else if (this.priceM < -1) {
+        this.snackbar = true;
+        this.text = "Price can't be negative"
+      } else if (this.priceS < -1) {
+        this.snackbar = true;
+        this.text = "Price S can't be negative"
+      } else if (this.priceM < -1) {
+        this.snackbar = true;
+        this.text = "Price M can't be negative"
+      } else {
+        this.snackbar = true;
+        this.text = "Success"
+        api.createFullMenu({
+          name: this.name,
+          provider: this.provider,
+          image: this.image,
+          dayOfWeek: this.day,
+          menuTypes: [
+            {
+              type: "S",
+              price: this.priceS,
+              items: this.itemsS
+            },
+            {
+              type: "M",
+              price: this.priceM,
+              items: this.itemsM
+            }
+          ]
+        });
+      }
     }
   },
 

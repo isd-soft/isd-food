@@ -6,7 +6,7 @@
 
     <div id="wrapper">
       <ul
-          class="navbar-nav fixed-top sidebar sidebar-dark accordion"
+          class="navbar-nav  sidebar sidebar-dark accordion"
           id="accordionSidebar"
           style="background-color: #ff9800"
       >
@@ -44,7 +44,7 @@
         <div id="content">
           <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
             <!-- Sidebar Toggle (Topbar) -->
-
+            {{this.$route.name}}
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
               <!-- Nav Item - Alerts -->
@@ -60,57 +60,14 @@
                 >
                   <i class="fas fa-bell fa-fw"></i>
                   <!-- Counter - Alerts -->
-                  <span class="badge badge-danger badge-counter">3+</span>
+                  <span class="badge badge-danger badge-counter"> </span>
+
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div
                     class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="alertsDropdown"
                 >
-                  <h6 class="dropdown-header">
-                    Alerts Center
-                  </h6>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-primary">
-                        <i class="fas fa-file-alt text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">December 12, 2019</div>
-                      <span class="font-weight-bold"
-                      >A new monthly report is ready to download!</span
-                      >
-                    </div>
-                  </a>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-success">
-                        <i class="fas fa-donate text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">December 7, 2019</div>
-                      $290.29 has been deposited into your account!
-                    </div>
-                  </a>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-warning">
-                        <i class="fas fa-exclamation-triangle text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">December 2, 2019</div>
-                      Spending Alert: We've noticed unusually high spending for
-                      your account.
-                    </div>
-                  </a>
-                  <a
-                      class="dropdown-item text-center small text-gray-500"
-                      href="#"
-                  >Show All Alerts</a
-                  >
                 </div>
               </li>
 
@@ -168,7 +125,7 @@
               </li>
             </ul>
           </nav>
-          <div class="container-fluid">
+          <div class="mx-4" >
             <router-view></router-view>
           </div>
         </div>
@@ -240,7 +197,6 @@ export default {
       { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
       { icon: "fas fa-history", text: "Orders", route: "/orders" },
-      { icon: "fas fa-envelope", text: "Mail", route: "/" }
     ],
 
     SuperVisorLinks: [
@@ -275,6 +231,8 @@ export default {
       });
     }
   },
+
+
   beforeCreate() {
     api.getUserWithoutId().then(r => {
       this.user = r.data.firstName + " " + r.data.lastName;

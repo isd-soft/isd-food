@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row ">
+    <div class="row">
       <div class="col-xl-12 col-md-12">
         <div class="card border-left-warning shadow h-100 py-1">
 
@@ -18,6 +18,8 @@
                   <th>Edit</th>
                 </tr>
               </thead>
+
+              <confirmationDialog :action-button="'Agree'" :method="deleteUser" :title="title" :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
 
               <tbody v-for="user of users" :key="user.id">
                 <tr>
@@ -40,9 +42,7 @@
 
                   <td class="text-center">
                     <button
-                      style="outline: none"
-                      @click="deleteUser(user.id)"
-                      onclick="window.location.reload()"
+                            @click="openDialog(user.id, user.firstName + ' '+ user.lastName)"
                     >
                       <i class="fas fa-trash"></i>
                     </button>
@@ -234,11 +234,20 @@
 
 <script>
 import api from "@/components/backend-api.js";
+import confirmationDialog from "../components/confirmationDialog";
 
 export default {
   name: "UsersTable",
+  components: {
+    confirmationDialog,
+  },
   data() {
     return {
+      currentName: null,
+      currentId: null,
+      title: "Confirmation",
+      message: "Do you really want to delete ",
+      dialog1: false,
       dialogNote: {},
       users: [],
       dialog: false,
@@ -251,6 +260,15 @@ export default {
     };
   },
   methods: {
+
+    openDialog(id, name){
+      this.dialog1 = true
+      this.currentId = id
+      this.currentName = name
+      console.log(this.currentName)
+      console.log(this.currentId)
+    },
+
     formatDate(date) {
       let array = date.split("-");
       date = array[2] + "-" + array[1] + "-" + array[0];
@@ -277,9 +295,11 @@ export default {
       );
       window.location.reload();
     },
-    deleteUser(id) {
-      api.deleteUser(id);
+
+    deleteUser() {
+      api.deleteUser(this.currentId);
     }
+
   },
 
   beforeCreate() {
