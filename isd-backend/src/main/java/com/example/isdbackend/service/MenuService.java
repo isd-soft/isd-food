@@ -39,7 +39,7 @@ public class MenuService extends AbstractServiceCrud {
     }
 
     public Iterable<Menu> getMenusByDay(DayOfWeek day) {
-        return menuRepository.findByDayOfWeek(day.plus(1));
+        return menuRepository.findByDayOfWeek(day);
     }
 
     public void addMenu(Menu menu) {
