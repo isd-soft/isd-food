@@ -19,7 +19,7 @@
                 </tr>
               </thead>
 
-              <confirmationDialog :action-button="'Agree'" :method="deleteUser" :title="title" :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
+              <confirmationDialog :action-button="'Agree'" :method="deleteUser()" :title="title" :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
 
               <tbody v-for="user of users" :key="user.id">
                 <tr>
@@ -150,6 +150,7 @@
                                         scrollable
                                         default
                                         elevation="15"
+                                        :max="nowDate"
                                       ></v-date-picker>
                                     </v-menu>
                                   </div>
@@ -243,6 +244,7 @@ export default {
   },
   data() {
     return {
+      nowDate: new Date().toISOString().slice(0,10),
       currentName: null,
       currentId: null,
       title: "Confirmation",
@@ -262,11 +264,11 @@ export default {
   methods: {
 
     openDialog(id, name){
-      this.dialog1 = true
-      this.currentId = id
-      this.currentName = name
-      console.log(this.currentName)
-      console.log(this.currentId)
+      this.dialog1 = true;
+      this.currentId = id;
+      this.currentName = name;
+      console.log(this.currentName);
+      console.log(this.currentId);
     },
 
     formatDate(date) {
