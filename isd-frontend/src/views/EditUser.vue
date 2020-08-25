@@ -1,5 +1,6 @@
 <template>
   <v-app class="row" style="background: none;height: 100vh">
+
     <v-card class="container col-xl-9 col-md-10 col-sm-12">
       <form class="row" novalidate="">
         <div class="col-lg-6" id="firstName">
@@ -124,17 +125,16 @@
             />
           </div>
         </div>
-
         <div class="col-12 text-right">
           <v-btn @click="UpadateInfo()" rounded color="warning">Save</v-btn>
-          <v-snackbar v-model="snackbar">
-            <div class="text-center">
-              {{ text }}
-            </div>
-          </v-snackbar>
         </div>
       </form>
     </v-card>
+    <v-snackbar v-model="snackbar" :color="snackColor">
+      <div class="text-center">
+        {{ text }}
+      </div>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -145,6 +145,7 @@ export default {
   name: "edit",
   data() {
     return {
+      snackColor: "green",
       error: false,
       snackbar: false,
       text: "asd",
@@ -210,12 +211,15 @@ export default {
       if (this.firstName.length === 0) {
         this.error = true;
         this.snackbar = true;
+        this.snackColor = "red";
         this.text = "First name can't be empty";
 
       }
 
       if (this.lastName.length === 0){
         this.error = true;
+        this.snackColor = "red";
+
         this.snackbar = true;
         this.text = "Last name can't be empty";
 
@@ -224,6 +228,8 @@ export default {
       if(this.email.length === 0){
         this.error = true;
         this.snackbar = true;
+        this.snackColor = "red";
+
         this.text = "Email can't be empty";
 
       }
@@ -231,11 +237,16 @@ export default {
       if(this.skypeId.length === 0){
         this.error = true;
         this.snackbar = true;
+        this.snackColor = "red";
+
         this.text = "Skype id can't be empty";
       }
 
         if (!this.error) {
           this.snackbar = true;
+
+          this.snackColor = "green";
+
           this.text = "Success";
 
 
@@ -254,34 +265,37 @@ export default {
             .catch(e => {
               this.errors.push(e);
             });
-          window.location.reload();
         }
     },
 
     checkPass() {
-      // if (this.password1 === this.password2 && this.password1.length > 7) {
-      //alert("Changing password");
       let passError = false;
 
       if(this.password1 !== this.password2){
         passError = true;
         this.snackbar = true;
         this.text = "Passwords are different";
-      }
+        this.snackColor = "red";
 
+      }
       if(this.password1.length < 5){
         passError = true;
         this.snackbar = true;
+        this.snackColor = "red";
         this.text = "Passwords can't be smaller than 5";
+      }
+      if(this.password2.length === 0){
+        passError = true;
+        this.snackbar = true;
+        this.snackColor = "red";
+        this.text = "Repeat password please!";
       }
       this.dialog = false;
       if(!passError){
-      api.changePass(this.password1);
+        this.snackColor = "green";
+        api.changePass(this.password1);
       this.$router.push("/login");
       }
-      // } else {
-      //    alert("Cannot change");
-      // }
     }
   },
 
