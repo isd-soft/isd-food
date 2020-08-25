@@ -112,12 +112,14 @@
             <label class=" mt-4">
               Data to enable
             </label>
-            <input
-              class="form-control "
-              type="date"
-              name="dataNotification"
-              v-model="dataNotification"
-            />
+            <label>
+              <input
+                class="form-control "
+                type="date"
+                name="dataNotification"
+                v-model="dataNotification"
+              />
+            </label>
           </div>
         </div>
         <div class="col-12 text-right">
@@ -202,7 +204,6 @@ export default {
 
     UpadateInfo() {
       this.error = false;
-
       if (this.firstName.length === 0) {
         this.error = true;
         this.snackbar = true;
