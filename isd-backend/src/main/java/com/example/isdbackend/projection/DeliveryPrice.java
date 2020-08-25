@@ -7,5 +7,5 @@ public interface DeliveryPrice {
 
     int getProviderId();
 
-    int getDeliveryPrice();
+    double getDeliveryPrice();
 }

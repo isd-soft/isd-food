@@ -21,7 +21,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT o.id, " +
             "       concat(cast(o.date as date), ' ', cast(o.date as time)) date, " +
             "       o.ordered, " +
-            "       o.user_id userId, "+
+            "       o.user_id userId, " +
             "       m.name      menuName, " +
             "       mt.type     menuType, " +
             "       mt.price, " +
@@ -57,7 +57,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "ORDER BY u.id,o.date", nativeQuery = true)
     List<UserOrderView> findUsersOrders(OrderFilter orderFilter);
 
-    @Query(value = "SELECT cast(o.date as date) , p.id providerId, p.delivery_price/count(DISTINCT o.user_id) deliveryPrice " +
+    @Query(value = "SELECT cast(o.date as date) , p.id providerId, cast((cast(p.delivery_price as decimal) / count(DISTINCT o.user_id)) as decimal(10,2)) deliveryPrice " +
             "FROM orders o " +
             "         LEFT JOIN menu_type mt on mt.id = o.menu_type_id " +
             "         LEFT JOIN menu m ON mt.menu_id = m.id " +

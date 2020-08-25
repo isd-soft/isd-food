@@ -101,6 +101,10 @@
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                   </a>
+                  <a class="dropdown-item " @click="$store.state.payment.displayUserPayment = true">
+                    <i class="fas fa-credit-card mr-2 text-gray-400"></i>
+                    Payment
+                  </a>
                   <a class="dropdown-item" href="#">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Settings
@@ -127,6 +131,20 @@
           </nav>
           <div class="mx-4" >
             <router-view></router-view>
+            <v-btn
+                class="bg-gray-900 scroll-btn"
+                v-scroll="handleScroll"
+                v-show="scrollTop"
+                fab
+                dark
+                fixed
+                bottom
+                right
+                color="primary"
+                @click="scroll"
+            >
+              <v-icon>mdi-chevron-up</v-icon>
+            </v-btn>
           </div>
         </div>
       </div>
@@ -202,11 +220,21 @@ export default {
     ],
 
     SuperVisorLinks: [
-
-      { icon: "fas fa-users", text: "Users", route: "/users/table" },
-      { icon: "fas fa-pizza-slice", text: "Menus", route: "/allmenus" },
-      { icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList" },
-      { icon: "fas fa-history", text: "Orders", route: "/ProviderOrders" }
+      {icon: "fas fa-users", text: "Users", route: "/users/table"},
+      {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
+      {
+        icon: "fas fas fa-cart-plus",
+        text: "Create provider",
+        route: "/providers"
+      },
+      {icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList"},
+      {
+        icon: "fas fas fa-user-plus",
+        text: "Create user",
+        route: "/users/register"
+      },
+      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
+      {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
 
     ]
   }),
@@ -215,7 +243,6 @@ export default {
       this.scrollTop = window.scrollY > 300;
     },
     scroll() {
-      console.log("scrolling")
       window.scrollTo({
         top: 0,
         left: 0,

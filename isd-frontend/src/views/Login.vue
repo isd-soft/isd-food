@@ -2,6 +2,7 @@
 
     <v-overlay>
       <v-app>
+        <ForgotDialog />
         <v-card width="100vw" height="100vh" class="mx-auto">
 
           <body style="background: orange;">
@@ -37,7 +38,7 @@
                           <div class="text-center">
                             <span class="small forgot-pass" @click="showForgotDialog()">Forgot Password?</span>
                           </div>
-                          <ForgotDialog showDialog="showDialog"/>
+
                         </div>
                       </div>
                     </div>

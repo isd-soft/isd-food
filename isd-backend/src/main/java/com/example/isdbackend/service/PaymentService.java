@@ -99,7 +99,7 @@ public class PaymentService extends PaymentCalculator {
 
         List<UserIdAndNameView> users = usersPage.getContent();
         List<UserOrderView> usersOrders = orderRepository.findUsersOrders(orderFilter);
-        Map<String, Integer> deliveryPricesMap = getDeliveryPriceByDateAndProvider(orderFilter);
+        Map<String, Double> deliveryPricesMap = getDeliveryPriceByDateAndProvider(orderFilter);
 
         int ordersCount = usersOrders.size();
 
@@ -145,8 +145,8 @@ public class PaymentService extends PaymentCalculator {
      * @param orderFilter
      * @return a map with key as order date and provider id, and value is the delivery price
      */
-    private Map<String, Integer> getDeliveryPriceByDateAndProvider(OrderFilter orderFilter) {
-        Map<String, Integer> deliveryPricesMap = new HashMap<>();
+    private Map<String, Double> getDeliveryPriceByDateAndProvider(OrderFilter orderFilter) {
+        Map<String, Double> deliveryPricesMap = new HashMap<>();
         List<DeliveryPrice> deliveryPrices = orderRepository.findOrderDeliveryPrice(orderFilter);
 
         for (DeliveryPrice deliveryPrice : deliveryPrices) {

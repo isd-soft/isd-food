@@ -26,7 +26,8 @@ export default new Vuex.Store({
             allUserPayments: [],
             userPaymentLoading: false,
             displayUserPayment: false,
-            availableMonths: []
+            availableMonths: [],
+            selectedMonth: null
         },
         register: {loading: false, error: false, success: false, errors: []},
         Provider: {loading: false},
@@ -52,19 +53,14 @@ export default new Vuex.Store({
         register_success(state) {
             state.register.loading = false;
             state.register.success = true
-
             setTimeout(() => {
                 state.register.success = false
+
             }, 3000)
         },
         register_error(state, payload) {
             state.register.loading = false;
             state.register.error = true;
-            state.register.errors.push(payload.message);
-            setTimeout(() => {
-                state.register.error = false
-                state.register.errors = [];
-            }, 3000)
         },
         create_order_success(state) {
             console.log(state)
@@ -185,6 +181,7 @@ export default new Vuex.Store({
                 api
                     .getUserCurrentOrders()
                     .then(response => {
+                        console.log(response.data)
                         if (response.status == 200) {
                             console.log("get orders")
                             console.log(response.data)
@@ -259,7 +256,10 @@ export default new Vuex.Store({
                     .getAvailableMonths()
                     .then(response => {
                         if (response.status == 200) {
-                            this.state.payment.availableMonths = response.data;
+                            let dates = response.data;
+                            if (dates != null && dates.length > 0)
+                                this.state.payment.selectedMonth = dates[0];
+                            this.state.payment.availableMonths = dates;
                         }
                         resolve(response);
                     })
@@ -291,11 +291,11 @@ export default new Vuex.Store({
 
             });
         },
-        getAllUserPaymentOnMonth({commit}, {month, year, page}) {
+        getAllUserPaymentOnMonth({commit}, {month, year, page, paymentSort}) {
             return new Promise((resolve, reject) => {
                 // this.state.payment.userPaymentLoading = true
                 api
-                    .getAllUserPaymentOnMonth(month, year, page)
+                    .getAllUserPaymentOnMonth(month, year, page, paymentSort)
                     .then(response => {
                         if (response.status == 200) {
                             this.state.payment.allUserPayments = {

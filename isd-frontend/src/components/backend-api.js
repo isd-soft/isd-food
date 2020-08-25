@@ -114,7 +114,7 @@ export default {
     getUserWithoutId() {
         return AXIOS.get("users/getUser");
     },
-    changeMenu(menu){
+    changeMenu(menu) {
         return AXIOS.put("/updateMenu", menu)
     },
 
@@ -166,7 +166,7 @@ export default {
     },
 
     getUsers() {
-        return AXIOS.get("/users/allUsers");
+        return AXIOS.get("/users");
     },
 
     deleteUser(user_id) {
@@ -261,8 +261,8 @@ export default {
     getUserPaymentOnPeriod(dateFrom, dateTo) {
         return AXIOS.get("/users/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo);
     },
-    getAllUserPaymentOnMonth(month, year, page) {
-        return AXIOS.get("/payment/monthly?month=" + month + "&year=" + year + "&page=" + (page - 1));
+    getAllUserPaymentOnMonth(month, year, page, paymentSort) {
+        return AXIOS.get("/payment/monthly?month=" + month + "&year=" + year + "&page=" + (page - 1) + paymentSort);
     },
     getAvailableMonths() {
         return AXIOS.get("/payment/months");

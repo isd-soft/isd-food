@@ -64,7 +64,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserView>> getAllUsers(
-            @PageableDefault(size = 50, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 20, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
     }
