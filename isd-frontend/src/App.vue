@@ -198,7 +198,6 @@ export default {
       { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
       { icon: "fas fa-history", text: "Orders", route: "/orders" },
-      { icon: "fas fa-envelope", text: "Mail", route: "/" }
     ],
 
     SuperVisorLinks: [

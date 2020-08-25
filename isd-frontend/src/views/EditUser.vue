@@ -1,6 +1,5 @@
 <template>
   <v-app class="row" style="background: none;height: 100vh">
-
     <v-card class="container col-xl-9 col-md-10 col-sm-12">
       <form class="row" novalidate="">
         <div class="col-lg-6" id="firstName">
@@ -11,7 +10,6 @@
             name="firstName"
             v-model="firstName"
             placeholder="First Name"
-
           />
         </div>
         <div class="col-lg-6" id="lastName">
@@ -22,7 +20,6 @@
             name="lastName"
             v-model="lastName"
             placeholder="Last Name"
-
           />
         </div>
         <div class="col-lg-6" id="Email">
@@ -33,7 +30,6 @@
             name="email"
             v-model="email"
             placeholder="Email"
-
           />
         </div>
         <div class="col-lg-6" id="SkypeId">
@@ -58,7 +54,6 @@
               name="password1"
               type="password"
               placeholder="Password"
-
               required
               v-model="password1"
             />
@@ -83,7 +78,7 @@
                     class="mt-3"
                     v-bind="attrs"
                     v-on="on"
-                  >Change password</v-btn
+                    >Change password</v-btn
                   >
                 </div>
               </template>
@@ -213,28 +208,25 @@ export default {
         this.snackbar = true;
         this.snackColor = "red";
         this.text = "First name can't be empty";
-
       }
 
-      if (this.lastName.length === 0){
+      if (this.lastName.length === 0) {
         this.error = true;
         this.snackColor = "red";
 
         this.snackbar = true;
         this.text = "Last name can't be empty";
-
       }
 
-      if(this.email.length === 0){
+      if (this.email.length === 0) {
         this.error = true;
         this.snackbar = true;
         this.snackColor = "red";
 
         this.text = "Email can't be empty";
-
       }
 
-      if(this.skypeId.length === 0){
+      if (this.skypeId.length === 0) {
         this.error = true;
         this.snackbar = true;
         this.snackColor = "red";
@@ -242,92 +234,60 @@ export default {
         this.text = "Skype id can't be empty";
       }
 
-        if (!this.error) {
-          this.snackbar = true;
+      if (!this.error) {
+        this.snackbar = true;
 
-          this.snackColor = "green";
+        this.snackColor = "green";
 
-          this.text = "Success";
+        this.text = "Success";
 
-
-          api
-            .updateUser(
-              this.firstName,
-              this.lastName,
-              this.skypeId,
-              this.email,
-              this.enableNotification,
-              this.dataNotification
-            )
-            .then(response => {
-              this.response = response.data;
-            })
-            .catch(e => {
-              this.errors.push(e);
-            });
-        }
+        api
+          .updateUser(
+            this.firstName,
+            this.lastName,
+            this.skypeId,
+            this.email,
+            this.enableNotification,
+            this.dataNotification
+          )
+          .then(response => {
+            this.response = response.data;
+          })
+          .catch(e => {
+            this.errors.push(e);
+          });
+      }
     },
 
     checkPass() {
       let passError = false;
 
-      if(this.password1 !== this.password2){
+      if (this.password1 !== this.password2) {
         passError = true;
         this.snackbar = true;
         this.text = "Passwords are different";
         this.snackColor = "red";
-
       }
-      if(this.password1.length < 5){
+      if (this.password1.length < 5) {
         passError = true;
         this.snackbar = true;
         this.snackColor = "red";
         this.text = "Passwords can't be smaller than 5";
       }
-      if(this.password2.length === 0){
+      if (this.password2.length === 0) {
         passError = true;
         this.snackbar = true;
         this.snackColor = "red";
         this.text = "Repeat password please!";
       }
       this.dialog = false;
-      if(!passError){
+      if (!passError) {
         this.snackColor = "green";
         api.changePass(this.password1);
-      this.$router.push("/login");
+        this.$router.push("/login");
       }
     }
   },
-
-  /*fetchAuthenticatedUser () {
-      this.$store.dispatch('updateUser',{
-         firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          skypeId: this.skypeId,
-      })
-      .then(Response => {
-          console.log(Response);
-          //   this.$router.push("/");
-        })*/
-
-  //     const token = localStorage.getItem('tweetr-token')
-
-  //     axios
-  //         .get('account/me', {
-  //             headers: {
-  //                 Authorization: `Bearer ${token}`
-  //             }
-  //         })
-  //         .then(response => {
-  //             this.name = response.data.data.name
-  //             this.username = response.data.data.username
-  //             this.email = response.data.data.email
-  //             this.location = response.data.data.location
-  //             this.bio = response.data.data.bio
-  //             this.websiteUrl = response.data.data.website_url
-  //         })
-
   beforeCreate() {
     api
       .getUserWithoutId()
