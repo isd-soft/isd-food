@@ -2,86 +2,86 @@ import axios from "axios";
 import store from "@/store/index";
 
 const AXIOS = axios.create({
-    baseURL: `http://localhost:8098/api`,
-    timeout: 10000
+  baseURL: `http://localhost:8098/api`,
+  timeout: 10000
 });
 
 // Add a response interceptor
 AXIOS.interceptors.response.use(
-    function (response) {
-        // Any status code that lie within the range of 2xx cause this function to trigger
-        // Do something with response data
-        if (
-            response.headers["authorization"] != null &&
-            localStorage.getItem("access_token") !== response.headers["authorization"]
-        ) {
-            localStorage.setItem("access_token", response.headers["authorization"]);
-        }
-
-        if (response.data !== null && response.data.errorType != null) {
-            store.state.errorDialog = true;
-            store.state.errorModel = response.data;
-        }
-
-        return response;
-    },
-    function (error) {
-        // Any status codes that falls outside the range of 2xx cause this function to trigger
-        // Do something with response error
-        return Promise.reject(error);
+  function(response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    if (
+      response.headers["authorization"] != null &&
+      localStorage.getItem("access_token") !== response.headers["authorization"]
+    ) {
+      localStorage.setItem("access_token", response.headers["authorization"]);
     }
+
+    if (response.data !== null && response.data.errorType != null) {
+      store.state.errorDialog = true;
+      store.state.errorModel = response.data;
+    }
+
+    return response;
+  },
+  function(error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
+  }
 );
 
 // Add a request interceptor
 AXIOS.interceptors.request.use(
-    function (config) {
-        // Do something before request is sent
-        if (!config.url.includes("login") || !config.url.includes("password/reset"))
-            config.headers.Authorization = localStorage.getItem("access_token");
-        else delete config.headers.Authorization;
+  function(config) {
+    // Do something before request is sent
+    if (!config.url.includes("login") || !config.url.includes("password/reset"))
+      config.headers.Authorization = localStorage.getItem("access_token");
+    else delete config.headers.Authorization;
 
-        return config;
-    },
-    function (error) {
-        // Do something with request error
-        return Promise.reject(error);
-    }
+    return config;
+  },
+  function(error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
 );
 
 export default {
-    getAllCurrentOrders() {
-        return AXIOS.get("/orders?ordered=false");
-    },
-    getConfirmedOrders() {
-        return AXIOS.get("/orders?ordered=true");
-    },
-    editProvider(id, name, contact, price, active, desc, img) {
-        return AXIOS.put(
-            "/provider/edit/" +
-            id +
-            "/" +
-            name +
-            "/" +
-            contact +
-            "/" +
-            price +
-            "/" +
-            active +
-            "/" +
-            desc +
-            "/" +
-            img
-        );
-    },
-    getAllOrders() {
-        return AXIOS.get("/orders?ordered=false");
-    },
-    getAllUsers() {
-        return AXIOS.get("/users/all");
-    },
-    deleteOrder(id) {
-        return AXIOS.delete("/orders/delete/" + id);
-    },
+  getAllCurrentOrders() {
+    return AXIOS.get("/orders?ordered=false");
+  },
+  getConfirmedOrders() {
+    return AXIOS.get("/orders?ordered=true");
+  },
+  editProvider(id, name, contact, price, active, desc, img) {
+    return AXIOS.put(
+      "/provider/edit/" +
+        id +
+        "/" +
+        name +
+        "/" +
+        contact +
+        "/" +
+        price +
+        "/" +
+        active +
+        "/" +
+        desc +
+        "/" +
+        img
+    );
+  },
+  getAllOrders() {
+    return AXIOS.get("/orders?ordered=false");
+  },
+  getAllUsers() {
+    return AXIOS.get("/users/all");
+  },
+  deleteOrder(id) {
+    return AXIOS.delete("/orders/delete/" + id);
+  },
 
     confirmOrderId(id, confirm) {
         return AXIOS.put("/orders/confirm/" + id + "/" + confirm);
@@ -172,10 +172,9 @@ export default {
         return AXIOS.delete("/users/deleteUser/" + user_id);
     },
 
-    updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
+    updateUser(firstName, lastName, skypeId, email, enable, data) {
         return AXIOS.put(
             "/users/edit/" +
-            user_id +
             "?firstName=" +
             firstName +
             "&lastName=" +
@@ -238,9 +237,9 @@ export default {
         return AXIOS.post("/new_item?name=" + itemName);
     },
 
-    changePass(user_id, password) {
+    changePass(password) {
         return AXIOS.put(
-            "/user/edit/password/" + user_id + "?password=" + password
+            "/users/edit/password?password=" + password
         );
     },
     getUserCurrentOrders() {

@@ -178,26 +178,30 @@ export default {
     },
 
     editProvider(id,name,contact,price,active,desc,img){
+      let error = false
       if(name.length === 0){
         this.text = "Provider name cannot be empty!";
         this.snackbar = true;
+        error = true;
       }
-      else if(contact.length === 0){
+      if(contact.length === 0){
         this.text = "Provider email cannot be empty!";
         this.snackbar = true;
+        error = true;
       }
-      else if(!contact.includes("@")){
+      if(!contact.includes("@")){
         this.text = "The contact must contain an email address";
         this.snackbar = true;
+        error = true;
       }
-      else if(price < 0){
+      if(price < 0){
         this.text = "Price can't be negative";
         this.snackbar = true;
+        error = true;
       }
-      else{
+      if(!error){
         api.editProvider(id,name,contact,price,active,desc,img);
         window.location.reload()
-
       }
     },
     deleteProvider(){

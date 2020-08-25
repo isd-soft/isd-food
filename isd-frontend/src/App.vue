@@ -21,7 +21,7 @@
           </li>
         </a>
         <hr class="sidebar-divider my-0">
-        <div v-if="role==='ROLE_supervisor'">
+        <div v-if="role === 'ROLE_supervisor'">
           <li class="nav-item " v-for="link in SuperVisorLinks" :key="link.text">
             <router-link class="nav-link" :to="link.route">
               <v-icon style="color: white; font-size: 18px">{{ link.icon }}</v-icon>
@@ -198,7 +198,6 @@ export default {
       { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
       { icon: "fas fa-history", text: "Orders", route: "/orders" },
-      { icon: "fas fa-envelope", text: "Mail", route: "/" }
     ],
 
     SuperVisorLinks: [
@@ -225,6 +224,8 @@ export default {
       });
     }
   },
+
+
   beforeCreate() {
     api.getUserWithoutId().then(r => {
       this.user = r.data.firstName + " " + r.data.lastName;
