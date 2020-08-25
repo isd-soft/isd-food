@@ -104,6 +104,7 @@
   </v-app>
 </template>
 <script>
+import route from "../router/index";
 export default {
   name: "register",
   data() {
@@ -152,13 +153,16 @@ export default {
         .then(Response => {
           console.log(Response);
           //   this.$router.push("/");
+          this.$refs.form.reset();
+          self.$route.push("/users/table");
+
         })
         .catch(error => {
           console.log(error);
           this.registerError = true;
           this.errors.push(error);
         });
-      this.$refs.form.reset();
+      this.$router.push("/users/table");
     }
   }
 };
