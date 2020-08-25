@@ -16,6 +16,7 @@
           v-on="on"
           :disabled="isDatePickerDisabled()"
           @click="menu=true"
+          prepend-icon="mdi-calendar"
       ></v-text-field>
     </template>
     <v-date-picker :allowed-dates="allowedMonths" header-color="orange" color="warning" v-model="date"

@@ -1,173 +1,135 @@
 <template>
-  <v-app style="background: none">
-    <div class="container">
-      <div class="row flex-lg-nowrap">
-        <div class="col">
-          <div class="row">
-            <div class="col mb-3">
-              <div class="card">
-                <div class="card-body">
-                  <div class="e-profile">
-                    <div class="tab-content pt-3">
-                      <div class="tab-pane active">
-                        <form class="form" novalidate="">
-                          <div class="row">
-                            <div class="col">
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>First Name</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      name="firstName"
-                                      v-model="firstName"
-                                    />
-                                  </div>
-                                </div>
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      name="lastName"
-                                      v-model="lastName"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <div class="form-group">
-                                    <label>Email</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      name="email"
-                                      v-model="email"
-                                    />
-                                  </div>
-                                </div>
-                                <div class="col mb-3">
-                                  <div class="form-group">
-                                    <label>Skype Id</label>
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      name="skypeId"
-                                      v-model="skypeId"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-12 col-sm-6 mb-3">
-                              <div class="mb-2"><b>Password</b></div>
-                              <v-btn
-                                @click="hidden = !hidden"
-                                rounded
-                                color="warning"
-                                >Change password</v-btn
-                              >
-                              <div class="row">
-                                <div class="col"></div>
-                              </div>
-                              <div v-if="!hidden" class="password">
-                                <div class="row">
-                                  <div class="col">
-                                    <div class="form-group">
-                                      <label>New Password</label>
-                                      <input
-                                        class="form-control"
-                                        name="password1"
-                                        type="password"
-                                        placeholder=""
-                                        v-model="password1"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col">
-                                    <div class="form-group">
-                                      <label
-                                        >Confirm
-                                        <span class="d-none d-xl-inline"
-                                          >Password</span
-                                        ></label
-                                      >
-                                      <input
-                                        class="form-control"
-                                        name="password2"
-                                        type="password"
-                                        placeholder=""
-                                        v-model="password2"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <v-btn
-                                  @click="checkPass()"
-                                  rounded
-                                  color="warning"
-                                  >Change</v-btn
-                                >
-                              </div>
-                            </div>
-                            <div class="col-12 col-sm-3 offset-sm-1 mb-3">
-                              <div class="mb-2"><b>Keeping in Touch</b></div>
-                              <div class="row">
-                                <div class="col">
-                                  <v-switch
-                                    v-model="enableNotification"
-                                    color="orange"
-                                    :label="
-                                      `Notification: ${enableNotification.toString()}`
-                                    "
-                                  >
-                                  </v-switch>
-                                </div>
-                              </div>
-                              <div class="row" v-if="enableNotification === false">
-                                <div class="col mb-1/2">
-                                  <label>
-                                    Data to enable
-                                  </label>
-                                  <input
-                                    class="form-control"
-                                    type="date"
-                                    name="dataNotification"
-                                    v-model="dataNotification"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col d-flex justify-content-end">
-                              <!-- <button class="btn btn-primary" type="submit">Save Changes</button>-->
-                              <v-btn
-                                @click="UpadateInfo()"
-                                rounded
-                                color="warning"
-                                >Save</v-btn
-                              >
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
+  <v-app class="row" style="background: none;height: 100vh">
+    <v-card class="container col-xl-9 col-md-10 col-sm-12">
+      <form class="row" novalidate="">
+        <div class="col-lg-6" id="firstName">
+          <label>First Name</label>
+          <input
+            class="form-control"
+            type="text"
+            name="firstName"
+            v-model="firstName"
+            placeholder="First Name"
+          />
+        </div>
+        <div class="col-lg-6" id="lastName">
+          <label>Last Name</label>
+          <input
+            class="form-control"
+            type="text"
+            name="lastName"
+            v-model="lastName"
+            placeholder="Last Name"
+          />
+        </div>
+        <div class="col-lg-6" id="Email">
+          <label>Email</label>
+          <input
+            class="form-control"
+            type="text"
+            name="email"
+            v-model="email"
+            placeholder="Email"
+          />
+        </div>
+        <div class="col-lg-6" id="SkypeId">
+          <label>Skype Id</label>
+          <input
+            class="form-control"
+            type="text"
+            name="skypeId"
+            v-model="skypeId"
+            placeholder="Skype Id"
+          />
+        </div>
+        <div class="col-lg-6" id="Password">
+          <div class="mb-2"><b>Password</b></div>
+          <form
+            oninput='password2.setCustomValidity(password2.value !== password1.value ? "Passwords do not match." : "")'
+          >
+            <label for="password1">New Password</label>
+            <input
+              class="form-control validate"
+              id="password1"
+              name="password1"
+              type="password"
+              placeholder="Password"
+              required
+              v-model="password1"
+            />
+
+            <label for="password2" class="mt-2"
+              >Confirm <span class="d-none d-xl-inline">Password</span></label
+            >
+            <input
+              class="form-control"
+              id="password2"
+              name="password2"
+              type="password"
+              placeholder="Repeat password"
+              v-model="password2"
+            />
+            <v-dialog v-model="dialog" persistent max-width="350">
+              <template v-slot:activator="{ on, attrs }">
+                <div class="text-right">
+                  <v-btn
+                    rounded
+                    color="warning"
+                    class="mt-3"
+                    v-bind="attrs"
+                    v-on="on"
+                    >Change password</v-btn
+                  >
                 </div>
-              </div>
-            </div>
+              </template>
+              <v-card>
+                <v-card-title class="headline"
+                  >Do you want to change the password?</v-card-title
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="green darken-1" text @click="dialog = false"
+                    >Disagree</v-btn
+                  >
+                  <v-btn color="green darken-1" text @click="checkPass()"
+                    >Agree</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </form>
+        </div>
+        <div class="col-lg-6" id="Notification">
+          <b>Keeping in Touch</b>
+          <v-switch
+            v-model="enableNotification"
+            color="orange"
+            :label="`Notification: ${enableNotification.toString()}`"
+          >
+          </v-switch>
+
+          <div v-if="enableNotification === false">
+            <label class=" mt-4">
+              Data to enable
+            </label>
+            <input
+              class="form-control "
+              type="date"
+              name="dataNotification"
+              v-model="dataNotification"
+            />
           </div>
         </div>
+        <div class="col-12 text-right">
+          <v-btn @click="UpadateInfo()" rounded color="warning">Save</v-btn>
+        </div>
+      </form>
+    </v-card>
+    <v-snackbar v-model="snackbar" :color="snackColor">
+      <div class="text-center">
+        {{ text }}
       </div>
-    </div>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -178,8 +140,14 @@ export default {
   name: "edit",
   data() {
     return {
+      snackColor: "green",
+      error: false,
+      snackbar: false,
+      text: "asd",
+      dialog: false,
       hidden: true,
       UserInfo: [],
+      id: 0,
       firstName: "",
       lastName: "",
       email: "",
@@ -191,7 +159,7 @@ export default {
       dataNotification: ""
     };
   },
-/*  created () {
+  /*  created () {
   this.fetchAuthenticatedUser()
   },*/
   methods: {
@@ -233,72 +201,99 @@ export default {
     },
 
     UpadateInfo() {
-      api
-        .updateUser(
-          1,
-          this.firstName,
-          this.lastName,
-          this.skypeId,
-          this.email,
-          this.enableNotification,
-          this.dataNotification
-        )
-        .then(response => {
-          this.response = response.data;
-        })
-        .catch(e => {
-          this.errors.push(e);
-        });
+      this.error = false;
+
+      if (this.firstName.length === 0) {
+        this.error = true;
+        this.snackbar = true;
+        this.snackColor = "red";
+        this.text = "First name can't be empty";
+      }
+
+      if (this.lastName.length === 0) {
+        this.error = true;
+        this.snackColor = "red";
+
+        this.snackbar = true;
+        this.text = "Last name can't be empty";
+      }
+
+      if (this.email.length === 0) {
+        this.error = true;
+        this.snackbar = true;
+        this.snackColor = "red";
+
+        this.text = "Email can't be empty";
+      }
+
+      if (this.skypeId.length === 0) {
+        this.error = true;
+        this.snackbar = true;
+        this.snackColor = "red";
+
+        this.text = "Skype id can't be empty";
+      }
+
+      if (!this.error) {
+        this.snackbar = true;
+
+        this.snackColor = "green";
+
+        this.text = "Success";
+
+        api
+          .updateUser(
+            this.firstName,
+            this.lastName,
+            this.skypeId,
+            this.email,
+            this.enableNotification,
+            this.dataNotification
+          )
+          .then(response => {
+            this.response = response.data;
+          })
+          .catch(e => {
+            this.errors.push(e);
+          });
+      }
     },
 
     checkPass() {
-      if (this.password1 === this.password2 && this.password1.length > 7) {
-        alert("Меняем пароль");
-        api.changePass(1, this.password1);
-        console.log("Меняем пароль");
-      } else {
-        console.log("Не меняем пароль");
-        alert("Мы не меняем пароль");
+      let passError = false;
+
+      if (this.password1 !== this.password2) {
+        passError = true;
+        this.snackbar = true;
+        this.text = "Passwords are different";
+        this.snackColor = "red";
+      }
+      if (this.password1.length < 5) {
+        passError = true;
+        this.snackbar = true;
+        this.snackColor = "red";
+        this.text = "Passwords can't be smaller than 5";
+      }
+      if (this.password2.length === 0) {
+        passError = true;
+        this.snackbar = true;
+        this.snackColor = "red";
+        this.text = "Repeat password please!";
+      }
+      this.dialog = false;
+      if (!passError) {
+        this.snackColor = "green";
+        api.changePass(this.password1);
+        this.$router.push("/login");
       }
     }
   },
-
-
-    /*fetchAuthenticatedUser () {
-      this.$store.dispatch('updateUser',{
-         firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          skypeId: this.skypeId,
-      })
-      .then(Response => {
-          console.log(Response);
-          //   this.$router.push("/");
-        })*/
-
-    //     const token = localStorage.getItem('tweetr-token')
-
-    //     axios
-    //         .get('account/me', {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         })
-    //         .then(response => {
-    //             this.name = response.data.data.name
-    //             this.username = response.data.data.username
-    //             this.email = response.data.data.email
-    //             this.location = response.data.data.location
-    //             this.bio = response.data.data.bio
-    //             this.websiteUrl = response.data.data.website_url
-    //         })
-  
-
   beforeCreate() {
     api
       .getUserWithoutId()
       .then(response => {
         console.log(response.data);
+        this.id = response.data.id;
         this.firstName = response.data.firstName;
         this.lastName = response.data.lastName;
         this.skypeId = response.data.skypeId;

@@ -117,7 +117,6 @@ export default {
     changeMenu(menu) {
         return AXIOS.put("/updateMenu", menu)
     },
-
     getMenu() {
         return AXIOS.get(`/menu`);
     },
@@ -173,10 +172,9 @@ export default {
         return AXIOS.delete("/users/deleteUser/" + user_id);
     },
 
-    updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
+    updateUser(firstName, lastName, skypeId, email, enable, data) {
         return AXIOS.put(
             "/users/edit/" +
-            user_id +
             "?firstName=" +
             firstName +
             "&lastName=" +
@@ -239,9 +237,9 @@ export default {
         return AXIOS.post("/new_item?name=" + itemName);
     },
 
-    changePass(user_id, password) {
+    changePass(password) {
         return AXIOS.put(
-            "/user/edit/password/" + user_id + "?password=" + password
+            "/users/edit/password?password=" + password
         );
     },
     getUserCurrentOrders() {
@@ -249,9 +247,9 @@ export default {
             "/users/orders?ordered=false"
         );
     },
-    getUserOrdersHistory() {
+    getUserOrdersHistory(page, dateFrom, dateTo) {
         return AXIOS.get(
-            "/users/orders?ordered=true"
+            "/users/orders?ordered=true&page=" + page + dateFrom + dateTo
         );
     },
     // Payment endpoints

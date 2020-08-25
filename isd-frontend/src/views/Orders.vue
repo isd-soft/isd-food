@@ -38,16 +38,23 @@
                   role="tabpanel"
                   aria-labelledby="pills-home-tab"
               >
+                <div class="row justify-content-center" v-show="$store.state.orders.userOrdersType==='history'">
+                  <v-col cols="1 mt-2">Filter by period</v-col>
+                  <v-col cols="2">
+                    <DatePicker label="Date from" picker-type="date" :initial-date="dateFromPicker"
+                                @dateChanged="setDateFrom"/>
+                  </v-col>
+                  <v-col cols="2">
+                    <DatePicker label="Date to" picker-type="date" :initial-date="dateToPicker"
+                                @dateChanged="setDateTo"/>
+                  </v-col>
+                </div>
                 <OrderTable/>
+                <Pagination v-show="this.$store.state.orders.userOrdersType==='history'" class="pb-15 pt-5"
+                            @pageChanged="setPage" :page="page"
+                            :totalPages="this.$store.state.orders.userOrdersHistory.totalPages"/>
               </div>
-              <!---Orders History--->
-              <div
-                  class="tab-pane fade"
-                  id="pills-profile"
-                  role="tabpanel"
-                  aria-labelledby="pills-profile-tab"
-              >
-              </div>
+
             </div>
           </div>
         </div>
@@ -59,20 +66,42 @@
 <script>
 import api from "@/components/backend-api.js";
 import OrderTable from "@/components/OrderTable";
+import DatePicker from "@/components/picker/DatePicker";
+import Pagination from "@/components/Pagination";
 
 export default {
-  components: {OrderTable},
+  components: {OrderTable, DatePicker, Pagination},
   name: "Home",
   data() {
     return {
       userHistory: [],
       getHistory: false,
-      ordersType: "current",
       currentOrders: [],
       historyOrders: [],
+      dateFromPicker: null,
+      dateToPicker: null,
+      page: 1
     };
   },
   methods: {
+    setPage(page) {
+      if (page !== this.page)
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      this.page = page
+      this.getUserOrdersHistory();
+    },
+    setDateFrom(date) {
+      this.dateFromPicker = date;
+      this.getUserOrdersHistory();
+    },
+    setDateTo(date) {
+      this.dateToPicker = date;
+      this.getUserOrdersHistory();
+    },
     isEmptyCurrent() {
       for (let i = 0; i < this.historyOrders.length; i++)
         if (!this.historyOrders[i].ordered) return false;
@@ -87,13 +116,26 @@ export default {
       api.deleteOrder(id);
     },
     switchOrdersType(e) {
-      this.label = "updated";
       this.$store.state.orders.userOrdersType = e.target.name;
     },
+    getUserCurrentOrders() {
+      this.$store.dispatch("getUserCurrentOrders");
+    },
+    getUserOrdersHistory() {
+      let dateToParam = this.dateToPicker != null ? "&dateTo=" + this.dateToPicker : "";
+      let dateFromParam = this.dateFromPicker != null ? "&dateFrom=" + this.dateFromPicker : "";
+
+      this.$store.dispatch("getUserOrdersHistory", {
+        dateFrom: dateFromParam,
+        dateTo: dateToParam,
+        page: this.page - 1
+      });
+
+    }
   },
-  beforeCreate() {
-    this.$store.dispatch("getUserCurrentOrders");
-    this.$store.dispatch("getUserOrdersHistory");
+  beforeMount() {
+    this.getUserCurrentOrders();
+    this.getUserOrdersHistory();
   }
 };
 </script>

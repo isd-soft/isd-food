@@ -21,7 +21,7 @@
           </li>
         </a>
         <hr class="sidebar-divider my-0">
-        <div v-if="role==='ROLE_supervisor'">
+        <div v-if="role === 'ROLE_supervisor'">
           <li class="nav-item " v-for="link in SuperVisorLinks" :key="link.text">
             <router-link class="nav-link" :to="link.route">
               <v-icon style="color: white; font-size: 18px">{{ link.icon }}</v-icon>
@@ -49,29 +49,9 @@
             <ul class="navbar-nav ml-auto">
               <!-- Nav Item - Alerts -->
               <li class="nav-item dropdown no-arrow mx-1">
-                <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="alertsDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
-                  <i class="fas fa-bell fa-fw"></i>
-                  <!-- Counter - Alerts -->
-                  <span class="badge badge-danger badge-counter"> </span>
-
-                </a>
                 <!-- Dropdown - Alerts -->
-                <div
-                    class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="alertsDropdown"
-                >
-                </div>
-              </li>
 
-              <div class="topbar-divider d-none d-sm-block"></div>
+              </li>
 
               <!-- Nav Item - User Information -->
               <li class="nav-item dropdown no-arrow">

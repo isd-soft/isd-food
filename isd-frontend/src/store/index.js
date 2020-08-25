@@ -17,7 +17,7 @@ export default new Vuex.Store({
         },
         orders: {
             userCurrentOrders: [],
-            userOrdersHistory: null,
+            userOrdersHistory: {totalPages: 1},
             userOrdersType: "current",
             createOrderSuccess: false
         },
@@ -195,15 +195,15 @@ export default new Vuex.Store({
                     });
             });
         },
-        getUserOrdersHistory({commit}) {
+        getUserOrdersHistory({commit}, {page, dateFrom, dateTo}) {
             return new Promise((resolve, reject) => {
                 // this.state.login.loading = true;
                 api
-                    .getUserOrdersHistory()
+                    .getUserOrdersHistory(page, dateFrom, dateTo)
                     .then(response => {
                         if (response.status == 200) {
                             console.log(response.data)
-                            this.state.orders.userOrdersHistory = response.data.content
+                            this.state.orders.userOrdersHistory = response.data
                         }
                         resolve(response);
                     })
@@ -345,8 +345,9 @@ export default new Vuex.Store({
         getEmail: state => state.login.email,
         getPassword: state => state.login.password,
         userCurrentOrders: state => state.orders.userCurrentOrders,
-        userOrdersHistory: state => state.orders.userOrdersHistory,
+        userOrdersHistory: state => state.orders.userOrdersHistory.content,
+        userOrdersHistoryTotalPages: state => state.orders.userOrdersHistory.totalPages,
         userOrdersType: state => state.orders.userOrdersType,
-        userOrders: state => state.orders.userOrdersType === "current" ? state.orders.userCurrentOrders : state.orders.userOrdersHistory
+        userOrders: state => state.orders.userOrdersType === "current" ? state.orders.userCurrentOrders : state.orders.userOrdersHistory.content
     }
 });

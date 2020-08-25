@@ -125,7 +125,8 @@ export default {
       let month = this.monthYearPicker.split('-')[1];
       this.dateFromPicker = null;
       this.dateToPicker = null;
-      this.$store.dispatch('getAllUserPaymentOnMonth', {month: month, year: year, page: this.page,
+      this.$store.dispatch('getAllUserPaymentOnMonth', {
+        month: month, year: year, page: this.page,
         paymentSort: this.sortByPayment != null ? "&sort=payment," + this.sortByPayment : ""
       }).catch(error => {
         console.log(error)
@@ -155,15 +156,16 @@ export default {
       }
     },
     switchPaymentSort() {
+      if (this.monthYearPicker != null) {
+        if (this.sortByPayment == null)
+          this.sortByPayment = "ASC";
+        else if (this.sortByPayment === "ASC")
+          this.sortByPayment = "DESC";
+        else
+          this.sortByPayment = null;
 
-      if (this.sortByPayment == null)
-        this.sortByPayment = "ASC";
-      else if (this.sortByPayment === "ASC")
-        this.sortByPayment = "DESC";
-      else
-        this.sortByPayment = null;
-
-      this.getAllUserPaymentOnMonth();
+        this.getAllUserPaymentOnMonth();
+      }
     }
   },
 

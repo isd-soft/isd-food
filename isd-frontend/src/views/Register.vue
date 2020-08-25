@@ -75,6 +75,7 @@
               color="warning"
               @change="formatDate"
               value="dd-mm-yy"
+              :max="nowDate"
             ></v-date-picker>
           </v-menu>
           <v-radio-group class="radio-group" v-model="role" id="roles" row>
@@ -104,10 +105,12 @@
   </v-app>
 </template>
 <script>
+import route from "../router/index";
 export default {
   name: "register",
   data() {
     return {
+      nowDate: new Date().toISOString().slice(0,10),
       valid: false,
       menu2: false,
       modal: false,
@@ -151,13 +154,17 @@ export default {
         })
         .then(Response => {
           console.log(Response);
+          //   this.$router.push("/");
+          if(Response.status === 201){
+            this.$refs.form.reset();
+            self.$route.push("/users/table");
+          }
         })
         .catch(error => {
           console.log(error);
           this.registerError = true;
           this.errors.push(error);
         });
-      // this.$refs.form.reset();
     }
   }
 };

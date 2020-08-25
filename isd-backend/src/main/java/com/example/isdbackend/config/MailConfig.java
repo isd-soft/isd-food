@@ -41,17 +41,14 @@ public class MailConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setUsername(username);
         mailSender.setPassword(password);
-
         mailSender.setHost(host);
         mailSender.setPort(port);
         mailSender.setProtocol(protocol);
-
         Properties properties = mailSender.getJavaMailProperties();
         properties.setProperty("mail.transport.protocol",protocol);
         properties.setProperty("mail.smtp.auth", auth);
         properties.setProperty("mail.smtp.starttls.enable", enable);
         properties.setProperty("mail.debug",debug);
-
         return mailSender;
     }
 }

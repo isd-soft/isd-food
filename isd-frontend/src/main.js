@@ -8,6 +8,7 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import vueCookies from "vue-cookies";
+import VueSimpleAlert from "vue-simple-alert";
 
 
 
@@ -27,5 +28,6 @@ new Vue({
   store,
   vuetify,
   vueCookies,
+  VueSimpleAlert,
   render: h => h(App)
 }).$mount("#app");

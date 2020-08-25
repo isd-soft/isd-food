@@ -19,7 +19,7 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT o.id, " +
-            "       concat(cast(o.date as date), ' ', cast(o.date as time)) date, " +
+            "       o.date date, " +
             "       o.ordered, " +
             "       o.user_id userId, " +
             "       m.name      menuName, " +

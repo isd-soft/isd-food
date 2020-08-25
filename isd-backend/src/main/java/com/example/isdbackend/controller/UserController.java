@@ -50,7 +50,7 @@ public class UserController {
 
     @GetMapping("/orders")
     public ResponseEntity<?> getUserOrders(
-            @PageableDefault(size = 50, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 10, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter) {
 
         Page<OrderView> orders = orderService.getOrders(pageable, orderFilter, userService.getCurrentUserId());
@@ -104,14 +104,21 @@ public class UserController {
         return new ResponseEntity<>(userService.getCurrentUser(), HttpStatus.OK);
     }
 
-    @PutMapping("/edit/{currentId}")
-    public void editUser(@PathVariable Long currentId, @RequestParam String firstName, @RequestParam String lastName,
+    @PutMapping("/edit")
+    public void editUser(@RequestParam String firstName, @RequestParam String lastName,
                          @RequestParam String skypeId, @RequestParam String email, @RequestParam Boolean enable, @RequestParam String data) throws ParseException {
-        System.out.println(data);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateForChange = sdf1.parse(data);
-        java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
-        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
+        Long currentId = userService.getCurrentUserId();
+
+        if(!data.equals("")) {
+            System.out.println(data);
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateForChange = sdf1.parse(data);
+            java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
+            userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
+        }
+        else{
+            userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, null);
+        }
     }
 
     @PutMapping("/editBySupervisor/{userId}")
@@ -119,17 +126,19 @@ public class UserController {
                                      @RequestParam String lastName, @RequestParam String skypeId,
                                      @RequestParam String email, @RequestParam String role, @RequestParam Boolean enable,
                                      @RequestParam String data) throws ParseException {
+
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         Date dateForChange = sdf1.parse(data);
         java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
         userService.EditUserInfoBySupervisor(userId, firstName, lastName, skypeId, email, role, enable, sqlDate);
-
     }
 
-    @PutMapping("/edit/password/{currentId}")
+
+    @PutMapping("/edit/password")
     @ResponseBody
-    public String editUser(@PathVariable Long currentId, @RequestParam String password) {
-        userService.changePass(currentId, password);
+    public String editUser( @RequestParam String password) {
+
+        userService.changePass(userService.getCurrentUserId(), password);
         return "Success";
     }
 

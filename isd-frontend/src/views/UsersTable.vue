@@ -5,6 +5,7 @@
         <div class="card border-left-warning shadow h-100 py-1">
 
           <div class="card-body wrapScroll">
+            <h3 class="mb-3">Users</h3>
             <table class="table table-bordered" cellspacing="0">
               <thead>
               <tr>
@@ -18,7 +19,7 @@
               </tr>
               </thead>
 
-              <confirmationDialog :action-button="'Agree'" :method="deleteUser" :title="title"
+              <confirmationDialog :action-button="'Agree'" :method="deleteUser()" :title="title"
                                   :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
 
               <tbody v-for="user of users" :key="user.id">
@@ -155,12 +156,12 @@
                                 </div>
                               </div>
                               <div class="form-group col-md-6">
-                                <!--                                <v-select-->
-                                <!--                                    v-model="user.role.name"-->
-                                <!--                                    :items="role_items"-->
-                                <!--                                    label="Role"-->
-                                <!--                                    required-->
-                                <!--                                ></v-select>-->
+<!--                                <v-select-->
+<!--                                    v-model="user.role.name"-->
+<!--                                    :items="role_items"-->
+<!--                                    label="Role"-->
+<!--                                    required-->
+<!--                                ></v-select>-->
                               </div>
                             </div>
                             <div class="form-group ml-1">
@@ -202,7 +203,7 @@
                                   user.lastName,
                                   user.skypeId,
                                   user.email,
-                                  // user.role.name,
+                                  user.role==null ? '' : user.role.name,
                                   user.enabled,
                                   user.employmentDate
                                 )
@@ -258,11 +259,26 @@ export default {
       formattedDate: "",
       menu2: false,
       modal: false,
-      role_items: ["ROLE_user", "ROLE_supervisor"]
+      role_items: ["ROLE_user", "ROLE_supervisor"],
+      totalPages: 1,
+      page: 1
     };
   },
   methods: {
+    setPage(page) {
+      if (page !== this.page)
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      this.page = page
+      if (this.monthYearPicker != null)
+        this.getAllUserPaymentOnMonth();
 
+      else this.getAllUserPaymentOnPeriod();
+
+    },
     openDialog(id, name) {
       this.dialog1 = true
       this.currentId = id
@@ -299,7 +315,8 @@ export default {
     },
 
     deleteUser() {
-      api.deleteUser(this.currentId);
+      if (this.currentId != null)
+        api.deleteUser(this.currentId);
     }
 
   },

@@ -11,9 +11,7 @@
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
-
               <confirmationDialog :action-button="'Agree'" :method="deleteMenu" :title="title" :message="message + currentName+ '?'" :dialog1.sync="dialog1"/>
-
                 <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                   <tr>
@@ -102,7 +100,7 @@
                             <v-autocomplete
                               ref="provider"
                               return-object
-                              v-model="menu.provider.name"
+                              v-model="menu.provider"
                               :items="providers"
                               item-text="name"
                               label="Provider"
@@ -225,6 +223,14 @@
                             </v-btn>
                           </v-card-actions>
                         </v-card>
+                        <v-snackbar
+                                v-model="snackbar"
+                                :color=snackbarColor
+                        >
+                          <div class="text-center">
+                            {{ text }}
+                          </div>
+                        </v-snackbar>
                       </v-dialog>
                     </v-app>
                   </td>
@@ -266,7 +272,10 @@
       dialog: false,
       menus: [],
       userHistory: [],
-      getHistory: false
+      getHistory: false,
+      snackbar: false,
+      snackbarColor: 'error',
+      text: 'pcela',
     };
   },
   methods: {
@@ -295,10 +304,76 @@
       api.deleteMenu(this.currentId);
     },
 
-    changeMenu(menu){
-      api.changeMenu(menu);
-      window.location.reload();
+    // changeMenu(menu){
+    //   api.changeMenu(menu);
+    //   window.location.reload();
+    //
+    // },
 
+    changeMenu(menu) {
+      let error = false
+
+      if (menu.name.length === 0) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Where is name?"
+        error = true
+      }
+
+      if (menu.provider.length === 0) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Who is provider?"
+        error = true
+      }
+
+      if (menu.dayOfWeek === null) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Where is day?"
+        error = true
+      }
+
+      if (menu.image === null) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Where is image?"
+        error = true
+      }
+
+      if (menu.menuTypes[0].items.length === 0) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Items for S please"
+        error = true
+      }
+      if (menu.menuTypes[1].items.length === 0) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Items for M please"
+        error = true
+      }
+      if (menu.menuTypes[1].price.length === 0 || menu.menuTypes[1].price < 0) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Price M can't be negative"
+        error = true
+      }
+      if (menu.menuTypes[0].price.length === 0 || menu.menuTypes[0].price < 0) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Price S can't be negative"
+        error = true
+      }
+
+      if (!error) {
+        this.snackbarColor = "success"
+        this.snackbar = true;
+        this.text = "Menu has been successfully added!"
+
+          api.changeMenu(menu);
+          window.location.reload();
+      }
     }
   },
   beforeCreate() {
@@ -333,5 +408,4 @@
 };
 
 </script>
-
 <style></style>
