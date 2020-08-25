@@ -217,7 +217,7 @@
       return res;
     },
     getUserName(id){
-      var name = "standart";
+      let name = "standart";
       this.users.forEach(el => {
         if(el.id === id)
           name =  el.firstName + " " + el.lastName;
