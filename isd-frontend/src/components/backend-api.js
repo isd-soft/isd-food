@@ -172,10 +172,9 @@ export default {
         return AXIOS.delete("/users/deleteUser/" + user_id);
     },
 
-    updateUser(user_id, firstName, lastName, skypeId, email, enable, data) {
+    updateUser(firstName, lastName, skypeId, email, enable, data) {
         return AXIOS.put(
             "/users/edit/" +
-            user_id +
             "?firstName=" +
             firstName +
             "&lastName=" +
@@ -238,9 +237,9 @@ export default {
         return AXIOS.post("/new_item?name=" + itemName);
     },
 
-    changePass(user_id, password) {
+    changePass(password) {
         return AXIOS.put(
-            "/users/edit/password/" + user_id + "?password=" + password
+            "/users/edit/password?password=" + password
         );
     },
     getUserCurrentOrders() {

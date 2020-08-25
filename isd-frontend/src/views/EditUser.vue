@@ -144,12 +144,27 @@
                                   </div>
                                 </div>
                               </div>
-                              <v-btn
-                                @click="checkPass()"
-                                rounded
-                                color="warning"
-                                >Change</v-btn
-                              >
+                              <v-row justify="center">
+                                <v-dialog v-model="dialog" persistent max-width="350">
+                                  <template v-slot:activator="{ on, attrs}">
+                                    <v-btn
+                                      rounded
+                                      color="warning"
+                                      v-bind="attrs"
+                                      v-on="on"
+                                      >Change</v-btn
+                                    >
+                                  </template>
+                                  <v-card>
+                                    <v-card-title class="headline">Do you want to change the password?</v-card-title>
+                                    <v-card-actions>
+                                      <v-spacer></v-spacer>
+                                      <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
+                                      <v-btn color="green darken-1" text @click="checkPass()">Agree</v-btn>
+                                    </v-card-actions>
+                                  </v-card>
+                                </v-dialog>
+                              </v-row>
                             </form>
                           </div>
                         </form>
@@ -173,6 +188,7 @@ export default {
   name: "edit",
   data() {
     return {
+      dialog: false,
       hidden: true,
       UserInfo: [],
       id: 0,
@@ -231,7 +247,6 @@ export default {
     UpadateInfo() {
       api
         .updateUser(
-          this.id,
           this.firstName,
           this.lastName,
           this.skypeId,
@@ -248,11 +263,13 @@ export default {
     },
 
     checkPass() {
-      //if (this.password1 === this.password2 && this.password1.length > 7) {
-        alert("Changing password");
+      // if (this.password1 === this.password2 && this.password1.length > 7) {
+      //alert("Changing password");
+      this.dialog = false;
         api.changePass(this.password1);
+      this.$router.push("/login");
      // } else {
-        //alert("Cannot change");
+     //    alert("Cannot change");
      // }
     }
   },

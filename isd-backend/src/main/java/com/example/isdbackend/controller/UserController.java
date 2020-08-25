@@ -104,14 +104,21 @@ public class UserController {
         return new ResponseEntity<>(userService.getCurrentUser(), HttpStatus.OK);
     }
 
-    @PutMapping("/edit/{currentId}")
-    public void editUser(@PathVariable Long currentId, @RequestParam String firstName, @RequestParam String lastName,
+    @PutMapping("/edit")
+    public void editUser(@RequestParam String firstName, @RequestParam String lastName,
                          @RequestParam String skypeId, @RequestParam String email, @RequestParam Boolean enable, @RequestParam String data) throws ParseException {
-        System.out.println(data);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateForChange = sdf1.parse(data);
-        java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
-        userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
+        Long currentId = userService.getCurrentUserId();
+
+        if(!data.equals("")) {
+            System.out.println(data);
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateForChange = sdf1.parse(data);
+            java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
+            userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
+        }
+        else{
+            userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, null);
+        }
     }
 
     @PutMapping("/editBySupervisor/{userId}")
@@ -119,12 +126,13 @@ public class UserController {
                                      @RequestParam String lastName, @RequestParam String skypeId,
                                      @RequestParam String email, @RequestParam String role, @RequestParam Boolean enable,
                                      @RequestParam String data) throws ParseException {
+
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         Date dateForChange = sdf1.parse(data);
         java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
         userService.EditUserInfoBySupervisor(userId, firstName, lastName, skypeId, email, role, enable, sqlDate);
-
     }
+
 
     @PutMapping("/edit/password")
     @ResponseBody
