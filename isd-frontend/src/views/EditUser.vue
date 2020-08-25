@@ -261,9 +261,24 @@ export default {
     checkPass() {
       // if (this.password1 === this.password2 && this.password1.length > 7) {
       //alert("Changing password");
+      let passError = false;
+
+      if(this.password1 !== this.password2){
+        passError = true;
+        this.snackbar = true;
+        this.text = "Passwords are different";
+      }
+
+      if(this.password1.length < 5){
+        passError = true;
+        this.snackbar = true;
+        this.text = "Passwords can't be smaller than 5";
+      }
       this.dialog = false;
+      if(!passError){
       api.changePass(this.password1);
       this.$router.push("/login");
+      }
       // } else {
       //    alert("Cannot change");
       // }
