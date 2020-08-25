@@ -207,7 +207,8 @@
           <v-divider class="mt-12"></v-divider>
           <v-card-actions>
 
-            <v-btn color="primary">Cancel</v-btn>
+            <v-btn color="primary" :to="'/allmenus'">Cancel</v-btn>
+
             <v-spacer></v-spacer>
             <v-btn color="success" @click="createMenu()"
               >Submit
@@ -217,15 +218,16 @@
         </v-card>
       </v-col>
     </v-row>
+
     <v-snackbar
             v-model="snackbar"
+            :color=snackbarColor
     >
       <div class="text-center">
         {{ text }}
       </div>
-
-
     </v-snackbar>
+
   </v-app>
 </template>
 
@@ -272,7 +274,9 @@ export default {
     priceM: null,
     formHasErrors: false,
     snackbar: false,
+    snackbarColor: 'error',
     text: 'pcela',
+
   }),
 
 
@@ -329,30 +333,67 @@ export default {
 
 
     createMenu() {
+      let error = false
+
       if (this.name === null) {
+        this.snackbarColor = "error"
         this.snackbar = true;
         this.text = "Where is name?"
-      } else if (this.provider === null) {
+        error = true
+      }
+
+      if (this.provider.length === 0) {
+        this.snackbarColor = "error"
         this.snackbar = true;
         this.text = "Who is provider?"
-      } else if (this.itemsS === null) {
+        error = true
+      }
+
+      if (this.day === null) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Where is day?"
+        error = true
+      }
+
+      if (this.image === null) {
+        this.snackbarColor = "error"
+        this.snackbar = true;
+        this.text = "Where is image?"
+        error = true
+      }
+
+      if (this.itemsS.length === 0) {
+        this.snackbarColor = "error"
         this.snackbar = true;
         this.text = "Items for S please"
-      } else if (this.itemsM === null) {
+        error = true
+      }
+      if (this.itemsM.length === 0) {
+        this.snackbarColor = "error"
         this.snackbar = true;
         this.text = "Items for M please"
-      } else if (this.priceM < -1) {
-        this.snackbar = true;
-        this.text = "Price can't be negative"
-      } else if (this.priceS < -1) {
-        this.snackbar = true;
-        this.text = "Price S can't be negative"
-      } else if (this.priceM < -1) {
+        error = true
+      }
+      if (this.priceM === null || this.priceM < 0) {
+        this.snackbarColor = "error"
         this.snackbar = true;
         this.text = "Price M can't be negative"
-      } else {
+        error = true
+      }
+      if (this.priceS === null || this.priceS < 0) {
+        this.snackbarColor = "error"
         this.snackbar = true;
-        this.text = "Success"
+        this.text = "Price S can't be negative"
+        error = true
+      }
+
+      if (!error) {
+        this.snackbarColor = "success"
+        this.snackbar = true;
+
+
+        this.text = "Menu has been successfully added!"
         api.createFullMenu({
           name: this.name,
           provider: this.provider,
