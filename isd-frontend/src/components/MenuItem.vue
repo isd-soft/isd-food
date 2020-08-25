@@ -4,11 +4,10 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-warning ml-1 text-uppercase mb-1" >{{product_data.name}}</div>
+            <div class="text-xl font-weight-bold text-warning ml-1 text-uppercase mb-1" >{{product_data.name}}</div>
             <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 12px">
               <div class="ml-1">
-                <p>Provider : {{product_data.provider.name}}</p>
-                <p>Day : {{product_data.dayOfWeek}}</p>
+                <h6><b>Provider : {{product_data.provider.name}}</b></h6>
                 <div v-if="product_data.image === null">
                   <img src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg" class="image" alt="">
                 </div>
@@ -39,11 +38,14 @@
                     {{check_menu('S')}}
                   </div>
 
-                  <p>Items:</p>
+                  <h6><b>Items:</b></h6>
 
-                  <li v-for="item in product_data.menuTypes[(type_id)].items" :key="item.name">
-                    {{ item.name }}
-                  </li>
+                  <h6>
+                    <li v-for="item in product_data.menuTypes[(type_id)].items" :key="item.name">
+                      <b>{{ item.name }}</b>
+                    </li>
+                  </h6>
+
                   <br>
                   <!-- <p>Delivery price: {{product_data.provider.deliveryPrice}} mdl.</p>
                     <p>Price: {{product_data.menuTypes[(type_id)].price}} mdl.</p>
