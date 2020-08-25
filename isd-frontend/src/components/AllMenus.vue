@@ -102,7 +102,7 @@
                             <v-autocomplete
                               ref="provider"
                               return-object
-                              v-model="menu.provider.name"
+                              v-model="menu.provider"
                               :items="providers"
                               item-text="name"
                               label="Provider"
@@ -296,8 +296,8 @@
     },
 
     changeMenu(menu){
-      api.changeMenu(menu)
-      window.location.reload()
+      api.changeMenu(menu);
+      window.location.reload();
 
     }
   },

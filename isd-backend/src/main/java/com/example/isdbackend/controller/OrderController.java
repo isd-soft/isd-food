@@ -27,7 +27,7 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<Page<OrderView>> getAllOrders(
-            @PageableDefault(size = 20, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 50, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter,
             Long userId) {
 
@@ -38,7 +38,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public ResponseEntity<Page<OrderView>> getAllOrders(
-            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 50, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter) {
 
         return new ResponseEntity<>(orderService.getOrders(pageable, orderFilter, 0L), HttpStatus.OK);
@@ -63,7 +63,7 @@ public class OrderController {
 
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Page<OrderView>> getOrders(
-            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 50, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter,
             @PathVariable long userId) {
 

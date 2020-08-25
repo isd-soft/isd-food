@@ -72,8 +72,6 @@ export default {
       this.$store.state.login.email = this.email;
     },
     submitHandler() {
-
-
       this.$store
           .dispatch("login", {email: this.email, password: this.password})
           .then(() => {

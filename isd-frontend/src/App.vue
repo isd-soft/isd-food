@@ -6,7 +6,7 @@
 
     <div id="wrapper">
       <ul
-          class="navbar-nav  sidebar sidebar-dark accordion"
+          class="navbar-nav sidebar sidebar-dark accordion"
           id="accordionSidebar"
           style="background-color: #ff9800"
       >
@@ -192,29 +192,23 @@ export default {
   components: {ErrorDialog, CreateOrderDialog, PaymentDialog},
   data: () => ({
     scrollTop: false,
-    role: localStorage.getItem("userRole"),
+    role: localStorage.getItem("role"),
+    n: false,
     links: [
       { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
       { icon: "fas fa-history", text: "Orders", route: "/orders" },
+      { icon: "fas fa-envelope", text: "Mail", route: "/" }
     ],
 
     SuperVisorLinks: [
-      {icon: "fas fa-users", text: "Users", route: "/users/table"},
-      {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
-      {
-        icon: "fas fas fa-cart-plus",
-        text: "Create provider",
-        route: "/providers"
-      },
-      {icon: "fas fa-utensils", text: "Providers", route: "/ProviderList"},
-      {
-        icon: "fas fas fa-user-plus",
-        text: "Create user",
-        route: "/users/register"
-      },
-      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
-      {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
+      { icon: "fas fa-user", text: "Account", route: "/edit" },
+      { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
+      { icon: "fas fa-history", text: "My orders", route: "/orders" },
+      { icon: "fas fa-users", text: "Users", route: "/users/table" },
+      { icon: "fas fa-pizza-slice", text: "Menus", route: "/allmenus" },
+      { icon: "fas fa-utensils", text: "Providers", route: "/ProviderList" },
+      { icon: "fas fa-history", text: "Orders", route: "/ProviderOrders" }
 
     ]
   }),

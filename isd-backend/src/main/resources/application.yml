@@ -14,7 +14,8 @@
 #    deserialization:
 #      fail-on-unknown-properties: false
 #
-#logging:
+#logging:.
+
 #  level:
 #    org:
 #      hibernate:

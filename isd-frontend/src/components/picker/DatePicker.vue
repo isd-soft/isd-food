@@ -5,6 +5,7 @@
       transition="scale-transition"
       offset-y
       min-width="290px"
+      :close-on-content-click="false"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
@@ -14,9 +15,13 @@
           v-bind="attrs"
           v-on="on"
           @click="menu=true"
+          prepend-icon="date"
       ></v-text-field>
     </template>
-    <v-date-picker :allowed-dates="allowedDates" header-color="orange" color="warning" v-model="date"
+    <v-date-picker :allowed-dates="allowedDates" header-color="orange" color="warning"
+                   v-model="date"
+                   :min="availableDates[availableDates.length-1]"
+                   :max="availableDates[0]"
                    :type="pickerType" @change="$emit('dateChanged', date); menu = false"/>
   </v-menu>
 </template>
@@ -30,7 +35,6 @@ export default {
   }),
   methods: {
     allowedDates(dateVal) {
-      console.log(dateVal)
       if (this.availableDates == null || this.availableDates.length === 0 || dateVal === null) return true;
       return this.availableDates.indexOf(dateVal) !== -1;
     },

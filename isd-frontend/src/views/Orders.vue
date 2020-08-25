@@ -79,7 +79,8 @@
         </div>
       </div>
     </div>
-  </v-app>
+  </div>
+</div>
 </template>
 
 <script>
@@ -88,7 +89,6 @@ import api from "@/components/backend-api.js";
 import OrderTable from "@/components/OrderTable";
 
 export default {
-  components: {OrderTable},
   name: "Home",
   data() {
     return {
@@ -110,9 +110,7 @@ export default {
         if (this.historyOrders[i].ordered) return true;
       return false;
     },
-    deleteOrder(id) {
-      api.deleteOrder(id);
-    },
+
     switchOrdersType(e) {
       this.label = "updated";
       this.$store.state.orders.userOrdersType = e.target.name;
@@ -121,12 +119,13 @@ export default {
     deleteOrder(){
       api.deleteOrder(this.currentId)
     }
-
+,
   beforeCreate() {
     this.$store.dispatch("getUserCurrentOrders");
     this.$store.dispatch("getUserOrdersHistory");
   }
-};
+}
+}
 </script>
 
 <style></style>
