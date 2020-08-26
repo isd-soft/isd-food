@@ -30,6 +30,7 @@ public class MenuController {
     public List<Menu> getMenus(){
         return (List<Menu>)menuService.getAllMenus();
     }
+
     @GetMapping("/menu/day")
     public ResponseEntity<List<Menu>> getMenus(@RequestParam DayOfWeek day){
         return new ResponseEntity<>((List<Menu>)menuService.getMenusByDay(day), HttpStatus.OK);

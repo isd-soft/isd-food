@@ -51,8 +51,11 @@
                       </button>
                     </td>
                     <td >
-                      <button type="submit" @click="openDialog(order.id)" >
-                        <v-icon  data-toggle="modal" data-target="#exampleModal">fas fa-trash</v-icon>
+                      <button
+                              style="outline: none"
+                              @click="openDialog(order.id)"
+                      >
+                        <i class="fas fa-trash"></i>
                       </button>
 
                     </td>
@@ -223,8 +226,8 @@
           name =  el.firstName + " " + el.lastName;
       })
       return name;
-    }
-    ,
+    },
+
     confirmOrder(id,bool){
       api.confirmOrderId(id,bool);
     },

@@ -28,6 +28,7 @@ export default new Vuex.Store({
             displayUserPayment: false,
             availableMonths: []
         },
+
         register: {loading: false, error: false, success: false, errors: []},
         Provider: {loading: false},
         errorDialog: false,
