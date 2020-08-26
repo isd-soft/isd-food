@@ -19,7 +19,7 @@
                 </tr>
               </thead>
 
-              <confirmationDialog :action-button="'Agree'" :method="deleteUser()" :title="title" :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
+              <confirmationDialog :action-button="'Agree'" :method="deleteUser" :title="title" :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
 
               <tbody v-for="user of users" :key="user.id">
                 <tr>
@@ -329,8 +329,8 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-.wrapScroll{
-  overflow: auto;
-  white-space: nowrap;
-}
+/*.wrapScroll{*/
+/*  overflow: auto;*/
+/*  white-space: nowrap;*/
+/*}*/
 </style>
