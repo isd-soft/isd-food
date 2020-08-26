@@ -11,7 +11,7 @@
         <v-btn @click="getDayMenu('FRIDAY')" value="FRIDAY" :disabled="getWeekDayId() > 5 || getWeekDayId()==0">Fr</v-btn>
       </v-btn-toggle>
       <div class="row">
-      <MenuItem v-for="product in dailyMenu" :key="product.name" :product_data="product"/>
+      <MenuItem v-for="product in dailyMenu" :key="product.id" :product_data="product"/>
       </div>
     </v-app>
   </div>

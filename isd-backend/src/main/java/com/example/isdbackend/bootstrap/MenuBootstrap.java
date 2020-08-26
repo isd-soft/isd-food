@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 
 @Component
 public class MenuBootstrap implements CommandLineRunner {
@@ -83,6 +84,37 @@ public class MenuBootstrap implements CommandLineRunner {
         andys.setDeliveryPrice(40);
 
         providerRepository.save(andys);
+
+        //------
+        Provider dodopitsa = new Provider();
+        dodopitsa.setName("Dodo pizza");
+        dodopitsa.setDeliveryPrice(10);
+
+        providerRepository.save(dodopitsa);
+
+        Provider burger = new Provider();
+        burger.setName("Burger king");
+        burger.setDeliveryPrice(10);
+        burger.setActive(true);
+
+        providerRepository.save(burger);
+
+        Provider olivia = new Provider();
+        olivia.setName("Olivia");
+        olivia.setDeliveryPrice(10);
+
+        providerRepository.save(olivia);
+
+
+        Provider salat5 = new Provider();
+        salat5.setName("Salate");
+        salat5.setDeliveryPrice(10);
+        salat5.setActive(true);
+
+        providerRepository.save(salat5);
+
+
+        //-----
 
         Provider mac = new Provider();
         mac.setName("Mac Donalds");
@@ -195,6 +227,7 @@ public class MenuBootstrap implements CommandLineRunner {
         User user = new User();
         user.setFirstName("Petea");
 
+
         user.setLastName("Jhons");
         user.setEmail("Spartak@gmail.com");
         user.setSkypeId("JhonesId");
@@ -212,7 +245,65 @@ public class MenuBootstrap implements CommandLineRunner {
         role1.setName("ROLE_user");
         roleRepository.save(role1);
 
-        user.setRoles(role);
+        String[] names = {"Petea","Sofia","Sanea","Oksana","Stela","Leha","Marat","Sqwozi","Babi","Tolea","Dasha","Masha","Lena","Poleno","Iulia","Gena","Jora","Jack","Chack","Nick","Marsel","Ionuts","Habib"};
+        String[] lastnames = {"Pulea","Dulea","Kebab","Razdorojnaia","Falco","Umanets","Cubric","Ronaldo","Messi","Putin","Tramp","Ecler","Cleon","Lupa","Pupa","Dodon","Medvedev","Chezar","Pizza","Dermendji"};
+        Provider [] providers = {dodopitsa,andys,burger,mac,salat5,olivia};
+
+        String[] menuName = {"Zapecanca","Borsh","Dieta","Post","Lost","Host","Sup","Kebab","Babki","Banan","Adler","Kefir","Kulici","Smikkers"};
+        String[] menu1 = {"Fcusnaia","Zapecionaia","Crivaia","Tupaia","Zelenia","Vialenaia","Kapcionii","Armeanscaia","Eudeiscaia","Iaponscaia","Percionaia"};
+        Random random = new Random();
+        DayOfWeek[] dayOfWeeks = {DayOfWeek.MONDAY,DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY,DayOfWeek.THURSDAY,DayOfWeek.FRIDAY};
+
+        for (int i = 0; i < 80; i++){
+            Menu s = new Menu();
+            s.setName(menuName[random.nextInt(menuName.length)] + " " + menu1[random.nextInt(menu1.length)]);
+            s.setProvider(providers[random.nextInt(providers.length)]);
+            s.setActive(true);
+            s.setDayOfWeek(dayOfWeeks[random.nextInt(dayOfWeeks.length)]);
+            menuRepository.save(s);
+
+            MenuType S47 = new MenuType();
+            S47.setPrice(100f);
+            S47.setType('S');
+
+            MenuType M47 = new MenuType();
+            M47.setPrice(50f);
+            M47.setType('M');
+
+            S47.setMenu(s);
+            M47.setMenu(s);
+
+            S47.setItems(new HashSet<>());
+            S47.getItems().add(mamaliga);
+            S47.getItems().add(sashlic);
+
+            M47.setItems(new HashSet<>());
+            M47.getItems().add(mamaliga);
+            M47.getItems().add(sashlic);
+            M47.getItems().add(poncho);
+
+            menuTypeRepository.save(S47);
+            menuTypeRepository.save(M47);
+
+
+        }
+        for(int i = 0; i < 100;i++){
+            User usr = new User();
+            String a = names[random.nextInt(names.length)];
+            String b = lastnames[random.nextInt(lastnames.length)];
+            usr.setFirstName(a);
+            usr.setLastName(b);
+            usr.setEmail(a + b + "@gmail.com");
+            usr.setSkypeId(b + a + "ID");
+            usr.setPassword("$2y$12$Gytj7ahrI8suqFJxtYG2IevbkegKn.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
+            usr.setOrders(new HashSet<>());
+            usr.setNotificationEnabled(true);
+            usr.setEnabled(true);
+            usr.setRoles(role1);
+            userRepository.save(usr);
+        }
+
+            user.setRoles(role);
 
         Order order = new Order();
         order.setMenuType(S3);
@@ -226,7 +317,7 @@ public class MenuBootstrap implements CommandLineRunner {
         user1.setLastName("Sosiska");
         user1.setEmail("Kubak@gmail.com");
         user1.setSkypeId("JhonesId");
-        user1.setPassword("$2y$12$Gytj7ahrI8suq.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
+        user1.setPassword("$2y$12$Gytj7ahrI8suqFJxtYG2IevbkegKn.Zj3v2DMSOhROerDvAbLMoiy".toCharArray());
         user1.setOrders(new HashSet<>());
         user1.setNotificationEnabled(true);
         user1.setEnabled(true);
