@@ -1,7 +1,7 @@
 <template>
   <v-overlay>
-    <v-app>
-      <v-card width="100vw" height="100vh" class="mx-auto">
+    <ForgotDialog showDialog="showDialog"/>
+    <v-card width="100vw" height="100vh" class="mx-auto">
         <body style="background: orange;">
           <div class="container">
             <!-- Outer Row -->
@@ -79,7 +79,6 @@
                               >Forgot Password?</span
                             >
                           </div>
-                          <ForgotDialog showDialog="showDialog" />
                         </div>
                       </div>
                     </div>
@@ -88,12 +87,13 @@
               </div>
             </div>
           </div>
-        </body>
-      </v-card>
-    </v-app>
-  </v-overlay>
+          </body>
+        </v-card>
+    </v-overlay>
+
 </template>
 <script>
+
 import ForgotDialog from "@/components/modal/ForgotDialog.vue";
 
 export default {

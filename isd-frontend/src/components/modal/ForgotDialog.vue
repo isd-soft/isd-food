@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <v-dialog
       v-model="$store.state.login.showDialog"
       persistent
@@ -29,7 +28,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-app>
 </template>
 <script>
 // eslint-disable-next-line no-unused-vars

@@ -50,7 +50,7 @@ public class UserController {
 
     @GetMapping("/orders")
     public ResponseEntity<?> getUserOrders(
-            @PageableDefault(size = 50, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 10, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
             OrderFilter orderFilter) {
 
         Page<OrderView> orders = orderService.getOrders(pageable, orderFilter, userService.getCurrentUserId());
@@ -64,7 +64,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserView>> getAllUsers(
-            @PageableDefault(size = 50, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 20, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
     }

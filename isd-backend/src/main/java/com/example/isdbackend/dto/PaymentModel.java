@@ -1,6 +1,8 @@
 package com.example.isdbackend.dto;
 
 import javax.persistence.MappedSuperclass;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @MappedSuperclass
 public class PaymentModel {
@@ -18,7 +20,9 @@ public class PaymentModel {
     }
 
     public double getPayment() {
-        return payment;
+        return BigDecimal.valueOf(payment)
+                .setScale(1, RoundingMode.UP)
+                .doubleValue();
     }
 
     public void setPayment(double payment) {

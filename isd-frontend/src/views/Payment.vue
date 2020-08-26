@@ -2,7 +2,7 @@
   <v-app>
 
     <v-container>
-      <v-radio-group v-model="filterType" row>
+      <v-radio-group v-model="filterType" class="row" row>
         <span class="theme--light pr-5 pt-1">Filter by</span>
         <v-radio
             label="Month"
@@ -45,10 +45,17 @@
         <thead>
         <tr>
           <th>Full name</th>
-          <th>Payment</th>
+          <th v-show="filterType==='Month'">
+            <span class="sort-column" @click="switchPaymentSort">
+              Payment <span v-show="sortByPayment==null"><i class="fas fa-sort"/></span>
+              <span v-show="sortByPayment==='ASC'"><i class="fas fa-caret-up"/></span>
+              <span v-show="sortByPayment==='DESC'"><i class="fas fa-caret-down"/></span>
+            </span>
+          </th>
+          <th v-show="filterType!=='Month'">Payment</th>
         </tr>
         </thead>
-        <tbody v-for="userPayment of $store.state.payment.allUserPayments.userPayments" :key="userPayment.userId">
+        <tbody v-for="userPayment in $store.state.payment.allUserPayments.userPayments" :key="userPayment.userId">
         <tr>
           <td>{{ userPayment.fullName }}</td>
           <td>{{ userPayment.payment }}</td>
@@ -56,7 +63,7 @@
         </tbody>
       </table>
 
-      <Pagination @pageChanged="setPage" :page="page"
+      <Pagination class="pb-15 pt-5" @pageChanged="setPage" :page="page"
                   :totalPages="$store.state.payment.allUserPayments.totalPages"/>
 
     </v-container>
@@ -68,17 +75,20 @@ import DatePicker from "@/components/picker/DatePicker";
 import SkeletonLoader from "@/components/loader/SkeletonLoader";
 import Pagination from "@/components/Pagination";
 import api from "@/components/backend-api";
+import moment from "moment"
 
 export default {
   components: {DatePicker, SkeletonLoader, Pagination},
   name: "Home",
   data() {
     return {
-      monthYearPicker: null,
+      monthYearPicker: moment().subtract(1, 'months').format('yyyy-MM'),
       dateFromPicker: null,
       dateToPicker: null,
       filterType: "Month",
-      page: 1
+      page: 1,
+      sortByPayment: null,
+      paymentSortIcon: "fas fa-sort"
     }
   },
   methods: {
@@ -115,7 +125,10 @@ export default {
       let month = this.monthYearPicker.split('-')[1];
       this.dateFromPicker = null;
       this.dateToPicker = null;
-      this.$store.dispatch('getAllUserPaymentOnMonth', {month: month, year: year, page: this.page}).catch(error => {
+      this.$store.dispatch('getAllUserPaymentOnMonth', {
+        month: month, year: year, page: this.page,
+        paymentSort: this.sortByPayment != null ? "&sort=payment," + this.sortByPayment : ""
+      }).catch(error => {
         console.log(error)
       });
     },
@@ -125,7 +138,7 @@ export default {
         this.$store.dispatch('getAllUserPaymentOnPeriod', {
           dateFrom: this.dateFromPicker,
           dateTo: this.dateToPicker,
-          page: this.page
+          page: this.page,
         });
       }
     },
@@ -141,12 +154,26 @@ export default {
         };
         this.$store.state.errorDialog = true;
       }
+    },
+    switchPaymentSort() {
+      if (this.monthYearPicker != null) {
+        if (this.sortByPayment == null)
+          this.sortByPayment = "ASC";
+        else if (this.sortByPayment === "ASC")
+          this.sortByPayment = "DESC";
+        else
+          this.sortByPayment = null;
+
+        this.getAllUserPaymentOnMonth();
+      }
     }
   },
 
   beforeMount() {
     this.$store.dispatch('getPaymentAvailableMonths').then(() => {
+      console.log(this.$store.state.payment.availableMonths)
       this.monthYearPicker = this.$store.state.payment.availableMonths.length > 0 ? this.$store.state.payment.availableMonths[0] : null;
+      console.log(this.monthYearPicker)
       this.getAllUserPaymentOnMonth();
     })
   }
