@@ -232,7 +232,7 @@
         </div>
       </div>
     </div>
-    <v-app style="background: none; height: 1px">
+    <v-app style="background: none; height: 0px">
       <confirmationDialog
           :action-button="'Agree'"
           :method="deleteOrder"
