@@ -3,6 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/isd_food
     username: postgres
     password: new_password
+    initialization-mode: always
   jpa:
     properties:
       hibernate:

@@ -120,7 +120,6 @@ export default {
       this.getAllUserPaymentOnPeriod();
     },
     getAllUserPaymentOnMonth() {
-      console.log(this.monthYearPicker)
       let year = this.monthYearPicker.split('-')[0];
       let month = this.monthYearPicker.split('-')[1];
       this.dateFromPicker = null;

@@ -60,13 +60,14 @@
 <script>
 
 import DatePicker from "@/components/picker/DatePicker";
+import moment from "moment"
 
 export default {
   components: {DatePicker},
   name: "Home",
   data() {
     return {
-      monthYearPicker: new Date().toISOString().substring(0, 7),
+      monthYearPicker: moment().subtract(1, 'months').format('yyyy-MM'),
       dateFromPicker: null,
       dateToPicker: null,
       filterType: "Month"

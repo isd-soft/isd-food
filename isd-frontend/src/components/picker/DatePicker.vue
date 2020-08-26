@@ -8,7 +8,7 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
-          class="col-10 p-0"
+          class="col-14 p-0"
           v-model="date"
           :label="label"
           readonly
