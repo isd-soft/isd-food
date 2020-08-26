@@ -183,12 +183,12 @@ export default {
 
     SuperVisorLinks: [
       { icon: "fas fa-user", text: "Account", route: "/edit" },
-      { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
+      { icon: "fas fa-pizza-slice", text: "Food", route: "/menu" },
       { icon: "fas fa-history", text: "My orders", route: "/orders" },
       { icon: "fas fa-users", text: "Users", route: "/users/table" },
-      { icon: "fas fa-pizza-slice", text: "Menus", route: "/allmenus" },
+      { icon: "fas fa-pizza-slice", text: "All menus", route: "/allmenus" },
       { icon: "fas fa-utensils", text: "Providers", route: "/ProviderList" },
-      { icon: "fas fa-history", text: "Orders", route: "/ProviderOrders" }
+      { icon: "fas fa-history", text: "All orders", route: "/ProviderOrders" }
 
     ]
   }),
@@ -224,7 +224,7 @@ export default {
 @import "css/sb-admin-2.min.css";
 
 .color-orange {
-  color: orange;
+  color: #ff9300;
 }
 
 </style>

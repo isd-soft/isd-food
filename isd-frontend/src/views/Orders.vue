@@ -2,7 +2,6 @@
 <div>
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-warning">Orders</h6>
       <ul class="nav d-flex mb-3 mt-4" id="pills-tab" role="tablist">
         <li class="nav-item mr-3" role="presentation">
           <a class="btn btn-outline-warning active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Current orders</a>

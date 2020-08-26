@@ -70,7 +70,6 @@
                   </thead>
 
 
-
                   <tbody
                     v-for="order in ordersFalse"
                     :key="order.providerName + order.date"
@@ -304,8 +303,10 @@ export default {
       });
       return name;
     },
-    confirmOrder(id, bool) {
-      api.confirmOrderId(id, bool);
+
+
+    confirmOrder(id,bool){
+      api.confirmOrderId(id,bool);
     },
 
     deleteOrder() {

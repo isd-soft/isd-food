@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface MenuRepository extends CrudRepository<Menu,Long> {
     List<Menu> findByDayOfWeek(DayOfWeek day);
+
+    List<Menu> findByDayOfWeekAndActive(DayOfWeek day, Boolean active);
 }
