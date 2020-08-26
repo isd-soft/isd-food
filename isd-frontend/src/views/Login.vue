@@ -1,9 +1,10 @@
 <template>
   <v-overlay>
-    <ForgotDialog showDialog="showDialog"/>
-    <v-card width="100vw" height="100vh" class="mx-auto">
+    <v-app>
+      <ForgotDialog showDialog="showDialog"/>
+    <v-card width="100vw" height="100vh" class="mx-auto ">
         <body style="background: orange;">
-          <div class="container">
+          <div class="container" style="padding-top: 16vh">
             <!-- Outer Row -->
             <div class="row justify-content-center">
               <div class="col-xl-10 col-lg-12 col-md-9">
@@ -45,6 +46,7 @@
                                   label="Email"
                                   outlined
                                   required
+                                  style="color: grey"
                                 ></v-text-field>
                                 <v-text-field
                                   v-model="password"
@@ -89,7 +91,8 @@
           </div>
           </body>
         </v-card>
-    </v-overlay>
+    </v-app>
+  </v-overlay>
 
 </template>
 <script>
