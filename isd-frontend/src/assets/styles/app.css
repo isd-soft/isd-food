@@ -34,6 +34,10 @@
     cursor: pointer;
 }
 
+.dropdown-item {
+    color: #3a3b45 !important;
+}
+
 .payment-table th {
     width: 1000px !important;
 }
@@ -47,4 +51,9 @@
 
 .scroll-btn {
     margin-bottom: 5%;
+}
+
+.sort-column:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

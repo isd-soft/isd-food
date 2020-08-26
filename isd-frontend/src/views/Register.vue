@@ -157,7 +157,6 @@ export default {
           this.registerError = true;
           this.errors.push(error);
         });
-
     }
   }
 };

@@ -2,86 +2,86 @@ import axios from "axios";
 import store from "@/store/index";
 
 const AXIOS = axios.create({
-  baseURL: `http://localhost:8098/api`,
-  timeout: 10000
+    baseURL: `http://localhost:8098/api`,
+    timeout: 10000
 });
 
 // Add a response interceptor
 AXIOS.interceptors.response.use(
-  function(response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    if (
-      response.headers["authorization"] != null &&
-      localStorage.getItem("access_token") !== response.headers["authorization"]
-    ) {
-      localStorage.setItem("access_token", response.headers["authorization"]);
-    }
+    function (response) {
+        // Any status code that lie within the range of 2xx cause this function to trigger
+        // Do something with response data
+        if (
+            response.headers["authorization"] != null &&
+            localStorage.getItem("access_token") !== response.headers["authorization"]
+        ) {
+            localStorage.setItem("access_token", response.headers["authorization"]);
+        }
 
-    if (response.data !== null && response.data.errorType != null) {
-      store.state.errorDialog = true;
-      store.state.errorModel = response.data;
-    }
+        if (response.data !== null && response.data.errorType != null) {
+            store.state.errorDialog = true;
+            store.state.errorModel = response.data;
+        }
 
-    return response;
-  },
-  function(error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    return Promise.reject(error);
-  }
+        return response;
+    },
+    function (error) {
+        // Any status codes that falls outside the range of 2xx cause this function to trigger
+        // Do something with response error
+        return Promise.reject(error);
+    }
 );
 
 // Add a request interceptor
 AXIOS.interceptors.request.use(
-  function(config) {
-    // Do something before request is sent
-    if (!config.url.includes("login") || !config.url.includes("password/reset"))
-      config.headers.Authorization = localStorage.getItem("access_token");
-    else delete config.headers.Authorization;
+    function (config) {
+        // Do something before request is sent
+        if (!config.url.includes("login") || !config.url.includes("password/reset"))
+            config.headers.Authorization = localStorage.getItem("access_token");
+        else delete config.headers.Authorization;
 
-    return config;
-  },
-  function(error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
+        return config;
+    },
+    function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+    }
 );
 
 export default {
-  getAllCurrentOrders() {
-    return AXIOS.get("/orders?ordered=false");
-  },
-  getConfirmedOrders() {
-    return AXIOS.get("/orders?ordered=true");
-  },
-  editProvider(id, name, contact, price, active, desc, img) {
-    return AXIOS.put(
-      "/provider/edit/" +
-        id +
-        "/" +
-        name +
-        "/" +
-        contact +
-        "/" +
-        price +
-        "/" +
-        active +
-        "/" +
-        desc +
-        "/" +
-        img
-    );
-  },
-  getAllOrders() {
-    return AXIOS.get("/orders?ordered=false");
-  },
-  getAllUsers() {
-    return AXIOS.get("/users/all");
-  },
-  deleteOrder(id) {
-    return AXIOS.delete("/orders/delete/" + id);
-  },
+    getAllCurrentOrders() {
+        return AXIOS.get("/orders?ordered=false");
+    },
+    getConfirmedOrders() {
+        return AXIOS.get("/orders?ordered=true");
+    },
+    editProvider(id, name, contact, price, active, desc, img) {
+        return AXIOS.put(
+            "/provider/edit/" +
+            id +
+            "/" +
+            name +
+            "/" +
+            contact +
+            "/" +
+            price +
+            "/" +
+            active +
+            "/" +
+            desc +
+            "/" +
+            img
+        );
+    },
+    getAllOrders() {
+        return AXIOS.get("/orders?ordered=false");
+    },
+    getAllUsers() {
+        return AXIOS.get("/users/all");
+    },
+    deleteOrder(id) {
+        return AXIOS.delete("/orders/delete/" + id);
+    },
 
     confirmOrderId(id, confirm) {
         return AXIOS.put("/orders/confirm/" + id + "/" + confirm);
@@ -114,7 +114,7 @@ export default {
     getUserWithoutId() {
         return AXIOS.get("users/getUser");
     },
-    changeMenu(menu){
+    changeMenu(menu) {
         return AXIOS.put("/updateMenu", menu)
     },
     getMenu() {
@@ -164,8 +164,8 @@ export default {
         return AXIOS.get("/provider/all");
     },
 
-    getUsers() {
-        return AXIOS.get("/users/allUsers");
+    getUsers(page) {
+        return AXIOS.get("/users?page=" + page);
     },
 
     deleteUser(user_id) {
@@ -242,15 +242,22 @@ export default {
             "/users/edit/password?password=" + password
         );
     },
+    getAvailableProviders(dateFromParam, dateToParam) {
+        return AXIOS.get("/provider/available" + dateFromParam + dateToParam)
+    },
     getUserCurrentOrders() {
         return AXIOS.get(
             "/users/orders?ordered=false"
         );
     },
-    getUserOrdersHistory() {
+    getUserOrdersHistory({page, dateFrom, dateTo, providers, sort}) {
+        console.log(sort)
         return AXIOS.get(
-            "/users/orders?ordered=true"
+            "/users/orders?ordered=true&page=" + page + dateFrom + dateTo + providers + sort
         );
+    },
+    deleteUserOrder(orderId) {
+        return AXIOS.delete("orders/" + orderId)
     },
     // Payment endpoints
     getUserPaymentOnMonth(month, year) {
@@ -259,8 +266,8 @@ export default {
     getUserPaymentOnPeriod(dateFrom, dateTo) {
         return AXIOS.get("/users/payment?dateFrom=" + dateFrom + "&dateTo=" + dateTo);
     },
-    getAllUserPaymentOnMonth(month, year, page) {
-        return AXIOS.get("/payment/monthly?month=" + month + "&year=" + year + "&page=" + (page - 1));
+    getAllUserPaymentOnMonth(month, year, page, paymentSort) {
+        return AXIOS.get("/payment/monthly?month=" + month + "&year=" + year + "&page=" + (page - 1) + paymentSort);
     },
     getAvailableMonths() {
         return AXIOS.get("/payment/months");

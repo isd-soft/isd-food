@@ -1,10 +1,17 @@
 package com.example.isdbackend.service;
 
-import com.example.isdbackend.model.*;
+import com.example.isdbackend.dto.ProviderAvailableDTO;
+import com.example.isdbackend.filter.OrderFilter;
+import com.example.isdbackend.model.Menu;
+import com.example.isdbackend.model.Order;
+import com.example.isdbackend.model.Provider;
+import com.example.isdbackend.model.User;
 import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,16 +21,38 @@ public class ProviderService extends AbstractServiceCrud {
     private MailSender mailSender;
     private GeneratePassword generatePassword;
 
-    public ProviderService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository, MailSender mailSender1, GeneratePassword generatePassword) {
+    private final UserService userService;
+
+    public ProviderService(UserService userService, MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository, MailSender mailSender1, GeneratePassword generatePassword) {
         super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
         this.mailSender = mailSender1;
         this.generatePassword = generatePassword;
+        this.userService = userService;
     }
-    public Provider findById(Integer id){
+
+    public Provider findById(Integer id) {
         return providerRepository.findById(id).orElseThrow();
     }
+
     public List<Provider> findAllProviders() {
         return providerRepository.findAll();
+    }
+
+    public List<ProviderAvailableDTO> getProviders(OrderFilter orderFilter) {
+        List<String> availableProviders = providerRepository.findAvailableProviders(userService.getCurrentUserId(), orderFilter);
+        List<String> providers = providerRepository.findAllBy();
+
+        List<ProviderAvailableDTO> providerAvailableDTOList = new ArrayList<>();
+
+        for (String provider : providers) {
+            ProviderAvailableDTO providerAvailableDTO = new ProviderAvailableDTO();
+            providerAvailableDTO.setName(provider);
+            providerAvailableDTO.setNotAvailable(!availableProviders.contains(provider));
+
+            providerAvailableDTOList.add(providerAvailableDTO);
+        }
+
+        return providerAvailableDTOList;
     }
 
     public Iterable<Menu> getProviderMenus(Integer providerId) {
@@ -80,11 +109,10 @@ public class ProviderService extends AbstractServiceCrud {
     public void deleteProvider(int id) {
         providerRepository.deleteById((int) id);
     }
+
     public void delete(Integer id) {
         providerRepository.delete(providerRepository.findById(id).orElseThrow());
     }
-
-
 
 
 }

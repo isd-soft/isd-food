@@ -8,7 +8,7 @@
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-radio-group v-model="filterType" row>
+              <v-radio-group v-model="filterType" class="row" row>
                 <span class="theme--light pr-5">Filter by</span>
                 <v-radio
                     label="Month"
