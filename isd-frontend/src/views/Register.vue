@@ -16,15 +16,6 @@
           >
             User saved
           </v-alert>
-          <div class="col-lg-12" v-if="$store.state.register.errors.length > 0">
-            <v-alert
-              v-bind:key="error"
-              v-for="error in $store.state.register.errors"
-              type="error"
-              style="font-size: 20px; width: 100%">
-              {{ error }}
-            </v-alert>
-          </div>
           <v-text-field
             v-model="firstName"
             label="First name"
@@ -157,7 +148,8 @@ export default {
           //   this.$router.push("/");
           if(Response.status === 201){
             this.$refs.form.reset();
-            self.$route.push("/users/table");
+            //self.$route.push("/users/table");
+            this.$router.push("/users/table");
           }
         })
         .catch(error => {
@@ -165,7 +157,7 @@ export default {
           this.registerError = true;
           this.errors.push(error);
         });
-      this.$router.push("/users/table");
+
     }
   }
 };

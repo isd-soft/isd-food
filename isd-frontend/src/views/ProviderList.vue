@@ -17,7 +17,7 @@
                   <th>Provider name</th>
                   <th>Contact</th>
                   <th>Delivery price</th>
-                  <th>active</th>
+                  <th>Active</th>
                   <th class="text-center">Delete</th>
                   <th>Edit</th>
                 </tr>
