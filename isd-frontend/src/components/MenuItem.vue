@@ -1,24 +1,22 @@
 <template>
-  <div class=" col-md-4 col-sm-6 mb-4">
+  <div v-if="product_data.provider.active" class=" col-md-4 col-sm-6 mb-4">
     <div class="card border-left-warning shadow py-2" style="height: content-box">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xl font-weight-bold text-warning ml-1 text-uppercase mb-1">{{ product_data.name }}</div>
+            <div class="text-xl font-weight-bold text-warning ml-1 text-uppercase mb-1" >{{product_data.name}}</div>
             <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 12px">
               <div class="ml-1">
-                <h6><b>Provider : {{ product_data.provider.name }}</b></h6>
+                <h6><b>Provider : {{product_data.provider.name}}</b></h6>
                 <div v-if="product_data.image === null">
-                  <img
-                      src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg"
-                      class="image" alt="">
+
+                  <img src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg" class="image" alt="">
                 </div>
                 <div v-else>
                   <img :src=product_data.image class="image" alt="">
                 </div>
                 <v-app style="height: auto; max-height: 230px">
-                  <v-radio-group class="ml-1" v-model="type" id="type" :mandatory="false"
-                                 style="color: orange !important" row>
+                  <v-radio-group class = "ml-1" v-model="type" id="type" :mandatory="false" style="color: orange !important" row>
                     <v-radio
                         label="M"
                         color="warning"
@@ -30,15 +28,15 @@
                         value="S"
                     ></v-radio>
                   </v-radio-group>
-                  <div v-if="type === 'M'">
+                  <div v-if= "type === 'M'">
                     <div v-for="item in product_data.menuTypes" :key="item.type">
-                      <div v-if="item.type === 'M'">
+                      <div v-if= "item.type === 'M'">
                       </div>
                     </div>
-                    {{ check_menu('M') }}
+                    {{check_menu('M')}}
                   </div>
                   <div v-else>
-                    {{ check_menu('S') }}
+                    {{check_menu('S')}}
                   </div>
 
                   <h6><b>Items:</b></h6>
@@ -79,6 +77,7 @@
 </template>
 
 <script>
+import api from './backend-api';
 import moment from "moment"
 
 export default {
@@ -98,26 +97,25 @@ export default {
         return {}
       }
     },
-  },
-  methods: {
-    check_menu(type) {
-      var i = 0;
-      if (this.type === type)
-        this.product_data.menuTypes.forEach(element => {
-          if (element.type === type) {
-            console.log(i)
-            this.type_id = i
-          } else i++
-        });
-    },
+},
+    methods: {
+        check_menu(type){
+            var i = 0;
+            if(this.type === type)
+                this.product_data.menuTypes.forEach(element => {
+                    if(element.type === type){
+                    console.log(i)
+                    this.type_id = i
+                    }
+                    else i++
+                });
+        },
 
     makeOrder() {
       var currentDate = new Date(moment(new Date()).format('yyyy-MM-DD'));
       var result = new Date(currentDate);
-      console.log(result)
-      console.log((this.weekDays[this.product_data.dayOfWeek] - 1) - currentDate.getDay())
       result.setDate(result.getDate() + ((this.weekDays[this.product_data.dayOfWeek] - 1) - currentDate.getDay()));
-      console.log(moment(result).format('yyyy-MM-DD'))
+
       this.$store
           .dispatch("createOrder", {
             menuTypeId: this.product_data.menuTypes[this.type_id].id,
@@ -127,17 +125,16 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.item {
-  flex-basis: 25%;
-  box-shadow: 0 0 8px 0 orange;
-  padding: 16px;
-  border-radius: 30px;
-  color: black;
-  height: 500px;
+<style lang = "scss">
+.item{
+    flex-basis: 25%;
+    box-shadow: 0 0 8px 0 orange;
+    padding: 16px;
+    border-radius: 30px;
+    color: black;
+    height: 500px;
 }
-
-.image {
+.image{
   background-size: cover;
   width: 100%;
   border-radius: 4px;
