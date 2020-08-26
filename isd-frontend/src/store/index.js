@@ -29,6 +29,7 @@ export default new Vuex.Store({
             availableMonths: [],
             selectedMonth: null
         },
+
         register: {loading: false, error: false, success: false, errors: []},
         Provider: {loading: false},
         errorDialog: false,

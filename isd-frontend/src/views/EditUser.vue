@@ -42,63 +42,6 @@
             placeholder="Skype Id"
           />
         </div>
-        <div class="col-lg-6" id="Password">
-          <div class="mb-2"><b>Password</b></div>
-          <form
-            oninput='password2.setCustomValidity(password2.value !== password1.value ? "Passwords do not match." : "")'
-          >
-            <label for="password1">New Password</label>
-            <input
-              class="form-control validate"
-              id="password1"
-              name="password1"
-              type="password"
-              placeholder="Password"
-              required
-              v-model="password1"
-            />
-
-            <label for="password2" class="mt-2"
-              >Confirm <span class="d-none d-xl-inline">Password</span></label
-            >
-            <input
-              class="form-control"
-              id="password2"
-              name="password2"
-              type="password"
-              placeholder="Repeat password"
-              v-model="password2"
-            />
-            <v-dialog v-model="dialog" persistent max-width="350">
-              <template v-slot:activator="{ on, attrs }">
-                <div class="text-right">
-                  <v-btn
-                    rounded
-                    color="warning"
-                    class="mt-3"
-                    v-bind="attrs"
-                    v-on="on"
-                    >Change password</v-btn
-                  >
-                </div>
-              </template>
-              <v-card>
-                <v-card-title class="headline"
-                  >Do you want to change the password?</v-card-title
-                >
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="green darken-1" text @click="dialog = false"
-                    >Disagree</v-btn
-                  >
-                  <v-btn color="green darken-1" text @click="checkPass()"
-                    >Agree</v-btn
-                  >
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </form>
-        </div>
         <div class="col-lg-6" id="Notification">
           <b>Keeping in Touch</b>
           <v-switch
@@ -123,6 +66,72 @@
         <div class="col-12 text-right">
           <v-btn @click="UpadateInfo()" rounded color="warning">Save</v-btn>
         </div>
+        <div class="col-lg-6" id="Password">
+          <div class="mb-2"><b>Password</b></div>
+          <form
+            oninput='password2.setCustomValidity(password2.value !== password1.value ? "Passwords do not match." : "")'
+          >
+            <label for="password1">New Password</label>
+            <div class="form-group pass_show">
+              <input
+                class="form-control validate"
+                id="password1"
+                name="password1"
+                placeholder="Password"
+                required
+                v-model="password1"
+                :value="password1"
+                :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="() => (value = !value)"
+                :type="value ? 'password' : 'text'"
+              />
+            </div>
+            <label for="password2" class="mt-2"
+              >Confirm <span class="d-none d-xl-inline">Password</span></label
+            >
+            <div class="form-group pass_show">
+              <input
+                class="form-control"
+                id="password2"
+                name="password2"
+                placeholder="Repeat password"
+                v-model="password2"
+                :value="password2"
+                :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="() => (value = !value)"
+                :type="value ? 'password' : 'text'"
+              />
+            </div>
+            <v-dialog v-model="dialog" persistent max-width="350">
+              <template v-slot:activator="{ on, attrs }">
+                <div class="text-right">
+                  <v-btn
+                    rounded
+                    color="warning"
+                    class="mt-3"
+                    v-bind="attrs"
+                    v-on="on"
+                    >Change password</v-btn
+                  >
+                </div>
+              </template>
+              <v-card>
+                <v-card-title class="headline"
+                  >Do you want to change the password?</v-card-title
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="error" text @click="dialog = false"
+                    >Cancel</v-btn
+                  >
+                  <v-btn color="green darken-1" text @click="checkPass()"
+                    >Agree</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </form>
+        </div>
       </form>
     </v-card>
     <v-snackbar v-model="snackbar" :color="snackColor">
@@ -136,6 +145,23 @@
 <script>
 import api from "@/components/backend-api.js";
 
+// eslint-disable-next-line no-undef
+$(document).ready(function(){
+  // eslint-disable-next-line no-undef
+  $('.pass_show').append('<span class="ptxt">Show</span>');
+});
+
+
+// eslint-disable-next-line no-undef
+$(document).on('click','.pass_show .ptxt', function(){
+
+  // eslint-disable-next-line no-undef
+  $(this).text($(this).text() == "Show" ? "Hide" : "Show");
+
+  // eslint-disable-next-line no-undef
+  $(this).prev().attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; });
+
+});
 export default {
   name: "edit",
   data() {
@@ -156,7 +182,8 @@ export default {
       password1: "",
       password2: "",
       enableNotification: true,
-      dataNotification: ""
+      dataNotification: "",
+      value: true
     };
   },
   /*  created () {
@@ -305,4 +332,28 @@ export default {
   }
 };
 </script>
-<style scoped></style>
+<style>
+.pass_show{position: relative}
+
+.pass_show .ptxt {
+
+  position: absolute;
+
+  top: 50%;
+
+  right: 10px;
+
+  z-index: 1;
+
+  color: #f36c01;
+
+  margin-top: -10px;
+
+  cursor: pointer;
+
+  transition: .3s ease all;
+
+}
+
+.pass_show .ptxt:hover{color: #333333;}
+</style>

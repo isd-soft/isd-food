@@ -93,6 +93,7 @@
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                     Activity Log
                   </a>
+
                   <div class="dropdown-divider"></div>
                   <a
                     class="dropdown-item"
@@ -171,10 +172,6 @@
         </div>
       </div>
     </div>
-
-
-
-
   </div>
 </template>
 <script>
@@ -196,26 +193,17 @@ export default {
       { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
       { icon: "fas fa-history", text: "Orders", route: "/orders" },
-      { icon: "fas fa-envelope", text: "Mail", route: "/" }
     ],
 
     SuperVisorLinks: [
-      {icon: "fas fa-users", text: "Users", route: "/users/table"},
-      {icon: "fas fa-pizza-slice", text: "Create menu", route: "/"},
-      {
-        icon: "fas fas fa-cart-plus",
-        text: "Create provider",
-        route: "/providers"
-      },
-      {icon: "fab fa-ubuntu", text: "Providers", route: "/ProviderList"},
-      {
-        icon: "fas fas fa-user-plus",
-        text: "Create user",
-        route: "/users/register"
-      },
-      {icon: "fas fa-history", text: "Orders", route: "/ProviderOrders"},
+      { icon: "fas fa-user", text: "Account", route: "/edit" },
+      { icon: "fas fa-pizza-slice", text: "Food", route: "/menu" },
+      { icon: "fas fa-history", text: "My orders", route: "/orders" },
+      { icon: "fas fa-users", text: "Users", route: "/users/table" },
+      { icon: "fas fa-pizza-slice", text: "All menus", route: "/allmenus" },
+      { icon: "fas fa-utensils", text: "Providers", route: "/ProviderList" },
+      { icon: "fas fa-history", text: "All orders", route: "/ProviderOrders" },
       {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
-
     ]
   }),
   methods: {
@@ -247,7 +235,7 @@ export default {
 @import "css/sb-admin-2.min.css";
 
 .color-orange {
-  color: orange;
+  color: #ff9300;
 }
 
 </style>

@@ -72,18 +72,8 @@ import MenuItem from './MenuItem.vue'
           this.errors.push(error)
         })
       },
-        callHelloApi () {
-        api.Hello().then(response => {
-            this.helloResponse = response.data;
-        })
-        .catch(error => {
-          this.errors.push(error)
-        })
-      },
 
       getWeekDayId(){
-
-
           // var date = new Date()
           // var count = date.getDay()
           // if(date.getHours() > 10)
