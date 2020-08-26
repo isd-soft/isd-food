@@ -164,8 +164,8 @@ export default {
         return AXIOS.get("/provider/all");
     },
 
-    getUsers() {
-        return AXIOS.get("/users");
+    getUsers(page) {
+        return AXIOS.get("/users?page=" + page);
     },
 
     deleteUser(user_id) {

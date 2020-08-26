@@ -1,4 +1,5 @@
 <template>
+  <v-app>
   <div>
     <div class="row">
       <div class="col-xl-12 col-md-12">
@@ -8,119 +9,120 @@
             <h3 class="mb-3">Users</h3>
             <table class="table table-bordered" cellspacing="0">
               <thead>
-                <tr>
-                  <th>Email</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Employment Date</th>
-                  <th>Active</th>
-                  <th class="text-center">Delete</th>
-                  <th>Edit</th>
-                </tr>
+              <tr>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Employment Date</th>
+                <th>Active</th>
+                <th class="text-center">Delete</th>
+                <th>Edit</th>
+              </tr>
               </thead>
 
-              <confirmationDialog :action-button="'Agree'" :method="deleteUser" :title="title" :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
+              <confirmationDialog :action-button="'Agree'" :method="deleteUser" :title="title"
+                                  :message="message + currentName +'?'" :dialog1.sync="dialog1"/>
 
-              <tbody v-for="user of users" :key="user.id">
-                <tr>
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.firstName }}</td>
-                  <td>{{ user.lastName }}</td>
-                  <td>{{ user.employmentDate }}</td>
-                  <td v-if="user.enabled === true" class="text-center">
-                    <i
+              <tbody v-for="user of users.content" :key="user.id">
+              <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.employmentDate }}</td>
+                <td v-if="user.enabled === true" class="text-center">
+                  <i
                       class="fas fa-check-circle"
                       style="margin: 0; padding: 0;color: green !important; font-size: 25px"
-                    ></i>
-                  </td>
-                  <td v-else class="text-center">
-                    <i
+                  ></i>
+                </td>
+                <td v-else class="text-center">
+                  <i
                       class="fas fa-times-circle"
                       style="margin: 0; padding: 0;color: red !important; font-size: 25px"
-                    ></i>
-                  </td>
+                  ></i>
+                </td>
 
-                  <td class="text-center">
-                    <button
-                            @click="openDialog(user.id, user.firstName + ' '+ user.lastName)"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
+                <td class="text-center">
+                  <button
+                      @click="openDialog(user.id, user.firstName + ' '+ user.lastName)"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
 
-                  <td>
-                    <v-app
+                <td>
+                  <v-app
                       style="background: none; height: content-box !important; max-height: 30px"
                       class="text-center"
-                    >
-                      <v-dialog v-model="dialogNote[user.id]" width="600">
-                        <template v-slot:activator="{ on, attrs }">
-                          <button
+                  >
+                    <v-dialog v-model="dialogNote[user.id]" width="600">
+                      <template v-slot:activator="{ on, attrs }">
+                        <button
                             style="background : none !important;box-shadow: none;color: grey; outline: none"
                             v-bind="attrs"
                             v-on="on"
-                          >
-                            <i
+                        >
+                          <i
                               class="fas fa-edit"
                               style="margin: 0 !important;padding: 0 !important"
-                            ></i>
-                          </button>
-                        </template>
+                          ></i>
+                        </button>
+                      </template>
 
-                        <v-card>
-                          <v-card-title
+                      <v-card>
+                        <v-card-title
                             class="headline orange lighten-2"
                             style="color: white"
-                          >
-                            {{ user.email }}
-                          </v-card-title>
+                        >
+                          {{ user.email }}
+                        </v-card-title>
 
-                          <v-card-text>
-                            <div class="container text-left">
-                              <div class="form-row">
-                                <div class="form-group col-md-6">
-                                  <label>First Name</label>
-                                  <input
+                        <v-card-text>
+                          <div class="container text-left">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label>First Name</label>
+                                <input
                                     class="form-control"
                                     type="text"
                                     name="firstName"
                                     v-model="user.firstName"
-                                  />
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <label>Last Name</label>
-                                  <input
+                                />
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label>Last Name</label>
+                                <input
                                     class="form-control"
                                     type="text"
                                     name="lastName"
                                     v-model="user.lastName"
-                                  />
-                                </div>
+                                />
                               </div>
-                              <div class="form-row">
-                                <div class="form-group col-md-6">
-                                  <label>Email</label>
-                                  <input
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label>Email</label>
+                                <input
                                     class="form-control"
                                     type="text"
                                     name="email"
                                     v-model="user.email"
-                                  />
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <label>Skype Id</label>
-                                  <input
+                                />
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label>Skype Id</label>
+                                <input
                                     class="form-control"
                                     type="text"
                                     name="skypeId"
                                     v-model="user.skypeId"
-                                  />
-                                </div>
+                                />
                               </div>
-                              <div class="form-row">
-                                <div class="col mb-6">
-                                  <div class="form-group">
-                                    <v-menu
+                            </div>
+                            <div class="form-row">
+                              <div class="col mb-6">
+                                <div class="form-group">
+                                  <v-menu
                                       v-model="menu2"
                                       :close-on-content-click="false"
                                       :nudge-right="40"
@@ -128,19 +130,19 @@
                                       offset-y
                                       full-width
                                       min-width="290px"
-                                    >
-                                      <template
+                                  >
+                                    <template
                                         v-slot:activator="{ on, attrs }"
-                                      >
-                                        <v-text-field
+                                    >
+                                      <v-text-field
                                           v-model="user.employmentDate"
                                           label="Employment Date"
                                           readonly
                                           v-bind="attrs"
                                           v-on="on"
-                                        ></v-text-field>
-                                      </template>
-                                      <v-date-picker
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
                                         id="emp-date-picker"
                                         v-model="user.employmentDate"
                                         @input="menu2 = false"
@@ -151,74 +153,77 @@
                                         default
                                         elevation="15"
                                         :max="nowDate"
-                                      ></v-date-picker>
-                                    </v-menu>
-                                  </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <v-select
-                                    v-model="user.role.name"
-                                    :items="role_items"
-                                    label="Role"
-                                    required
-                                  ></v-select>
+                                    ></v-date-picker>
+                                  </v-menu>
                                 </div>
                               </div>
-                              <div class="form-group ml-1">
-                                <div class="form-check">
-                                  <input
+                              <div class="form-group col-md-6">
+                                <!--                                <v-select-->
+                                <!--                                    v-model="user.role.name"-->
+                                <!--                                    :items="role_items"-->
+                                <!--                                    label="Role"-->
+                                <!--                                    required-->
+                                <!--                                ></v-select>-->
+                              </div>
+                            </div>
+                            <div class="form-group ml-1">
+                              <div class="form-check">
+                                <input
                                     class="form-check-input"
                                     type="checkbox"
                                     v-model="user.enabled"
                                     required
                                     id="gridCheck"
-                                  />
-                                  <label
+                                />
+                                <label
                                     class="form-check-label"
                                     for="gridCheck"
-                                  >
-                                    Active
-                                  </label>
-                                </div>
+                                >
+                                  Active
+                                </label>
                               </div>
                             </div>
-                          </v-card-text>
+                          </div>
+                        </v-card-text>
 
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
                               color="primary"
                               text
                               @click.stop="$set(dialogNote, user.id, false)"
-                            >
-                              Close
-                            </v-btn>
-                            <v-btn
-                              color="warning"
-                              text
-                              @click="
-                                editUser(
-                                  user.id,
-                                  user.firstName,
-                                  user.lastName,
-                                  user.skypeId,
-                                  user.email,
-                                  user.role.name,
-                                  user.enabled,
-                                  user.employmentDate
-                                )
-                              "
-                            >
-                              Save
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
-                    </v-app>
-                  </td>
-                </tr>
+                          >
+                            Close
+                          </v-btn>
+                          <!--                          <v-btn-->
+                          <!--                              color="warning"-->
+                          <!--                              text-->
+                          <!--                              @click="-->
+                          <!--                                editUser(-->
+                          <!--                                  user.id,-->
+                          <!--                                  user.firstName,-->
+                          <!--                                  user.lastName,-->
+                          <!--                                  user.skypeId,-->
+                          <!--                                  user.email,-->
+                          <!--                                  user.role.name,-->
+                          <!--                                  user.enabled,-->
+                          <!--                                  user.employmentDate-->
+                          <!--                                )-->
+                          <!--                              "-->
+                          <!--                          >-->
+                          <!--                            Save-->
+                          <!--                          </v-btn>-->
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-app>
+                </td>
+              </tr>
               </tbody>
             </table>
+            <Pagination class="pb-15 pt-5"
+                        @pageChanged="setPage" :page="page"
+                        :totalPages="users.totalPages"/>
           </div>
         </div>
       </div>
@@ -228,42 +233,59 @@
         {{ text }}
       </div>
     </v-snackbar>
-    <router-link class="btn btn-warning mb-3 btn-lg" style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 20px 23px;font-size: 20px !important;" :to="'/users/register'"><i class="fas fa-user-plus"></i></router-link>
+    <router-link class="btn btn-warning mb-3 btn-lg"
+                 style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 20px 23px;font-size: 20px !important;"
+                 :to="'/users/register'"><i class="fas fa-user-plus"></i></router-link>
 
   </div>
+  </v-app>
 </template>
 
 <script>
 import api from "@/components/backend-api.js";
 import confirmationDialog from "../components/confirmationDialog";
+import Pagination from "@/components/Pagination";
 
 export default {
   name: "UsersTable",
   components: {
-    confirmationDialog,
+    confirmationDialog, Pagination
   },
   data() {
     return {
-      nowDate: new Date().toISOString().slice(0,10),
+      nowDate: new Date().toISOString().slice(0, 10),
       currentName: null,
       currentId: null,
       title: "Confirmation",
       message: "Do you really want to delete ",
       dialog1: false,
       dialogNote: {},
-      users: [],
+      users: {},
       dialog: false,
       snackbar: false,
       text: "asd",
       formattedDate: "",
       menu2: false,
       modal: false,
-      role_items: ["ROLE_user", "ROLE_supervisor"]
+      role_items: ["ROLE_user", "ROLE_supervisor"],
+      page: 1
     };
   },
   methods: {
-
-    openDialog(id, name){
+    setPage(page) {
+      if (page !== this.page) {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+        this.page = page
+        api.getUsers(this.page).then(response => {
+          this.users = response.data;
+        });
+      }
+    },
+    openDialog(id, name) {
       this.dialog1 = true;
       this.currentId = id;
       this.currentName = name;
@@ -276,16 +298,6 @@ export default {
       date = array[2] + "-" + array[1] + "-" + array[0];
     },
     editUser(
-      id,
-      firstName,
-      lastName,
-      skypeId,
-      email,
-      role,
-      enabled,
-      employmentDate
-    ) {
-      api.updateUserBySupervisor(
         id,
         firstName,
         lastName,
@@ -294,6 +306,16 @@ export default {
         role,
         enabled,
         employmentDate
+    ) {
+      api.updateUserBySupervisor(
+          id,
+          firstName,
+          lastName,
+          skypeId,
+          email,
+          role,
+          enabled,
+          employmentDate
       );
       window.location.reload();
     },
@@ -305,7 +327,7 @@ export default {
   },
 
   beforeCreate() {
-    api.getUsers().then(response => {
+    api.getUsers(this.page).then(response => {
       this.users = response.data;
     });
   }
@@ -320,6 +342,7 @@ export default {
 #emp-date-picker::v-deep .v-date-picker-title__date {
   display: none !important;
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -329,6 +352,7 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 /*.wrapScroll{*/
 /*  overflow: auto;*/
 /*  white-space: nowrap;*/

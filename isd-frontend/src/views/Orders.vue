@@ -38,7 +38,6 @@
                 aria-labelledby="pills-home-tab"
             >
               <div class="row justify-content-center" v-show="$store.state.orders.userOrdersType==='history'">
-                <v-col cols="2" class="mt-2">Filter by period</v-col>
                 <v-col cols="2">
                   <DatePicker label="Date from" picker-type="date" :initial-date="dateFromPicker"
                               @dateChanged="setDateFrom"/>
@@ -55,9 +54,8 @@
                       item-disabled="notAvailable"
                       :menu-props="{ maxHeight: '400' }"
                       @change="getUserOrdersHistory"
-                      label="Select"
+                      label="Select providers"
                       multiple
-                      hint="Pick your favorite states"
                       persistent-hint
                   ></v-select>
                 </v-col>
