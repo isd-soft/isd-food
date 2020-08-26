@@ -115,14 +115,11 @@
         role="tabpanel"
         aria-labelledby="pills-profile-tab"
       >
-        <div class="row ">
-          <div
-            class="col-xl-6 col-md-6 mb-4"
-            v-for="provider of this.providers"
-            :key="provider.name + provider.deliveryPrice"
-          >
-            <div class="card border-left-warning shadow h-100 py-1">
-              <div class="card-body wrapScroll">
+        <div class="row " v-for="provider of this.providers"
+             :key="provider.name + provider.deliveryPrice + provider.id">
+            <div  v-if="getOrderCounter(provider.name)" class="col-xl-12 mb-4" >
+            <div  class="card border-left-warning shadow h-100 py-1">
+              <div  class="card-body wrapScroll">
                 <table
                   class="table table-bordered"
                   width="100%"
@@ -137,7 +134,7 @@
                   </thead>
 
                   <tbody v-for="menu of menus" :key="menu.id">
-                    <tr v-if="menu.provider.name === provider.name">
+                    <tr v-if="menu.provider.name === provider.name && (calcOnce(menu.name, provider.name, 'S') !== 0 || calcOnce(menu.name, provider.name, 'M')) !== 0 ">
                       <td>{{ menu.name }}</td>
                       <td>{{ calcOnce(menu.name, provider.name, "S") }}</td>
                       <td>{{ calcOnce(menu.name, provider.name, "M") }}</td>
@@ -169,7 +166,7 @@
                 </div>
               </div>
             </div>
-          </div>
+            </div>
         </div>
       </div>
       <div
@@ -312,7 +309,15 @@ export default {
     deleteOrder() {
       api.deleteOrder(this.currentId);
     },
-
+    getOrderCounter(provider){
+      let counter = false;
+      this.ordersFalse.forEach(or => {
+        if(provider === or.providerName){
+          counter = true;
+        }
+      })
+      return counter;
+    },
     confirmAll(Provider) {
       this.ordersFalse.forEach(el => {
         if (el.providerName === Provider) {
