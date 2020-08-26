@@ -69,46 +69,30 @@
                     </tr>
                   </thead>
 
-                  <confirmationDialog
-                    :action-button="'Agree'"
-                    :method="deleteOrder()"
-                    :title="title"
-                    :message="message"
-                    :dialog1.sync="dialog1"
-                  />
 
-                  <tbody
-                    v-for="order in ordersFalse"
-                    :key="order.providerName + order.date"
-                  >
-                    <tr>
-                      <td>{{ getUserName(order.userId) }}</td>
-                      <td>{{ order.menuName }}</td>
-                      <td>{{ order.menuType }}</td>
-                      <td>{{ order.providerName }}</td>
-                      <td>
-                        <button
-                          type="submit"
-                          @click="confirmOrder(order.id, true)"
-                          onclick="window.location.reload();"
-                        >
-                          <v-icon
-                            data-toggle="modal"
-                            data-target="#exampleModal"
-                            >fas fa-check</v-icon
-                          >
-                        </button>
-                      </td>
-                      <td>
-                        <button type="submit" @click="openDialog(order.id)">
-                          <v-icon
-                            data-toggle="modal"
-                            data-target="#exampleModal"
-                            >fas fa-trash</v-icon
-                          >
-                        </button>
-                      </td>
-                    </tr>
+                  <confirmationDialog :action-button="'Agree'" :method="deleteOrder" :title="title" :message="message" :dialog1.sync="dialog1"/>
+
+                  <tbody v-for="order in ordersFalse" :key = "order.providerName + order.date">
+                  <tr>
+                    <td>{{ getUserName(order.userId) }}</td>
+                    <td>{{order.menuName}}</td>
+                    <td>{{order.menuType}}</td>
+                    <td>{{order.providerName}}</td>
+                    <td >
+                      <button  type="submit"  @click="confirmOrder(order.id,true)" onclick="window.location.reload();">
+                        <v-icon  data-toggle="modal" data-target="#exampleModal">fas fa-check</v-icon>
+                      </button>
+                    </td>
+                    <td >
+                      <button
+                              style="outline: none"
+                              @click="openDialog(order.id)"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -304,8 +288,10 @@ export default {
       });
       return name;
     },
-    confirmOrder(id, bool) {
-      api.confirmOrderId(id, bool);
+
+
+    confirmOrder(id,bool){
+      api.confirmOrderId(id,bool);
     },
 
     deleteOrder() {

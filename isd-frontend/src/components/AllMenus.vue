@@ -369,7 +369,7 @@
       if (!error) {
         this.snackbarColor = "success"
         this.snackbar = true;
-        this.text = "Menu has been successfully added!"
+        this.text = "Menu has been successfully updated!"
 
           api.changeMenu(menu);
           window.location.reload();

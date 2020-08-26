@@ -193,7 +193,7 @@
         </div>
       </div>
     </div>
-    <v-snackbar v-model="snackbar">
+    <v-snackbar v-model="snackbar" color="error">
       <div class="text-center">
         {{ text }}
       </div>
