@@ -1,5 +1,5 @@
 <template>
-  <div class=" col-md-4 col-sm-6 mb-4">
+  <div v-if="product_data.provider.active" class=" col-md-4 col-sm-6 mb-4">
     <div class="card border-left-warning shadow py-2" style="height: content-box">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
@@ -9,9 +9,8 @@
               <div class="ml-1">
                 <h6><b>Provider : {{ product_data.provider.name }}</b></h6>
                 <div v-if="product_data.image === null">
-                  <img
-                      src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg"
-                      class="image" alt="">
+
+                  <img src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg" class="image" alt="">
                 </div>
                 <div v-else>
                   <img :src=product_data.image class="image" alt="">
