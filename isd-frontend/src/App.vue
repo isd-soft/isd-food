@@ -190,7 +190,6 @@ export default {
     role: localStorage.getItem("role"),
     n: false,
     links: [
-      { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
       { icon: "fas fa-history", text: "Orders", route: "/orders" },
     ],

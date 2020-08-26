@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -118,7 +119,12 @@ public class UserService {
             e.printStackTrace();
         }
 
-        mailSender.sendSimpleMessage(user.getEmail(), "ISD-food", "Your password: " + password);
+        try {
+            mailSender.sendHtmlMessage(user.getEmail(),"Isd-food",mailSender.getHtmlFromFile("mail/passwordSend.html",password));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         logger.debug("The user's password is sent on his email");
     }
 

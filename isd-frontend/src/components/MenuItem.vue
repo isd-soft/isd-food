@@ -9,11 +9,10 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 12px">
               <div class="ml-1">
                 <h6><b>Provider : {{ product_data.provider.name }}</b></h6>
-                <div v-if="product_data.image === null">
-
+                <div class="mx-auto mt-3" v-if="product_data.image === null"  >
                   <img src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg" class="image" alt="">
                 </div>
-                <div v-else>
+                <div class="mx-auto mt-3" style="width: 280px;height: 180px"   v-else>
                   <img :src=product_data.image class="image" alt="">
                 </div>
                 <v-app style="height: auto; max-height: 230px">
