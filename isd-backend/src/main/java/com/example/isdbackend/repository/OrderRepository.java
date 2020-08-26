@@ -24,7 +24,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "       o.user_id userId, " +
             "       m.name      menuName, " +
             "       mt.type     menuType, " +
-            "       mt.price, " +
+            "       mt.price    price, " +
             "       p.name      providerName " +
             "FROM orders o " +
             "         LEFT JOIN users u ON o.user_id = u.id " +

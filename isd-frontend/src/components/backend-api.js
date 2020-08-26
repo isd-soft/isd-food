@@ -242,15 +242,22 @@ export default {
             "/users/edit/password?password=" + password
         );
     },
+    getAvailableProviders(dateFromParam, dateToParam) {
+        return AXIOS.get("/provider/available" + dateFromParam + dateToParam)
+    },
     getUserCurrentOrders() {
         return AXIOS.get(
             "/users/orders?ordered=false"
         );
     },
-    getUserOrdersHistory(page, dateFrom, dateTo) {
+    getUserOrdersHistory({page, dateFrom, dateTo, providers, sort}) {
+        console.log(sort)
         return AXIOS.get(
-            "/users/orders?ordered=true&page=" + page + dateFrom + dateTo
+            "/users/orders?ordered=true&page=" + page + dateFrom + dateTo + providers + sort
         );
+    },
+    deleteUserOrder(orderId) {
+        return AXIOS.delete("orders/" + orderId)
     },
     // Payment endpoints
     getUserPaymentOnMonth(month, year) {

@@ -195,11 +195,10 @@ export default new Vuex.Store({
                     });
             });
         },
-        getUserOrdersHistory({commit}, {page, dateFrom, dateTo}) {
+        getUserOrdersHistory({commit}, params) {
             return new Promise((resolve, reject) => {
-                // this.state.login.loading = true;
                 api
-                    .getUserOrdersHistory(page, dateFrom, dateTo)
+                    .getUserOrdersHistory(params)
                     .then(response => {
                         if (response.status == 200) {
                             console.log(response.data)
