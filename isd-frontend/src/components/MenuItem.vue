@@ -115,8 +115,8 @@ export default {
       var currentDate = new Date(moment(new Date()).format('yyyy-MM-DD'));
       var result = new Date(currentDate);
       console.log(result)
-      console.log((this.weekDays[this.product_data.dayOfWeek] - 1) - currentDate.getDay())
-      result.setDate(result.getDate() + ((this.weekDays[this.product_data.dayOfWeek] - 1) - currentDate.getDay()));
+      console.log((this.weekDays[this.product_data.dayOfWeek]) - currentDate.getDay())
+      result.setDate(result.getDate() + ((this.weekDays[this.product_data.dayOfWeek]) - currentDate.getDay()));
       console.log(moment(result).format('yyyy-MM-DD'))
       this.$store
           .dispatch("createOrder", {

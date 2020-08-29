@@ -3,7 +3,7 @@ import store from "@/store/index";
 
 const AXIOS = axios.create({
     baseURL: `http://localhost:8098/api`,
-    timeout: 10000
+    timeout: 1000
 });
 
 // Add a response interceptor
@@ -73,12 +73,15 @@ export default {
             img
         );
     },
+
     getAllOrders() {
         return AXIOS.get("/orders?ordered=false");
     },
+
     getAllUsers() {
         return AXIOS.get("/users/all");
     },
+
     deleteOrder(id) {
         return AXIOS.delete("/orders/delete/" + id);
     },

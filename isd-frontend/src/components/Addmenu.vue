@@ -4,6 +4,13 @@
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card class="border-left-warning" ref="form" v-model="valid">
           <v-card-text>
+<!--            <v-alert-->
+<!--              class="col-sm-12"-->
+<!--              v-if="$store.state.menu.createMenuSuccess"-->
+<!--              type="success"-->
+<!--            >-->
+<!--              Menu saved successfully-->
+<!--            </v-alert>-->
             <v-text-field
               ref="name"
               v-model="name"
@@ -389,29 +396,25 @@ export default {
       }
 
       if (!error) {
-        this.snackbarColor = "success"
-        this.snackbar = true;
-
-
-        this.text = "Menu has been successfully added!"
-        api.createFullMenu({
-          name: this.name,
-          provider: this.provider,
-          image: this.image,
-          dayOfWeek: this.day,
-          menuTypes: [
-            {
-              type: "S",
-              price: this.priceS,
-              items: this.itemsS
-            },
-            {
-              type: "M",
-              price: this.priceM,
-              items: this.itemsM
-            }
-          ]
-        });
+        this.$store
+                .dispatch("createMenu", {
+            name: this.name,
+            provider: this.provider,
+            image: this.image,
+            dayOfWeek: this.day,
+            menuTypes: [
+              {
+                type: "S",
+                price: this.priceS,
+                items: this.itemsS
+              },
+              {
+                type: "M",
+                price: this.priceM,
+                items: this.itemsM
+              }
+            ]
+          })
       }
     }
   },

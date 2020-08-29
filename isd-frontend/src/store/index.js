@@ -30,6 +30,10 @@ export default new Vuex.Store({
             selectedMonth: null
         },
 
+        menu:{
+          createMenuSuccess: false
+        },
+
         register: {loading: false, error: false, success: false, errors: []},
         Provider: {loading: false},
         errorDialog: false,
@@ -42,6 +46,7 @@ export default new Vuex.Store({
             state.email = payload.email;
             state.password = payload.password;
         },
+
         login_error(state, payload) {
             state.login.loginError = true;
             state.login.error = payload.message;
@@ -51,22 +56,29 @@ export default new Vuex.Store({
                 state.login.loginError = false;
             }, 3000)
         },
+
         register_success(state) {
             state.register.loading = false;
             state.register.success = true
             setTimeout(() => {
                 state.register.success = false
-
             }, 3000)
         },
+
         register_error(state, payload) {
             state.register.loading = false;
             state.register.error = true;
         },
+
         create_order_success(state) {
             console.log(state)
             state.orders.createOrderSuccess = true;
+        },
+
+        create_menu_success(state){
+            state.menu.createMenuSuccess = true
         }
+
     },
     actions: {
         login({commit}, {email, password}) {
@@ -95,6 +107,7 @@ export default new Vuex.Store({
                     });
             });
         },
+
         resetPassword({commit}) {
             return new Promise((resolve, reject) => {
                 api
@@ -110,12 +123,13 @@ export default new Vuex.Store({
                     });
             });
         },
+
         createUser({commit}, user) {
             return new Promise((resolve, reject) => {
                 this.state.register.loading = true;
                 api
                     .createUser(user)
-                    .then(response => {
+          .then(response => {
                         if (response.status == 201 && response.data.errorType == null) {
                             commit("register_success", {
                                 user: user
@@ -135,6 +149,7 @@ export default new Vuex.Store({
                     });
             });
         },
+
         createProvider({commit}, provider) {
             return new Promise((resolve, reject) => {
                 // this.state.login.loading = true;
@@ -158,6 +173,27 @@ export default new Vuex.Store({
                     });
             });
         },
+
+        createMenu({commit}, menu) {
+            return new Promise((resolve, reject) => {
+                // this.state.login.loading = true;
+                console.log(menu);
+                api
+                    .createFullMenu(menu)
+                    .then(response => {
+                        if (response.status == 200) {
+                            commit("create_menu_success", {
+                                menu: menu
+                            });
+                        }
+                        resolve(response);
+                    })
+                    .catch(() => {
+                        reject("Something is wrong");
+                    });
+            });
+        },
+
         createOrder({commit}, order) {
             return new Promise((resolve, reject) => {
                 api
@@ -169,14 +205,11 @@ export default new Vuex.Store({
                         resolve(response);
                     })
                     .catch(() => {
-                        // place the loginError state into our vuex store
-                        // commit("login_error", {
-                        //   email: email,
-                        // });
                         reject("Error create order");
                     });
             });
         },
+
         getUserCurrentOrders({commit}) {
             return new Promise((resolve, reject) => {
                 api
@@ -196,6 +229,7 @@ export default new Vuex.Store({
                     });
             });
         },
+
         getUserOrdersHistory({commit}, params) {
             return new Promise((resolve, reject) => {
                 api
@@ -212,6 +246,7 @@ export default new Vuex.Store({
                     });
             });
         },
+
         deleteUserOrder({commit, dispatch}, orderId) {
             return new Promise((resolve, reject) => {
                 // this.state.login.loading = true;
@@ -250,6 +285,7 @@ export default new Vuex.Store({
 
             });
         },
+
         getPaymentAvailableMonths({commit}) {
             return new Promise((resolve, reject) => {
                 api
@@ -269,6 +305,7 @@ export default new Vuex.Store({
 
             });
         },
+
         getUserPaymentOnPeriod({commit}, {dateFrom, dateTo}) {
             return new Promise((resolve, reject) => {
                 this.state.payment.userPaymentLoading = true
@@ -337,7 +374,9 @@ export default new Vuex.Store({
         },
 
     },
+
     modules: {},
+
     getters: {
         isLoggedIn: state => state.login.loginSuccess,
         hasLoginErrored: state => state.login.loginError,
