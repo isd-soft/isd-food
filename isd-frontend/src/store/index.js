@@ -36,7 +36,8 @@ export default new Vuex.Store({
         register: {loading: false, error: false, success: false, errors: []},
         Provider: {loading: false},
         errorDialog: false,
-        errorModel: null
+        errorModel: null,
+        role: "ROLE_user"
     },
     mutations: {
         login_success(state, payload) {
@@ -92,12 +93,15 @@ export default new Vuex.Store({
                     .login(email, password)
                     .then(response => {
                         if (response.status == 200) {
+                            this.state.role = response.data.role;
                             localStorage.setItem("role", response.data.role);
-                            commit("login_success", {
-                                email: email,
-                                password: password
-                            });
+
                         }
+
+                        commit("login_success", {
+                            email: email,
+                            password: password
+                        });
                         resolve(response);
                     })
                     .catch(() => {

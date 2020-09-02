@@ -117,7 +117,6 @@ export default {
           .dispatch("login", {email: this.email, password: this.password})
           .then(() => {
             this.$router.push("/");
-            window.reload();
           })
           .catch(error => {
             this.loginError = true;

@@ -11,6 +11,7 @@ AXIOS.interceptors.response.use(
     function (response) {
         // Any status code that lie within the range of 2xx cause this function to trigger
         // Do something with response data
+
         if (
             response.headers["authorization"] != null &&
             localStorage.getItem("access_token") !== response.headers["authorization"]
@@ -26,6 +27,11 @@ AXIOS.interceptors.response.use(
         return response;
     },
     function (error) {
+
+        if (error.response.status === 403) {
+            store.state.errorDialog = true;
+            store.state.errorModel = {errorType: "Access denied", message: "You have no permission on this action"};
+        }
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
         return Promise.reject(error);
