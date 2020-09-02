@@ -52,7 +52,7 @@ const routes = [
     {
         path: "/confirm",
         name: "confirmation",
-        component: () => import("../components/confirmationDialog")
+        component: () => import("../components/ConfirmationDialog")
     },
 
 

@@ -1,7 +1,5 @@
 package com.example.isdbackend.projection;
 
-import com.example.isdbackend.model.Role;
-
 public interface UserView {
     Long getId();
 
@@ -15,7 +13,7 @@ public interface UserView {
 
     String getEmploymentDate();
 
-    Role getRole();
+    String getRoleName();
 
     boolean isEnabled();
 }

@@ -6,7 +6,26 @@
           <div class="card border-left-warning shadow h-100 py-1">
 
             <div class="card-body">
-              <h3 class="mb-3">Users</h3>
+              <v-row justify="end">
+                <v-autocomplete
+                    class="col-3"
+                    v-model="usersNames"
+                    :items="searchedUsers"
+                    :search-input.sync="searchName"
+                    @update:search-input="searchUsers"
+                    @input="setSearchedUsers"
+                    @click:clear="getUsers"
+                    hide-no-data
+                    item-text="name"
+                    item-value="id"
+                    label="Employee"
+                    prepend-icon="mdi-account"
+                    placeholder="Search by name"
+                    clearable
+                    return-object
+                ></v-autocomplete>
+              </v-row>
+
               <table class="table " cellspacing="0">
                 <thead>
                 <tr>
@@ -161,7 +180,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                   <v-select
-                                      v-model="user.role.name"
+                                      v-model="user.roleName"
                                       :items="role_items"
                                       label="Role"
                                       required
@@ -207,7 +226,7 @@
                                                                                         user.lastName,
                                                                                         user.skypeId,
                                                                                         user.email,
-                                                                                        user.role.name,
+                                                                                        user.roleName,
                                                                                         user.enabled,
                                                                                         user.employmentDate
                                                                                       )
@@ -245,7 +264,7 @@
 
 <script>
 import api from "@/components/backend-api.js";
-import confirmationDialog from "../components/confirmationDialog";
+import confirmationDialog from "../components/ConfirmationDialog";
 import Pagination from "@/components/Pagination";
 
 export default {
@@ -271,8 +290,11 @@ export default {
       modal: false,
       role_items: ["ROLE_user", "ROLE_supervisor"],
       page: 1,
-      sortIcon: "<i class='fas fa-sort'/>",
-      sortByEmploymentDate: null
+      sortIcon: "<i class='fas fa-caret-up'/>",
+      sortByEmploymentDate: "ASC",
+      searchName: "",
+      searchedUsers: [],
+      usersNames: []
     };
   },
   methods: {
@@ -307,8 +329,6 @@ export default {
       this.dialog1 = true;
       this.currentId = id;
       this.currentName = name;
-      console.log(this.currentName);
-      console.log(this.currentId);
     },
 
     formatDate(date) {
@@ -343,6 +363,30 @@ export default {
       api.getUsers({page: this.page - 1, employmentDateSort: datSortParam}).then(response => {
         this.users = response.data;
       });
+    },
+    searchUsers(name) {
+      if (name !== "" && name !== null)
+        api.searchUsers(name).then(r => {
+          this.searchName = name;
+          this.searchedUsers = r.data;
+        })
+    },
+    setSearchedUsers(name) {
+      console.log(name)
+      this.searchName = name;
+      this.getUser();
+    },
+    getUser() {
+      if (this.searchName !== "" && this.searchName !== null && this.searchName !== undefined)
+        api.getUserByName(this.searchName).then(r => {
+          console.log([r.data])
+          this.users.content = [r.data]
+          this.searchedUsers = [];
+        })
+    },
+    removeUserName(item) {
+      const index = this.usersNames.indexOf(item)
+      if (index >= 0) this.usersNames.splice(index, 1)
     },
 
     deleteUser() {

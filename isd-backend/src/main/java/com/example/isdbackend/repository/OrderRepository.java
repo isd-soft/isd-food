@@ -74,6 +74,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "  AND o.user_id = :userId", nativeQuery = true)
     int findOrdersCountByDateAndUserId(Date orderDate, long userId);
 
+    @Query(value = "SELECT COUNT(id) " +
+            "FROM orders " +
+            "WHERE date = :orderDate " +
+            "AND id != :orderId", nativeQuery = true)
+    int findOrdersCountByDateAndOrderId(Date orderDate, long orderId);
+
     @Query(value = "SELECT (extract(isodow from cast(:orderDate as date)) = m.day_of_week) " +
             "FROM menu_type mt " +
             "         JOIN menu m on m.id = mt.menu_id " +

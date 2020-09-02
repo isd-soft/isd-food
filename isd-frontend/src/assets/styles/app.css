@@ -57,3 +57,34 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+table td {
+    text-align: left !important;
+}
+
+.menu-list {
+    width: 100%;
+    white-space: nowrap !important;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+}
+.menu-list .v-card {
+    padding: 12px !important;
+    margin-top: 16px !important;
+    width: 250px !important;
+    height: 290px !important;
+}
+
+.menu-list  .v-card{
+    display: inline-block !important;
+    padding: 8px 5px;
+}
+
+.menu-card .menu-img {
+    float: left;
+    width:  120px;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+}

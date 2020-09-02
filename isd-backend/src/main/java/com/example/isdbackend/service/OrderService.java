@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -33,14 +35,15 @@ public class OrderService {
         this.userService = userService;
     }
 
-    public List<Order> findAll(){
+    public List<Order> findAll() {
         return orderRepository.findAll();
     }
 
-    public boolean areOrdersEnabled(Date orderOnDate) {
+    public boolean areOrdersEnabled(Date orderOnDate) throws ParseException {
         Date lastOrderDate = propertiesRepository.findLastOrderDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        return (lastOrderDate == null || lastOrderDate.before(orderOnDate));
+        return (lastOrderDate == null || lastOrderDate.before(sdf.parse(sdf.format(orderOnDate))));
     }
 
     public String canMakeOrder(OrderDTO orderDTO) {
@@ -59,24 +62,37 @@ public class OrderService {
 
         return message;
     }
-    public Order findById(Long id){
+
+    public Order findById(Long id) {
         return orderRepository.findById(id).orElseThrow();
     }
 
     public Order save(OrderDTO orderDTO) {
         return orderRepository.save(orderConverter.convertFromDto(orderDTO));
     }
+
     public Order save(Order order) {
         return orderRepository.save(order);
     }
 
-    public String canUpdateOrder(OrderDTO orderDTO) {
+    public String canUpdateOrder(OrderDTO orderDTO, long orderId) {
+        orderDTO.setUserId(userService.getCurrentUserId());
+
+        int ordersCount = orderRepository.findOrdersCountByDateAndOrderId(orderDTO.getDate(), orderId);
         boolean menuDayEqualsOrderDay = orderRepository.findMenuDayEqualsOrderDay(orderDTO.getDate(), orderDTO.getMenuTypeId());
+
+        if (ordersCount > 1) return "You already made 2 orders on this day";
+
         if (!menuDayEqualsOrderDay) return "This menu is not available on this day";
 
-        return null;
+        OrderValidation orderValidation = new OrderValidation(orderDTO.getDate(), DateUtil.getCurrentDate());
+
+        String message = orderValidation.validate();
+
+        return message;
     }
-    public void delete(Order order){
+
+    public void delete(Order order) {
         orderRepository.delete(order);
     }
 
@@ -91,10 +107,10 @@ public class OrderService {
     }
 
     public void update(OrderDTO orderDTO, long orderId) {
+
         orderDTO.setUserId(userService.getCurrentUserId());
         Order order = orderConverter.convertFromDto(orderDTO);
         order.setId(orderId);
-
         orderRepository.save(order);
     }
 

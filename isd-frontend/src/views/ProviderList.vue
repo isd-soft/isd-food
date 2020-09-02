@@ -209,7 +209,7 @@
 
 <script>
 import api from "@/components/backend-api.js";
-import confirmationDialog from "../components/confirmationDialog";
+import confirmationDialog from "../components/ConfirmationDialog";
 
 export default {
   name: "ProviderList",

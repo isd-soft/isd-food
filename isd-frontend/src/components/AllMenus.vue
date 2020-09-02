@@ -248,7 +248,7 @@
 
 <script>
   import api from "./backend-api";
-  import confirmationDialog from "./confirmationDialog";
+  import confirmationDialog from "./ConfirmationDialog";
 
 
   export default {

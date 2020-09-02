@@ -105,9 +105,6 @@ export default {
             password: password
         });
     },
-    getUserRole() {
-        return AXIOS.get(`/users/role`);
-    },
     resetPassword(email) {
         return AXIOS.post(`/users/password/reset?email=` + email);
     },
@@ -167,7 +164,12 @@ export default {
     getUsers({page, employmentDateSort}) {
         return AXIOS.get("/users?page=" + page + employmentDateSort);
     },
-
+    searchUsers(name) {
+        return AXIOS.get("/users/search?keywords=" + name)
+    },
+    getUserByName(name) {
+        return AXIOS.get("/users?name=" + name)
+    },
     deleteUser(user_id) {
         return AXIOS.delete("/users/deleteUser/" + user_id);
     },
@@ -243,7 +245,7 @@ export default {
         );
     },
     getAvailableProviders(dateFromParam, dateToParam) {
-        return AXIOS.get("/provider/available" + dateFromParam + dateToParam)
+        return AXIOS.get("/provider/available" + dateFromParam + dateToParam + (dateFromParam === "" && dateToParam === "" ? "?" : "&") + "ordered=true")
     },
     getUserCurrentOrders() {
         return AXIOS.get(
@@ -251,13 +253,18 @@ export default {
         );
     },
     getUserOrdersHistory({page, dateFrom, dateTo, providers, sort}) {
-        console.log(sort)
         return AXIOS.get(
             "/users/orders?ordered=true&page=" + page + dateFrom + dateTo + providers + sort
         );
     },
     deleteUserOrder(orderId) {
-        return AXIOS.delete("orders/" + orderId)
+        return AXIOS.delete("/orders/" + orderId)
+    },
+    getOrder(orderId) {
+        return AXIOS.get("/orders/" + orderId)
+    },
+    updateOrder(orderId, order) {
+        return AXIOS.put("/orders/" + orderId, order)
     },
     // Payment endpoints
     getUserPaymentOnMonth(month, year) {

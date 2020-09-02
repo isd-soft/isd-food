@@ -105,7 +105,6 @@ export default {
       if (this.type === type)
         this.product_data.menuTypes.forEach(element => {
           if (element.type === type) {
-            console.log(i)
             this.type_id = i
           } else i++
         });
@@ -114,7 +113,7 @@ export default {
     makeOrder() {
       var currentDate = new Date(moment(new Date()).format('yyyy-MM-DD'));
       var result = new Date(currentDate);
-      result.setDate(result.getDate() + ((this.weekDays[this.product_data.dayOfWeek] - 1) - currentDate.getDay()));
+      result.setDate(result.getDate() + ((this.weekDays[this.product_data.dayOfWeek] - 1) - currentDate.getDay() + 1));
 
       this.$store
           .dispatch("createOrder", {

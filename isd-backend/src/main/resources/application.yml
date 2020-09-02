@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/isd_food
     username: postgres
-    password: new_password
+    password: ciolacu
     initialization-mode: always
   jpa:
     properties:

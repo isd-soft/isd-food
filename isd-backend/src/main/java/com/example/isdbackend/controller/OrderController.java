@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -71,7 +72,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO) throws OrderException {
+    public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO) throws OrderException, ParseException {
 
         if (!orderService.areOrdersEnabled(orderDTO.getDate()))
             throw new OrderException("Orders are already placed");
@@ -89,11 +90,11 @@ public class OrderController {
     }
 
     @PutMapping("/{orderId}")
-    public ResponseEntity<?> updateOrder(@PathVariable long orderId, @RequestBody OrderDTO orderDTO) throws OrderException {
+    public ResponseEntity<?> updateOrder(@PathVariable long orderId, @RequestBody OrderDTO orderDTO) throws OrderException, ParseException {
         if (!orderService.areOrdersEnabled(orderDTO.getDate()))
             throw new OrderException("Orders are already placed");
 
-        String orderAvailableMessage = orderService.canUpdateOrder(orderDTO);
+        String orderAvailableMessage = orderService.canUpdateOrder(orderDTO, orderId);
 
         if (orderAvailableMessage != null)
             throw new OrderException(orderAvailableMessage);

@@ -19,7 +19,9 @@ export default new Vuex.Store({
             userCurrentOrders: [],
             userOrdersHistory: {totalPages: 1},
             userOrdersType: "current",
-            createOrderSuccess: false
+            createOrderSuccess: false,
+            usersOrdersLoading: true,
+
         },
         payment: {
             userPayment: {payment: 0},
@@ -27,7 +29,8 @@ export default new Vuex.Store({
             userPaymentLoading: false,
             displayUserPayment: false,
             availableMonths: [],
-            selectedMonth: null
+            selectedMonth: null,
+            paymentLoading: false
         },
 
         register: {loading: false, error: false, success: false, errors: []},
@@ -66,6 +69,18 @@ export default new Vuex.Store({
         create_order_success(state) {
             console.log(state)
             state.orders.createOrderSuccess = true;
+        },
+        getting_payment_data(state) {
+            state.payment.paymentLoading = true;
+        },
+        get_payment_success(state) {
+            state.payment.paymentLoading = false;
+        },
+        getting_users_orders(state) {
+            state.orders.usersOrdersLoading = true;
+        },
+        get_users_orders_success(state) {
+            state.orders.usersOrdersLoading = false;
         }
     },
     actions: {
@@ -84,7 +99,6 @@ export default new Vuex.Store({
                             });
                         }
                         resolve(response);
-                        window.reload();
                     })
                     .catch(() => {
                         // place the loginError state into our vuex store
@@ -179,13 +193,12 @@ export default new Vuex.Store({
         },
         getUserCurrentOrders({commit}) {
             return new Promise((resolve, reject) => {
+                commit('getting_users_orders');
                 api
                     .getUserCurrentOrders()
                     .then(response => {
                         console.log(response.data)
                         if (response.status == 200) {
-                            console.log("get orders")
-                            console.log(response.data)
                             this.state.orders.userCurrentOrders = response.data
                         }
                         resolve(response);
@@ -202,12 +215,13 @@ export default new Vuex.Store({
                     .getUserOrdersHistory(params)
                     .then(response => {
                         if (response.status == 200) {
-                            console.log(response.data)
                             this.state.orders.userOrdersHistory = response.data
                         }
+                        commit('get_users_orders_success');
                         resolve(response);
                     })
                     .catch(() => {
+                        commit('get_users_orders_success');
                         reject("Error");
                     });
             });
@@ -293,7 +307,7 @@ export default new Vuex.Store({
         },
         getAllUserPaymentOnMonth({commit}, {month, year, page, paymentSort}) {
             return new Promise((resolve, reject) => {
-                // this.state.payment.userPaymentLoading = true
+                commit('getting_payment_data');
                 api
                     .getAllUserPaymentOnMonth(month, year, page, paymentSort)
                     .then(response => {
@@ -303,19 +317,20 @@ export default new Vuex.Store({
                                 totalPages: response.data.totalPages
                             }
                         }
-                        this.state.payment.userPaymentLoading = false;
+                        commit('get_payment_success');
+
                         resolve(response);
                     })
                     .catch(() => {
-                        this.state.payment.userPaymentLoading = false;
+                        commit('get_payment_success');
+
                         reject("Error");
                     });
-
             });
         },
         getAllUserPaymentOnPeriod({commit}, {dateFrom, dateTo, page}) {
             return new Promise((resolve, reject) => {
-                // this.state.payment.userPaymentLoading = true
+                commit('getting_payment_data');
                 api
                     .getAllUserPaymentOnPeriod(dateFrom, dateTo, page)
                     .then(response => {
@@ -326,11 +341,12 @@ export default new Vuex.Store({
                                 totalPages: response.data.totalPages
                             }
                         }
-                        this.state.payment.userPaymentLoading = false;
+                        commit('get_payment_success');
                         resolve(response);
                     })
                     .catch(() => {
-                        this.state.payment.userPaymentLoading = false;
+                        commit('get_payment_success');
+
                         reject("Error");
                     });
             });
@@ -348,6 +364,11 @@ export default new Vuex.Store({
         userOrdersHistory: state => state.orders.userOrdersHistory.content,
         userOrdersHistoryTotalPages: state => state.orders.userOrdersHistory.totalPages,
         userOrdersType: state => state.orders.userOrdersType,
-        userOrders: state => state.orders.userOrdersType === "current" ? state.orders.userCurrentOrders : state.orders.userOrdersHistory.content
+        userOrders: state => state.orders.userOrdersType === "current" ? state.orders.userCurrentOrders : state.orders.userOrdersHistory.content,
+        showUserOrderHistory: state => (!state.orders.usersOrdersLoading
+            && (state.orders.userOrdersType === 'history'
+                && state.orders.userOrdersHistory.totalElements !== 0
+                || state.orders.userOrdersType === 'current'
+                && state.orders.userCurrentOrders.length !== 0))
     }
 });
