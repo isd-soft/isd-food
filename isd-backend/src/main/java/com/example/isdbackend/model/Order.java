@@ -21,7 +21,6 @@ public class Order {
     @JoinColumn(name = "menu_type_id")
     private MenuType menuType;
 
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")

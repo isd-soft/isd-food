@@ -1,10 +1,4 @@
 package com.example.isdbackend.dto.converter;
-
-import com.example.isdbackend.dto.OrderDTO;
-import com.example.isdbackend.model.MenuType;
-import com.example.isdbackend.model.Order;
-import com.example.isdbackend.model.User;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;

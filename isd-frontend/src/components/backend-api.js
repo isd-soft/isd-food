@@ -225,7 +225,7 @@ export default {
             email +
             "&role=" +
             role +
-            "&enable=" +
+            "&enabled=" +
             enable +
             "&data=" +
             data
@@ -264,6 +264,7 @@ export default {
         );
     },
     getUserOrdersHistory({page, dateFrom, dateTo, providers, sort}) {
+        console.log(sort)
         return AXIOS.get(
             "/users/orders?ordered=true&page=" + page + dateFrom + dateTo + providers + sort
         );
