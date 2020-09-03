@@ -49,22 +49,16 @@ const routes = [
     component: () => import("../views/ProviderOrders.vue")
   },
 
-  {
-    path: "/confirm",
-    name: "confirmation",
-    component: () => import("../components/confirmationDialog")
-  },
-
-  {
-    path: "/users/register",
-    name: "Create user",
-    component: () => import("../views/Register.vue")
-  },
-  {
-    path: "/orders",
-    name: "Orders",
-    component: () => import("../views/Orders.vue")
-  },
+    {
+        path: "/users/register",
+        name: "Create user",
+        component: () => import("../views/Register.vue")
+    },
+    {
+        path: "/orders",
+        name: "Orders",
+        component: () => import("../views/Orders.vue")
+    },
 
   {
     path: "/menu",

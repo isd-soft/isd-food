@@ -21,6 +21,7 @@
               v-html="priceCol">
       </span></th>
       <th v-if="$store.getters.userOrdersType === 'current'">Delete</th>
+      <th v-if="$store.getters.userOrdersType === 'current'">Edit</th>
     </tr>
     </thead>
     <tbody v-for="order of $store.getters.userOrders" :key="order.id">
@@ -30,15 +31,18 @@
       <!--        <td>{{  order.menuType }}</td>-->
       <td>{{ order.date }}</td>
       <td>{{ order.price }} lei</td>
-      <td class="text-center" v-if="$store.getters.userOrdersType === 'current'">
+      <td class="text-left" v-if="$store.getters.userOrdersType === 'current'">
         <button
-            @click="$emit('deleteOrder', order.id)"
+            @click="$emit('setOrderToDelete', order.id)"
         >
-          <v-icon data-toggle="modal" data-target="#exampleModal"
-          >fas fa-trash-alt
-          </v-icon
-          >
+          <i class="fas fa-trash"/>
         </button>
+      </td>
+      <td class="text-left" v-if="$store.getters.userOrdersType === 'current'">
+        <button
+            @click="$emit('openOrderEdit', order.id)"
+        >
+          <i class="fas fa-edit"/></button>
       </td>
     </tr>
     </tbody>
@@ -65,11 +69,11 @@ export default {
         this[varName] = "DESC"
       else this[varName] = null;
 
-      this[varName.split("y")[1].toLowerCase() + "Col"] = this.setFiledColValue(varName, varName.split("y")[1], varName.split("y")[1].toLowerCase() + "Col")
+      this[varName.split("y")[1].toLowerCase() + "Col"] = this.setFieldColValue(varName, varName.split("y")[1], varName.split("y")[1].toLowerCase() + "Col")
 
       this.$emit('setSortColsDirection', {name: varName, direction: this[varName]})
     },
-    setFiledColValue(varName, fieldName) {
+    setFieldColValue(varName, fieldName) {
       if (this[varName] == null)
         return fieldName + ' <i class="fas fa-sort"/> '
       else if (this[varName] === "ASC")

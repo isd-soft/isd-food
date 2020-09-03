@@ -9,7 +9,6 @@
           <v-btn color="error" text @click="close">Cancel</v-btn>
           <v-btn
             color="green darken-1"
-            onclick="window.location.reload()"
             text
             @click="method"
             >{{ actionButton }}</v-btn
@@ -43,7 +42,7 @@ export default {
 
   methods: {
     close() {
-      this.$emit("update:dialog1", false);
+      this.$emit("closeDeleteDialog");
     }
   }
 };

@@ -10,6 +10,7 @@
               :title="title"
               :message="message + currentName + '?'"
               :dialog1.sync="dialog1"
+              @closeDeleteDialog="closeConfirmation()"
             />
             <table class="table table-bordered" width="100%" cellspacing="0">
               <thead>
@@ -259,7 +260,7 @@
 
 <script>
 import api from "@/components/backend-api.js";
-import confirmationDialog from "../components/confirmationDialog";
+import confirmationDialog from "../components/ConfirmationDialog";
 
 export default {
   name: "ProviderList",
@@ -330,7 +331,15 @@ export default {
       }
     },
     deleteProvider() {
-      api.deleteProvider(this.currentId);
+      api.deleteProvider(this.currentId).then(()=>{
+        api.getAllProviders().then(r => {
+          this.providers = r.data;
+        });
+        this.dialog1 = false;
+      });
+    },
+    closeConfirmation() {
+      this.dialog1 = false
     }
   },
 

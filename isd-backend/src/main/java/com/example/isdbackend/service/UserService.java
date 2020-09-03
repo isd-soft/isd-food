@@ -62,7 +62,7 @@ public class UserService {
         return userRepository.findAllBy(pageable);
     }
 
-    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email, Boolean enable, Date data){
+    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email, Boolean enable, Date data) {
         User user = userRepository.findById(id).orElseThrow();
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -154,6 +154,7 @@ public class UserService {
 
         return auth.getAuthorities().toArray()[0].toString();
     }
+
     public void EditUserInfoBySupervisor(Long userId, String firstName, String lastName, String skypeId, String email,
                                          String role, Boolean enable, Date sqlDate) {
         User user = userRepository.findById(userId).orElseThrow();
@@ -167,8 +168,17 @@ public class UserService {
         user.setRoles(role1);
         userRepository.save(user);
     }
-    public void saveUser(User user){
+
+    public void saveUser(User user) {
         userRepository.save(user);
+    }
+
+    public List<String> search(String keywords) {
+        return userRepository.search(keywords.toLowerCase());
+    }
+
+    public UserView getByName(String name) {
+        return userRepository.findAllByName(name);
     }
 
 }
