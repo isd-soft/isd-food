@@ -10,10 +10,7 @@
                 <h6><b>Provider : {{ product_data.provider.name }}</b></h6>
                 <div v-if="product_data.image === null">
 
-                  <img
-                      src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg"
-                      class="image" alt="">
-
+                  <img src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg" class="image" alt="">
                 </div>
                 <div v-else>
                   <img :src=product_data.image class="image" alt="">
@@ -108,6 +105,7 @@ export default {
       if (this.type === type)
         this.product_data.menuTypes.forEach(element => {
           if (element.type === type) {
+            console.log(i)
             this.type_id = i
           } else i++
         });
@@ -124,7 +122,6 @@ export default {
             date: moment(result).format('yyyy-MM-DD')
           })
     },
-
   }
 }
 </script>

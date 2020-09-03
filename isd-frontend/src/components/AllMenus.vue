@@ -2,7 +2,7 @@
   <div>
     <div class="card border-left-warning shadow mb-4">
       <div class="card-body">
-        <div class="table-responsive">
+        <div >
           <div class="tab-content" id="pills-tabContent">
             <!---Current--->
             <div

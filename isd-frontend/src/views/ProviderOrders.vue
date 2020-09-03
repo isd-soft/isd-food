@@ -176,7 +176,7 @@
         <div class="row " v-if="ordersTrue.length != 0">
           <div class="col-xl-12 col-md-12 mb-4">
             <div class="card border-left-warning shadow h-100 py-1">
-              <div class="card-body wrapScroll">
+              <div class="card-body">
                 <table
                     class="table table-bordered"
                     width="100%"

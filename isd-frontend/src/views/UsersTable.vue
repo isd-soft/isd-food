@@ -44,59 +44,59 @@
                                     :message="message + currentName +'?'" :dialog1="dialog1"
                                     @closeDeleteDialog="dialog1 = false"/>
 
-                <tbody v-for="user of users.content" :key="user.id">
-                <tr>
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.firstName }}</td>
-                  <td>{{ user.lastName }}</td>
-                  <td>{{ user.employmentDate }}</td>
-                  <td v-if="user.enabled === true" class="text-center">
-                    <i
-                        class="fas fa-check-circle"
-                        style="margin: 0; padding: 0;color: green !important; font-size: 25px"
-                    ></i>
-                  </td>
-                  <td v-else class="text-center">
-                    <i
-                        class="fas fa-times-circle"
-                        style="margin: 0; padding: 0;color: red !important; font-size: 25px"
-                    ></i>
-                  </td>
+              <tbody v-for="user of users.content" :key="user.id">
+              <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.employmentDate }}</td>
+                <td v-if="user.enabled === true" class="text-center">
+                  <i
+                      class="fas fa-check-circle"
+                      style="margin: 0; padding: 0;color: green !important; font-size: 25px"
+                  ></i>
+                </td>
+                <td v-else class="text-center">
+                  <i
+                      class="fas fa-times-circle"
+                      style="margin: 0; padding: 0;color: red !important; font-size: 25px"
+                  ></i>
+                </td>
 
-                  <td class="text-center">
-                    <button
-                        @click="openDialog(user.id, user.firstName + ' '+ user.lastName)"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
+                <td class="text-center">
+                  <button
+                      @click="openDialog(user.id, user.firstName + ' '+ user.lastName)"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
 
-                  <td>
-                    <v-app
-                        style="background: none; height: content-box !important; max-height: 30px"
-                        class="text-center"
-                    >
-                      <v-dialog v-model="dialogNote[user.id]" width="600">
-                        <template v-slot:activator="{ on, attrs }">
-                          <button
-                              style="background : none !important;box-shadow: none;color: grey; outline: none"
-                              v-bind="attrs"
-                              v-on="on"
-                          >
-                            <i
-                                class="fas fa-edit"
-                                style="margin: 0 !important;padding: 0 !important"
-                            ></i>
-                          </button>
-                        </template>
+                <td>
+                  <v-app
+                      style="background: none; height: content-box !important; max-height: 30px"
+                      class="text-center"
+                  >
+                    <v-dialog v-model="dialogNote[user.id]" width="600">
+                      <template v-slot:activator="{ on, attrs }">
+                        <button
+                            style="background : none !important;box-shadow: none;color: grey; outline: none"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                          <i
+                              class="fas fa-edit"
+                              style="margin: 0 !important;padding: 0 !important"
+                          ></i>
+                        </button>
+                      </template>
 
-                        <v-card>
-                          <v-card-title
-                              class="headline orange lighten-2"
-                              style="color: white"
-                          >
-                            {{ user.email }}
-                          </v-card-title>
+                      <v-card>
+                        <v-card-title
+                            class="headline orange lighten-2"
+                            style="color: white"
+                        >
+                          {{ user.email }}
+                        </v-card-title>
 
                           <v-card-text>
                             <div class="container text-left">
@@ -207,64 +207,64 @@
                             </div>
                           </v-card-text>
 
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                                color="primary"
-                                text
-                                @click.stop="$set(dialogNote, user.id, false)"
-                            >
-                              Close
-                            </v-btn>
-                            <v-btn
-                                color="warning"
-                                text
-                                @click="
-                                                                                      editUser(
-                                                                                        user.id,
-                                                                                        user.firstName,
-                                                                                        user.lastName,
-                                                                                        user.skypeId,
-                                                                                        user.email,
-                                                                                        user.roleName,
-                                                                                        user.enabled,
-                                                                                        user.employmentDate
-                                                                                      )
-                                                                                    "
-                            >
-                              Save
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
-                    </v-app>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <Pagination class="pb-15 pt-5"
-                          @pageChanged="setPage" :page="page"
-                          :totalPages="users.totalPages"/>
-            </div>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                              color="primary"
+                              text
+                              @click.stop="$set(dialogNote, user.id, false)"
+                          >
+                            Close
+                          </v-btn>
+                          <!--                          <v-btn-->
+                          <!--                              color="warning"-->
+                          <!--                              text-->
+                          <!--                              @click="-->
+                          <!--                                editUser(-->
+                          <!--                                  user.id,-->
+                          <!--                                  user.firstName,-->
+                          <!--                                  user.lastName,-->
+                          <!--                                  user.skypeId,-->
+                          <!--                                  user.email,-->
+                          <!--                                  user.role.name,-->
+                          <!--                                  user.enabled,-->
+                          <!--                                  user.employmentDate-->
+                          <!--                                )-->
+                          <!--                              "-->
+                          <!--                          >-->
+                          <!--                            Save-->
+                          <!--                          </v-btn>-->
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-app>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <Pagination class="pb-15 pt-5"
+                        @pageChanged="setPage" :page="page"
+                        :totalPages="users.totalPages"/>
           </div>
         </div>
       </div>
-      <v-snackbar v-model="snackbar">
-        <div class="text-center">
-          {{ text }}
-        </div>
-      </v-snackbar>
-      <router-link class="btn btn-warning mb-3 btn-lg"
-                   style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 20px 23px;font-size: 20px !important;"
-                   :to="'/users/register'"><i class="fas fa-user-plus"></i></router-link>
-
     </div>
+    <v-snackbar v-model="snackbar">
+      <div class="text-center">
+        {{ text }}
+      </div>
+    </v-snackbar>
+    <router-link class="btn btn-warning mb-3 btn-lg"
+                 style="position: absolute;right: 10px; position: fixed;bottom: 0px; border-radius: 100px;padding: 20px 23px;font-size: 20px !important;"
+                 :to="'/users/register'"><i class="fas fa-user-plus"></i></router-link>
+
+  </div>
   </v-app>
 </template>
 
 <script>
 import api from "@/components/backend-api.js";
-import confirmationDialog from "../components/ConfirmationDialog";
+import confirmationDialog from "../components/confirmationDialog";
 import Pagination from "@/components/Pagination";
 
 export default {
@@ -372,14 +372,12 @@ export default {
         })
     },
     setSearchedUsers(name) {
-      console.log(name)
       this.searchName = name;
       this.getUser();
     },
     getUser() {
       if (this.searchName !== "" && this.searchName !== null && this.searchName !== undefined)
         api.getUserByName(this.searchName).then(r => {
-          console.log([r.data])
           this.users.content = [r.data]
           this.searchedUsers = [];
         })
