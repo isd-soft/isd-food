@@ -216,24 +216,24 @@
                           >
                             Close
                           </v-btn>
-                          <!--                          <v-btn-->
-                          <!--                              color="warning"-->
-                          <!--                              text-->
-                          <!--                              @click="-->
-                          <!--                                editUser(-->
-                          <!--                                  user.id,-->
-                          <!--                                  user.firstName,-->
-                          <!--                                  user.lastName,-->
-                          <!--                                  user.skypeId,-->
-                          <!--                                  user.email,-->
-                          <!--                                  user.roleName,-->
-                          <!--                                  user.enabled,-->
-                          <!--                                  user.employmentDate-->
-                          <!--                                )-->
-                          <!--                              "-->
-                          <!--                          >-->
-                          <!--                            Save-->
-                          <!--                          </v-btn>-->
+                                                    <v-btn
+                                                        color="warning"
+                                                        text
+                                                        @click="
+                                                          editUser(
+                                                            user.id,
+                                                            user.firstName,
+                                                            user.lastName,
+                                                            user.skypeId,
+                                                            user.email,
+                                                            user.roleName,
+                                                            user.enabled,
+                                                            user.employmentDate
+                                                          )
+                                                        "
+                                                    >
+                                                      Save
+                                                    </v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>

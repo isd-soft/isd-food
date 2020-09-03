@@ -42,7 +42,6 @@ export default {
 
   methods: {
     close() {
-      console.log("CLOSING !!!!")
       this.$emit("closeDeleteDialog");
     }
   }
