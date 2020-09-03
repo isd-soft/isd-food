@@ -31,7 +31,8 @@ export default new Vuex.Store({
         },
 
         menu:{
-          createMenuSuccess: false
+            createMenuSuccess: false,
+            createMenuError: false
         },
 
         register: {loading: false, error: false, success: false, errors: []},
@@ -77,7 +78,11 @@ export default new Vuex.Store({
 
         create_menu_success(state){
             state.menu.createMenuSuccess = true
-        }
+        },
+
+        create_menu_error(state){
+            state.menu.createMenuError = true
+        },
 
     },
     actions: {
@@ -186,9 +191,17 @@ export default new Vuex.Store({
                                 menu: menu
                             });
                         }
+                        else {
+                            commit("create_menu_error",{
+                                message: response.data.message
+                            })
+                        }
                         resolve(response);
                     })
                     .catch(() => {
+                        commit("create_menu_error",{
+                            message: "Something went wrong...",
+                        })
                         reject("Something is wrong");
                     });
             });

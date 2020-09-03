@@ -4,13 +4,8 @@
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card class="border-left-warning" ref="form" v-model="valid">
           <v-card-text>
-<!--            <v-alert-->
-<!--              class="col-sm-12"-->
-<!--              v-if="$store.state.menu.createMenuSuccess"-->
-<!--              type="success"-->
-<!--            >-->
-<!--              Menu saved successfully-->
-<!--            </v-alert>-->
+              <CreateMenuSuccess/>
+              <CreateMenuError/>
             <v-text-field
               ref="name"
               v-model="name"
@@ -215,8 +210,6 @@
           <v-card-actions>
 
             <v-btn color="primary" :to="'/allmenus'">Cancel</v-btn>
-
-            <v-spacer></v-spacer>
             <v-btn color="success" @click="createMenu()"
               >Submit
             </v-btn>
@@ -240,9 +233,15 @@
 
 <script>
 import api from "./backend-api";
+import CreateMenuSuccess from "./modal/CreateMenuSuccess";
+import CreateMenuError from "./modal/CreateMenuError";
 
 export default {
     name: "AddMenu",
+    components: {
+        CreateMenuSuccess,
+        CreateMenuError
+    },
   data: () => ({
     valid: false,
     nameRules: [

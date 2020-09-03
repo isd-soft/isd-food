@@ -1,13 +1,13 @@
 <template>
     <v-dialog
-            v-model="$store.state.menu.createMenuSuccess"
+            v-model="$store.state.menu.createMenuError"
             persistent
             max-width="290"
             class="err-modal"
     >
         <v-card>
-            <v-alert type="success">
-               Menu saved successfully
+            <v-alert type="warning">
+                Error
             </v-alert>
             <v-card-text>
                 Click ok to continue
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-    import router from "../../router";
 
     export default {
         data() {
@@ -35,7 +34,7 @@
         },
         methods: {
             clickOk(){
-                this.$store.state.menu.createMenuSuccess = false
+                this.$store.state.menu.createMenuError = false
                 this.$router.push("/allmenus");
             }
         }
