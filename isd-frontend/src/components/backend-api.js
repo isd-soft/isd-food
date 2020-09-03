@@ -3,7 +3,7 @@ import store from "@/store/index";
 
 const AXIOS = axios.create({
     baseURL: `http://localhost:8098/api`,
-    timeout: 10000
+    timeout: 30000
 });
 
 // Add a response interceptor
@@ -131,7 +131,12 @@ export default {
     addOrder(order) {
         return AXIOS.post(`/orders`, order);
     },
-
+    getLastOrderDate() {
+        return AXIOS.get(`/orders/lastOrder`);
+    },
+    confirmOrders(){
+      return AXIOS.post("/orders/place")
+    },
     createProvider(provider) {
         console.log(provider);
         return AXIOS.post(`/provider`, provider);

@@ -138,4 +138,9 @@ public class OrderService {
         return orderRepository.findAllBy(pageable, userId, orderFilter);
     }
 
+    public String getLastOrderDate() {
+        return DateUtil.getDateFromDateTime(propertiesRepository.findLastOrderDate());
+    }
+
+
 }

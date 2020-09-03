@@ -10,7 +10,9 @@
                 <h6><b>Provider : {{ product_data.provider.name }}</b></h6>
                 <div v-if="product_data.image === null">
 
-                  <img src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg" class="image" alt="">
+                  <img
+                      src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg"
+                      class="image" alt="">
 
                 </div>
                 <div v-else>
@@ -88,7 +90,8 @@ export default {
       type: 'M',
       type_id: 0,
       dialog: false,
-      weekDays: {'MONDAY': 1, 'TUESDAY': 2, 'WEDNESDAY': 3, 'THURSDAY': 4, 'FRIDAY': 5, 'SATURDAY': 6}
+      weekDays: {'MONDAY': 1, 'TUESDAY': 2, 'WEDNESDAY': 3, 'THURSDAY': 4, 'FRIDAY': 5, 'SATURDAY': 6},
+      lastOrderDate: null
     }
   },
   props: {
@@ -121,6 +124,7 @@ export default {
             date: moment(result).format('yyyy-MM-DD')
           })
     },
+
   }
 }
 </script>

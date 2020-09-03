@@ -50,6 +50,11 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findOrderById(orderId), HttpStatus.OK);
     }
 
+    @GetMapping("/lastOrder")
+    public ResponseEntity<String> getLastOrderDate() {
+        return new ResponseEntity<>(orderService.getLastOrderDate(), HttpStatus.OK);
+    }
+
     @PutMapping("/confirm/{id}/{confirm}")
     public void confirmOrder(@PathVariable Long id, @PathVariable boolean confirm) {
         Order order = orderService.findById(id);
