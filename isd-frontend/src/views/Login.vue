@@ -1,5 +1,6 @@
 <template>
   <v-overlay>
+    <v-app>
     <ForgotDialog showDialog="showDialog"/>
     <v-card width="100vw" height="100vh" class="mx-auto">
       <body style="background: orange;">
@@ -90,6 +91,7 @@
       </div>
       </body>
     </v-card>
+    </v-app>
   </v-overlay>
 
 </template>

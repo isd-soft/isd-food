@@ -11,7 +11,7 @@
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
-              <confirmationDialog :action-button="'Agree'" :method="deleteMenu" :title="title" :message="message + currentName+ '?'" :dialog1.sync="dialog1"/>
+              <confirmationDialog @closeDeleteDialog="dialog1 = false" :action-button="'Agree'" :method="deleteMenu" :title="title" :message="message + currentName+ '?'" :dialog1.sync="dialog1"/>
                 <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                   <tr>
@@ -301,7 +301,10 @@
     },
 
     deleteMenu() {
-      api.deleteMenu(this.currentId);
+      api.deleteMenu(this.currentId).then(()=>{
+        this.callMenuApi();
+        this.dialog1 = false;
+      });
     },
 
     // changeMenu(menu){

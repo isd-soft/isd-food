@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div>
-      <confirmationDialog :action-button="'Agree'"
+      <ConfirmationDialog :action-button="'Agree'"
                           :method="deleteOrder" title="Delete order"
                           :message="'Are you sure you want do delete this order ?'" :dialog1="deleteConfirmation"
                           @closeDeleteDialog="deleteConfirmation = false"/>
@@ -103,12 +103,12 @@ import OrderTable from "@/components/OrderTable";
 import DatePicker from "@/components/picker/DatePicker";
 import Pagination from "@/components/Pagination";
 import api from "@/components/backend-api";
-import confirmationDialog from "@/components/ConfirmationDialog";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
 import OrderEdit from "@/components/modal/OrderEdit";
 import moment from "moment";
 
 export default {
-  components: {OrderTable, DatePicker, Pagination, confirmationDialog, OrderEdit},
+  components: {OrderTable, DatePicker, Pagination, ConfirmationDialog, OrderEdit},
   name: "Home",
   data() {
     return {

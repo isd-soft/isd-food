@@ -1,7 +1,6 @@
 <template>
 <div >
   <div class="row">
-    {{callOnce()}}
     <v-app  class="col-12 pb-5 mb-5" style="background: none">
       <v-btn-toggle class="d-flex justify-content-center" v-model="weekDay" tile color="warning" group>
         <v-btn @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mo</v-btn>
@@ -111,8 +110,11 @@ import MenuItem from './MenuItem.vue'
     api.getLastOrderDate().then(response => {
       this.lastOrderDate = response.data;
     })
+  },
+    beforeMount() {
+      this.callOnce();
+    }
   }
-}
 </script>
 
 <style lang = "scss">

@@ -226,7 +226,7 @@
                           <!--                                  user.lastName,-->
                           <!--                                  user.skypeId,-->
                           <!--                                  user.email,-->
-                          <!--                                  user.role.name,-->
+                          <!--                                  user.roleName,-->
                           <!--                                  user.enabled,-->
                           <!--                                  user.employmentDate-->
                           <!--                                )-->
@@ -264,13 +264,13 @@
 
 <script>
 import api from "@/components/backend-api.js";
-import confirmationDialog from "../components/confirmationDialog";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import Pagination from "@/components/Pagination";
 
 export default {
   name: "UsersTable",
   components: {
-    confirmationDialog, Pagination
+    ConfirmationDialog, Pagination
   },
   data() {
     return {
