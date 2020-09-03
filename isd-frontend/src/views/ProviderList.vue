@@ -262,8 +262,13 @@ export default {
         error = true;
       }
       if (!error) {
-        api.editProvider(id, name, contact, price, active, desc, img);
-        window.location.reload();
+        api.editProvider(id, name, contact, price, active, desc, img).then(()=>{
+          api.getAllProviders().then(r => {
+            this.providers = r.data;
+           window.location.reload();
+            console.log(r.data);
+          });
+        })
       }
     },
     deleteProvider() {

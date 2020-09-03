@@ -13,8 +13,8 @@
         <a
             class="sidebar-brand d-flex align-items-center justify-content-center"
         >
-          <li class="nav-item text-center">
-            <span class="nav-link mt-2">
+          <li class="nav-item text-center" @click="$router.history.push('/menu')">
+            <span class="nav-link nav-brand mt-2">
               <img width="50px" src="./assets/food-bot.png"/>
               <span class="ml-2">Isd-food</span></span
             >
@@ -250,5 +250,18 @@ export default {
 
 .color-orange {
   color: #ff9300;
+}
+
+.nav-link{
+  transition: 0.2s;
+}
+
+.nav-link:hover {
+  cursor: pointer;
+  padding-left: 24px !important;
+}
+
+.nav-brand:hover {
+  padding-left: 16px !important;
 }
 </style>

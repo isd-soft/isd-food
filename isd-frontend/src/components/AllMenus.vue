@@ -374,8 +374,8 @@
         this.snackbar = true;
         this.text = "Menu has been successfully updated!"
 
-          api.changeMenu(menu);
-          window.location.reload();
+          api.changeMenu(menu).then(()=>{window.location.reload();})
+
       }
     }
   },

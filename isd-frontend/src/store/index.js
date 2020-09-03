@@ -76,7 +76,6 @@ export default new Vuex.Store({
         },
 
         create_order_success(state) {
-            console.log(state)
             state.orders.createOrderSuccess = true;
         },
         getting_payment_data(state) {
@@ -199,12 +198,12 @@ export default new Vuex.Store({
 
         createMenu({commit}, menu) {
             return new Promise((resolve, reject) => {
-                // this.state.login.loading = true;
-                console.log(menu);
+
                 api
                     .createFullMenu(menu)
                     .then(response => {
                         if (response.status == 200) {
+                            console.log("create menu success")
                             commit("create_menu_success", {
                                 menu: menu
                             });

@@ -28,7 +28,6 @@
     <tr>
       <td>{{ order.providerName }}</td>
       <td>{{ order.menuName + " " + order.menuType }}</td>
-      <!--        <td>{{  order.menuType }}</td>-->
       <td>{{ order.date }}</td>
       <td>{{ order.price }} lei</td>
       <td class="text-left" v-if="$store.getters.userOrdersType === 'current'">

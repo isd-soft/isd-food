@@ -79,10 +79,9 @@
                     <thead>
                     <tr>
                       <th>User</th>
-                      <th>Menu</th>
-                      <th>Menu type</th>
                       <th>Provider</th>
-                      <th>Confirm</th>
+                      <th>Menu</th>
+                      <th>Date</th>
                       <th>Delete</th>
                     </tr>
                     </thead>
@@ -93,23 +92,25 @@
                     >
                     <tr v-for="order in ordersFalse" :key="order.id">
                       <td>{{ getUserName(order.userId) }}</td>
-                      <td>{{ order.menuName }}</td>
-                      <td>{{ order.menuType }}</td>
                       <td>{{ order.providerName }}</td>
+                      <td>{{ order.menuName + " " + order.menuType }}</td>
                       <td>
-                        <button
-                            type="submit"
-                            @click="confirmOrder(order.id, true)"
-                            onclick="window.location.reload();"
-                        >
-                          <v-icon
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                          >fas fa-check
-                          </v-icon
-                          >
-                        </button>
+                        {{ order.date }}
                       </td>
+<!--                      <td>-->
+<!--                        <button-->
+<!--                            type="submit"-->
+<!--                            @click="confirmOrder(order.id, true)"-->
+<!--                            onclick="window.location.reload();"-->
+<!--                        >-->
+<!--                          <v-icon-->
+<!--                              data-toggle="modal"-->
+<!--                              data-target="#exampleModal"-->
+<!--                          >fas fa-check-->
+<!--                          </v-icon-->
+<!--                          >-->
+<!--                        </button>-->
+<!--                      </td>-->
                       <td>
                         <button type="button" @click="openDialog(order.id)">
                           <v-icon>fas fa-trash</v-icon>
@@ -195,10 +196,9 @@
                     <thead>
                     <tr>
                       <th>User</th>
-                      <th>Menu</th>
-                      <th>MenuType</th>
                       <th>Provider</th>
-                      <th>Revoke</th>
+                      <th>Menu</th>
+                      <th>Date</th>
                     </tr>
                     </thead>
 
@@ -208,22 +208,11 @@
                     >
                     <tr>
                       <td>{{ getUserName(order.userId) }}</td>
-                      <td>{{ order.menuName }}</td>
-                      <td>{{ order.menuType }}</td>
                       <td>{{ order.providerName }}</td>
+                      <td>{{ order.menuName + " " + order.menuType }}</td>
+
                       <td>
-                        <button
-                            type="submit"
-                            @click="confirmOrder(order.id, false)"
-                            onclick="window.location.reload();"
-                        >
-                          <v-icon
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                          >fas fa-times-circle
-                          </v-icon
-                          >
-                        </button>
+                        {{ order.date }}
                       </td>
                     </tr>
                     </tbody>

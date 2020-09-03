@@ -134,4 +134,8 @@ import MenuItem from './MenuItem.vue'
 .rounded-card{
     border-radius:500px;
 }
+
+#wrapper #content-wrapper {
+  overflow: hidden !important;
+}
 </style>
