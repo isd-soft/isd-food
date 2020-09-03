@@ -23,7 +23,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
@@ -56,17 +55,23 @@ public class UserController {
         Page<OrderView> orders = orderService.getOrders(pageable, orderFilter, userService.getCurrentUserId());
 
         if (!orderFilter.isOrdered()) {
-            return new ResponseEntity<>(orders.get().collect(Collectors.toList()), HttpStatus.OK);
+            return new ResponseEntity<>(orders.getContent(), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<Page<UserView>> getAllUsers(
-            @PageableDefault(size = 20, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable) {
+    public ResponseEntity<?> getAllUsers(
+            @PageableDefault(size = 20, sort = "employmentDate", direction = Sort.Direction.DESC) Pageable pageable,
+            String name) {
 
-        return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
+        if (name == null)
+            return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(userService.getByName(name), HttpStatus.OK);
+
+
     }
 
     @GetMapping("/allUsers")
@@ -109,14 +114,13 @@ public class UserController {
                          @RequestParam String skypeId, @RequestParam String email, @RequestParam Boolean enable, @RequestParam String data) throws ParseException {
         Long currentId = userService.getCurrentUserId();
 
-        if(!data.equals("")) {
+        if (!data.equals("")) {
             System.out.println(data);
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
             Date dateForChange = sdf1.parse(data);
             java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
             userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
-        }
-        else{
+        } else {
             userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, null);
         }
     }
@@ -136,7 +140,7 @@ public class UserController {
 
     @PutMapping("/edit/password")
     @ResponseBody
-    public String editUser( @RequestParam String password) {
+    public String editUser(@RequestParam String password) {
 
         userService.changePass(userService.getCurrentUserId(), password);
         return "Success";
@@ -161,4 +165,10 @@ public class UserController {
     public ResponseEntity<?> getMonthlyPaymentData(Integer month, Integer year) {
         return new ResponseEntity<>(paymentService.getUserMonthlyPaymentData(month, year), HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<String>> searchUsers(@RequestParam String keywords) {
+        return new ResponseEntity<>(this.userService.search(keywords), HttpStatus.OK);
+    }
+
 }

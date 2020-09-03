@@ -1,7 +1,5 @@
 package com.example.isdbackend.projection;
 
-import java.util.Set;
-
 public interface MenuView {
     int getId();
 
@@ -11,9 +9,6 @@ public interface MenuView {
 
     String getImage();
 
-    //boolean isActive();
-
     ProviderView getProvider();
 
-    Set<MenuTypeView> getMenuTypes();
 }

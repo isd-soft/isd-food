@@ -2,13 +2,14 @@
   <v-menu
       ref="menu"
       v-model="menu"
+      :close-on-content-click="false"
       transition="scale-transition"
       offset-y
       min-width="290px"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
-          class="col-10 p-0"
+          class="col-14 p-0"
           v-model="date"
           :label="label"
           readonly
@@ -69,11 +70,9 @@ export default {
       }
 
       return false;
-
     }
   },
   beforeMount() {
-    console.log(this.availableDates)
     this.date = this.initialDate;
   }
 }

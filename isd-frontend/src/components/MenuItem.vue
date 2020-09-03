@@ -1,4 +1,3 @@
-
 <template>
   <div v-if="product_data.provider.active" class=" col-md-4 col-sm-6 mb-4">
     <div class="card border-left-warning shadow py-2" style="height: content-box">
@@ -88,7 +87,8 @@ export default {
       type: 'M',
       type_id: 0,
       dialog: false,
-      weekDays: {'MONDAY': 1, 'TUESDAY': 2, 'WEDNESDAY': 3, 'THURSDAY': 4, 'FRIDAY': 5, 'SATURDAY': 6}
+      weekDays: {'MONDAY': 1, 'TUESDAY': 2, 'WEDNESDAY': 3, 'THURSDAY': 4, 'FRIDAY': 5, 'SATURDAY': 6},
+      lastOrderDate: null
     }
   },
   props: {
@@ -114,10 +114,8 @@ export default {
     makeOrder() {
       var currentDate = new Date(moment(new Date()).format('yyyy-MM-DD'));
       var result = new Date(currentDate);
-      console.log(result)
-      console.log((this.weekDays[this.product_data.dayOfWeek]) - currentDate.getDay())
-      result.setDate(result.getDate() + ((this.weekDays[this.product_data.dayOfWeek]) - currentDate.getDay()));
-      console.log(moment(result).format('yyyy-MM-DD'))
+      result.setDate(result.getDate() + ((this.weekDays[this.product_data.dayOfWeek] - 1) - currentDate.getDay() + 1));
+
       this.$store
           .dispatch("createOrder", {
             menuTypeId: this.product_data.menuTypes[this.type_id].id,

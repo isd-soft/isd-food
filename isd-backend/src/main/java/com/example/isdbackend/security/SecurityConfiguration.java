@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // configure access rules
                 .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
 //                .antMatchers(HttpMethod.POST, "/login").permitAll()
-//                .antMatchers(HttpMethod.POST, "/users").hasAuthority("ROLE_supervisor")
+                .antMatchers(HttpMethod.POST, "/users").hasAuthority("ROLE_supervisor")
                 .anyRequest().permitAll();
 
     }

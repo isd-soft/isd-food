@@ -1,7 +1,6 @@
 <template>
 <div >
   <div class="row">
-    {{callOnce()}}
     <v-app  class="col-12 pb-5 mb-5" style="background: none">
       <v-btn-toggle class="d-flex justify-content-center" v-model="weekDay" tile color="warning" group>
         <v-btn @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mo</v-btn>
@@ -27,31 +26,32 @@ import MenuItem from './MenuItem.vue'
   components: {
     MenuItem,
   },
-    data () {
-      return {
-        weekDay: this.getWeekDay(),
-        msg: 'Display some info from spring',
-        products: [],
-        dailyMenu: [],
-        menu_types: [],
-        helloResponse: [],
-        errors: [],
-        get: false,
-        alignments: [
+  data() {
+    return {
+      weekDay: this.getWeekDay(),
+      msg: 'Display some info from spring',
+      products: [],
+      dailyMenu: [],
+      menu_types: [],
+      helloResponse: [],
+      errors: [],
+      get: false,
+      alignments: [
         'start',
         'center',
         'end',
       ],
+      lastOrderDate: null
+    }
+  },
+  methods: {
+    // Fetches posts when the component is created.
+    callOnce() {
+      if (!this.get) {
+        this.getMenuFirst();
+        this.get = true
       }
     },
-    methods: {
-      // Fetches posts when the component is created.
-      callOnce(){
-        if(!this.get){
-          this.getMenuFirst();
-          this.get = true
-        }
-      },
 
       getDayMenu(day) {
         api.getMenuDay(day).then(response => {
@@ -73,36 +73,47 @@ import MenuItem from './MenuItem.vue'
         })
       },
 
-      getWeekDayId(){
-          // var date = new Date()
-          // var count = date.getDay()
-          // if(date.getHours() > 10)
-          //   count++;
-          // if(count == 7)
-          //   count = 0
-          // return count
-        return new Date().getDay();
+    getWeekDayId() {
+      // var date = new Date()
+      // var count = date.getDay()
+      // if(date.getHours() > 10)
+      //   count++;
+      // if(count == 7)
+      //   count = 0
+      // return count
+
+      if(new Date(this.lastOrderDate).getDay() === 5) return 1;
+
+      return new Date(this.lastOrderDate).getDay() + 1;
 
       },
 
-      getWeekDay() {
-      let days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
-      return days[this.getWeekDayId()];
-      },
-
-      callMenuType(){
-        api.getMenuType().then(response => {
-            this.menu_types = response.data;
-            console.log(response.data)
-        })
-        .catch(error => {
-          this.errors.push(error)
-        })
-      },
-      getMenuFirst(){
-        this.getDayMenu(this.getWeekDay());
-      },
+    getWeekDay() {
+      let days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
+      return days[this.getWeekDayId() - 1];
     },
+
+    callMenuType() {
+      api.getMenuType().then(response => {
+        this.menu_types = response.data;
+        console.log(response.data)
+      })
+          .catch(error => {
+            this.errors.push(error)
+          })
+    },
+    getMenuFirst() {
+      this.getDayMenu(this.getWeekDay());
+    },
+  },
+  beforeCreate() {
+    api.getLastOrderDate().then(response => {
+      this.lastOrderDate = response.data;
+    })
+  },
+    beforeMount() {
+      this.callOnce();
+    }
   }
 </script>
 

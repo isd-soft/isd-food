@@ -4,10 +4,12 @@ import com.example.isdbackend.dto.MenuDTO;
 import com.example.isdbackend.dto.converter.MenuConverter;
 import com.example.isdbackend.model.Menu;
 import com.example.isdbackend.model.MenuType;
+import com.example.isdbackend.projection.MenuTypeView;
 import com.example.isdbackend.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
+import java.util.List;
 
 
 @Service
@@ -15,15 +17,21 @@ public class MenuService extends AbstractServiceCrud {
 
     public ItemRepository itemRepository;
     public MenuConverter menuConverter;
+    private final MenuTypeRepository menuTypeRepository;
 
     public MenuService(MailSender mailSender, MenuRepository menuRepository, ProviderRepository providerRepository, OrderRepository orderRepository, UserRepository userRepository, MenuTypeRepository menuTypeRepository, ItemRepository itemRepository, MenuConverter menuConverter) {
         super(mailSender, menuRepository, providerRepository, orderRepository, userRepository, menuTypeRepository);
         this.itemRepository = itemRepository;
         this.menuConverter = menuConverter;
+        this.menuTypeRepository = menuTypeRepository;
     }
 
     public Iterable<Menu> getAllMenus() {
         return menuRepository.findAll();
+    }
+
+    public List<MenuTypeView> getMenuTypes() {
+        return menuTypeRepository.findAllBy();
     }
 
     public Menu getMenuById(Long id) {

@@ -3,7 +3,7 @@ import store from "@/store/index";
 
 const AXIOS = axios.create({
     baseURL: `http://localhost:8098/api`,
-    timeout: 1000
+    timeout: 30000
 });
 
 // Add a response interceptor
@@ -11,6 +11,7 @@ AXIOS.interceptors.response.use(
     function (response) {
         // Any status code that lie within the range of 2xx cause this function to trigger
         // Do something with response data
+
         if (
             response.headers["authorization"] != null &&
             localStorage.getItem("access_token") !== response.headers["authorization"]
@@ -26,6 +27,11 @@ AXIOS.interceptors.response.use(
         return response;
     },
     function (error) {
+
+        if (error.response.status === 403) {
+            store.state.errorDialog = true;
+            store.state.errorModel = {errorType: "Access denied", message: "You have no permission on this action"};
+        }
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
         return Promise.reject(error);
@@ -73,15 +79,12 @@ export default {
             img
         );
     },
-
     getAllOrders() {
         return AXIOS.get("/orders?ordered=false");
     },
-
     getAllUsers() {
         return AXIOS.get("/users/all");
     },
-
     deleteOrder(id) {
         return AXIOS.delete("/orders/delete/" + id);
     },
@@ -108,9 +111,6 @@ export default {
             password: password
         });
     },
-    getUserRole() {
-        return AXIOS.get(`/users/role`);
-    },
     resetPassword(email) {
         return AXIOS.post(`/users/password/reset?email=` + email);
     },
@@ -131,7 +131,12 @@ export default {
     addOrder(order) {
         return AXIOS.post(`/orders`, order);
     },
-
+    getLastOrderDate() {
+        return AXIOS.get(`/orders/lastOrder`);
+    },
+    confirmOrders(){
+      return AXIOS.post("/orders/place")
+    },
     createProvider(provider) {
         console.log(provider);
         return AXIOS.post(`/provider`, provider);
@@ -167,10 +172,15 @@ export default {
         return AXIOS.get("/provider/all");
     },
 
-    getUsers(page) {
-        return AXIOS.get("/users?page=" + page);
+    getUsers({page, employmentDateSort}) {
+        return AXIOS.get("/users?page=" + page + employmentDateSort);
     },
-
+    searchUsers(name) {
+        return AXIOS.get("/users/search?keywords=" + name)
+    },
+    getUserByName(name) {
+        return AXIOS.get("/users?name=" + name)
+    },
     deleteUser(user_id) {
         return AXIOS.delete("/users/deleteUser/" + user_id);
     },
@@ -246,7 +256,7 @@ export default {
         );
     },
     getAvailableProviders(dateFromParam, dateToParam) {
-        return AXIOS.get("/provider/available" + dateFromParam + dateToParam)
+        return AXIOS.get("/provider/available" + dateFromParam + dateToParam + (dateFromParam === "" && dateToParam === "" ? "?" : "&") + "ordered=true")
     },
     getUserCurrentOrders() {
         return AXIOS.get(
@@ -260,7 +270,13 @@ export default {
         );
     },
     deleteUserOrder(orderId) {
-        return AXIOS.delete("orders/" + orderId)
+        return AXIOS.delete("/orders/" + orderId)
+    },
+    getOrder(orderId) {
+        return AXIOS.get("/orders/" + orderId)
+    },
+    updateOrder(orderId, order) {
+        return AXIOS.put("/orders/" + orderId, order)
     },
     // Payment endpoints
     getUserPaymentOnMonth(month, year) {

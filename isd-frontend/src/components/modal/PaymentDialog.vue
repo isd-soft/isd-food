@@ -1,14 +1,13 @@
 <template>
   <v-app class="payment-dialog">
     <v-row justify="center">
-      <v-dialog v-model="$store.state.payment.displayUserPayment" persistent max-width="600px">
+      <v-dialog v-model="$store.state.payment.displayUserPayment" max-width="600px">
         <v-card>
           <v-card-title>
             <span class="headline">User payment</span>
           </v-card-title>
           <v-card-text>
-            <v-container>
-              <v-radio-group v-model="filterType" class="row" row>
+              <v-radio-group v-model="filterType" class="" row>
                 <span class="theme--light pr-5">Filter by</span>
                 <v-radio
                     label="Month"
@@ -22,6 +21,7 @@
               <v-row>
                 <v-col v-if="filterType==='Month'" cols="3">
                   <DatePicker label="Select month" picker-type="month" :initial-date="monthYearPicker"
+                              :availableDates="$store.state.payment.availableMonths"
                               @dateChanged="setMonthAndYear"/>
                 </v-col>
                 <div class="row ml-1" v-if="filterType!=='Month'">
@@ -46,7 +46,6 @@
                   ></v-text-field>
                 </v-col>
               </v-row>
-            </v-container>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -60,13 +59,14 @@
 <script>
 
 import DatePicker from "@/components/picker/DatePicker";
+import moment from "moment"
 
 export default {
   components: {DatePicker},
   name: "Home",
   data() {
     return {
-      monthYearPicker: new Date().toISOString().substring(0, 7),
+      monthYearPicker: moment().subtract(1, 'months').format('yyyy-MM'),
       dateFromPicker: null,
       dateToPicker: null,
       filterType: "Month"

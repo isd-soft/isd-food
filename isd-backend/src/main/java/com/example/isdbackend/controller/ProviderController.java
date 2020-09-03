@@ -71,5 +71,4 @@ public class ProviderController {
         providerService.deleteProvider(id);
     }
 
-
 }

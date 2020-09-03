@@ -1,8 +1,29 @@
 <template>
   <v-app>
     <div>
+      <ConfirmationDialog :action-button="'Agree'"
+                          :method="deleteOrder" title="Delete order"
+                          :message="'Are you sure you want do delete this order ?'" :dialog1="deleteConfirmation"
+                          @closeDeleteDialog="deleteConfirmation = false"/>
+      <OrderEdit @closeEditDialog="closeEditDialog" :edit-dialog="orderEditDialog"
+                 :order-to-edit="orderToUpdate"
+                 :menus="menus"
+                 :menu="orderToUpdate==null ? null : orderToUpdate.menuType"
+                 :days="days"
+                 :weekDay="weekDay"
+                 :order-menu-type-id="orderMenuTypeId"
+                 @setMenuTypeId="setMenuTypeId"
+                 @getMenusByDay="getMenusByDay"
+                 @updateOrder="updateOrder"/>
       <div class="card shadow mb-4">
         <div class="card-header py-3">
+          <v-progress-linear
+              :active="$store.state.orders.usersOrdersLoading"
+              :indeterminate="true"
+              absolute
+              top
+              color="amber darken-1"
+          ></v-progress-linear>
           <ul class="nav d-flex mb-3 mt-4" id="pills-tab" role="tablist">
             <li class="nav-item mr-3" role="presentation">
               <button
@@ -36,8 +57,9 @@
                 id="pills-home"
                 role="tabpanel"
                 aria-labelledby="pills-home-tab"
+                v-show="$store.getters.showUserOrderHistory"
             >
-              <div class="row justify-content-center" v-show="$store.state.orders.userOrdersType==='history'">
+              <div class="row justify-content-end mr-5" v-show="$store.state.orders.userOrdersType==='history'">
                 <v-col cols="2">
                   <DatePicker label="Date from" picker-type="date" :initial-date="dateFromPicker"
                               @dateChanged="setDateFrom"/>
@@ -54,18 +76,21 @@
                       item-disabled="notAvailable"
                       :menu-props="{ maxHeight: '400' }"
                       @change="getUserOrdersHistory"
-                      label="Select providers"
+                      label="Providers"
                       multiple
                       persistent-hint
                   ></v-select>
                 </v-col>
               </div>
-              <OrderTable @deleteOrder="deleteOrder" @setSortColsDirection="setSortColsDirection"/>
+              <OrderTable @openOrderEdit="openOrderEdit" @setOrderToDelete="setOrderToDelete"
+                          @setSortColsDirection="setSortColsDirection"/>
               <Pagination v-show="this.$store.state.orders.userOrdersType==='history'" class="pb-15 pt-5"
                           @pageChanged="setPage" :page="page"
                           :totalPages="this.$store.state.orders.userOrdersHistory.totalPages"/>
             </div>
 
+            <div class="row justify-content-center" v-show="!$store.getters.showUserOrderHistory"><img
+                src="https://i.pinimg.com/originals/88/ce/4c/88ce4c21492635e9e1422d0667dde555.png" width="300px"/></div>
           </div>
         </div>
       </div>
@@ -78,12 +103,23 @@ import OrderTable from "@/components/OrderTable";
 import DatePicker from "@/components/picker/DatePicker";
 import Pagination from "@/components/Pagination";
 import api from "@/components/backend-api";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
+import OrderEdit from "@/components/modal/OrderEdit";
+import moment from "moment";
 
 export default {
-  components: {OrderTable, DatePicker, Pagination},
+  components: {OrderTable, DatePicker, Pagination, ConfirmationDialog, OrderEdit},
   name: "Home",
   data() {
     return {
+      days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"],
+      weekDay: null,
+      orderIdToDelete: 0,
+      deleteConfirmation: false,
+      orderEditDialog: false,
+      orderToUpdate: null,
+      orderMenuTypeId: 0,
+      menus: [],
       userHistory: [],
       getHistory: false,
       currentOrders: [],
@@ -160,12 +196,80 @@ export default {
         console.log(e)
       })
     },
-    deleteOrder(orderId) {
-      this.$store.dispatch("deleteUserOrder", orderId)
+    setOrderToDelete(orderId) {
+      this.orderIdToDelete = orderId;
+      this.deleteConfirmation = true;
     },
+    deleteOrder() {
+      this.$store.dispatch("deleteUserOrder", this.orderIdToDelete).then(() => {
+        this.orderIdToDelete = 0;
+        this.deleteConfirmation = false;
+        this.getUserCurrentOrders();
+        this.getUserOrdersHistory();
+        this.getProviders();
+      });
+
+    },
+    openOrderEdit(orderId) {
+      api.getOrder(orderId).then(response => {
+        if (response.data.id !== null) {
+          this.getMenusByDay(
+              this.days[new Date(response.data.date).getDay() - 1]
+          );
+          this.weekDay = this.days[new Date(response.data.date).getDay() - 1];
+          this.orderMenuTypeId = response.data.menuType.id;
+        }
+        this.orderToUpdate = response.data;
+        this.orderEditDialog = true;
+      });
+    },
+    closeEditDialog() {
+      this.orderEditDialog = false;
+    },
+    getMenusByDay(day) {
+      api.getMenuDay(day).then(r => {
+        let menus = r.data;
+
+        menus.forEach(menu => {
+          if (menu.menuTypes[0].type !== "M") {
+            let temp = menu.menuTypes[0];
+            menu.menuTypes[0] = menu.menuTypes[1];
+            menu.menuTypes[1] = temp;
+          }
+        });
+
+        this.menus = r.data;
+        this.weekDay = day;
+      });
+    },
+
+    setMenuTypeId(id) {
+      this.orderMenuTypeId = id;
+    }
+    ,
+    updateOrder() {
+
+      var currentDate = new Date(moment(new Date()).format('yyyy-MM-DD'));
+      var result = new Date(currentDate);
+      result.setDate(result.getDate() + ((this.days.indexOf(this.weekDay) + 1) - currentDate.getDay()));
+
+      api.updateOrder(this.orderToUpdate.id, {
+        menuTypeId: this.orderMenuTypeId,
+        date: moment(result).format('yyyy-MM-DD')
+      }).then((r) => {
+        if (r.data === "") {
+          this.getUserCurrentOrders();
+          this.getUserOrdersHistory();
+          this.getProviders();
+          this.orderEditDialog = false
+        }
+      })
+
+    }
+    ,
     setSortColsDirection(col) {
       this[col.name] = col.direction;
-      this.getUserOrdersHistory()
+      this.getUserOrdersHistory();
     }
   },
   beforeMount() {
@@ -173,7 +277,8 @@ export default {
     this.getUserOrdersHistory();
     this.getProviders();
   }
-};
+}
+;
 </script>
 
 <style></style>
