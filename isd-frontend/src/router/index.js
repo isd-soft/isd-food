@@ -36,42 +36,41 @@ const routes = [
     component: () => import("../components/AllMenus.vue")
   },
 
-    {
-        path: "/ProviderList",
-        name: "Providers",
-        props: true,
-        component: () => import("../views/ProviderList.vue")
-    },
+  {
+    path: "/ProviderList",
+    name: "Providers",
+    props: true,
+    component: () => import("../views/ProviderList.vue")
+  },
 
-    {
-        path: "/ProviderOrders",
-        name: "Orders",
-        component: () => import("../views/ProviderOrders.vue")
-    },
+  {
+    path: "/ProviderOrders",
+    name: "Orders",
+    component: () => import("../views/ProviderOrders.vue")
+  },
 
-    {
-        path: "/confirm",
-        name: "confirmation",
-        component: () => import("../components/confirmationDialog")
-    },
+  {
+    path: "/confirm",
+    name: "confirmation",
+    component: () => import("../components/confirmationDialog")
+  },
 
+  {
+    path: "/users/register",
+    name: "Create user",
+    component: () => import("../views/Register.vue")
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: () => import("../views/Orders.vue")
+  },
 
-    {
-        path: "/users/register",
-        name: "Create user",
-        component: () => import("../views/Register.vue")
-    },
-    {
-        path: "/orders",
-        name: "Orders",
-        component: () => import("../views/Orders.vue")
-    },
-
-    {
-        path: "/menu",
-        name: "Menu",
-        component: () => import("../views/Menu.vue"),
-    },
+  {
+    path: "/menu",
+    name: "Menu",
+    component: () => import("../views/Menu.vue")
+  },
 
   {
     path: "/providers",

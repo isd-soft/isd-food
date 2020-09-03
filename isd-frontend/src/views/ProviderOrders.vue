@@ -49,7 +49,7 @@
         role="tabpanel"
         aria-labelledby="pills-home-tab"
       >
-        <div class="row" v-if="ordersFalse.length != 0">
+        <div class="row" v-if="ordersFalse.length !== 0">
           <div class="col-xl-12 col-md-12 mb-4">
             <div class="card border-left-warning shadow h-100 py-1">
               <div class="card-body wrapScroll ">
@@ -352,10 +352,12 @@ export default {
 </script>
 
 <style scoped>
-.wrapScroll {
-  overflow: auto;
-  white-space: nowrap;
-}
+/*.wrapScroll {*/
+/*  overflow: auto;*/
+/*  white-space: nowrap;*/
+/*}*/
+
+
 @media (max-width: 900px) {
   .btn-media {
     font-size: 12px;

@@ -187,16 +187,15 @@ export default {
   components: {ErrorDialog, CreateOrderDialog, PaymentDialog},
   data: () => ({
     scrollTop: false,
+    user: null,
     role: localStorage.getItem("role"),
     n: false,
     links: [
-      { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Menus", route: "/menu" },
       { icon: "fas fa-history", text: "Orders", route: "/orders" },
     ],
 
     SuperVisorLinks: [
-      { icon: "fas fa-user", text: "Account", route: "/edit" },
       { icon: "fas fa-pizza-slice", text: "Food", route: "/menu" },
       { icon: "fas fa-history", text: "My orders", route: "/orders" },
       { icon: "fas fa-users", text: "Users", route: "/users/table" },
@@ -206,6 +205,8 @@ export default {
       {icon: "fas fa-money-check", text: "Payment", route: "/payment"},
     ]
   }),
+
+
   methods: {
     handleScroll(event) {
       this.scrollTop = window.scrollY > 300;

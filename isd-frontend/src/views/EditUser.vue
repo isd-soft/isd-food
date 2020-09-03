@@ -333,6 +333,11 @@ export default {
 };
 </script>
 <style>
+::-webkit-scrollbar {
+  width: 0;
+  background: yellow;
+  display: inline !important;
+}
 .pass_show{position: relative}
 
 .pass_show .ptxt {
