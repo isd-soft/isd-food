@@ -278,10 +278,9 @@ export default {
         v => v >= 0 || "Must be a positive number"
       ],
       contactInfoRules: [
-        v => !!v || "Contact Info is required",
-        v => /.+@.+\..+/.test(v) || "Contact Info  must be valid"
+        v => !!v || "Contact Info is required"
       ],
-      descriptionRules: [v => !!v || "Delivery Price is required"],
+      descriptionRules: [v => !!v || "Description is required"],
       imageRules: [v => /http+.+\..+/.test(v) || "Must be a link"],
       currentName: null,
       currentId: null,
@@ -310,16 +309,16 @@ export default {
         this.snackbar = true;
         error = true;
       }
-      if (contact.length === 0) {
-        this.text = "Provider email cannot be empty!";
-        this.snackbar = true;
-        error = true;
-      }
-      if (!contact.includes("@")) {
-        this.text = "The contact must contain an email address";
-        this.snackbar = true;
-        error = true;
-      }
+      // if (contact.length === 0) {
+      //   this.text = "Provider email cannot be empty!";
+      //   this.snackbar = true;
+      //   error = true;
+      // }
+      // if (!contact.includes("@")) {
+      //   this.text = "The contact must contain an email address";
+      //   this.snackbar = true;
+      //   error = true;
+      // }
       if (price < 0) {
         this.text = "Price can't be negative";
         this.snackbar = true;
