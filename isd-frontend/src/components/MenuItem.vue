@@ -142,7 +142,11 @@ export default {
 
 .menu-image {
   width: 100%;
-  height: 120px;
+  height: 140px;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+
   object-fit: cover;
   display: block;
   position: relative;
@@ -156,8 +160,8 @@ export default {
 }
 
 .items {
-  height: 70px;
+  height: 65px;
   font-size: 14px !important;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 </style>
