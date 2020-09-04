@@ -23,7 +23,7 @@
           <div class="overline mb-4">{{ menu.name }}</div>
           <div style="width: 100%;margin:0 auto;" class="row justify-content-center">
           <div class="menu-img">
-            <img width="100%" :src="menu.image==null ?'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQr8Ii7nOMGIR0CwhLMRMjspLjlop2KbdVYTw&usqp=CAU' :menu.image" />
+            <img width="100%" :src="menu.image=== 'http' ?'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQr8Ii7nOMGIR0CwhLMRMjspLjlop2KbdVYTw&usqp=CAU' :menu.image" />
           </div><br/><br/><br/><br/><br/>
           <div style="text-align:center;width: 270px;min-height:50px;font-size: 14px;color:dimgray;">{{
               menu.menuTypes[0].items.map(item => {
