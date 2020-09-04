@@ -9,7 +9,7 @@
               <div class="ml-1">
                 <h6><b>Provider : {{ product_data.provider.name }}</b></h6>
                 <div class="menu-image">
-                  <img v-if="product_data.image == null" src="../assets/food-default.png" class="image" alt=""
+                  <img v-if="product_data.image === 'http'" src="../assets/food-default.png" class="image" alt=""
                        width="100%">
                   <img v-else :src="product_data.image" class="image" alt="" width="100%">
                 </div>

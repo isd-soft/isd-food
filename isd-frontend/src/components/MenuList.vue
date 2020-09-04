@@ -96,7 +96,6 @@ export default {
       //   count = 0
       // return count
 
-      console.log(new Date(this.lastOrderDate).getDay())
 
       if (new Date(this.lastOrderDate).getDay() === 5 && new Date().getDay() === 1) return 1;
       if (new Date(this.lastOrderDate).getDay() > 4) return 0;

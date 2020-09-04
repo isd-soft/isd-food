@@ -4,68 +4,68 @@
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card class="border-left-warning" ref="form" v-model="valid">
           <v-card-text>
-              <CreateMenuSuccess/>
-              <CreateMenuError/>
+            <CreateMenuSuccess/>
+            <CreateMenuError/>
             <v-text-field
-              ref="name"
-              v-model="name"
+                ref="name"
+                v-model="name"
 
-              :counter="20"
-              :rules="nameRules"
-              :error-messages="errorMessages"
-              label="Menu name"
-              placeholder="Enter name"
-              required
+                :counter="20"
+                :rules="nameRules"
+                :error-messages="errorMessages"
+                label="Menu name"
+                placeholder="Enter name"
+                required
             ></v-text-field>
 
             <v-autocomplete
-              ref="provider"
-              return-object
-              v-model="provider"
+                ref="provider"
+                return-object
+                v-model="provider"
 
-              :rules="ProviderRules"
+                :rules="ProviderRules"
 
-              :items="providers"
-              item-text="name"
-              label="Provider"
-              placeholder="Select..."
-              required
+                :items="providers"
+                item-text="name"
+                label="Provider"
+                placeholder="Select..."
+                required
             ></v-autocomplete>
 
             <v-autocomplete
-              ref="weekday"
-              v-model="day"
+                ref="weekday"
+                v-model="day"
 
-              :rules="DayRules"
+                :rules="DayRules"
 
-              :items="days"
-              label="Day"
-              placeholder="Select..."
-              required
+                :items="days"
+                label="Day"
+                placeholder="Select..."
+                required
             ></v-autocomplete>
 
             <v-text-field
-              ref="image"
-              v-model="image"
-              :rules="imageRules"
-              label="Image"
-              required
+                ref="image"
+                v-model="image"
+                :rules="imageRules"
+                label="Image"
+                required
             ></v-text-field>
 
-            <br />
+            <br/>
             <h4>Menu type S</h4>
 
             <v-container fluid>
               <v-select
-                return-object
-                v-model="itemsS"
-                :items="items"
-                :rules="itemRules"
-                item-text="name"
-                label="Items"
-                required
+                  return-object
+                  v-model="itemsS"
+                  :items="items"
+                  :rules="itemRules"
+                  item-text="name"
+                  label="Items"
+                  required
 
-                multiple
+                  multiple
               >
                 <template v-slot:prepend-item>
                   <v-list-item ripple>
@@ -95,9 +95,9 @@
                         <v-row>
                           <v-col cols="12">
                             <v-text-field
-                              v-model="item"
-                              label="Item name"
-                              required
+                                v-model="item"
+                                label="Item name"
+                                required
                             >
                             </v-text-field>
                           </v-col>
@@ -107,10 +107,12 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn color="error" text @click="dialog = false"
-                        >Close</v-btn
+                      >Close
+                      </v-btn
                       >
                       <v-btn color="success" text @click="saveItem()"
-                        >Save</v-btn
+                      >Save
+                      </v-btn
                       >
                     </v-card-actions>
                   </v-card>
@@ -119,28 +121,28 @@
             </v-container>
 
             <v-text-field
-              ref="priceS"
-              v-model="priceS"
-              :rules="PriceRules"
-              label="price"
-              required
-              placeholder="Enter price"
+                ref="priceS"
+                v-model="priceS"
+                :rules="PriceRules"
+                label="price"
+                required
+                placeholder="Enter price"
             ></v-text-field>
 
-            <br />
+            <br/>
             <h4>Menu type M</h4>
             <p>All items from S will be added automatically.</p>
 
             <v-container fluid>
               <v-select
-                return-object
-                v-model="itemsM"
-                :items="items"
-                :rules="itemRules"
-                item-text="name"
-                label="Items"
-                multiple
-                required
+                  return-object
+                  v-model="itemsM"
+                  :items="items"
+                  :rules="itemRules"
+                  item-text="name"
+                  label="Items"
+                  multiple
+                  required
 
               >
                 <template v-slot:prepend-item>
@@ -169,9 +171,9 @@
                         <v-row>
                           <v-col cols="12">
                             <v-text-field
-                              v-model="item"
-                              label="Item name"
-                              required
+                                v-model="item"
+                                label="Item name"
+                                required
                             >
                             </v-text-field>
                           </v-col>
@@ -181,10 +183,12 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn color="error" text @click="dialog = false"
-                        >Close</v-btn
+                      >Close
+                      </v-btn
                       >
                       <v-btn color="success" text @click="saveItem()"
-                        >Save</v-btn
+                      >Save
+                      </v-btn
                       >
                     </v-card-actions>
                   </v-card>
@@ -193,24 +197,24 @@
             </v-container>
 
 
-            <br />
+            <br/>
 
             <v-text-field
-              ref="priceS"
-              v-model="priceM"
-              :rules="[v => !!v || 'This field is required']"
+                ref="priceS"
+                v-model="priceM"
+                :rules="[v => !!v || 'This field is required']"
 
-              label="price"
-              required
-              placeholder="Enter price"
+                label="price"
+                required
+                placeholder="Enter price"
             ></v-text-field>
           </v-card-text>
           <v-divider class="mt-12"></v-divider>
-          <v-card-actions class = "d-flex justify-content-end">
+          <v-card-actions class="d-flex justify-content-end">
 
             <v-btn color="primary" :to="'/allmenus'">Cancel</v-btn>
             <v-btn color="success" @click="createMenu()"
-              >Save
+            >Save
             </v-btn>
 
           </v-card-actions>
@@ -219,8 +223,8 @@
     </v-row>
 
     <v-snackbar
-            v-model="snackbar"
-            :color=snackbarColor
+        v-model="snackbar"
+        :color=snackbarColor
     >
       <div class="text-center">
         {{ text }}
@@ -236,11 +240,11 @@ import CreateMenuSuccess from "./modal/CreateMenuSuccess";
 import CreateMenuError from "./modal/CreateMenuError";
 
 export default {
-    name: "AddMenu",
-    components: {
-        CreateMenuSuccess,
-        CreateMenuError
-    },
+  name: "AddMenu",
+  components: {
+    CreateMenuSuccess,
+    CreateMenuError
+  },
   data: () => ({
     valid: false,
     nameRules: [
@@ -318,22 +322,24 @@ export default {
     },
 
     createItem() {
-      api.newItem(this.item);
+      api.newItem(this.item).then(() => {
+        api
+            .getItems()
+            .then(response => {
+              this.items = response.data
+              console.log(response.data)
+
+            })
+            .catch(error => {
+              this.errors.push(error)
+            });
+      });
     },
 
     saveItem() {
       this.createItem()
       this.dialog = false
       this.item = null
-      api
-        .getItems()
-        .then(response => {
-          this.items = response.data
-          console.log(response.data)
-        })
-        .catch(error => {
-          this.errors.push(error)
-        });
     },
 
 
@@ -395,47 +401,47 @@ export default {
 
       if (!error) {
         this.$store
-                .dispatch("createMenu", {
-            name: this.name,
-            provider: this.provider,
-            image: this.image,
-            dayOfWeek: this.day,
-            menuTypes: [
-              {
-                type: "S",
-                price: this.priceS,
-                items: this.itemsS
-              },
-              {
-                type: "M",
-                price: this.priceM,
-                items: this.itemsM
-              }
-            ]
-          })
+            .dispatch("createMenu", {
+              name: this.name,
+              provider: this.provider,
+              image: this.image,
+              dayOfWeek: this.day,
+              menuTypes: [
+                {
+                  type: "S",
+                  price: this.priceS,
+                  items: this.itemsS
+                },
+                {
+                  type: "M",
+                  price: this.priceM,
+                  items: this.itemsM
+                }
+              ]
+            })
       }
     }
   },
 
   beforeCreate() {
     api
-      .getItems()
-      .then(response => {
-        this.items = response.data;
-        console.log(response.data);
-      })
-      .catch(error => {
-        this.errors.push(error);
-      }),
-      api
-        .getProviders()
+        .getItems()
         .then(response => {
-          this.providers = response.data;
+          this.items = response.data;
           console.log(response.data);
         })
         .catch(error => {
           this.errors.push(error);
-        });
+        }),
+        api
+            .getProviders()
+            .then(response => {
+              this.providers = response.data;
+              console.log(response.data);
+            })
+            .catch(error => {
+              this.errors.push(error);
+            });
   }
 };
 </script>
