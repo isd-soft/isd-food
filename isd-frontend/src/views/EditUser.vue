@@ -131,6 +131,7 @@
                         v-bind="attrs"
                         class="mr-3"
                         v-on="on"
+                        :disabled="passwordError"
                     >Change password</v-btn
                     >
                   </div>
@@ -191,6 +192,7 @@ export default {
   name: "edit",
   data() {
     return {
+      passwordError: true,
       snackColor: "green",
       error: false,
       snackbar: false,
@@ -212,6 +214,20 @@ export default {
       menu2: false,
       modal: false,
     };
+  },
+  watch: {
+    password2(){
+      if(this.password1 === this.password2)
+        this.passwordError = false
+      else
+        this.passwordError = true
+    },
+    password1(){
+      if(this.password1 === this.password2 && this.password1.length > 3)
+        this.passwordError = false
+      else
+        this.passwordError = true
+    }
   },
   /*  created () {
   this.fetchAuthenticatedUser()
