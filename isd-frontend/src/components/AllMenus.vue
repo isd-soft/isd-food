@@ -91,7 +91,7 @@
                             <v-text-field
                               ref="name"
                               v-model="menu.name"
-                              :counter="15"
+                              :counter="20"
                               label="Menu name"
                               placeholder="Enter name"
                               required
@@ -120,9 +120,7 @@
                             <v-text-field
                               ref="image"
                               v-model="menu.image"
-                              label="image"
-                              placeholder="image"
-                              required
+                              label="Image"
                             ></v-text-field>
 
                             <br />
