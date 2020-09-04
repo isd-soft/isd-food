@@ -114,7 +114,7 @@ public class UserController {
                          @RequestParam String skypeId, @RequestParam String email, @RequestParam Boolean enableNotification, @RequestParam String dataNotification) throws ParseException {
         Long currentId = userService.getCurrentUserId();
 
-        if (!dataNotification.equals("")) {
+        if (!dataNotification.equals("null")) {
             System.out.println(dataNotification);
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
             Date dateForChange = sdf1.parse(dataNotification);
