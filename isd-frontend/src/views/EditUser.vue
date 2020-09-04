@@ -50,7 +50,8 @@
               label="Notification"
           >
           </v-switch>
-
+        </div>
+        <div class="col-lg-6">
           <div v-if="notificationEnabled === false">
             <v-menu
                 v-model="menu2"
@@ -77,6 +78,9 @@
               ></v-date-picker>
             </v-menu>
           </div>
+        </div>
+        <div class="col-12 text-right">
+          <v-btn @click="UpadateInfo()" rounded color="warning">Save</v-btn>
         </div>
         <div class="col-lg-12" id="Password">
 
@@ -124,7 +128,8 @@
             <v-dialog v-model="dialog" persistent max-width="350">
               <template v-slot:activator="{ on, attrs }">
                 <div class="text-right d-flex justify-content-end">
-                  <div class="ml-4">
+                  <div class="ml-4 text-right d-flex justify-content-end">
+                    <v-spacer></v-spacer>
                     <v-btn
                         rounded
                         color="warning"
@@ -135,10 +140,6 @@
                     >Change password</v-btn
                     >
                   </div>
-                  <div>
-                    <v-btn @click="UpadateInfo()" rounded color="success">Save</v-btn>
-                  </div>
-
                 </div>
               </template>
               <v-card>
@@ -217,13 +218,13 @@ export default {
   },
   watch: {
     password2(){
-      if(this.password1 === this.password2)
+      if(this.password1 === this.password2 && this.password2.length >= 6)
         this.passwordError = false
       else
         this.passwordError = true
     },
     password1(){
-      if(this.password1 === this.password2 && this.password1.length > 3)
+      if(this.password1 === this.password2 && this.password1.length >= 6)
         this.passwordError = false
       else
         this.passwordError = true
