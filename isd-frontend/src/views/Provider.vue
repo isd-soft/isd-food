@@ -45,14 +45,17 @@
           required
         ></v-select>
 
-        <div class="d-flex justify-content-between">
+<!--        <div class="d-flex justify-content-between">-->
+          <v-card-actions>
+            <v-spacer></v-spacer>
           <v-btn color="warning" @click="reset">
             Reset
           </v-btn>
           <v-btn :disabled="!valid" color="success" @click="validate">
             Save
           </v-btn>
-        </div>
+          </v-card-actions>
+<!--        </div>-->
       </v-form>
     </v-card>
   </v-app>
