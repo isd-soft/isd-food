@@ -303,6 +303,8 @@
         this.callMenuApi();
         this.dialog1 = false;
       });
+      window.location.reload();
+
     },
 
     // changeMenu(menu){
