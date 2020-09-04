@@ -1,22 +1,22 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/isd_food
-    username: postgres
-    password: ciolacu
-  jpa:
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-  jackson:
-    serialization:
-      FAIL_ON_EMPTY_BEANS: false
-    deserialization:
-      fail-on-unknown-properties: false
-
-logging:
-
-  level:
-    org:
-      hibernate:
-        type: trace
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/isd_food
+#    username: postgres
+#    password: ciolacu
+#  jpa:
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        format_sql: true
+#  jackson:
+#    serialization:
+#      FAIL_ON_EMPTY_BEANS: false
+#    deserialization:
+#      fail-on-unknown-properties: false
+#
+#logging:
+#
+#  level:
+#    org:
+#      hibernate:
+#        type: trace

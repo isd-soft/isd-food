@@ -127,81 +127,6 @@
                                 </label>
                               </div>
                             </div>
-                            <!--                            <div class="container text-left">-->
-                            <!--                              <div class="form-row">-->
-                            <!--                                <div class="form-group col-md-6">-->
-                            <!--                                  <label for="inputEmail4">Provider</label>-->
-                            <!--                                  <input-->
-                            <!--                                    type="text"-->
-                            <!--                                    class="form-control"-->
-                            <!--                                    id="inputEmail4"-->
-                            <!--                                    v-model="provider.name"-->
-                            <!--                                    required-->
-                            <!--                                  />-->
-                            <!--                                </div>-->
-                            <!--                                <div class="form-group col-md-6">-->
-                            <!--                                  <label for="inputPassword4"-->
-                            <!--                                    >Contact info</label-->
-                            <!--                                  >-->
-                            <!--                                  <input-->
-                            <!--                                    type="text"-->
-                            <!--                                    class="form-control"-->
-                            <!--                                    id="inputPassword4"-->
-                            <!--                                    v-model="provider.contactInfo"-->
-                            <!--                                    required-->
-                            <!--                                  />-->
-                            <!--                                </div>-->
-                            <!--                              </div>-->
-                            <!--                              <div class="form-group">-->
-                            <!--                                <label for="inputAddress">Description</label>-->
-                            <!--                                <textarea-->
-                            <!--                                  v-model="provider.description"-->
-                            <!--                                  min-height="40px"-->
-                            <!--                                  class="form-control"-->
-                            <!--                                  id="inputAddress"-->
-                            <!--                                ></textarea>-->
-                            <!--                              </div>-->
-
-                            <!--                              <div class="form-row">-->
-                            <!--                                <div class="form-group col-md-6">-->
-                            <!--                                  <label for="inputCity">Delivery price</label>-->
-                            <!--                                  <input-->
-                            <!--                                    type="text"-->
-                            <!--                                    v-model="provider.deliveryPrice"-->
-                            <!--                                    required-->
-                            <!--                                    class="form-control"-->
-                            <!--                                    id="inputCity"-->
-                            <!--                                  />-->
-                            <!--                                </div>-->
-
-                            <!--                                <div class="form-group col-md-6">-->
-                            <!--                                  <label for="inputCity">Provider image</label>-->
-                            <!--                                  <input-->
-                            <!--                                    type="text"-->
-                            <!--                                    v-model="provider.image"-->
-                            <!--                                    required-->
-                            <!--                                    class="form-control"-->
-                            <!--                                  />-->
-                            <!--                                </div>-->
-                            <!--                              </div>-->
-                            <!--                              <div class="form-group ml-1">-->
-                            <!--                                <div class="form-check">-->
-                            <!--                                  <input-->
-                            <!--                                    class="form-check-input"-->
-                            <!--                                    type="checkbox"-->
-                            <!--                                    v-model="provider.active"-->
-                            <!--                                    required-->
-                            <!--                                    id="gridCheck"-->
-                            <!--                                  />-->
-                            <!--                                  <label-->
-                            <!--                                    class="form-check-label"-->
-                            <!--                                    for="gridCheck"-->
-                            <!--                                  >-->
-                            <!--                                    Active-->
-                            <!--                                  </label>-->
-                            <!--                                </div>-->
-                            <!--                              </div>-->
-                            <!--                            </div>-->
                           </v-card-text>
 
                           <v-card-actions>
@@ -276,10 +201,9 @@ export default {
         v => v >= 0 || "Must be a positive number"
       ],
       contactInfoRules: [
-        v => !!v || "Contact Info is required",
-        v => /.+@.+\..+/.test(v) || "Contact Info  must be valid"
+        v => !!v || "Contact Info is required"
       ],
-      descriptionRules: [v => !!v || "Delivery Price is required"],
+      descriptionRules: [v => !!v || "Description is required"],
       imageRules: [v => /http+.+\..+/.test(v) || "Must be a link"],
       currentName: null,
       currentId: null,
