@@ -2,19 +2,18 @@
   <div v-if="product_data.provider.active" class=" col-md-4 col-sm-6 mb-4">
     <div class="card border-left-warning shadow py-2" style="height: content-box">
       <div class="card-body">
-        <div class="row no-gutters align-items-center">
+        <div class="row no-gutters align-items-center" style="height:auto !important;">
           <div class="col mr-2">
             <div class="text-xl font-weight-bold text-warning ml-1 text-uppercase mb-1">{{ product_data.name }}</div>
             <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 12px">
               <div class="ml-1">
                 <h6><b>Provider : {{ product_data.provider.name }}</b></h6>
-                <div v-if="product_data.image === null">
+                <div class="menu-image">
+                  <img v-if="product_data.image == null" src="../assets/food-default.png" class="image" alt=""
+                       width="100%">
+                  <img v-else :src="product_data.image" class="image" alt="" width="100%">
+                </div>
 
-                  <img src="https://hips.hearstapps.com/hmg-prod/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg" class="image" alt="">
-                </div>
-                <div v-else>
-                  <img :src=product_data.image class="image" alt="">
-                </div>
                 <v-app style="height: auto; max-height: 230px">
                   <v-radio-group class="ml-1" v-model="type" id="type" :mandatory="false"
                                  style="color: orange !important" row>
@@ -43,9 +42,15 @@
                   <h6><b>Items:</b></h6>
 
                   <h6>
-                    <li v-for="item in product_data.menuTypes[(type_id)].items" :key="item.name">
-                      <b>{{ item.name }}</b>
-                    </li>
+                    <!--                    <li v-for="item in product_data.menuTypes[(type_id)].items" :key="item.name">-->
+                    <!--                      <b>{{ item.name }}</b>-->
+                    <!--                    </li>-->
+                    <div class="items"> {{
+                        product_data.menuTypes[(type_id)].items.map(item => {
+                          return item.name
+                        }).join(', ')
+                      }}
+                    </div>
                   </h6>
 
                   <br>
@@ -135,10 +140,24 @@ export default {
   height: 500px;
 }
 
-.image {
-  background-size: cover;
+.menu-image {
   width: 100%;
-  border-radius: 4px;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  text-align: center;
+}
 
+.image {
+  width: auto;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.items {
+  height: 70px;
+  font-size: 14px !important;
+  padding-bottom: 10px;
 }
 </style>

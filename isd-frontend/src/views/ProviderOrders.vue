@@ -97,20 +97,20 @@
                       <td>
                         {{ order.date }}
                       </td>
-<!--                      <td>-->
-<!--                        <button-->
-<!--                            type="submit"-->
-<!--                            @click="confirmOrder(order.id, true)"-->
-<!--                            onclick="window.location.reload();"-->
-<!--                        >-->
-<!--                          <v-icon-->
-<!--                              data-toggle="modal"-->
-<!--                              data-target="#exampleModal"-->
-<!--                          >fas fa-check-->
-<!--                          </v-icon-->
-<!--                          >-->
-<!--                        </button>-->
-<!--                      </td>-->
+                      <!--                      <td>-->
+                      <!--                        <button-->
+                      <!--                            type="submit"-->
+                      <!--                            @click="confirmOrder(order.id, true)"-->
+                      <!--                            onclick="window.location.reload();"-->
+                      <!--                        >-->
+                      <!--                          <v-icon-->
+                      <!--                              data-toggle="modal"-->
+                      <!--                              data-target="#exampleModal"-->
+                      <!--                          >fas fa-check-->
+                      <!--                          </v-icon-->
+                      <!--                          >-->
+                      <!--                        </button>-->
+                      <!--                      </td>-->
                       <td>
                         <button type="button" @click="openDialog(order.id)">
                           <v-icon>fas fa-trash</v-icon>
@@ -127,7 +127,7 @@
           <div v-else class="row justify-content-center bg-white"
                style="margin-top: 15vh ; padding-top: 5vh;padding-bottom:5vh;">
             <img
-                src="https://i.pinimg.com/originals/88/ce/4c/88ce4c21492635e9e1422d0667dde555.png" width="300px"/>
+                src="../assets/no-orders.png" width="300px"/>
           </div>
         </div>
         <div
@@ -221,10 +221,9 @@
               </div>
             </div>
           </div>
-          <div v-else class="text-center" style="margin-top: 25vh">
-            <div class="row justify-content-center"><img
-                src="https://i.pinimg.com/originals/88/ce/4c/88ce4c21492635e9e1422d0667dde555.png" width="300px"/></div>
-          </div>
+          <div v-else class="row justify-content-center bg-white"
+               style="margin-top: 15vh ; padding-top: 5vh;padding-bottom:5vh;"><img
+              src="../assets/no-orders.png" width="300px"/></div>
         </div>
       </div>
     </div>

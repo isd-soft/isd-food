@@ -48,7 +48,7 @@ public class MenuController {
 
     @PostMapping("/new_menu")
     public void addMenu(@RequestBody Menu menu) {
-        menu.setDayOfWeek(menu.getDayOfWeek().plus(1));
+        menu.setDayOfWeek(menu.getDayOfWeek().plus(2));
         menuService.addMenu(menu);
     }
 

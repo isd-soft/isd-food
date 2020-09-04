@@ -90,7 +90,7 @@
             </div>
 
             <div class="row justify-content-center" v-show="!$store.getters.showUserOrderHistory"><img
-                src="https://i.pinimg.com/originals/88/ce/4c/88ce4c21492635e9e1422d0667dde555.png" width="300px"/></div>
+                src="../assets/no-orders.png" width="300px"/></div>
           </div>
         </div>
       </div>

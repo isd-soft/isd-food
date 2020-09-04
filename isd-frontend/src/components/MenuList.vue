@@ -3,11 +3,14 @@
     <div class="row">
       <v-app class="col-12 pb-5 mb-5" style="background: none">
         <v-btn-toggle class="d-flex justify-content-center" v-model="weekDay" tile color="warning" group>
-          <v-btn @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mo
+          <v-btn :class="weekDay === 'MONDAY'  ? 'v-btn--active' : ''" @click="getDayMenu('MONDAY')" value="MONDAY"
+                 :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mo
           </v-btn>
-          <v-btn @click="getDayMenu('TUESDAY')" value="TUESDAY" :disabled="getWeekDayId() > 2 || getWeekDayId()==0">Tu
+          <v-btn :class="weekDay === 'TUESDAY'  ? 'v-btn--active' : ''" @click="getDayMenu('TUESDAY')" value="TUESDAY"
+                 :disabled="getWeekDayId() > 2 || getWeekDayId()==0">Tu
           </v-btn>
-          <v-btn @click="getDayMenu('WEDNESDAY')" value="WEDNESDAY" :disabled="getWeekDayId() > 3 || getWeekDayId()==0">
+          <v-btn :class="weekDay === 'WEDNESDAY'  ? 'v-btn--active' : ''" @click="getDayMenu('WEDNESDAY')"
+                 value="WEDNESDAY" :disabled="getWeekDayId() > 3 || getWeekDayId()==0">
             We
           </v-btn>
           <v-btn @click="getDayMenu('THURSDAY')" value="THURSDAY" :disabled="getWeekDayId() > 4 || getWeekDayId()==0">
@@ -62,12 +65,13 @@ export default {
     },
 
     getDayMenu(day) {
+      console.log(this.weekDay)
       api
-        .getMenuDay(day)
-        .then(response => {
-        this.dailyMenu = response.data;
-        console.log(response.data)
-      })
+          .getMenuDay(day)
+          .then(response => {
+            this.dailyMenu = response.data;
+            console.log(response.data)
+          })
           .catch(error => {
             this.errors.push(error)
           })
@@ -92,16 +96,21 @@ export default {
       //   count = 0
       // return count
 
-      if (new Date(this.lastOrderDate).getDay() === 5 && new Date().getDay() === 1) return 1;
-      if (new Date(this.lastOrderDate).getDay() === 5) return 0;
+      console.log(new Date(this.lastOrderDate).getDay())
 
-      return new Date(this.lastOrderDate).getDay() + 1;
+      if (new Date(this.lastOrderDate).getDay() === 5 && new Date().getDay() === 1) return 1;
+      if (new Date(this.lastOrderDate).getDay() > 4) return 0;
+
+      if (new Date(this.lastOrderDate).getDay() > new Date().getDay())
+        return new Date(this.lastOrderDate).getDay()
+      else return new Date().getDay()
 
     },
 
     getWeekDay() {
       let days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
-      return days[this.getWeekDayId() - 5];
+      console.log(this.weekDay)
+      return days[this.getWeekDayId() - 1];
     },
 
     callMenuType() {

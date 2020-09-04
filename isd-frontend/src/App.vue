@@ -21,7 +21,7 @@
           </li>
         </a>
         <hr class="sidebar-divider my-0"/>
-        <div v-if="$store.state.role === 'ROLE_supervisor'">
+        <div class="nav-padding" v-if="$store.state.role === 'ROLE_supervisor'">
           <li
               class="nav-item "
               v-for="link in SuperVisorLinks"
@@ -37,7 +37,7 @@
             <hr class="sidebar-divider my-0"/>
           </li>
         </div>
-        <div v-else>
+        <div class="nav-padding" v-else>
           <li class="nav-item " v-for="link in links" :key="link.text">
             <router-link class="nav-link" :to="link.route">
               <v-icon style="color: white; font-size: 18px">{{
@@ -252,16 +252,16 @@ export default {
   color: #ff9300;
 }
 
-.nav-link{
+.nav-padding li a{
   transition: 0.2s;
 }
 
-.nav-link:hover {
+.nav-padding li a:hover {
   cursor: pointer;
   padding-left: 24px !important;
 }
 
 .nav-brand:hover {
-  padding-left: 16px !important;
+  /*padding-left: 16px !important;*/
 }
 </style>

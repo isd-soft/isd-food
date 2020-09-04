@@ -10,7 +10,7 @@
               ref="name"
               v-model="name"
 
-              :counter="15"
+              :counter="20"
               :rules="nameRules"
               :error-messages="errorMessages"
               label="Menu name"
@@ -48,8 +48,7 @@
               ref="image"
               v-model="image"
               :rules="imageRules"
-              label="image"
-              placeholder="image"
+              label="Image"
               required
             ></v-text-field>
 
@@ -246,7 +245,7 @@ export default {
     valid: false,
     nameRules: [
       v => !!v || "Is it menu without name? Come on!",
-      v => (v && v.length <= 15) || "Name must be less than 15 characters"
+      v => (v && v.length <= 20) || "Name must be less than 15 characters"
     ],
 
     PriceRules: [
