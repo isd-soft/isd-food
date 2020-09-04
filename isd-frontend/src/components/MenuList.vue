@@ -1,28 +1,39 @@
 <template>
-<div >
-  <div class="row">
-    <v-app  class="col-12 pb-5 mb-5" style="background: none">
-      <v-btn-toggle class="d-flex justify-content-center" v-model="weekDay" tile color="warning" group>
-        <v-btn @click="getDayMenu('MONDAY')" value="MONDAY" :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mo</v-btn>
-        <v-btn @click="getDayMenu('TUESDAY')" value="TUESDAY" :disabled="getWeekDayId() > 2 || getWeekDayId()==0">Tu</v-btn>
-        <v-btn @click="getDayMenu('WEDNESDAY')" value="WEDNESDAY" :disabled="getWeekDayId() > 3 || getWeekDayId()==0">We</v-btn>
-        <v-btn @click="getDayMenu('THURSDAY')" value="THURSDAY" :disabled="getWeekDayId() > 4 || getWeekDayId()==0">Th</v-btn>
-        <v-btn @click="getDayMenu('FRIDAY')" value="FRIDAY" :disabled="getWeekDayId() > 5 || getWeekDayId()==0">Fr</v-btn>
-      </v-btn-toggle>
-      <div class="row">
-      <MenuItem v-for="product in dailyMenu" :key="product.id" :product_data="product"/>
-      </div>
-    </v-app>
-  </div>
+  <div>
+    <div class="row">
+      <v-app class="col-12 pb-5 mb-5" style="background: none">
+        <v-btn-toggle class="d-flex justify-content-center" v-model="weekDay" tile color="warning" group>
+          <v-btn :class="weekDay === 'MONDAY'  ? 'v-btn--active' : ''" @click="getDayMenu('MONDAY')" value="MONDAY"
+                 :disabled="getWeekDayId() >1 || getWeekDayId()==0">Mo
+          </v-btn>
+          <v-btn :class="weekDay === 'TUESDAY'  ? 'v-btn--active' : ''" @click="getDayMenu('TUESDAY')" value="TUESDAY"
+                 :disabled="getWeekDayId() > 2 || getWeekDayId()==0">Tu
+          </v-btn>
+          <v-btn :class="weekDay === 'WEDNESDAY'  ? 'v-btn--active' : ''" @click="getDayMenu('WEDNESDAY')"
+                 value="WEDNESDAY" :disabled="getWeekDayId() > 3 || getWeekDayId()==0">
+            We
+          </v-btn>
+          <v-btn @click="getDayMenu('THURSDAY')" value="THURSDAY" :disabled="getWeekDayId() > 4 || getWeekDayId()==0">
+            Th
+          </v-btn>
+          <v-btn @click="getDayMenu('FRIDAY')" value="FRIDAY" :disabled="getWeekDayId() > 5 || getWeekDayId()==0">Fr
+          </v-btn>
+        </v-btn-toggle>
+        <div class="row">
+          <MenuItem v-for="product in dailyMenu" :key="product.id" :product_data="product"/>
+        </div>
+      </v-app>
+    </div>
 
-</div>
+  </div>
 </template>
 
 <script>
 import api from './backend-api';
 import MenuItem from './MenuItem.vue'
-  export default {
-    name: 'menu',
+
+export default {
+  name: 'menu',
   components: {
     MenuItem,
   },
@@ -53,25 +64,28 @@ import MenuItem from './MenuItem.vue'
       }
     },
 
-      getDayMenu(day) {
-        api.getMenuDay(day).then(response => {
+    getDayMenu(day) {
+      console.log(this.weekDay)
+      api
+          .getMenuDay(day)
+          .then(response => {
             this.dailyMenu = response.data;
             console.log(response.data)
-        })
-        .catch(error => {
-          this.errors.push(error)
-        })
-      },
+          })
+          .catch(error => {
+            this.errors.push(error)
+          })
+    },
 
-      callMenuApi () {
-        api.getMenu().then(response => {
-            this.products = response.data;
-            console.log(response.data)
-        })
-        .catch(error => {
-          this.errors.push(error)
-        })
-      },
+    callMenuApi() {
+      api.getMenu().then(response => {
+        this.products = response.data;
+        console.log(response.data)
+      })
+          .catch(error => {
+            this.errors.push(error)
+          })
+    },
 
     getWeekDayId() {
       // var date = new Date()
@@ -82,14 +96,20 @@ import MenuItem from './MenuItem.vue'
       //   count = 0
       // return count
 
-      if(new Date(this.lastOrderDate).getDay() === 5) return 1;
+      console.log(new Date(this.lastOrderDate).getDay())
 
-      return new Date(this.lastOrderDate).getDay() + 1;
+      if (new Date(this.lastOrderDate).getDay() === 5 && new Date().getDay() === 1) return 1;
+      if (new Date(this.lastOrderDate).getDay() > 4) return 0;
 
-      },
+      if (new Date(this.lastOrderDate).getDay() > new Date().getDay())
+        return new Date(this.lastOrderDate).getDay()
+      else return new Date().getDay()
+
+    },
 
     getWeekDay() {
       let days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
+      console.log(this.weekDay)
       return days[this.getWeekDayId() - 1];
     },
 
@@ -103,6 +123,7 @@ import MenuItem from './MenuItem.vue'
           })
     },
     getMenuFirst() {
+      console.log(this.getWeekDay())
       this.getDayMenu(this.getWeekDay());
     },
   },
@@ -111,19 +132,20 @@ import MenuItem from './MenuItem.vue'
       this.lastOrderDate = response.data;
     })
   },
-    beforeMount() {
-      this.callOnce();
-    }
+  beforeMount() {
+    this.callOnce();
   }
+}
 </script>
 
-<style lang = "scss">
+<style lang="scss">
 
-.font-style-apple{
+.font-style-apple {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-.menu{
-  &_list{
+
+.menu {
+  &_list {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -131,7 +153,9 @@ import MenuItem from './MenuItem.vue'
     align-items: center;
   }
 }
-.rounded-card{
-    border-radius:500px;
+
+.rounded-card {
+  border-radius: 500px;
 }
+
 </style>

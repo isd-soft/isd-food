@@ -10,7 +10,7 @@
               ref="name"
               v-model="name"
 
-              :counter="15"
+              :counter="20"
               :rules="nameRules"
               :error-messages="errorMessages"
               label="Menu name"
@@ -48,8 +48,7 @@
               ref="image"
               v-model="image"
               :rules="imageRules"
-              label="image"
-              placeholder="image"
+              label="Image"
               required
             ></v-text-field>
 
@@ -207,11 +206,11 @@
             ></v-text-field>
           </v-card-text>
           <v-divider class="mt-12"></v-divider>
-          <v-card-actions>
+          <v-card-actions class = "d-flex justify-content-end">
 
             <v-btn color="primary" :to="'/allmenus'">Cancel</v-btn>
             <v-btn color="success" @click="createMenu()"
-              >Submit
+              >Save
             </v-btn>
 
           </v-card-actions>
@@ -246,7 +245,7 @@ export default {
     valid: false,
     nameRules: [
       v => !!v || "Is it menu without name? Come on!",
-      v => (v && v.length <= 15) || "Name must be less than 15 characters"
+      v => (v && v.length <= 20) || "Name must be less than 15 characters"
     ],
 
     PriceRules: [

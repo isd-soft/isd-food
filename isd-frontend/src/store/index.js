@@ -33,7 +33,7 @@ export default new Vuex.Store({
             paymentLoading: false
         },
 
-        menu:{
+        menu: {
             createMenuSuccess: false,
             createMenuError: false
         },
@@ -76,7 +76,6 @@ export default new Vuex.Store({
         },
 
         create_order_success(state) {
-            console.log(state)
             state.orders.createOrderSuccess = true;
         },
         getting_payment_data(state) {
@@ -92,11 +91,11 @@ export default new Vuex.Store({
             state.orders.usersOrdersLoading = false;
         },
 
-        create_menu_success(state){
+        create_menu_success(state) {
             state.menu.createMenuSuccess = true
         },
 
-        create_menu_error(state){
+        create_menu_error(state) {
             state.menu.createMenuError = true
         },
 
@@ -152,7 +151,7 @@ export default new Vuex.Store({
                 this.state.register.loading = true;
                 api
                     .createUser(user)
-          .then(response => {
+                    .then(response => {
                         if (response.status == 201 && response.data.errorType == null) {
                             commit("register_success", {
                                 user: user
@@ -199,25 +198,24 @@ export default new Vuex.Store({
 
         createMenu({commit}, menu) {
             return new Promise((resolve, reject) => {
-                // this.state.login.loading = true;
-                console.log(menu);
+
                 api
                     .createFullMenu(menu)
                     .then(response => {
                         if (response.status == 200) {
+                            console.log("create menu success")
                             commit("create_menu_success", {
                                 menu: menu
                             });
-                        }
-                        else {
-                            commit("create_menu_error",{
+                        } else {
+                            commit("create_menu_error", {
                                 message: response.data.message
                             })
                         }
                         resolve(response);
                     })
                     .catch(() => {
-                        commit("create_menu_error",{
+                        commit("create_menu_error", {
                             message: "Something went wrong...",
                         })
                         reject("Something is wrong");
@@ -236,7 +234,7 @@ export default new Vuex.Store({
                         resolve(response);
                     })
                     .catch(() => {
-                       reject("Error create order");
+                        reject("Error create order");
                     });
             });
         },
@@ -418,10 +416,10 @@ export default new Vuex.Store({
         userOrdersHistoryTotalPages: state => state.orders.userOrdersHistory.totalPages,
         userOrdersType: state => state.orders.userOrdersType,
         userOrders: state => state.orders.userOrdersType === "current" ? state.orders.userCurrentOrders : state.orders.userOrdersHistory.content,
-        showUserOrderHistory: state => (!state.orders.usersOrdersLoading
+        showUserOrderHistory: state => ((!state.orders.usersOrdersLoading
             && (state.orders.userOrdersType === 'history'
                 && state.orders.userOrdersHistory.totalElements !== 0
                 || state.orders.userOrdersType === 'current'
-                && state.orders.userCurrentOrders.length !== 0))
+                && state.orders.userCurrentOrders.length !== 0)) || state.orders.usersOrdersLoading)
     }
 });

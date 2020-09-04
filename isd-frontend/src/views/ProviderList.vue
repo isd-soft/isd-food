@@ -81,7 +81,7 @@
                           <v-card-text>
                             <v-text-field
                               v-model="provider.name"
-                              :counter="10"
+                              :counter="20"
                               :rules="nameRules"
                               label="Name"
                               required
@@ -96,14 +96,12 @@
 
                             <v-text-field
                               v-model="provider.contactInfo"
-                              :rules="contactInfoRules"
                               label="Contact Info"
                               required
                             ></v-text-field>
 
                             <v-text-field
                               v-model="provider.description"
-                              :rules="descriptionRules"
                               label="Description"
                               required
                             ></v-text-field>
@@ -271,7 +269,7 @@ export default {
     return {
       nameRules: [
         v => !!v || "Name is required",
-        v => (v && v.length <= 10) || "Name must be less than 10 characters"
+        v => (v && v.length <= 20) || "Name must be less than 10 characters"
       ],
       deliveryPriceRules: [
         v => !!v || "Delivery Price is required",
@@ -310,24 +308,29 @@ export default {
         this.snackbar = true;
         error = true;
       }
-      if (contact.length === 0) {
-        this.text = "Provider email cannot be empty!";
-        this.snackbar = true;
-        error = true;
-      }
-      if (!contact.includes("@")) {
-        this.text = "The contact must contain an email address";
-        this.snackbar = true;
-        error = true;
-      }
+      // if (contact.length === 0) {
+      //   this.text = "Provider email cannot be empty!";
+      //   this.snackbar = true;
+      //   error = true;
+      // }
+      // if (!contact.includes("@")) {
+      //   this.text = "The contact must contain an email address";
+      //   this.snackbar = true;
+      //   error = true;
+      // }
       if (price < 0) {
         this.text = "Price can't be negative";
         this.snackbar = true;
         error = true;
       }
       if (!error) {
-        api.editProvider(id, name, contact, price, active, desc, img);
-        window.location.reload();
+        api.editProvider(id, name, contact, price, active, desc, img).then(()=>{
+          api.getAllProviders().then(r => {
+            this.providers = r.data;
+           window.location.reload();
+            console.log(r.data);
+          });
+        })
       }
     },
     deleteProvider() {

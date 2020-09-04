@@ -142,7 +142,6 @@ public class UserController {
         }
     }
 
-
     @PutMapping("/edit/password")
     @ResponseBody
     public String editUser(@RequestParam String password) {
