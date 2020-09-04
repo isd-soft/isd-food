@@ -100,15 +100,6 @@
                     <i class="fas fa-credit-card mr-2 text-gray-400"></i>
                     Payment
                   </a>
-                  <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Settings
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Activity Log
-                  </a>
-
                   <div class="dropdown-divider"></div>
                   <a
                       class="dropdown-item"
@@ -203,13 +194,11 @@ export default {
     scrollTop: false,
     n: false,
     links: [
-      {icon: "fas fa-user", text: "Account", route: "/edit"},
       {icon: "fas fa-pizza-slice", text: "Menus", route: "/menu"},
       {icon: "fas fa-history", text: "Orders", route: "/orders"}
     ],
 
     SuperVisorLinks: [
-      {icon: "fas fa-user", text: "Account", route: "/edit"},
       {icon: "fas fa-pizza-slice", text: "Food", route: "/menu"},
       {icon: "fas fa-history", text: "My orders", route: "/orders"},
       {icon: "fas fa-users", text: "Users", route: "/users/table"},
