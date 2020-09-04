@@ -36,18 +36,18 @@ const routes = [
     component: () => import("../components/AllMenus.vue")
   },
 
-    {
-        path: "/ProviderList",
-        name: "Providers",
-        props: true,
-        component: () => import("../views/ProviderList.vue")
-    },
+  {
+    path: "/ProviderList",
+    name: "Providers",
+    props: true,
+    component: () => import("../views/ProviderList.vue")
+  },
 
-    {
-        path: "/ProviderOrders",
-        name: "Orders",
-        component: () => import("../views/ProviderOrders.vue")
-    },
+  {
+    path: "/ProviderOrders",
+    name: "Orders",
+    component: () => import("../views/ProviderOrders.vue")
+  },
 
     {
         path: "/users/register",
@@ -60,11 +60,11 @@ const routes = [
         component: () => import("../views/Orders.vue")
     },
 
-    {
-        path: "/menu",
-        name: "Menu",
-        component: () => import("../views/Menu.vue"),
-    },
+  {
+    path: "/menu",
+    name: "Menu",
+    component: () => import("../views/Menu.vue")
+  },
 
   {
     path: "/providers",

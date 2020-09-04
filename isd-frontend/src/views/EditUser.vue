@@ -45,22 +45,37 @@
         <div class="col-lg-6" id="Notification">
           <b>Keeping in Touch</b>
           <v-switch
-            v-model="enableNotification"
+            v-model="notificationEnabled"
             color="orange"
-            :label="`Notification: ${enableNotification.toString()}`"
+            label="Notification"
           >
           </v-switch>
 
-          <div v-if="enableNotification === false">
-            <label class=" mt-4">
-              Data to enable
-            </label>
-            <input
-              class="form-control "
-              type="date"
-              name="dataNotification"
-              v-model="dataNotification"
-            />
+          <div v-if="notificationEnabled === false">
+            <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                    v-model="dateToChange"
+                    label="Notification Date"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                  v-model="dateToChange"
+                  @input="menu2 = false"
+                  color="warning"
+                  value="dd-mm-yy"
+              ></v-date-picker>
+            </v-menu>
           </div>
         </div>
         <div class="col-12 text-right">
@@ -181,9 +196,11 @@ export default {
       password: "",
       password1: "",
       password2: "",
-      enableNotification: true,
-      dataNotification: "",
-      value: true
+      notificationEnabled: false,
+      dateToChange: new Date().toISOString().substr(0, 10),
+      value: true,
+      menu2: false,
+      modal: false,
     };
   },
   /*  created () {
@@ -199,8 +216,8 @@ export default {
           this.lastName = response.data.lastName;
           this.skypeId = response.data.skypeId;
           this.email = response.data.email;
-          this.dataNotification = response.data.dataNotification;
-          this.enableNotification = response.data.enableNotification;
+          this.dateToChange = response.data.dateToChange;
+          this.notificationEnabled = response.data.notificationEnabled;
         })
         .catch(error => {
           this.errors.push(error);
@@ -212,8 +229,8 @@ export default {
       this.lastName = this.UserInfo.lastName;
       this.skypeId = this.UserInfo.skypeId;
       this.email = this.UserInfo.email;
-      this.enableNotification = this.UserInfo.enableNotification;
-      this.dataNotification = this.UserInfo.dataNotification;
+      this.notificationEnabled = this.UserInfo.notificationEnabled;
+      this.dateToChange = this.UserInfo.dateToChange;
     },
 
     makeOrder() {
@@ -274,8 +291,8 @@ export default {
             this.lastName,
             this.skypeId,
             this.email,
-            this.enableNotification,
-            this.dataNotification
+            this.notificationEnabled,
+            this.dateToChange
           )
           .then(response => {
             this.response = response.data;
@@ -325,6 +342,8 @@ export default {
         this.lastName = response.data.lastName;
         this.skypeId = response.data.skypeId;
         this.email = response.data.email;
+        this.dateToChange = response.data.dateToChange;
+        this.notificationEnabled = response.data.notificationEnabled;
       })
       .catch(error => {
         this.errors.push(error);
@@ -333,6 +352,11 @@ export default {
 };
 </script>
 <style>
+::-webkit-scrollbar {
+  width: 0;
+  background: yellow;
+  display: inline !important;
+}
 .pass_show{position: relative}
 
 .pass_show .ptxt {

@@ -86,7 +86,7 @@
             depressed
             type="submit"
             form="register-form"
-            :disabled="$store.state.register.loading"
+            :disabled="!valid"
             :loading="$store.state.register.loading"
             >Register
           </v-btn>

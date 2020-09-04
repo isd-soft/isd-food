@@ -40,18 +40,18 @@ AXIOS.interceptors.response.use(
 
 // Add a request interceptor
 AXIOS.interceptors.request.use(
-    function (config) {
-        // Do something before request is sent
-        if (!config.url.includes("login") || !config.url.includes("password/reset"))
-            config.headers.Authorization = localStorage.getItem("access_token");
-        else delete config.headers.Authorization;
+  function(config) {
+    // Do something before request is sent
+    if (!config.url.includes("login") || !config.url.includes("password/reset"))
+      config.headers.Authorization = localStorage.getItem("access_token");
+    else delete config.headers.Authorization;
 
-        return config;
-    },
-    function (error) {
-        // Do something with request error
-        return Promise.reject(error);
-    }
+    return config;
+  },
+  function(error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
 );
 
 export default {
@@ -185,7 +185,7 @@ export default {
         return AXIOS.delete("/users/deleteUser/" + user_id);
     },
 
-    updateUser(firstName, lastName, skypeId, email, enable, data) {
+    updateUser(firstName, lastName, skypeId, email, enableNotification, dataNotification) {
         return AXIOS.put(
             "/users/edit/" +
             "?firstName=" +
@@ -196,10 +196,10 @@ export default {
             skypeId +
             "&email=" +
             email +
-            "&enable=" +
-            enable +
-            "&data=" +
-            data
+            "&enableNotification=" +
+            enableNotification +
+            "&dataNotification=" +
+            dataNotification
         );
     },
     updateUserBySupervisor(
