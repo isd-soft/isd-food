@@ -158,7 +158,4 @@ export default {
   border-radius: 500px;
 }
 
-#wrapper #content-wrapper {
-  overflow: hidden !important;
-}
 </style>

@@ -50,7 +50,7 @@
 }
 
 .scroll-btn {
-    margin-bottom: 5%;
+    margin-bottom: 8%;
 }
 
 .sort-column:hover {
@@ -87,4 +87,8 @@ table td {
     height: 100px;
     object-fit: cover;
     display: block;
+}
+
+#wrapper #content-wrapper {
+    overflow: hidden !important;
 }
