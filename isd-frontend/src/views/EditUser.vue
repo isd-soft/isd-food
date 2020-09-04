@@ -5,49 +5,49 @@
         <div class="col-lg-6" id="firstName">
           <label>First Name</label>
           <input
-            class="form-control"
-            type="text"
-            name="firstName"
-            v-model="firstName"
-            placeholder="First Name"
+              class="form-control"
+              type="text"
+              name="firstName"
+              v-model="firstName"
+              placeholder="First Name"
           />
         </div>
         <div class="col-lg-6" id="lastName">
           <label>Last Name</label>
           <input
-            class="form-control"
-            type="text"
-            name="lastName"
-            v-model="lastName"
-            placeholder="Last Name"
+              class="form-control"
+              type="text"
+              name="lastName"
+              v-model="lastName"
+              placeholder="Last Name"
           />
         </div>
         <div class="col-lg-6" id="Email">
           <label>Email</label>
           <input
-            class="form-control"
-            type="text"
-            name="email"
-            v-model="email"
-            placeholder="Email"
+              class="form-control"
+              type="text"
+              name="email"
+              v-model="email"
+              placeholder="Email"
           />
         </div>
         <div class="col-lg-6" id="SkypeId">
           <label>Skype Id</label>
           <input
-            class="form-control"
-            type="text"
-            name="skypeId"
-            v-model="skypeId"
-            placeholder="Skype Id"
+              class="form-control"
+              type="text"
+              name="skypeId"
+              v-model="skypeId"
+              placeholder="Skype Id"
           />
         </div>
         <div class="col-lg-6" id="Notification">
           <b>Keeping in Touch</b>
           <v-switch
-            v-model="notificationEnabled"
-            color="orange"
-            label="Notification"
+              v-model="notificationEnabled"
+              color="orange"
+              label="Notification"
           >
           </v-switch>
 
@@ -78,69 +78,80 @@
             </v-menu>
           </div>
         </div>
-        <div class="col-12 text-right">
-          <v-btn @click="UpadateInfo()" rounded color="warning">Save</v-btn>
-        </div>
-        <div class="col-lg-6" id="Password">
-          <div class="mb-2"><b>Password</b></div>
-          <form
-            oninput='password2.setCustomValidity(password2.value !== password1.value ? "Passwords do not match." : "")'
+        <div class="col-lg-12" id="Password">
+
+          <form class = "row"
+                oninput='password2.setCustomValidity(password2.value !== password1.value ? "Passwords do not match." : "")'
           >
-            <label for="password1">New Password</label>
-            <div class="form-group pass_show">
-              <input
-                class="form-control validate"
-                id="password1"
-                name="password1"
-                placeholder="Password"
-                required
-                v-model="password1"
-                :value="password1"
-                :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="() => (value = !value)"
-                :type="value ? 'password' : 'text'"
-              />
+            <div class="col-6">
+              <div>
+                <div class="mb-2"><b>Password</b></div>
+              </div>
+              <label for="password1">New Password</label>
+              <div class="form-group pass_show">
+                <input
+                    class="form-control validate"
+                    id="password1"
+                    name="password1"
+                    placeholder="Password"
+                    required
+                    v-model="password1"
+                    :value="password1"
+                    :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="() => (value = !value)"
+                    :type="value ? 'password' : 'text'"
+                />
+              </div>
             </div>
-            <label for="password2" class="mt-2"
-              >Confirm <span class="d-none d-xl-inline">Password</span></label
-            >
-            <div class="form-group pass_show">
-              <input
-                class="form-control"
-                id="password2"
-                name="password2"
-                placeholder="Repeat password"
-                v-model="password2"
-                :value="password2"
-                :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="() => (value = !value)"
-                :type="value ? 'password' : 'text'"
-              />
+            <div class="col-6">
+              <label for="password2" class="mt-8"
+              >Confirm <span class="d-none d-xl-inline ">Password</span></label
+              >
+              <div class="form-group pass_show ">
+                <input
+                    class="form-control"
+                    id="password2"
+                    name="password2"
+                    placeholder="Repeat password"
+                    v-model="password2"
+                    :value="password2"
+                    :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="() => (value = !value)"
+                    :type="value ? 'password' : 'text'"
+                />
+              </div>
             </div>
             <v-dialog v-model="dialog" persistent max-width="350">
               <template v-slot:activator="{ on, attrs }">
-                <div class="text-right">
-                  <v-btn
-                    rounded
-                    color="warning"
-                    class="mt-3"
-                    v-bind="attrs"
-                    v-on="on"
+                <div class="text-right d-flex justify-content-end">
+                  <div class="ml-4">
+                    <v-btn
+                        rounded
+                        color="warning"
+                        v-bind="attrs"
+                        class="mr-3"
+                        v-on="on"
+                        :disabled="passwordError"
                     >Change password</v-btn
-                  >
+                    >
+                  </div>
+                  <div>
+                    <v-btn @click="UpadateInfo()" rounded color="success">Save</v-btn>
+                  </div>
+
                 </div>
               </template>
               <v-card>
                 <v-card-title class="headline"
-                  >Do you want to change the password?</v-card-title
+                >Do you want to change the password?</v-card-title
                 >
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="error" text @click="dialog = false"
-                    >Cancel</v-btn
+                  >Cancel</v-btn
                   >
                   <v-btn color="green darken-1" text @click="checkPass()"
-                    >Agree</v-btn
+                  >Agree</v-btn
                   >
                 </v-card-actions>
               </v-card>
@@ -181,6 +192,7 @@ export default {
   name: "edit",
   data() {
     return {
+      passwordError: true,
       snackColor: "green",
       error: false,
       snackbar: false,
@@ -203,25 +215,39 @@ export default {
       modal: false,
     };
   },
+  watch: {
+    password2(){
+      if(this.password1 === this.password2)
+        this.passwordError = false
+      else
+        this.passwordError = true
+    },
+    password1(){
+      if(this.password1 === this.password2 && this.password1.length > 3)
+        this.passwordError = false
+      else
+        this.passwordError = true
+    }
+  },
   /*  created () {
   this.fetchAuthenticatedUser()
   },*/
   methods: {
     GetUserInfo(user_id) {
       api
-        .getUser(user_id)
-        .then(response => {
-          console.log(response.data);
-          this.firstName = response.data.firstName;
-          this.lastName = response.data.lastName;
-          this.skypeId = response.data.skypeId;
-          this.email = response.data.email;
-          this.dateToChange = response.data.dateToChange;
-          this.notificationEnabled = response.data.notificationEnabled;
-        })
-        .catch(error => {
-          this.errors.push(error);
-        });
+          .getUser(user_id)
+          .then(response => {
+            console.log(response.data);
+            this.firstName = response.data.firstName;
+            this.lastName = response.data.lastName;
+            this.skypeId = response.data.skypeId;
+            this.email = response.data.email;
+            this.dateToChange = response.data.dateToChange;
+            this.notificationEnabled = response.data.notificationEnabled;
+          })
+          .catch(error => {
+            this.errors.push(error);
+          });
     },
 
     displayUser() {
@@ -235,13 +261,13 @@ export default {
 
     makeOrder() {
       api
-        .createOrder(1, this.product_data.menuTypes[this.type_id].id)
-        .then(response => {
-          this.response = response.data;
-        })
-        .catch(e => {
-          this.errors.push(e);
-        });
+          .createOrder(1, this.product_data.menuTypes[this.type_id].id)
+          .then(response => {
+            this.response = response.data;
+          })
+          .catch(e => {
+            this.errors.push(e);
+          });
     },
 
     UpadateInfo() {
@@ -286,20 +312,20 @@ export default {
         this.text = "Success";
 
         api
-          .updateUser(
-            this.firstName,
-            this.lastName,
-            this.skypeId,
-            this.email,
-            this.notificationEnabled,
-            this.dateToChange
-          )
-          .then(response => {
-            this.response = response.data;
-          })
-          .catch(e => {
-            this.errors.push(e);
-          });
+            .updateUser(
+                this.firstName,
+                this.lastName,
+                this.skypeId,
+                this.email,
+                this.notificationEnabled,
+                this.dateToChange
+            )
+            .then(response => {
+              this.response = response.data;
+            })
+            .catch(e => {
+              this.errors.push(e);
+            });
       }
     },
 
@@ -334,20 +360,20 @@ export default {
   },
   beforeCreate() {
     api
-      .getUserWithoutId()
-      .then(response => {
-        console.log(response.data);
-        this.id = response.data.id;
-        this.firstName = response.data.firstName;
-        this.lastName = response.data.lastName;
-        this.skypeId = response.data.skypeId;
-        this.email = response.data.email;
-        this.dateToChange = response.data.dateToChange;
-        this.notificationEnabled = response.data.notificationEnabled;
-      })
-      .catch(error => {
-        this.errors.push(error);
-      });
+        .getUserWithoutId()
+        .then(response => {
+          console.log(response.data);
+          this.id = response.data.id;
+          this.firstName = response.data.firstName;
+          this.lastName = response.data.lastName;
+          this.skypeId = response.data.skypeId;
+          this.email = response.data.email;
+          this.dateToChange = response.data.dateToChange;
+          this.notificationEnabled = response.data.notificationEnabled;
+        })
+        .catch(error => {
+          this.errors.push(error);
+        });
   }
 };
 </script>
