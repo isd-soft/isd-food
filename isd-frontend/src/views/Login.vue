@@ -96,7 +96,6 @@
 
 </template>
 <script>
-
 import ForgotDialog from "@/components/modal/ForgotDialog.vue";
 
 export default {
@@ -106,7 +105,8 @@ export default {
     return {
       email: "",
       password: "",
-      value: true
+      value: true,
+      valid: true
     };
   },
   methods: {
@@ -129,3 +129,4 @@ export default {
   }
 };
 </script>
+

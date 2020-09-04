@@ -111,17 +111,17 @@ public class UserController {
 
     @PutMapping("/edit")
     public void editUser(@RequestParam String firstName, @RequestParam String lastName,
-                         @RequestParam String skypeId, @RequestParam String email, @RequestParam Boolean enable, @RequestParam String data) throws ParseException {
+                         @RequestParam String skypeId, @RequestParam String email, @RequestParam Boolean enableNotification, @RequestParam String dataNotification) throws ParseException {
         Long currentId = userService.getCurrentUserId();
 
-        if (!data.equals("")) {
-            System.out.println(data);
+        if (!dataNotification.equals("")) {
+            System.out.println(dataNotification);
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-            Date dateForChange = sdf1.parse(data);
+            Date dateForChange = sdf1.parse(dataNotification);
             java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
-            userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, sqlDate);
+            userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enableNotification, sqlDate);
         } else {
-            userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enable, null);
+            userService.EditUserInfo(currentId, firstName, lastName, skypeId, email, enableNotification, null);
         }
     }
 
@@ -130,11 +130,16 @@ public class UserController {
                                      @RequestParam String lastName, @RequestParam String skypeId,
                                      @RequestParam String email, @RequestParam String role, @RequestParam Boolean enable,
                                      @RequestParam String data) throws ParseException {
+        if(!data.equals("")) {
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateForChange = sdf1.parse(data);
+            java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
+            userService.EditUserInfoBySupervisor(userId, firstName, lastName, skypeId, email, role, enable, sqlDate);
+        }
+        else{
+            userService.EditUserInfoBySupervisor(userId, firstName, lastName, skypeId, email, role, enable, null);
 
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateForChange = sdf1.parse(data);
-        java.sql.Date sqlDate = new java.sql.Date(dateForChange.getTime());
-        userService.EditUserInfoBySupervisor(userId, firstName, lastName, skypeId, email, role, enable, sqlDate);
+        }
     }
 
 
