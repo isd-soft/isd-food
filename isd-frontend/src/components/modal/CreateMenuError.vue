@@ -35,7 +35,7 @@
         methods: {
             clickOk(){
                 this.$store.state.menu.createMenuError = false
-                this.$router.push("/allmenus");
+                // this.$router.push("/allmenus");
             }
         }
     };
