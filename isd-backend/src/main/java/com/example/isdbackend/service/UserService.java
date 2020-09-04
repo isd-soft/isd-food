@@ -62,14 +62,14 @@ public class UserService {
         return userRepository.findAllBy(pageable);
     }
 
-    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email, Boolean enable, Date data) {
+    public void EditUserInfo(Long id, String firstName, String lastName, String SkypeId, String email, Boolean enableNotification, Date dataNotification) {
         User user = userRepository.findById(id).orElseThrow();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setSkypeId(SkypeId);
         user.setEmail(email);
-        user.setNotificationEnabled(enable);
-        user.setDateToChange(data);
+        user.setNotificationEnabled(enableNotification);
+        user.setDateToChange(dataNotification);
         userRepository.save(user);
     }
 
